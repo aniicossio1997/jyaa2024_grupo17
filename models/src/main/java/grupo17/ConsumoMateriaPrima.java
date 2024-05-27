@@ -2,7 +2,7 @@ package grupo17;
 
 import java.util.List;
 
-public class ConsumoMateriaPrima  extends ConsumoInsumo{
+public class ConsumoMateriaPrima extends ConsumoInsumo {
     public IngresoMateriaPrima ingreso;
     public MateriaPrima insumo;
 

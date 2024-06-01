@@ -2,19 +2,24 @@ package grupo17;
 
 import grupo17.baseEntity.NameableBaseEntity;
 
-public class Usuario  {
-    public String nombre;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // o @Inheritance
+@DiscriminatorColumn(name="rol")
+public class Usuario extends  NameableBaseEntity {
     public String apellido;
     public String email;
     public String username;
     public String password;
 
-    public Usuario(String apellido, String email, Long id, String nombre, String password, String username) {
+    public Usuario( String nombre, String apellido, String username, String password, String email) {
+        super( nombre);
         this.apellido = apellido;
-        this.email = email;
-        this.nombre = nombre;
-        this.password = password;
         this.username = username;
+        this.password = password;
+        this.email = email;
     }
 
     public String getEmail() {

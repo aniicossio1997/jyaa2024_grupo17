@@ -2,12 +2,33 @@ package grupo17;
 
 import grupo17.baseEntity.NameableBaseEntity;
 
-public class FamiliaProductora {
-    private String descripcion;
-    private String nombre;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-    public FamiliaProductora(String descripcion, String nombre) {
+@Entity
+@Table(name = "familia_productora")
+public class FamiliaProductora extends NameableBaseEntity {
+    private String descripcion;
+
+    public FamiliaProductora( String nombre, String descripcion) {
+        super( nombre);
         this.descripcion = descripcion;
-        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @Override
+    public String toString() {
+        return "FamiliaProductora{" +
+                "descripcion='" + descripcion + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

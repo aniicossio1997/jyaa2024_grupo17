@@ -10,7 +10,11 @@ import javax.persistence.Table;
 public class FamiliaProductora extends NameableBaseEntity {
     private String descripcion;
 
-    public FamiliaProductora( String nombre, String descripcion) {
+    public FamiliaProductora() {
+        super();
+    }
+
+    public FamiliaProductora(String nombre, String descripcion) {
         super( nombre);
         this.descripcion = descripcion;
     }
@@ -25,10 +29,10 @@ public class FamiliaProductora extends NameableBaseEntity {
 
     @Override
     public String toString() {
-        return "FamiliaProductora{" +
+        return "FamiliaProductora {" +
                 "descripcion='" + descripcion + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", id=" + id +
-                '}';
+                " }";
     }
 }

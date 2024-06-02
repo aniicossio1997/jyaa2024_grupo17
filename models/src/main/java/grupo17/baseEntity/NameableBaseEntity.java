@@ -11,6 +11,9 @@ public class NameableBaseEntity extends IdentifiableBaseEntity {
         this.nombre = nombre;
     }
 
+    public NameableBaseEntity() {
+    }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }

@@ -26,13 +26,13 @@ public abstract class BaseDao<T > {
 
 	public T getById(Long id) {
 		//JPAQL
-		TypedQuery<T> q = em.createQuery("SELECT i FROM " + this.getClassType() + "i WHERE i.id = :id",this.getClassType());
+		TypedQuery<T> q = em.createQuery("FROM " + this.getClassType().getName() + " i WHERE i.id = :id",this.getClassType());
 		q.setParameter("id", id);
 		return q.getSingleResult();
 	}
 
 	public List<T> getAll() {
-		TypedQuery<T> q = em.createQuery("SELECT i FROM " + this.getClassType() + " i", this.getClassType());
+		TypedQuery<T> q = em.createQuery("FROM " + this.getClassType().getName() + " i", this.getClassType());
 		return q.getResultList();
 	}
 	 protected abstract Class<T> getClassType();

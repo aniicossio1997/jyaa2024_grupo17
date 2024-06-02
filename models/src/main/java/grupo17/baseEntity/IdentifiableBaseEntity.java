@@ -17,6 +17,6 @@ public class IdentifiableBaseEntity {
     }
 
     public IdentifiableBaseEntity() {
-
+    super();
     }
 }

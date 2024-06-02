@@ -1,23 +1,18 @@
-import dao.FactoryDAO;
-import dao.IFamiliaProductoraDao;
-import grupo17.FamiliaProductora;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import testsServlets.TestFamiliaProductora;
+import testsServlets.TestUsuario;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.List;
 
 public class TestingServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private final IFamiliaProductoraDao familiaProductoraDao;
 
     public TestingServlet() {
         super();
-        this.familiaProductoraDao = FactoryDAO.createFamiliaProductoraDao();
     }
 
     @FunctionalInterface
@@ -35,59 +30,10 @@ public class TestingServlet extends HttpServlet {
         doGet(request, response);
     }
 
-    protected void testEntities(PrintWriter writer) {
-        // ============================== ENTIDAD: FAMILIA PRODUCTORA =======================================
-        this.h1(writer, "Familia Productora");
-
-        FamiliaProductora fp = new FamiliaProductora("familia 1", "Descripcion familia 1");
-        List<FamiliaProductora> fps;
-
-        // CREATE
-        this.h2(writer, "↳ Se creara una nueva familia: ");
-        this.familiaProductoraDao.save(fp);
-
-        this.item(writer, fp);
-
-        // LIST
-        this.h2(writer, "Listado de Familias Productoras: ");
-        fps = this.familiaProductoraDao.getAll();
-        this.list(writer, fps);
-
-        this.h2(writer, "↳ Se modificará la Familia Productora con id " + fp.getId());
-        // UPDATE
-        fp.setNombre("Familia 1 (modificada)");
-        fp.setDescripcion("Descripcion familia 1 (modificada)");
-        this.familiaProductoraDao.save(fp);
-
-        // LIST
-        this.h2(writer, "Obtener Familia Productora con id " + fp.getId() + ":");
-        FamiliaProductora fp2 = this.familiaProductoraDao.getById(fp.getId());
-        this.item(writer, fp2);
+    protected  void testEntities(PrintWriter writer) {
+        TestFamiliaProductora.test(writer);
+        //TestUsuario.test(writer);
     }
-
-    // ============================== METODOS UTILITARIOS =======================================
-
-    protected void h1(PrintWriter writer, Object content) {
-        writer.append("<h1 class='p-3 bg-primary text-white'>").append(content.toString()).append("</h1>");
-    }
-
-    protected void h2(PrintWriter writer, Object content) {
-        writer.append("<h2>").append(content.toString()).append("</h2>");
-    }
-
-    protected void item(PrintWriter writer, Object content) {
-        writer.append("<span  class=\"list-group-item\">").append(content.toString()).append("</span>");
-
-    }
-
-    protected void list(PrintWriter writer, List<?> content) {
-        writer.append("<ul class=\"list-group\">");
-        for (Object item : content) {
-            writer.append("<li  class=\"list-group-item\">").append(item.toString()).append("</li>");
-        }
-        writer.append("</ul>");
-    }
-
 
     protected void addBootstrap(PrintWriter writer, PrintWriterConsumer action) {
 

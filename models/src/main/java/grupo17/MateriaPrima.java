@@ -5,7 +5,7 @@ import grupo17.enums.UnidadMedidaEnum;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MateriaPrima extends Insumo {
+public class MateriaPrima extends Recurso {
     public List<IngresoMateriaPrima> ingresos = new ArrayList<>();
 
     public MateriaPrima(Double cantidadDisponible, String descripcion, String nombre, UnidadMedidaEnum unidadMedida) {

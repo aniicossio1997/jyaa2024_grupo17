@@ -10,7 +10,7 @@ public class LoteProductoElaborado {
     public int cantidad;
     public List<EstadoLote>estados=new ArrayList<>();
     public Receta receta;
-    public  List<ConsumoInsumo> consumos=new ArrayList<ConsumoInsumo>();
+    public  List<ConsumoRecurso> consumos=new ArrayList<ConsumoRecurso>();
     public  List<Nota> notas=new ArrayList<Nota>();
     public  List<EntregaProducto> entregas=new ArrayList<EntregaProducto>();
 

@@ -7,6 +7,9 @@
 	<persistence-unit name="miUP">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>grupo17.FamiliaProductora</class>
+		<class>grupo17.Administrador</class>
+		<class>grupo17.EncargadoDeSala</class>
+		<class>grupo17.Usuario</class>
 		<properties>
 			<property name="hbm2ddl.auto" value="update" />
 			<property name="hibernate.connection.driver_class"

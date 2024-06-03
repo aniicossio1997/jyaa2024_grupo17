@@ -2,12 +2,21 @@ package grupo17;
 
 import grupo17.enums.UnidadMedidaEnum;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "materia_prima")
 public class MateriaPrima extends Recurso {
+    @Transient
     public List<IngresoMateriaPrima> ingresos = new ArrayList<>();
 
+    public  MateriaPrima(){
+        super();
+    }
     public MateriaPrima(Double cantidadDisponible, String descripcion, String nombre, UnidadMedidaEnum unidadMedida) {
         super(cantidadDisponible, descripcion, nombre, unidadMedida);
     }
@@ -16,4 +25,8 @@ public class MateriaPrima extends Recurso {
         this.ingresos.add(ingresoMateriaPrima);
     }
 
+    @Override
+    public String toString() {
+        return "Materia Prima" + super.toString();
+    }
 }

@@ -1,12 +1,15 @@
 package grupo17;
 
+import grupo17.baseEntity.NameableBaseEntity;
 import grupo17.enums.UnidadMedidaEnum;
 
+import javax.persistence.MappedSuperclass;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Recurso {
-    String nombre;
+@MappedSuperclass
+public class Recurso extends NameableBaseEntity {
+
     String descripcion;
     UnidadMedidaEnum unidadMedida;
     Double cantidadDisponible;
@@ -16,9 +19,9 @@ public class Recurso {
     }
 
     public Recurso(Double cantidadDisponible, String descripcion, String nombre, UnidadMedidaEnum unidadMedida) {
+        super(nombre);
         this.cantidadDisponible = cantidadDisponible;
         this.descripcion = descripcion;
-        this.nombre = nombre;
         this.unidadMedida = unidadMedida;
     }
 
@@ -52,5 +55,17 @@ public class Recurso {
 
     public void setCantidadDisponible(Double cantidadDisponible) {
         this.cantidadDisponible = cantidadDisponible;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", cantidadDisponible='" + cantidadDisponible + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", unidadMedida=" + unidadMedida +
+
+                '}';
     }
 }

@@ -2,6 +2,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import testsServlets.TestFamiliaProductora;
+import testsServlets.TestInsumo;
 import testsServlets.TestUsuario;
 
 import java.io.IOException;
@@ -31,8 +32,9 @@ public class TestingServlet extends HttpServlet {
     }
 
     protected  void testEntities(PrintWriter writer) {
-        TestFamiliaProductora.test(writer);
+        //TestFamiliaProductora.test(writer);
         //TestUsuario.test(writer);
+        TestInsumo.test(writer);
     }
 
     protected void addBootstrap(PrintWriter writer, PrintWriterConsumer action) {

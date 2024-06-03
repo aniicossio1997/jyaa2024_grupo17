@@ -1,8 +1,10 @@
 package dao;
 
 import dao.implementations.FamiliaProductoraDao;
+import dao.implementations.InsumoDao;
 import dao.implementations.UsuarioDao;
 import dao.interfaces.IFamiliaProductoraDao;
+import dao.interfaces.IInsumoDao;
 import dao.interfaces.IUsuarioDao;
 
 public class FactoryDAO {
@@ -16,4 +18,5 @@ public class FactoryDAO {
 		return new UsuarioDao();
 	}
 
+	public static IInsumoDao createInsumoDao(){return  new InsumoDao();}
 }

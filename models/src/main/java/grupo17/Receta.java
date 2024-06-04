@@ -12,17 +12,17 @@ public class Receta extends IdentifiableBaseEntity {
     public String nombre;
     public String descripcion;
 
-    @OneToMany(mappedBy = "ingrediente", cascade = CascadeType.ALL, orphanRemoval = true)
-    public List<IngredienteReceta> ingredientes = new ArrayList<IngredienteReceta>();
+    @OneToMany(mappedBy = "receta", cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<IngredienteReceta> ingredientes = new ArrayList<>();
 
     @Transient
-    public List<LoteProductoElaborado> elaboraciones = new ArrayList<LoteProductoElaborado>();
+    public List<LoteProductoElaborado> elaboraciones = new ArrayList<>();
 
     public Receta() {
         super();
     }
 
-    public Receta(String nombre, List<IngredienteReceta> ingredientes, String descripcion) {
+    public Receta(String nombre, String descripcion, List<IngredienteReceta> ingredientes) {
         this.nombre = nombre;
         this.ingredientes = ingredientes;
         this.descripcion = descripcion;
@@ -58,5 +58,16 @@ public class Receta extends IdentifiableBaseEntity {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return "{"
+                + "\"id\":\"" + id + "\""
+                + ", \"descripcion\":\"" + descripcion + "\""
+                + ", \"nombre\":\"" + nombre + "\""
+                + ", \"ingredientes\":" + ingredientes
+                + ", \"elaboraciones\":" + elaboraciones
+                + "}";
     }
 }

@@ -4,7 +4,8 @@ public enum UnidadMedidaEnum {
     KG(1),
     GR(2),
     CC(3),
-    LITRO(4);
+    LITRO(4),
+    UNIDAD(5);
 
     private final int value;
 

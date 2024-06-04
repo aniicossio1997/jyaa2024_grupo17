@@ -16,10 +16,25 @@ public class FactoryDAO {
     public static IPuntoVentaDao createPuntoVentaDao() {
         return new PuntoVentaDao();
     }
+
     public static IIngresoInsumoDao createIngresoInsumoDao() {
         return new IngresoInsumoDao();
     }
-	public static IInsumoDao createInsumoDao(){return  new InsumoDao();}
 
-	public  static IMateriaPrimaDao createMateriaPrimaDao(){return new MateriaPrimaDao();}
+    public static IInsumoDao createInsumoDao() {
+        return new InsumoDao();
+    }
+
+    public static IMateriaPrimaDao createMateriaPrimaDao() {
+        return new MateriaPrimaDao();
+    }
+
+    public static IIngredienteRecetaDao createIngredienteRecetaDao() {
+        return new IngredienteRecetaDao();
+    }
+
+    public static IRecetaDao createRecetaDao() {
+        return new RecetaDao();
+    }
+
 }

@@ -9,7 +9,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 public abstract class BaseDao<T> {
-    private EntityManager em;
+    protected EntityManager em;
 
 
     public BaseDao() {
@@ -19,7 +19,7 @@ public abstract class BaseDao<T> {
     }
 
     @SuppressWarnings("unchecked")
-    private Class<T> getGenericClass() {
+    protected Class<T> getGenericClass() {
         return (Class<T>)
                 ((ParameterizedType) getClass().getGenericSuperclass())
                         .getActualTypeArguments()[0];

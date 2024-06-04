@@ -17,7 +17,9 @@ public class MateriaPrima extends Recurso {
     public  MateriaPrima(){
         super();
     }
-    public MateriaPrima(Double cantidadDisponible, String descripcion, String nombre, UnidadMedidaEnum unidadMedida) {
+    public MateriaPrima(
+             String nombre, String descripcion,UnidadMedidaEnum unidadMedida,
+            Double cantidadDisponible) {
         super(cantidadDisponible, descripcion, nombre, unidadMedida);
     }
 

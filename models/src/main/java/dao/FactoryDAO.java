@@ -1,15 +1,7 @@
 package dao;
 
-import dao.implementations.FamiliaProductoraDao;
-import dao.implementations.IngresoInsumoDao;
-import dao.implementations.PuntoVentaDao;
-import dao.implementations.UsuarioDao;
-import dao.interfaces.IFamiliaProductoraDao;
-import dao.interfaces.IIngresoInsumoDao;
-import dao.interfaces.IPuntoVentaDao;
-import dao.implementations.InsumoDao;
-import dao.interfaces.IInsumoDao;
-import dao.interfaces.IUsuarioDao;
+import dao.implementations.*;
+import dao.interfaces.*;
 
 public class FactoryDAO {
 
@@ -28,4 +20,6 @@ public class FactoryDAO {
         return new IngresoInsumoDao();
     }
 	public static IInsumoDao createInsumoDao(){return  new InsumoDao();}
+
+	public  static IMateriaPrimaDao createMateriaPrimaDao(){return new MateriaPrimaDao();}
 }

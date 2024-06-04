@@ -13,6 +13,7 @@
         <class>grupo17.PuntoVenta</class>
         <class>grupo17.IngresoInsumo</class>
         <class>grupo17.Insumo</class>
+		<class>grupo17.MateriaPrima</class>
         <properties>
             <property name="hbm2ddl.auto" value="update"/>
             <property name="hibernate.connection.driver_class"

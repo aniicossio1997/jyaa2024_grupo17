@@ -18,7 +18,7 @@ public class Insumo extends Recurso {
         super();
     }
 
-    public Insumo(String nombre,Double cantidadDisponible, String descripcion,  UnidadMedidaEnum unidadMedida) {
+    public Insumo(String nombre, Double cantidadDisponible, String descripcion, UnidadMedidaEnum unidadMedida) {
         super(cantidadDisponible, descripcion, nombre, unidadMedida);
     }
 
@@ -32,6 +32,13 @@ public class Insumo extends Recurso {
 
     @Override
     public String toString() {
-        return "Insumo" + super.toString();
+        return "{"
+                + "\"id\":\"" + id + "\""
+                + ", \"descripcion\":\"" + descripcion + "\""
+                + ", \"unidadMedida\":\"" + unidadMedida + "\""
+                + ", \"cantidadDisponible\":\"" + cantidadDisponible + "\""
+                + ", \"nombre\":\"" + nombre + "\""
+                + ", \"ingresos\":" + ingresos
+                + "}";
     }
 }

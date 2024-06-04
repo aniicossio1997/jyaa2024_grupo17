@@ -14,7 +14,7 @@ public abstract class BaseTest {
     }
 
     protected static void item(PrintWriter writer, Object content) {
-        writer.append("<span  class=\"list-group-item\">").append(content.toString()).append("</span>");
+        writer.append("<span  class=\"list-group list-group-item\">").append(content.toString()).append("</span>");
 
     }
 

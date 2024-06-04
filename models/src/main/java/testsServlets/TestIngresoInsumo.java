@@ -2,13 +2,12 @@ package testsServlets;
 
 import dao.FactoryDAO;
 import dao.interfaces.IIngresoInsumoDao;
-import dao.interfaces.IPuntoVentaDao;
+import dao.interfaces.IInsumoDao;
 import grupo17.IngresoInsumo;
 import grupo17.Insumo;
-import grupo17.PuntoVenta;
+import grupo17.enums.UnidadMedidaEnum;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,13 +17,20 @@ public class TestIngresoInsumo extends BaseTest {
 
         IIngresoInsumoDao dao = FactoryDAO.createIngresoInsumoDao();
 
+        IInsumoDao insumoDao = FactoryDAO.createInsumoDao();
+
+
         h1(writer, "Ingreso de Insumo");
 
-        IngresoInsumo ingreso = new IngresoInsumo(new Insumo(), new Date(), "Ingreso de tomates", 5.5, "i-04052023", 20000);
         List<IngresoInsumo> ingresos;
 
         // CREATE
-        h2(writer, "↳ Se creara un nuevo Ingreso de Insumo: ");
+        h2(writer, "↳ Se creará un nuevo Ingreso de Insumo: ");
+
+        Insumo insumo = new Insumo("Tomate", 0D, "Tomates para elaboración de salsas", UnidadMedidaEnum.KG);
+        insumoDao.save(insumo);
+
+        IngresoInsumo ingreso = new IngresoInsumo(insumo, new Date(), "Ingreso de tomates", 5.5, "i-04052023", 20000);
         dao.save(ingreso);
 
         item(writer, ingreso);

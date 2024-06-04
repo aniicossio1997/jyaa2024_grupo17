@@ -2,19 +2,20 @@ package grupo17;
 
 import grupo17.baseEntity.IdentifiableBaseEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.Transient;
-import java.time.LocalDateTime;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "ingreso_insumo")
 public class IngresoInsumo extends IdentifiableBaseEntity {
     protected Date fecha;
     protected String descripcion;
     protected double cantidad;
     protected String codigo;
     protected double valorCompra;
-    @Transient
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "insumo_id")
     protected Insumo insumo;
 
     public IngresoInsumo() {
@@ -81,13 +82,13 @@ public class IngresoInsumo extends IdentifiableBaseEntity {
     @Override
     public String toString() {
         return "{"
-                + "\"fecha\":" + fecha
+                + "\"id\":\"" + id + "\""
+                + ",\"fecha\":" + fecha
                 + ", \"descripcion\":\"" + descripcion + "\""
                 + ", \"cantidad\":\"" + cantidad + "\""
                 + ", \"codigo\":\"" + codigo + "\""
                 + ", \"valorCompra\":\"" + valorCompra + "\""
-                + ", \"insumo\":" + insumo
-                + ", \"id\":\"" + id + "\""
+                + ", \"insumo\":" + insumo.getId()
                 + "}";
     }
 }

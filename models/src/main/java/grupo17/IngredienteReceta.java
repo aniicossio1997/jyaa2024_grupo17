@@ -1,13 +1,23 @@
 package grupo17;
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "ingrediente_receta")
 public class IngredienteReceta {
+
     public Double cantidad;
-    public Recurso recurso;
+    @ManyToOne(fetch = FetchType.LAZY)
 
-    public IngredienteReceta(Double cantidad, Recurso recurso) {
+    @JoinColumn(name = "insumo_id")
+    public Insumo insumo;
+    @JoinColumn(name = "materia_prima_id")
+    public MateriaPrima materiaPrima;
+
+    public IngredienteReceta(Double cantidad, Insumo insumo, MateriaPrima materiaPrima) {
         this.cantidad = cantidad;
-        this.recurso = recurso;
+        this.insumo = insumo;
+        this.materiaPrima = materiaPrima;
     }
-
-
 }

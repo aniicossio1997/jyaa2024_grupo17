@@ -43,7 +43,7 @@ public class TestingServlet extends HttpServlet {
     protected void addBootstrap(PrintWriter writer, PrintWriterConsumer action) {
 
         writer.println("<!DOCTYPE html>");
-        writer.println("<html lang='en' data-bs-theme=\"light\">");
+        writer.println("<html lang='en' data-bs-theme=\"light\" style='font-size: 12px;'>");
         writer.println("<head>");
         writer.println("<meta charset='UTF-8'>");
         writer.println("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
@@ -52,7 +52,7 @@ public class TestingServlet extends HttpServlet {
         // Enlace al CSS de Bootstrap
         writer.println("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH\" crossorigin=\"anonymous\">\n");
         writer.println("</head>");
-        writer.println("<body class=\"p-4 d-flex flex-column gap-2 \" style='gap:10px'>");
+        writer.println("<body class=\"p-4 d-flex flex-column gap-2 \" style='gap:10px;'>");
 
         try {
             action.accept(writer);

@@ -1,13 +1,26 @@
 package grupo17;
 
+import grupo17.baseEntity.IdentifiableBaseEntity;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Receta {
+@Entity
+@Table(name = "receta")
+public class Receta extends IdentifiableBaseEntity {
     public String nombre;
-    public  String descripcion;
-    public List<IngredienteReceta> ingredientes=new ArrayList<IngredienteReceta>();
-    public List<LoteProductoElaborado> elaboraciones=new ArrayList<LoteProductoElaborado>();
+    public String descripcion;
+
+    @OneToMany(mappedBy = "ingrediente", cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<IngredienteReceta> ingredientes = new ArrayList<IngredienteReceta>();
+
+    @Transient
+    public List<LoteProductoElaborado> elaboraciones = new ArrayList<LoteProductoElaborado>();
+
+    public Receta() {
+        super();
+    }
 
     public Receta(String nombre, List<IngredienteReceta> ingredientes, String descripcion) {
         this.nombre = nombre;
@@ -15,14 +28,35 @@ public class Receta {
         this.descripcion = descripcion;
     }
 
-    public void addIngrediente(IngredienteReceta ingrediente ){
-        this.ingredientes.add(ingrediente);
-    }
-    public void addElaboracion(LoteProductoElaborado elaborado ){
-        this.elaboraciones.add(elaborado);
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void removeIngrediente(IngredienteReceta ingrediente ){
-        this.ingredientes.remove(ingrediente);
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public List<LoteProductoElaborado> getElaboraciones() {
+        return elaboraciones;
+    }
+
+    public void setElaboraciones(List<LoteProductoElaborado> elaboraciones) {
+        this.elaboraciones = elaboraciones;
+    }
+
+    public List<IngredienteReceta> getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(List<IngredienteReceta> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

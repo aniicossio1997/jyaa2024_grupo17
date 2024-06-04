@@ -13,6 +13,8 @@
         <class>grupo17.PuntoVenta</class>
         <class>grupo17.IngresoInsumo</class>
         <class>grupo17.Insumo</class>
+        <class>grupo17.Receta</class>
+        <class>grupo17.IngredienteReceta</class>
         <properties>
             <property name="hbm2ddl.auto" value="update"/>
             <property name="hibernate.connection.driver_class"
@@ -20,7 +22,7 @@
             <property name="javax.persistence.schema-generation.database.action" value="update"/>
             <property name="hibernate.connection.password" value="root"/>
             <property name="hibernate.connection.url"
-                      value="jdbc:mysql://localhost:3306/sala_elaboracion2?createDatabaseIfNotExist=true"/>
+                      value="jdbc:mysql://localhost:3306/sala_elaboracion?createDatabaseIfNotExist=true"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>
             <property name="hibernate.connection.username" value="root"/>
 

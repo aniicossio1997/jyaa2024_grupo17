@@ -1,10 +1,8 @@
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import testsServlets.TestFamiliaProductora;
 import testsServlets.TestIngresoInsumo;
-import testsServlets.TestPuntoVenta;
-import testsServlets.TestUsuario;
+import testsServlets.TestInsumo;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,7 +35,9 @@ public class TestingServlet extends HttpServlet {
         //TestUsuario.test(writer);
         //TestFamiliaProductora.test(writer);
         //TestPuntoVenta.test(writer);
+        TestInsumo.test(writer);
         TestIngresoInsumo.test(writer);
+
     }
 
     protected void addBootstrap(PrintWriter writer, PrintWriterConsumer action) {

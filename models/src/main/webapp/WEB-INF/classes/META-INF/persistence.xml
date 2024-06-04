@@ -15,7 +15,11 @@
         <class>grupo17.Insumo</class>
         <class>grupo17.Receta</class>
         <class>grupo17.IngredienteReceta</class>
-		<class>grupo17.MateriaPrima</class>
+        <class>grupo17.MateriaPrima</class>
+        <class>grupo17.LoteProductoElaborado</class>
+        <class>grupo17.EstadoLote</class>
+        <class>grupo17.Nota</class>
+
         <properties>
             <property name="hbm2ddl.auto" value="update"/>
             <property name="hibernate.connection.driver_class"

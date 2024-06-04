@@ -37,4 +37,11 @@ public class FactoryDAO {
         return new RecetaDao();
     }
 
+    public static ILoteProductoElaboradoDao createLoteProductoElaboradoDao() {
+        return new LoteProductoElaboradoDao();
+    }
+
+    public static INotaDao createNotaDao() {
+        return new NotaDao();
+    }
 }

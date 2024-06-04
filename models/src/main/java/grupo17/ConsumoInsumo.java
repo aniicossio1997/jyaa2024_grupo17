@@ -1,7 +1,7 @@
 package grupo17;
 
 public class ConsumoInsumo extends ConsumoRecurso {
-    public Insumo insumo;
+    protected Insumo insumo;
 
     public ConsumoInsumo() {
         super();

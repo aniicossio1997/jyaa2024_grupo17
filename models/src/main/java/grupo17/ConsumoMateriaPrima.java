@@ -1,8 +1,8 @@
 package grupo17;
 
 public class ConsumoMateriaPrima extends ConsumoRecurso {
-    public IngresoMateriaPrima ingreso;
-    public MateriaPrima materiaPrima;
+    private IngresoMateriaPrima ingreso;
+    private MateriaPrima materiaPrima;
 
     public ConsumoMateriaPrima() {
         super();

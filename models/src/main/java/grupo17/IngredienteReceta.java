@@ -4,6 +4,7 @@ package grupo17;
 import grupo17.baseEntity.IdentifiableBaseEntity;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Table(name = "ingrediente_receta")
@@ -19,22 +20,57 @@ public class IngredienteReceta extends IdentifiableBaseEntity {
     @JoinColumn(name = "materia_prima_id")
     public MateriaPrima materiaPrima;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receta_id")
-    private Receta receta;
+    public Receta receta;
 
     public IngredienteReceta() {
         super();
     }
 
-    public IngredienteReceta(Double cantidad, Insumo insumo) {
+
+    public IngredienteReceta(Double cantidad, Insumo insumo, Receta receta) {
         this.cantidad = cantidad;
+        this.insumo = insumo;
+        this.receta = receta;
+    }
+
+    public IngredienteReceta(Double cantidad, MateriaPrima materiaPrima, Receta receta) {
+        this.cantidad = cantidad;
+        this.materiaPrima = materiaPrima;
+        this.receta = receta;
+    }
+
+    public Double getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Double cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Insumo getInsumo() {
+        return insumo;
+    }
+
+    public void setInsumo(Insumo insumo) {
         this.insumo = insumo;
     }
 
-    public IngredienteReceta(Double cantidad, MateriaPrima materiaPrima) {
-        this.cantidad = cantidad;
+    public MateriaPrima getMateriaPrima() {
+        return materiaPrima;
+    }
+
+    public void setMateriaPrima(MateriaPrima materiaPrima) {
         this.materiaPrima = materiaPrima;
+    }
+
+    public Receta getReceta() {
+        return receta;
+    }
+
+    public void setReceta(Receta receta) {
+        this.receta = receta;
     }
 
     @Override
@@ -42,9 +78,8 @@ public class IngredienteReceta extends IdentifiableBaseEntity {
         return "{"
                 + "\"id\":\"" + id + "\""
                 + ", \"cantidad\":\"" + cantidad + "\""
-                + ", \"insumo\":" + insumo
-                + ", \"materiaPrima\":" + materiaPrima
-                + ", \"receta\":" + receta
+                + ", \"insumoId\":" + (insumo != null ? insumo.getId() : null)
+                + ", \"materiaPrimaId\":" + (materiaPrima != null ? materiaPrima.getId() : null)
                 + "}";
     }
 }

@@ -1,15 +1,72 @@
 package grupo17;
 
+import grupo17.baseEntity.IdentifiableBaseEntity;
+
+import javax.persistence.*;
 import java.util.Date;
 
-public class Nota {
-    public Date fecha;
-    public EncargadoDeSala autor;
-    public String descripcion;
+@Entity
+@Table(name = "nota")
+public class Nota extends IdentifiableBaseEntity {
+    private Date fecha;
 
-    public Nota(EncargadoDeSala autor, String descripcion) {
+    private String descripcion;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "insumo_id")
+    private EncargadoDeSala autor;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lote_producto_elaborado_id")
+    private LoteProductoElaborado lote;
+
+    public Nota(EncargadoDeSala autor, String descripcion, LoteProductoElaborado lote) {
         this.autor = autor;
         this.fecha = new Date();
+        this.lote = lote;
         this.descripcion = descripcion;
+    }
+
+    public EncargadoDeSala getAutor() {
+        return autor;
+    }
+
+    public void setAutor(EncargadoDeSala autor) {
+        this.autor = autor;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public LoteProductoElaborado getLote() {
+        return lote;
+    }
+
+    public void setLote(LoteProductoElaborado lote) {
+        this.lote = lote;
+    }
+
+    @Override
+    public String toString() {
+        return "{"
+                + " \"id\":\"" + id + "\""
+                + ", \"autorId\":" + autor.getId()
+                + ", \"fecha\":" + fecha
+                + ", \"descripcion\":\"" + descripcion + "\""
+                + ", \"loteId\":" + lote.getId()
+                + "}";
     }
 }

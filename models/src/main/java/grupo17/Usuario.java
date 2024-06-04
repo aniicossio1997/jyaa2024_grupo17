@@ -10,10 +10,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "usuario")
 public abstract class Usuario extends NameableBaseEntity {
-    public String apellido;
-    public String email;
-    public String username;
-    public String password;
+    protected String apellido;
+    protected String email;
+    protected String username;
+    protected String password;
 
     public Usuario() {
         super();

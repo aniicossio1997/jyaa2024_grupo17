@@ -88,7 +88,7 @@ public class IngresoInsumo extends IdentifiableBaseEntity {
                 + ", \"cantidad\":\"" + cantidad + "\""
                 + ", \"codigo\":\"" + codigo + "\""
                 + ", \"valorCompra\":\"" + valorCompra + "\""
-                + ", \"insumo\":" + insumo.getId()
+                + ", \"insumoId\":" + insumo.getId()
                 + "}";
     }
 }

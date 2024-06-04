@@ -12,7 +12,7 @@ public class Receta extends IdentifiableBaseEntity {
     public String nombre;
     public String descripcion;
 
-    @OneToMany(mappedBy = "receta", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "receta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     public List<IngredienteReceta> ingredientes = new ArrayList<>();
 
     @Transient

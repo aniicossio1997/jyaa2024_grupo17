@@ -13,7 +13,7 @@ public class TestUsuario extends BaseTest{
 
     public static void test(PrintWriter writer) {
         IUsuarioDao usuarioDao = FactoryDAO.createUsuarioDao();
-        // ============================== ENTIDAD: FAMILIA PRODUCTORA =======================================
+
         h1(writer, "Usuarios");
 
         Usuario u = new Administrador("Ad", "Min", "admin", "asdasd123", "admin@test.com");

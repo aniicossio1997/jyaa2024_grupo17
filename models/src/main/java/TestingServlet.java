@@ -2,6 +2,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import testsServlets.TestFamiliaProductora;
+import testsServlets.TestIngresoInsumo;
+import testsServlets.TestPuntoVenta;
 import testsServlets.TestUsuario;
 
 import java.io.IOException;
@@ -30,9 +32,12 @@ public class TestingServlet extends HttpServlet {
         doGet(request, response);
     }
 
-    protected  void testEntities(PrintWriter writer) {
-        TestFamiliaProductora.test(writer);
+    protected void testEntities(PrintWriter writer) {
+
         //TestUsuario.test(writer);
+        //TestFamiliaProductora.test(writer);
+        //TestPuntoVenta.test(writer);
+        TestIngresoInsumo.test(writer);
     }
 
     protected void addBootstrap(PrintWriter writer, PrintWriterConsumer action) {
@@ -53,6 +58,7 @@ public class TestingServlet extends HttpServlet {
             action.accept(writer);
         } catch (Exception e) {
             writer.println("<h1>Se ha producido un error</h1>");
+            e.printStackTrace();
             writer.println(Arrays.toString(e.getStackTrace()));
 
         }

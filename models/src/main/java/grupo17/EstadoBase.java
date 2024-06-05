@@ -27,4 +27,29 @@ public abstract class EstadoBase extends IdentifiableBaseEntity {
         this.autor = autor;
         this.fecha = new Date();
     }
+
+    public Usuario getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Usuario autor) {
+        this.autor = autor;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    @Override
+    public String toString() {
+        return "EstadoBase{" +
+                "autor=" + autor +
+                ", fecha=" + fecha +
+                ", id=" + id +
+                '}';
+    }
 }

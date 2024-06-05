@@ -2,17 +2,23 @@ package grupo17;
 
 import grupo17.enums.UnidadMedidaEnum;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "materia_prima")
 public class MateriaPrima extends Recurso {
-    @Transient
-    public List<IngresoMateriaPrima> ingresos = new ArrayList<>();
+    @OneToMany(mappedBy = "materiaPrima", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<IngresoMateriaPrima> ingresos = new ArrayList<>();
+
+
+    public MateriaPrima(String nombre, UnidadMedidaEnum unidadMedida,
+                        Double cantidadDisponible, String descripcion,
+                        List<IngresoMateriaPrima> ingresos) {
+        super(cantidadDisponible, descripcion, nombre, unidadMedida);
+        this.ingresos = ingresos;
+    }
 
     public  MateriaPrima(){
         super();

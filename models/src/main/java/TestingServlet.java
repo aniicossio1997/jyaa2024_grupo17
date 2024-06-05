@@ -40,6 +40,8 @@ public class TestingServlet extends HttpServlet {
         // TestMateriaPrima.test(writer);
         //TestReceta.test(writer);
         TestGlobal.test(writer);
+        //TestIngresoMateriaPrima.test(writer);
+        //TestMateriaPrima.test(writer);
     }
 
     protected void addBootstrap(PrintWriter writer, PrintWriterConsumer action) {

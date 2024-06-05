@@ -43,5 +43,26 @@ public abstract class BaseDao<T> {
         TypedQuery<T> q = em.createQuery("FROM " + this.getGenericClass().getName() + " i", this.getGenericClass());
         return q.getResultList();
     }
+    public void deleteLogically(Long id) {
+        EntityTransaction etx = em.getTransaction();
+        etx.begin();
+        T item = getById(id);
+        try {
+            item.getClass().getMethod("setDeleted", boolean.class).invoke(item, true);
+            em.merge(item);
+            etx.commit();
+        } catch (Exception e) {
+            etx.rollback();
+            throw new RuntimeException("Failed to perform logical delete", e);
+        }
+    }
+
+    public List<T> getAllNotDeleted() {
+        TypedQuery<T> q = em.createQuery(
+                "FROM " + this.getGenericClass().getName() + " i WHERE i.isDeleted = false",
+                this.getGenericClass()
+        );
+        return q.getResultList();
+    }
 
 }

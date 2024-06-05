@@ -2,6 +2,7 @@ package dao;
 
 import dao.implementations.*;
 import dao.interfaces.*;
+import grupo17.EstadoMateriaPrima;
 
 public class FactoryDAO {
 
@@ -44,4 +45,10 @@ public class FactoryDAO {
     public static INotaDao createNotaDao() {
         return new NotaDao();
     }
+
+	public static  IIngresoMateriaPrimaDao createIngresoMateriaPrimaDao(){ return  new IngresoMateriaPrimaDao();}
+
+
+
+
 }

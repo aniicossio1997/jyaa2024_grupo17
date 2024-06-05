@@ -27,10 +27,10 @@ public class TestIngresoInsumo extends BaseTest {
         // CREATE
         h2(writer, "↳ Se creará un nuevo Ingreso de Insumo: ");
 
-        Insumo insumo = new Insumo("Tomate", 0D, "Tomates para elaboración de salsas", UnidadMedidaEnum.KG);
+        Insumo insumo = new Insumo("Frascos", 0D, "Frascos para guardar mermeladas", UnidadMedidaEnum.KG);
         insumoDao.save(insumo);
 
-        IngresoInsumo ingreso = new IngresoInsumo(insumo, new Date(), "Ingreso de tomates", 5.5, "i-04052023", 20000);
+        IngresoInsumo ingreso = new IngresoInsumo(insumo, new Date(), "Ingreso de fracos", 5, "i-04052023", 20000);
         dao.save(ingreso);
 
         item(writer, ingreso);

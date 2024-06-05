@@ -20,10 +20,9 @@ public class PuntoVenta extends IdentifiableBaseEntity {
         super();
     }
 
-    public PuntoVenta(String nombre, String descripcion, List<EntregaProducto> recepciones) {
+    public PuntoVenta(String nombre, String descripcion) {
         this.descripcion = descripcion;
         this.nombre = nombre;
-        this.recepciones = recepciones;
     }
 
     public String getDescripcion() {

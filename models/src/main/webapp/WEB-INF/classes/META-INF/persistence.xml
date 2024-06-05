@@ -19,6 +19,7 @@
         <class>grupo17.LoteProductoElaborado</class>
         <class>grupo17.EstadoLote</class>
         <class>grupo17.Nota</class>
+        <class>grupo17.EntregaProducto</class>
 
         <properties>
             <property name="hbm2ddl.auto" value="update"/>

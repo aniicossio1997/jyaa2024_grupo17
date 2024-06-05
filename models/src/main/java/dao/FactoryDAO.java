@@ -44,4 +44,8 @@ public class FactoryDAO {
     public static INotaDao createNotaDao() {
         return new NotaDao();
     }
+
+    public static IEntregaProductoDao createEntregaProductoDao() {
+        return new EntregaProductoDao();
+    }
 }

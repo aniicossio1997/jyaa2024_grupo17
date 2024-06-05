@@ -46,9 +46,15 @@ public class FactoryDAO {
         return new NotaDao();
     }
 
+<<<<<<< HEAD
 	public static  IIngresoMateriaPrimaDao createIngresoMateriaPrimaDao(){ return  new IngresoMateriaPrimaDao();}
 
 
 
 
+=======
+    public static IEntregaProductoDao createEntregaProductoDao() {
+        return new EntregaProductoDao();
+    }
+>>>>>>> 24ec7b365aa7f1086bf51c5419082ac668350f12
 }

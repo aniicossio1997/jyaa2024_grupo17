@@ -27,7 +27,7 @@ public class LoteProductoElaborado extends IdentifiableBaseEntity {
     @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Nota> notas = new ArrayList<>();
 
-    @Transient
+    @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EntregaProducto> entregas = new ArrayList<>();
 
     public LoteProductoElaborado() {
@@ -88,6 +88,7 @@ public class LoteProductoElaborado extends IdentifiableBaseEntity {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
+
 
     public List<Nota> getNotas() {
         return notas;

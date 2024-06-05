@@ -16,7 +16,7 @@ public class TestPuntoVenta extends BaseTest {
 
         h1(writer, "Punto de Venta");
 
-        PuntoVenta pv = new PuntoVenta("Punto 1", "Descripcion Punto 1", new ArrayList<>());
+        PuntoVenta pv = new PuntoVenta("Punto 1", "Descripcion Punto 1");
         List<PuntoVenta> pvs;
 
         // CREATE

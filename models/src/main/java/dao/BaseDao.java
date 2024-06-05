@@ -11,6 +11,9 @@ import javax.persistence.TypedQuery;
 public abstract class BaseDao<T> {
     protected EntityManager em;
 
+    protected boolean getDeletable() {
+        return false;
+    }
 
     public BaseDao() {
         super();
@@ -40,7 +43,9 @@ public abstract class BaseDao<T> {
     }
 
     public List<T> getAll() {
-        TypedQuery<T> q = em.createQuery("FROM " + this.getGenericClass().getName() + " i", this.getGenericClass());
+        String query = "FROM " + this.getGenericClass().getName() + " i";
+        if (getDeletable()) query += " WHERE i.fechaBaja is NULL";
+        TypedQuery<T> q = em.createQuery(query, this.getGenericClass());
         return q.getResultList();
     }
     public void deleteLogically(Long id) {

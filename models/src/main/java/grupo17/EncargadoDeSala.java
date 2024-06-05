@@ -7,10 +7,14 @@ import javax.persistence.Entity;
 
 @DiscriminatorValue("ENCARGADO_SALA")
 @Entity
-public class EncargadoDeSala  extends Usuario{
+public class EncargadoDeSala extends Usuario {
 
-    public EncargadoDeSala( String nombre, String apellido, String username, String password, String email) {
-        super( nombre, apellido, username, password, email);
+
+    public EncargadoDeSala() {
+    }
+
+    public EncargadoDeSala(String nombre, String apellido, String username, String password, String email) {
+        super(nombre, apellido, username, password, email);
     }
 
     @Override

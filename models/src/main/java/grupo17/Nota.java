@@ -1,13 +1,17 @@
 package grupo17;
 
-import grupo17.baseEntity.IdentifiableBaseEntity;
+import grupo17.baseEntity.DeletableBaseEntity;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "nota")
-public class Nota extends IdentifiableBaseEntity {
+@SQLDelete(sql = "UPDATE nota SET fechaBaja = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "fechaBaja IS NULL")
+public class Nota extends DeletableBaseEntity {
     private Date fecha;
 
     private String descripcion;
@@ -19,6 +23,10 @@ public class Nota extends IdentifiableBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lote_producto_elaborado_id")
     private LoteProductoElaborado lote;
+
+    public Nota() {
+        super();
+    }
 
     public Nota(EncargadoDeSala autor, String descripcion, LoteProductoElaborado lote) {
         this.autor = autor;

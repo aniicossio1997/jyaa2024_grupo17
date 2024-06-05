@@ -20,7 +20,7 @@ public class TestPuntoVenta extends BaseTest {
         List<PuntoVenta> pvs;
 
         // CREATE
-        h2(writer, "↳ Se creara un nuevo Punto de Venta: ");
+        h2(writer, "Se creara un nuevo Punto de Venta: ");
         puntoVentaDao.save(pv);
 
         item(writer, pv);
@@ -30,7 +30,7 @@ public class TestPuntoVenta extends BaseTest {
         pvs = puntoVentaDao.getAll();
         list(writer, pvs);
 
-        h2(writer, "↳ Se modificará el Punto de Venta con id " + pv.getId());
+        h2(writer, "Se modificará el Punto de Venta con id " + pv.getId());
         // UPDATE
         pv.setNombre("Punto 1 (modificado)");
         pv.setDescripcion("Descripcion Punto 1 (modificado)");

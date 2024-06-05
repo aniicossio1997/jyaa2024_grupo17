@@ -28,26 +28,25 @@ public class TestReceta extends BaseTest {
 
 
         // Setup de ingredientes
-        Insumo insumo1 = new Insumo("Azucar", 100D, "", UnidadMedidaEnum.KG);
-        Insumo insumo2 = new Insumo("Frascos", 1000D, "", UnidadMedidaEnum.UNIDAD);
-        Insumo insumo3 = new Insumo("Gelificante", 1000D, "", UnidadMedidaEnum.KG);
+        Insumo azucar = new Insumo("Azucar", 100D, "", UnidadMedidaEnum.KG);
+        Insumo frascos = new Insumo("Frascos", 1000D, "", UnidadMedidaEnum.UNIDAD);
+        Insumo gelificante = new Insumo("Gelificante", 1000D, "", UnidadMedidaEnum.KG);
 
-        insummoDao.save(insumo1);
-        insummoDao.save(insumo2);
-        insummoDao.save(insumo3);
+        insummoDao.save(azucar);
+        insummoDao.save(frascos);
+        insummoDao.save(gelificante);
 
-        h2(writer, "Se crearon los insumos necesarios para la receta ✅");
+        h2(writer, "Se crearon los insumos necesarios para la receta");
 
-        h2(writer, "Se creará la receta junto con sus ingredientes asociados:");
+        h2(writer, "Se creará la receta");
 
         List<IngredienteReceta> ingredientes = new ArrayList<>();
-
 
         // CREATE
         Receta receta = new Receta("Mermelada de Frutilla", "Deliciosa mermelada", ingredientes);
 
-        ingredientes.add(new IngredienteReceta(0.3, insumo1, receta));
-        ingredientes.add(new IngredienteReceta(1.0, insumo2, receta));
+        ingredientes.add(new IngredienteReceta(0.3, azucar, receta));
+        ingredientes.add(new IngredienteReceta(1.0, frascos, receta));
         recetaDao.save(receta);
         item(writer, receta);
 
@@ -59,7 +58,7 @@ public class TestReceta extends BaseTest {
         h2(writer, "Se modificará la Receta con id (titulo y se agrega ingrediente) " + receta.getId());
         // UPDATE
         receta.setNombre(receta.getNombre() + "(modificado)");
-        receta.getIngredientes().add(new IngredienteReceta(.1, insumo3, receta));
+        receta.getIngredientes().add(new IngredienteReceta(.1, gelificante, receta));
 
         recetaDao.save(receta);
 
@@ -68,11 +67,18 @@ public class TestReceta extends BaseTest {
         Receta receta2 = recetaDao.getById(receta.getId());
         item(writer, receta2);
 
+        h1(writer, "Ingredientes");
         // Detail
         h2(writer, "Obtener solo Ingredientes para receta con id " + receta.getId() + ":");
         List<IngredienteReceta> ingredientesRecetas = ingredienteRecetaDao.getByRecetaId(receta.getId());
         list(writer, ingredientesRecetas);
 
+        h2(writer, "Agregar ingrediente a la receta con id " + receta.getId() + ":");
+        IngredienteReceta ingredienteReceta = new IngredienteReceta(.1, gelificante, receta);
+
+
+        ingredientesRecetas = ingredienteRecetaDao.getByRecetaId(receta.getId());
+        list(writer, ingredientesRecetas);
         // ==============================LOTE PRODUCTO ELABORADO ============================
 
         ILoteProductoElaboradoDao loteProductoElaboradoDao = FactoryDAO.createLoteProductoElaboradoDao();
@@ -83,6 +89,9 @@ public class TestReceta extends BaseTest {
 
         LoteProductoElaborado lote = new LoteProductoElaborado(5, "pe-05052023/1", new Date(), receta);
         EstadoLote estadoLote = new EstadoLote(encargadoDeSala, new Date(), EstadoLoteEnum.EN_PROCESO, lote);
+        ConsumoInsumo consumoInsumo = new ConsumoInsumo(10d, azucar, lote);
+
+        lote.getConsumoInsumos().add(consumoInsumo);
         lote.getEstados().add(estadoLote);
 
         loteProductoElaboradoDao.save(lote);
@@ -163,6 +172,7 @@ public class TestReceta extends BaseTest {
 
         h2(writer, "Listado de todas las entregas");
         list(writer, entregaProductoDao.getAll());
+
     }
 
 }

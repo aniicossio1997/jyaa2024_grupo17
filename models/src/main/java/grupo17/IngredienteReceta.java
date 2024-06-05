@@ -4,25 +4,24 @@ package grupo17;
 import grupo17.baseEntity.IdentifiableBaseEntity;
 
 import javax.persistence.*;
-import java.util.Optional;
 
 @Entity
 @Table(name = "ingrediente_receta")
 public class IngredienteReceta extends IdentifiableBaseEntity {
 
-    public Double cantidad;
+    private Double cantidad;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "insumo_id")
-    public Insumo insumo;
+    private Insumo insumo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "materia_prima_id")
-    public MateriaPrima materiaPrima;
+    private MateriaPrima materiaPrima;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receta_id")
-    public Receta receta;
+    private Receta receta;
 
     public IngredienteReceta() {
         super();

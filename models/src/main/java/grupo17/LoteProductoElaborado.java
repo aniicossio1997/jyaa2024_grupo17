@@ -21,8 +21,8 @@ public class LoteProductoElaborado extends IdentifiableBaseEntity {
     @JoinColumn(name = "receta_id")
     private Receta receta;
 
-    @Transient
-    private List<ConsumoRecurso> consumos = new ArrayList<>();
+    @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ConsumoInsumo> consumoInsumos = new ArrayList<>();
 
     @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Nota> notas = new ArrayList<>();
@@ -57,12 +57,12 @@ public class LoteProductoElaborado extends IdentifiableBaseEntity {
         this.codigo = codigo;
     }
 
-    public List<ConsumoRecurso> getConsumos() {
-        return consumos;
+    public List<ConsumoInsumo> getConsumoInsumos() {
+        return consumoInsumos;
     }
 
-    public void setConsumos(List<ConsumoRecurso> consumos) {
-        this.consumos = consumos;
+    public void setConsumoInsumos(List<ConsumoInsumo> consumos) {
+        this.consumoInsumos = consumos;
     }
 
     public List<EntregaProducto> getEntregas() {
@@ -115,7 +115,7 @@ public class LoteProductoElaborado extends IdentifiableBaseEntity {
                 + ", \"codigo\":\"" + codigo + "\""
                 + ", \"estados\":" + estados
                 + ", \"recetaId\":" + receta.getId()
-                + ", \"consumos\":" + consumos
+                + ", \"consumosInsumos\":" + consumoInsumos
                 + ", \"notas\":" + notas
                 + ", \"entregas\":" + entregas
                 + "}";

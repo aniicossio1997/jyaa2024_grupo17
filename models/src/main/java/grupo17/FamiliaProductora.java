@@ -15,7 +15,7 @@ public class FamiliaProductora extends NameableBaseEntity {
     }
 
     public FamiliaProductora(String nombre, String descripcion) {
-        super( nombre);
+        super(nombre);
         this.descripcion = descripcion;
     }
 
@@ -29,10 +29,10 @@ public class FamiliaProductora extends NameableBaseEntity {
 
     @Override
     public String toString() {
-        return "FamiliaProductora {" +
-                "descripcion='" + descripcion + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", id=" + id +
-                " }";
+        return "{"
+                + "\"id\":\"" + id + "\""
+                + ", \"descripcion\":\"" + descripcion + "\""
+                + ", \"nombre\":\"" + nombre + "\""
+                + "}";
     }
 }

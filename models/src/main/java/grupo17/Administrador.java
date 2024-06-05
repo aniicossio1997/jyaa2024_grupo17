@@ -9,7 +9,11 @@ import javax.persistence.Entity;
 @Entity
 public class Administrador extends Usuario {
 
-    public Administrador( String nombre, String apellido, String username, String password, String email) {
+    public Administrador() {
+        super();
+    }
+
+    public Administrador(String nombre, String apellido, String username, String password, String email) {
         super( nombre, apellido, username, password, email);
     }
 

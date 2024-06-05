@@ -62,17 +62,15 @@ public abstract class Usuario extends NameableBaseEntity {
     public abstract RolUsuario getRol();
 
 
-
     @Override
     public String toString() {
-        return "Usuario{" +
-                " nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", rol='" + getRol().getValue() + '\'' +
-                ", id=" + id +
-                '}';
+        return "{"
+                + "\"id\":\"" + id + "\""
+                + ", \"apellido\":\"" + apellido + "\""
+                + ", \"email\":\"" + email + "\""
+                + ", \"password\":\"" + password + "\""
+                + ", \"username\":\"" + username + "\""
+                + ", \"nombre\":\"" + nombre + "\""
+                + "}";
     }
 }

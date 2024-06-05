@@ -48,4 +48,8 @@ public class FactoryDAO {
     public static IEntregaProductoDao createEntregaProductoDao() {
         return new EntregaProductoDao();
     }
+
+    public static IConsumoInsumoDao createConsumoInsumoDao() {
+        return new ConsumoInsumoDao();
+    }
 }

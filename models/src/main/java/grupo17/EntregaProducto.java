@@ -1,7 +1,6 @@
 package grupo17;
 
 import grupo17.baseEntity.DeletableBaseEntity;
-import grupo17.baseEntity.IdentifiableBaseEntity;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 

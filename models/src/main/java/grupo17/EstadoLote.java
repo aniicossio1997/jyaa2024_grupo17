@@ -27,6 +27,22 @@ public class EstadoLote extends EstadoBase {
         this.lote = lote;
     }
 
+    public EstadoLoteEnum getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoLoteEnum estado) {
+        this.estado = estado;
+    }
+
+    public LoteProductoElaborado getLote() {
+        return lote;
+    }
+
+    public void setLote(LoteProductoElaborado lote) {
+        this.lote = lote;
+    }
+
     @Override
     public String toString() {
         return "{"

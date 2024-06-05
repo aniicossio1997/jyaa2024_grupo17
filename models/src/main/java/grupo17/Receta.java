@@ -15,7 +15,7 @@ public class Receta extends IdentifiableBaseEntity {
     @OneToMany(mappedBy = "receta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     public List<IngredienteReceta> ingredientes = new ArrayList<>();
 
-    @Transient
+    @OneToMany(mappedBy = "receta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     public List<LoteProductoElaborado> elaboraciones = new ArrayList<>();
 
     public Receta() {

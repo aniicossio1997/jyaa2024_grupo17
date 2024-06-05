@@ -31,3 +31,5 @@
 - La página web no se renderizará hasta que todos los procesos del test hayan finalizado, por lo que puede tardar un tiempo en cargarse completamente.
 - Verifique que su base de datos MySQL esté en funcionamiento y que las credenciales de acceso estén correctamente configuradas en su archivo de configuración del proyecto.
 - Asegúrese de que los controladores JDBC para MySQL estén correctamente añadidos a las dependencias de su proyecto.
+- El proyecto está configurado para que automaticamente cree la base de datos junto con las tablas correspondientes a las entidades del modelo, por lo que no deberia ser necesario ningun schema de la base de datos.
+- El constraint de unique username y email para los usuarios impide que se ejecute correctamente mas de una vez sin antes limpiar la base de datos (recomendable eliminar directamente)

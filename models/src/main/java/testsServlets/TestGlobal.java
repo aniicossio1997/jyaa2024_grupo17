@@ -1,10 +1,11 @@
 package testsServlets;
 
 import dao.FactoryDAO;
-import dao.implementations.IngredienteRecetaDao;
+import dao.implementations.EstadoMateriaPrimaDao;
 import dao.interfaces.*;
 import grupo17.*;
 import grupo17.enums.EstadoLoteEnum;
+import grupo17.enums.EstadoMateriaPrimaEnum;
 import grupo17.enums.UnidadMedidaEnum;
 
 import java.io.PrintWriter;
@@ -30,75 +31,85 @@ public class TestGlobal extends BaseTest {
         IMateriaPrimaDao materiaPrimaDao = FactoryDAO.createMateriaPrimaDao();
         IPuntoVentaDao puntoVentaDao = FactoryDAO.createPuntoVentaDao();
         IConsumoInsumoDao consumoInsumoDao = FactoryDAO.createConsumoInsumoDao();
+        IEstadoLoteDao estadoLoteDao = FactoryDAO.createEstadoLoteDao();
+        IConsumoMateriaPrimaDao consumoMateriaPrimaDao = FactoryDAO.createConsumoMateriaPrimaDao();
+        IIngresoMateriaPrimaDao ingresoMateriaPrimaDao = FactoryDAO.createIngresoMateriaPrimaDao();
+        IEstadoMateriaPrimaDao estadoMateriaPrimaDao = FactoryDAO.createEstadoMateriaPrimaDao();
 
         // ============================== USUARIO =======================================
 
         writer.h1("Usuarios");
 
-        Usuario u = new Administrador("Ad", "Min", "admin", "asdasd123", "admin@test.com");
-        List<Usuario> us;
+        Administrador administrador = new Administrador("Ad", "Min", "admin", "asdasd123", "admin@test.com");
+        List<Usuario> usuarios;
 
         // CREATE
         writer.h2("Se creara un nuevo usuario Administrador: ");
-        usuarioDao.save(u);
+        usuarioDao.save(administrador);
 
-        writer.item(u);
+        writer.item(administrador);
 
         // CREATE
         writer.h2("↳ Se creara un nuevo usuario Encargado de Sala: ");
-        Usuario es = new EncargadoDeSala("Encargado", "Sala", "encargadosala", "asdasd123", "encargado@test.com");
-        usuarioDao.save(es);
+        EncargadoDeSala encargadoDeSala = new EncargadoDeSala("Encargado", "Sala", "encargadosala", "asdasd123", "encargado@test.com");
+        usuarioDao.save(encargadoDeSala);
 
-        writer.item(es);
+        writer.item(encargadoDeSala);
 
         // LIST
         writer.h2("Listado de Usuarios: ");
-        us = usuarioDao.getAll();
-        writer.list(us);
+        usuarios = usuarioDao.getAll();
+        writer.list(usuarios);
 
-        writer.h2("Se modificará el usuario con id: " + u.getId());
+        writer.h2("Se modificará el usuario con id: " + administrador.getId());
         // UPDATE
-        u.setNombre("Ad (modificado)");
-        u.setApellido("Min (modificado)");
-        usuarioDao.save(u);
+        administrador.setNombre("Ad (modificado)");
+        administrador.setApellido("Min (modificado)");
+        usuarioDao.save(administrador);
 
         // LIST
-        writer.h2("Obtener Usuario con id " + u.getId() + ":");
-        Usuario u2 = usuarioDao.getById(u.getId());
+        writer.h2("Obtener Usuario con id " + administrador.getId() + ":");
+        Usuario u2 = usuarioDao.getById(administrador.getId());
         writer.item(u2);
 
-
-        EncargadoDeSala encargadoDeSala = new EncargadoDeSala("Encar", "Gado", "encargado12", "asddasd123", "encargado12@test.com");
-        usuarioDao.save(encargadoDeSala);
+        writer.h2("Listado de Usuarios: ");
+        usuarios = usuarioDao.getAll();
+        writer.list(usuarios);
 
         // ============================== FAMILIA PRODUCTORA =======================================
 
         writer.h1("Familia Productora");
 
-        FamiliaProductora fp = new FamiliaProductora("familia 1", "Descripcion familia 1");
+        FamiliaProductora familiaProductoraTomates = new FamiliaProductora("Quinta de tomates", "Gran quinta");
         List<FamiliaProductora> fps;
 
         // CREATE
-        writer.h2("↳ Se creara una nueva familia: ");
-        familiaProductoraDao.save(fp);
+        writer.h2("Se creará una nueva familia: ");
+        familiaProductoraDao.save(familiaProductoraTomates);
 
-        writer.item(fp);
+        writer.item(familiaProductoraTomates);
+
+        writer.h2("Se creará otra nueva familia: ");
+        FamiliaProductora familiaProductoraMiel = new FamiliaProductora("Panales del sur", "Rica miel");
+        familiaProductoraDao.save(familiaProductoraMiel);
+
+        writer.item(familiaProductoraMiel);
 
         // LIST
         writer.h2("Listado de Familias Productoras: ");
         fps = familiaProductoraDao.getAll();
         writer.list(fps);
 
-        writer.h2("↳ Se modificará la Familia Productora con id " + fp.getId());
+        writer.h2("Se modificará la Familia Productora con id " + familiaProductoraTomates.getId());
         // UPDATE
-        fp.setNombre("Familia 1 (modificada)");
-        fp.setDescripcion("Descripcion familia 1 (modificada)");
-        familiaProductoraDao.save(fp);
+        familiaProductoraTomates.setNombre("Quinta de tomates ARANA");
+        familiaProductoraTomates.setDescripcion("Proucen tomate libre de agroquimicos");
+        familiaProductoraDao.save(familiaProductoraTomates);
 
         // LIST
-        writer.h2("Obtener Familia Productora con id " + fp.getId() + ":");
-        FamiliaProductora fp2 = familiaProductoraDao.getById(fp.getId());
-        writer.item(fp2);
+        writer.h2("Obtener Familia Productora con id " + familiaProductoraTomates.getId() + ":");
+        FamiliaProductora detalleFamiliaProductora = familiaProductoraDao.getById(familiaProductoraTomates.getId());
+        writer.item(detalleFamiliaProductora);
 
         // ============================== PUNTO DE VENTA =======================================
         writer.h1("Punto de Venta");
@@ -199,29 +210,97 @@ public class TestGlobal extends BaseTest {
         // ============================== MATERIA PRIMA =======================================
         writer.h1("Materia Prima");
 
-        MateriaPrima materiaPrima = new MateriaPrima("Nombre Materia Prima", "", UnidadMedidaEnum.KG, 20.0);
+        writer.h2("↳ Se crearan dos Materias Primas: ");
+        MateriaPrima tomate = new MateriaPrima("Tomattte", "Tomates para elssssssaboración de salsas", UnidadMedidaEnum.KG, 60.0);
+        MateriaPrima miel = new MateriaPrima("Miel de abeja", "Miel fresca de abejas locales", UnidadMedidaEnum.KG, 100.0);
 
-        // CREATE
-        writer.h2("↳ Se creara una Materia Prima: ");
-        materiaPrimaDao.save(materiaPrima);
+        materiaPrimaDao.save(tomate);
+        materiaPrimaDao.save(miel);
 
-        writer.item(materiaPrima);
+        writer.list(Arrays.asList(tomate, miel));
 
         // LIST
         writer.h2("Listado de MateriaPrimas: ");
         List<MateriaPrima> materiasPrimas = materiaPrimaDao.getAll();
         writer.list(materiasPrimas);
 
-        writer.h2("↳ Se modificará la Materia Prima con id " + materiaPrima.getId());
+        writer.h2("↳ Se modificará la Materia Prima con id " + tomate.getId());
         // UPDATE
-        materiaPrima.setNombre("MATERIA PRIMA (modificada)");
-        materiaPrima.setDescripcion("Descripcion MATERIA PRIMA (modificada)");
-        materiaPrimaDao.save(materiaPrima);
+        tomate.setNombre("Tomate");
+        tomate.setDescripcion("Tomates para elaboración de salsas");
+        materiaPrimaDao.save(tomate);
 
         // LIST
-        writer.h2("Obtener el detalle de Materia Prima con el id " + materiaPrima.getId() + ":");
-        MateriaPrima materiaPrimas2 = materiaPrimaDao.getById(materiaPrima.getId());
+        writer.h2("Obtener el detalle de Materia Prima con el id " + tomate.getId() + ":");
+        MateriaPrima materiaPrimas2 = materiaPrimaDao.getById(tomate.getId());
         writer.item(materiaPrimas2);
+
+        // ============================== INGRESO MATERIA PRIMA =======================================
+        writer.h1("Ingreso de Materia Prima");
+
+        writer.h2("Listado de todos Ingresos de Materia Prima: ");
+
+        writer.list(ingresoMateriaPrimaDao.getAll());
+
+        writer.h2(MessageFormat.format("Se crerá un ingreso de Materia Prima para el usuario {0} - materia prima: {1} - familia: {2}", encargadoDeSala.getUsername(), tomate.getNombre(), familiaProductoraTomates.getNombre()));
+
+        IngresoMateriaPrima ingresoTomates = new IngresoMateriaPrima(
+                20.0, "1100", "", new Date(), 25000, tomate, familiaProductoraTomates
+        );
+
+        ingresoTomates.updateEstado(new EstadoMateriaPrima(encargadoDeSala, new Date(), EstadoMateriaPrimaEnum.ESTANTE, ingresoTomates));
+        ingresoMateriaPrimaDao.save(ingresoTomates);
+        writer.item(ingresoTomates);
+
+        writer.h2(MessageFormat.format("Se crerá otro ingreso de Materia Prima para el usuario {0} - materia prima: {1} - familia: {2}", administrador.getUsername(), miel.getNombre(), familiaProductoraMiel.getNombre()));
+
+        IngresoMateriaPrima ingresoMiel = new IngresoMateriaPrima(
+                50.0, "imp-20052023/1", "", new Date(), 40000, miel, familiaProductoraMiel
+        );
+
+        ingresoMiel.updateEstado(new EstadoMateriaPrima(administrador, new Date(), EstadoMateriaPrimaEnum.ESTANTE, ingresoMiel));
+
+        ingresoMateriaPrimaDao.save(ingresoMiel);
+        writer.item(ingresoMiel);
+
+        writer.h2("Se modificará el ingreso de Miel (cantidad 50 => 60 | valor 40000 => 45000)");
+        ingresoMiel.setCantidad(60);
+        ingresoMiel.setValorCompra(45000);
+        ingresoMateriaPrimaDao.save(ingresoMiel);
+        writer.item(ingresoMiel);
+
+        writer.h2("Listado de todos Ingresos de Materia Prima: ");
+
+        writer.list(ingresoMateriaPrimaDao.getAll());
+
+        // ============================== ESTADO MATERIA PRIMA =========================
+
+        writer.h1("Estados de Materia Prima (ingresos)");
+
+        writer.h2("Listado de todos los estados");
+        List<EstadoMateriaPrima> estadoMateriaPrimaList = estadoMateriaPrimaDao.getAll();
+        writer.list(estadoMateriaPrimaList);
+
+        writer.h2("Se agregará un estado al ingreso con id " + ingresoTomates.getId() + " (Tomates)");
+        EstadoMateriaPrima estadoMateriaPrima = new EstadoMateriaPrima(encargadoDeSala, new Date(), EstadoMateriaPrimaEnum.FREEZER, ingresoTomates);
+        estadoMateriaPrimaDao.save(estadoMateriaPrima);
+        writer.item(estadoMateriaPrima);
+
+        writer.h2("Listado de todos los estados");
+        writer.list(estadoMateriaPrimaDao.getAll());
+
+        writer.h2("Listado de todos los estados del ingreso con id " + ingresoTomates.getId());
+        List<EstadoMateriaPrima> estadosIngresoTomate = estadoMateriaPrimaDao.getByIngresoMateriaPrima(ingresoTomates.getId());
+        writer.list(estadosIngresoTomate);
+
+        writer.h2("Se modificará el estado con id " + estadoMateriaPrima.getId() + "(FREEZER -> CAMARA_FRIO)");
+        estadoMateriaPrima.setEstado(EstadoMateriaPrimaEnum.CAMARA_FRIO);
+        estadoMateriaPrimaDao.save(estadoMateriaPrima);
+        writer.item(estadoMateriaPrima);
+
+        writer.h2("Listado de todos los estados de la materia prima " + tomate.getNombre());
+        List<EstadoMateriaPrima> estadosTomate = estadoMateriaPrimaDao.getByMateriaPrima(tomate.getId());
+        writer.list(estadosTomate);
 
         // ============================== RECETA =======================================
 
@@ -298,11 +377,11 @@ public class TestGlobal extends BaseTest {
 
         LoteProductoElaborado lote = new LoteProductoElaborado(5, "pe-05052023/1", new Date(), receta);
         lote.getConsumoInsumos().add(new ConsumoInsumo(10d, azucar, lote));
-        lote.getEstados().add(new EstadoLote(encargadoDeSala, new Date(), EstadoLoteEnum.EN_PROCESO, lote));
+        lote.updateEstado(new EstadoLote(encargadoDeSala, new Date(), EstadoLoteEnum.EN_PROCESO, lote));
 
         LoteProductoElaborado lote2 = new LoteProductoElaborado(5, "pe-05052023/1", new Date(), receta);
         lote2.getConsumoInsumos().add(new ConsumoInsumo(1d, frascos, lote));
-        lote2.getEstados().add(new EstadoLote(encargadoDeSala, new Date(), EstadoLoteEnum.EN_PROCESO, lote));
+        lote2.updateEstado(new EstadoLote(encargadoDeSala, new Date(), EstadoLoteEnum.EN_PROCESO, lote));
 
         loteProductoElaboradoDao.save(lote);
         loteProductoElaboradoDao.save(lote2);
@@ -410,6 +489,60 @@ public class TestGlobal extends BaseTest {
         writer.h2(MessageFormat.format("Listado de todos los consumos del insumo con id {0} ({1})", azucar.getId(), azucar.getNombre()));
         List<ConsumoInsumo> consumosAzucar = consumoInsumoDao.getByInsumo(azucar.getId());
         writer.list(consumosAzucar);
+
+        // ============================== CONSUMOS DE MATERIA PRIMA ============================
+        writer.h1("Consumos de Materia Prima");
+
+        writer.h2("Se agregará un consumo al lote con id " + lote2.getId() + "(Tomate 1kg) ");
+        ConsumoMateriaPrima consumoTomate = new ConsumoMateriaPrima(1D, tomate, ingresoTomates, lote2);
+        consumoMateriaPrimaDao.save(consumoTomate);
+        writer.item(consumoTomate);
+
+        writer.h2("Se agregará un consumo al lote con id " + lote.getId() + "(Miel 5kg) ");
+        ConsumoMateriaPrima consumoMiel = new ConsumoMateriaPrima(1D, miel, ingresoMiel, lote);
+        consumoMateriaPrimaDao.save(consumoMiel);
+        writer.item(consumoMiel);
+
+        writer.h2("Se agregará un nuevo consumo al lote con id " + lote.getId() + "(Tomate 1kg) ");
+        ConsumoMateriaPrima consumoTomate2 = new ConsumoMateriaPrima(1D, tomate, ingresoTomates, lote);
+        consumoMateriaPrimaDao.save(consumoTomate2);
+        writer.item(consumoTomate2);
+
+        writer.h2("Listado de todos los consumos");
+        List<ConsumoMateriaPrima> consumosMateriaPrima = consumoMateriaPrimaDao.getAll();
+        writer.list(consumosMateriaPrima);
+
+        writer.h2("Se modificará el consumo de miel (cantidad 5kg => 6kg)");
+        consumoMiel.setCantidad(6D);
+        consumoMateriaPrimaDao.save(consumoMiel);
+        writer.item(consumoMiel);
+
+        writer.h2("Listado de todos los consumos del lote con id " + lote2.getId());
+        writer.list(consumoMateriaPrimaDao.getByLote(lote2.getId()));
+
+        writer.h2("Listado de todos los consumos de la materia prima " + tomate.getNombre());
+        writer.list(consumoMateriaPrimaDao.getByMateriaPrima(tomate.getId()));
+
+        writer.h2("Listado de todos los consumos del ingreso de materia prima con id " + ingresoTomates.getId());
+        writer.list(consumoMateriaPrimaDao.getByIngresoMateriaPrima(ingresoTomates.getId()));
+
+        // ============================== ESTADOS DEL LOTE ============================
+        writer.h1("Estados de Elaboraciones");
+
+        writer.h2("Listado de todos los estados");
+        List<EstadoLote> estadoLoteList = estadoLoteDao.getAll();
+        writer.list(estadoLoteList);
+
+        writer.h2("Se agregarán dos estados al lote con id " + lote2.getId() + " (en deposito y luego entregado)");
+        EstadoLote estadoEnDeposito = new EstadoLote(encargadoDeSala, new Date(), EstadoLoteEnum.EN_DEPOSITO, lote2);
+        estadoLoteDao.save(estadoEnDeposito);
+        EstadoLote estadoEntregado = new EstadoLote(encargadoDeSala, new Date(), EstadoLoteEnum.ENTREGADO_COMPLETO, lote2);
+        estadoLoteDao.save(estadoEntregado);
+        writer.list(Arrays.asList(estadoEnDeposito, estadoEntregado));
+
+        writer.h2("Listado de todos los estados del lote con id " + lote2.getId());
+        List<EstadoLote> estadoLote2 = estadoLoteDao.getByLote(lote2.getId());
+        writer.list(estadoLote2);
     }
 
 }

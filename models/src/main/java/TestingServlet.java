@@ -1,3 +1,5 @@
+import dao.FactoryDAO;
+import dao.interfaces.IEstadoMateriaPrimaDao;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -41,7 +43,7 @@ public class TestingServlet extends HttpServlet {
         //TestReceta.test(writer);
         TestGlobal.test(writer);
         //TestIngresoMateriaPrima.test(writer);
-        //TestMateriaPrima.test(writer);
+        //TestMateriaPrima.test(writer);;
     }
 
     protected void addBootstrap(PrintWriter writer, PrintWriterConsumer action) {

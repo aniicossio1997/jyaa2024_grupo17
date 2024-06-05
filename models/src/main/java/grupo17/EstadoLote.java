@@ -47,8 +47,9 @@ public class EstadoLote extends EstadoBase {
     public String toString() {
         return "{"
                 + ", \"id\":\"" + id + "\""
-                + "\"estado\":\"" + estado + "\""
+                + "\"estado\":\"" + estado.getValue() + "\""
                 + ", \"autorId\":" + autor.getId()
+                + ", \"loteId\":" + lote.getId()
                 + ", \"fecha\":" + fecha
                 + "}";
     }

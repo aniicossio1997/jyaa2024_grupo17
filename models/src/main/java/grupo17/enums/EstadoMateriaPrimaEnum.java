@@ -1,24 +1,26 @@
 package grupo17.enums;
 
+import java.util.Objects;
+
 public enum EstadoMateriaPrimaEnum {
-    ESTANTE(1),
-    FREEZER(2),
-    CAMARA_FRIO(3);
+    ESTANTE("ESTANTE"),
+    FREEZER("FREEZER"),
+    CAMARA_FRIO("CAMARA_FRIO");
 
 
-    private final int value;
+    private final String value;
 
-    EstadoMateriaPrimaEnum(int value) {
+    EstadoMateriaPrimaEnum(String value) {
         this.value = value;
     }
 
-    public int getValue() {
+    public String getValue() {
         return value;
     }
 
-    public static EstadoMateriaPrimaEnum fromValue(int value) {
+    public static EstadoMateriaPrimaEnum fromValue(String value) {
         for (EstadoMateriaPrimaEnum estado : EstadoMateriaPrimaEnum.values()) {
-            if (estado.getValue() == value) {
+            if (Objects.equals(estado.getValue(), value)) {
                 return estado;
             }
         }

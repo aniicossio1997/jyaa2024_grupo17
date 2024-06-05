@@ -25,6 +25,9 @@ public class LoteProductoElaborado extends IdentifiableBaseEntity {
     private List<ConsumoInsumo> consumoInsumos = new ArrayList<>();
 
     @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ConsumoMateriaPrima> consumoMateriasPrimas = new ArrayList<>();
+
+    @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Nota> notas = new ArrayList<>();
 
     @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -77,8 +80,8 @@ public class LoteProductoElaborado extends IdentifiableBaseEntity {
         return estados;
     }
 
-    public void setEstados(List<EstadoLote> estados) {
-        this.estados = estados;
+    public void updateEstado(EstadoLote estado) {
+        this.estados.add(estado);
     }
 
     public Date getFecha() {

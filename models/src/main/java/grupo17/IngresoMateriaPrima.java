@@ -2,6 +2,7 @@ package grupo17;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -19,32 +20,33 @@ public class IngresoMateriaPrima extends IngresoBase {
     private MateriaPrima materiaPrima;
 
     @OneToMany(mappedBy = "ingresoMateriaPrima", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    public List<EstadoMateriaPrima> estados=new ArrayList<>();
+    public List<EstadoMateriaPrima> estados = new ArrayList<>();
 
     @Column(name = "is_deleted")
     private boolean isDeleted;
 
-    public  IngresoMateriaPrima(){
+    public IngresoMateriaPrima() {
         super();
     }
+
     public IngresoMateriaPrima(double cantidad, String codigo, String descripcion, Date fecha, double valorCompra, List<EstadoMateriaPrima> estados, MateriaPrima materiaPrima, FamiliaProductora productor) {
         super(cantidad, codigo, descripcion, fecha, valorCompra);
         this.estados = estados;
         this.materiaPrima = materiaPrima;
         this.familiaProductora = productor;
-        this.isDeleted=false;
+        this.isDeleted = false;
     }
 
     public IngresoMateriaPrima(double cantidad, String codigo, String descripcion, Date fecha, double valorCompra,
-                                MateriaPrima materiaPrima, FamiliaProductora productor) {
+                               MateriaPrima materiaPrima, FamiliaProductora productor) {
         super(cantidad, codigo, descripcion, fecha, valorCompra);
         this.materiaPrima = materiaPrima;
         this.familiaProductora = productor;
-        this.isDeleted=false;
+        this.isDeleted = false;
     }
 
 
-    public void updateEstado(EstadoMateriaPrima estado){
+    public void updateEstado(EstadoMateriaPrima estado) {
         this.estados.add(estado);
     }
 
@@ -57,6 +59,11 @@ public class IngresoMateriaPrima extends IngresoBase {
 
     public List<EstadoMateriaPrima> getEstados() {
         return estados;
+    }
+
+    public EstadoMateriaPrima getEstadoActual() {
+        return estados.stream()
+                .max(Comparator.comparingLong(EstadoMateriaPrima::getId)).orElse(null);
     }
 
     public void setEstados(List<EstadoMateriaPrima> estados) {
@@ -78,6 +85,7 @@ public class IngresoMateriaPrima extends IngresoBase {
     public void setMateriaPrima(MateriaPrima materiaPrima) {
         this.materiaPrima = materiaPrima;
     }
+
     public boolean isDeleted() {
         return isDeleted;
     }
@@ -88,17 +96,17 @@ public class IngresoMateriaPrima extends IngresoBase {
 
     @Override
     public String toString() {
-        return "IngresoMateriaPrima{" +
-                "estados=" + estados.toString() +
-                ", familiaProductora=" + familiaProductora.getId() +
-                ", materiaPrima=" + materiaPrima.getId() +
-                ", isDeleted=" + isDeleted +
-                ", cantidad=" + cantidad +
-                ", codigo='" + codigo + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", fecha=" + fecha +
-                ", valorCompra=" + valorCompra +
-
-                '}';
+        return "{"
+                + "\"estado\":" + getEstadoActual()
+                + ", \"familiaProductoraId\":" + familiaProductora.getId()
+                + ", \"materiaPrimaId\":" + materiaPrima.getId()
+                + ", \"cantidad\":\"" + cantidad + "\""
+                + ", \"codigo\":\"" + codigo + "\""
+                + ", \"descripcion\":\"" + descripcion + "\""
+                + ", \"fecha\":" + fecha
+                + ", \"valorCompra\":\"" + valorCompra + "\""
+                + ", \"id\":\"" + id + "\""
+                + "}";
     }
+
 }

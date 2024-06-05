@@ -15,12 +15,9 @@ public class EstadoMateriaPrima  extends EstadoBase{
     public  EstadoMateriaPrimaEnum estado;
 
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ingreso_materia_prima_id")
     private IngresoMateriaPrima ingresoMateriaPrima;
-
-
 
 
 

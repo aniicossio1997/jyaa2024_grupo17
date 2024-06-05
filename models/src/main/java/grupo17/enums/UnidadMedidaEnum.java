@@ -1,25 +1,27 @@
 package grupo17.enums;
 
+import java.util.Objects;
+
 public enum UnidadMedidaEnum {
-    KG(1),
-    GR(2),
-    CC(3),
-    LITRO(4),
-    UNIDAD(5);
+    KG("KG"),
+    GR("GR"),
+    CC("CC"),
+    LITRO("LITRO"),
+    UNIDAD("UNIDAD");
 
-    private final int value;
+    private final String value;
 
-    UnidadMedidaEnum(int value) {
+    UnidadMedidaEnum(String value) {
         this.value = value;
     }
 
-    public int getValue() {
+    public String getValue() {
         return value;
     }
 
-    public static UnidadMedidaEnum fromValue(int value) {
+    public static UnidadMedidaEnum fromValue(String value) {
         for (UnidadMedidaEnum unidad : UnidadMedidaEnum.values()) {
-            if (unidad.getValue() == value) {
+            if (Objects.equals(unidad.getValue(), value)) {
                 return unidad;
             }
         }

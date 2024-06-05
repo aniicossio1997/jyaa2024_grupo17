@@ -53,7 +53,19 @@ public class FactoryDAO {
         return new EntregaProductoDao();
     }
 
+    public static IEstadoMateriaPrimaDao createEstadoMateriaPrimaDao() {
+        return new EstadoMateriaPrimaDao();
+    }
+
     public static IConsumoInsumoDao createConsumoInsumoDao() {
         return new ConsumoInsumoDao();
+    }
+
+    public static IEstadoLoteDao createEstadoLoteDao() {
+        return new EstadoLoteDao();
+    }
+
+    public static IConsumoMateriaPrimaDao createConsumoMateriaPrimaDao() {
+        return new ConsumoMateriaPrimaDao();
     }
 }

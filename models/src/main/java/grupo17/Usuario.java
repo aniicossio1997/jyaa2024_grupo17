@@ -11,7 +11,9 @@ import javax.persistence.*;
 @Table(name = "usuario")
 public abstract class Usuario extends NameableBaseEntity {
     protected String apellido;
+    @Column(unique = true)
     protected String email;
+    @Column(unique = true)
     protected String username;
     protected String password;
 

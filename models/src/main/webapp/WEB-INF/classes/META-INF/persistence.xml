@@ -26,7 +26,7 @@
         <class>grupo17.EntregaProducto</class>
         <class>grupo17.ConsumoRecurso</class>
         <class>grupo17.ConsumoInsumo</class>
-
+        <class>grupo17.ConsumoMateriaPrima</class>
 
         <properties>
             <property name="hbm2ddl.auto" value="update"/>

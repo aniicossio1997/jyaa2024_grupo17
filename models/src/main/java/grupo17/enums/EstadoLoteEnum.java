@@ -1,24 +1,26 @@
 package grupo17.enums;
 
+import java.util.Objects;
+
 public enum EstadoLoteEnum {
-    EN_PROCESO(1),
-    EN_DEPOSITO(2),
-    ENTREGADO_PARCIAL(3),
-    ENTREGADO_COMPLETO(4);
+    EN_PROCESO("EN_PROCESO"),
+    EN_DEPOSITO("EN_DEPOSITO"),
+    ENTREGADO_PARCIAL("ENTREGADO_PARCIAL"),
+    ENTREGADO_COMPLETO("ENTREGADO_COMPLETO");
 
-    private final int value;
+    private final String value;
 
-    EstadoLoteEnum(int value) {
+    EstadoLoteEnum(String value) {
         this.value = value;
     }
 
-    public int getValue() {
+    public String getValue() {
         return value;
     }
 
-    public static EstadoLoteEnum fromValue(int value) {
+    public static EstadoLoteEnum fromValue(String value) {
         for (EstadoLoteEnum estado : EstadoLoteEnum.values()) {
-            if (estado.getValue() == value) {
+            if (Objects.equals(estado.getValue(), value)) {
                 return estado;
             }
         }

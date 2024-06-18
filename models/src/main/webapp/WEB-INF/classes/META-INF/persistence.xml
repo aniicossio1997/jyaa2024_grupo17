@@ -6,27 +6,27 @@
              version="2.1">
     <persistence-unit name="miUP">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <class>grupo17.FamiliaProductora</class>
-        <class>grupo17.Administrador</class>
-        <class>grupo17.EncargadoDeSala</class>
-        <class>grupo17.Usuario</class>
-        <class>grupo17.PuntoVenta</class>
-        <class>grupo17.IngresoInsumo</class>
-        <class>grupo17.Insumo</class>
-        <class>grupo17.Receta</class>
-        <class>grupo17.IngredienteReceta</class>
-        <class>grupo17.MateriaPrima</class>
-        <class>grupo17.LoteProductoElaborado</class>
-        <class>grupo17.EstadoLote</class>
-        <class>grupo17.Nota</class>
+        <class>com.app.models.FamiliaProductora</class>
+        <class>com.app.models.Administrador</class>
+        <class>com.app.models.EncargadoDeSala</class>
+        <class>com.app.models.Usuario</class>
+        <class>com.app.models.PuntoVenta</class>
+        <class>com.app.models.IngresoInsumo</class>
+        <class>com.app.models.Insumo</class>
+        <class>com.app.models.Receta</class>
+        <class>com.app.models.IngredienteReceta</class>
+        <class>com.app.models.MateriaPrima</class>
+        <class>com.app.models.LoteProductoElaborado</class>
+        <class>com.app.models.EstadoLote</class>
+        <class>com.app.models.Nota</class>
 
-        <class>grupo17.IngresoMateriaPrima</class>
-        <class>grupo17.EstadoMateriaPrima</class>
+        <class>com.app.models.IngresoMateriaPrima</class>
+        <class>com.app.models.EstadoMateriaPrima</class>
 
-        <class>grupo17.EntregaProducto</class>
-        <class>grupo17.ConsumoRecurso</class>
-        <class>grupo17.ConsumoInsumo</class>
-        <class>grupo17.ConsumoMateriaPrima</class>
+        <class>com.app.models.EntregaProducto</class>
+        <class>com.app.models.ConsumoRecurso</class>
+        <class>com.app.models.ConsumoInsumo</class>
+        <class>com.app.models.ConsumoMateriaPrima</class>
 
         <properties>
             <property name="hbm2ddl.auto" value="update"/>

@@ -1,9 +1,7 @@
-import dao.FactoryDAO;
-import dao.interfaces.IEstadoMateriaPrimaDao;
+import com.app.tests.TestGlobal;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import testsServlets.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;

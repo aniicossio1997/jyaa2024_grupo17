@@ -6,6 +6,9 @@ import javax.ws.rs.ApplicationPath;
 @ApplicationPath("/api")
 public class MyApplication extends ResourceConfig {
     public MyApplication() {
-        packages("com.abc.jersey.services");
+        packages("com.app.resources");
+
+        register(new ApplicationBinder());
+
     }
 }

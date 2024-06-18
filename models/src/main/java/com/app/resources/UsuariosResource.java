@@ -4,6 +4,7 @@ package com.app.resources;
 import com.app.models.Administrador;
 import com.app.models.Usuario;
 import com.app.services.interfaces.IUsuarioService;
+import com.app.viewModels.UsuarioViewModel;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -21,7 +22,9 @@ public class UsuariosResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Usuario> getUsuarios() {
+    public List<UsuarioViewModel> getUsuarios() {
         return usuarioService.getAll();
     }
+
+
 }

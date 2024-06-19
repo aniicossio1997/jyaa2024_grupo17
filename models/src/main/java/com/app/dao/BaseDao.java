@@ -30,8 +30,14 @@ public abstract class BaseDao<T> {
     public void save(T item) {
         EntityTransaction etx = em.getTransaction();
         etx.begin();
-        em.persist(item);
-        etx.commit();
+        try {
+            em.persist(item);
+            etx.commit();
+        } catch (Exception e) {
+            etx.rollback();
+            throw  e;
+        }
+
     }
 
     public T getById(Long id) {

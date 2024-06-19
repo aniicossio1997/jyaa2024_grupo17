@@ -63,7 +63,6 @@ public abstract class Usuario extends NameableBaseEntity {
 
     public abstract RolUsuario getRol();
 
-
     @Override
     public String toString() {
         return "{"

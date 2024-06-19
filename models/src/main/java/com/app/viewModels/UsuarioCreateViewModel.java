@@ -2,14 +2,16 @@ package com.app.viewModels;
 
 import com.app.models.enums.RolUsuario;
 
-public class UsuarioPostViewModel {
-    String nombre;
+public class UsuarioCreateViewModel {
+    private  String nombre;
     String apellido;
     String email;
     String username;
     String password;
     RolUsuario rol;
 
+    public UsuarioCreateViewModel() {
+    }
 
     public String getApellido() {
         return apellido;

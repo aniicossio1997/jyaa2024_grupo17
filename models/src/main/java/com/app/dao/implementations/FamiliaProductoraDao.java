@@ -7,4 +7,5 @@ import com.app.models.FamiliaProductora;
 public class FamiliaProductoraDao extends BaseDao<FamiliaProductora> implements IFamiliaProductoraDao {
 
 
+
 }

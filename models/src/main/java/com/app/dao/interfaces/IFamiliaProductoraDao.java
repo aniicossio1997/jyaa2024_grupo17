@@ -12,6 +12,7 @@ public interface IFamiliaProductoraDao {
     
     List<FamiliaProductora> getAll();
 
+
    /* void delete(Long id); */
     
 }

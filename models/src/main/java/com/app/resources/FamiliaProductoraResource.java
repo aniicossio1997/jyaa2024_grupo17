@@ -13,7 +13,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.List;
 
 
-@Path("/familiaProductora")
+@Path("/familiaProductoras")
 @Produces(MediaType.APPLICATION_JSON)
 public class FamiliaProductoraResource {
 

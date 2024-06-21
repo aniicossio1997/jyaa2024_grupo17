@@ -3,12 +3,11 @@ package com.app.dao.implementations;
 import com.app.dao.BaseDao;
 import com.app.dao.interfaces.IConsumoInsumoDao;
 import com.app.models.ConsumoInsumo;
-import com.app.models.IngredienteReceta;
-import com.app.models.IngresoInsumo;
-
+import org.jvnet.hk2.annotations.Service;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+@Service
 public class ConsumoInsumoDao extends BaseDao<ConsumoInsumo> implements IConsumoInsumoDao {
 
 

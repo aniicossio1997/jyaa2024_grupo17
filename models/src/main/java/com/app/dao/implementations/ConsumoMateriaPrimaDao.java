@@ -3,10 +3,12 @@ package com.app.dao.implementations;
 import com.app.dao.BaseDao;
 import com.app.dao.interfaces.IConsumoMateriaPrimaDao;
 import com.app.models.ConsumoMateriaPrima;
+import org.jvnet.hk2.annotations.Service;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+@Service
 public class ConsumoMateriaPrimaDao extends BaseDao<ConsumoMateriaPrima> implements IConsumoMateriaPrimaDao {
 
     @Override

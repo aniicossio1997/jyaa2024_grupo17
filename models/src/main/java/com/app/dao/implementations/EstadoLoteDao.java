@@ -3,12 +3,12 @@ package com.app.dao.implementations;
 import com.app.dao.BaseDao;
 import com.app.dao.interfaces.IEstadoLoteDao;
 import com.app.models.EstadoLote;
-import com.app.models.IngredienteReceta;
-import com.app.models.IngresoInsumo;
+import org.jvnet.hk2.annotations.Service;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+@Service
 public class EstadoLoteDao extends BaseDao<EstadoLote> implements IEstadoLoteDao {
 
     @Override

@@ -1,5 +1,7 @@
 package com.app.dao;
 
+import jakarta.inject.Inject;
+
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
@@ -8,6 +10,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 public abstract class BaseDao<T> {
+
+    @Inject
     protected EntityManager em;
 
     protected boolean getDeletable() {
@@ -16,7 +20,7 @@ public abstract class BaseDao<T> {
 
     public BaseDao() {
         super();
-        this.em = DBConnection.getInstance().getEntityManager();
+        //this.em = DBConnection.getInstance().getEntityManager();
 
     }
 

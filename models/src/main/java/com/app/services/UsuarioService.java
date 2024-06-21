@@ -10,6 +10,7 @@ import com.app.services.interfaces.IUsuarioService;
 import com.app.utils.ListUtils;
 import com.app.viewModels.UsuarioCreateViewModel;
 import com.app.viewModels.UsuarioViewModel;
+import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolation;
 import org.glassfish.hk2.api.PerLookup;
 import org.hibernate.exception.ConstraintViolationException;
@@ -21,7 +22,8 @@ import java.util.List;
 @PerLookup
 public class UsuarioService implements IUsuarioService {
 
-    private IUsuarioDao usuarioDao = FactoryDAO.createUsuarioDao();
+    @Inject
+    private IUsuarioDao usuarioDao;
 
     @Override
     public List<UsuarioViewModel> getAll() {
@@ -50,10 +52,6 @@ public class UsuarioService implements IUsuarioService {
         if (uvm.getEmail() != null) usuario.setEmail(uvm.getEmail());
         if (uvm.getUsername() != null) usuario.setUsername(uvm.getUsername());
         if (uvm.getPassword() != null) usuario.setPassword(uvm.getPassword());
-
-        if (uvm.getRol() != null && (uvm.getRol() != usuario.getRol())) {
-            this.usuarioDao.updateRol(usuario, uvm.getRol());
-        }
 
         this.usuarioDao.save(usuario);
         return toViewModel(usuario);

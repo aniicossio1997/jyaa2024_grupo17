@@ -2,13 +2,12 @@ package com.app.dao.implementations;
 
 import com.app.dao.BaseDao;
 import com.app.dao.interfaces.ILoteProductoElaboradoDao;
-import com.app.models.IngredienteReceta;
 import com.app.models.LoteProductoElaborado;
-import com.app.models.PuntoVenta;
-
+import org.jvnet.hk2.annotations.Service;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+@Service
 public class LoteProductoElaboradoDao extends BaseDao<LoteProductoElaborado> implements ILoteProductoElaboradoDao {
 
     public List<LoteProductoElaborado> getByRecetaId(Long recetaId) {

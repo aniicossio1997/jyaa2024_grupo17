@@ -2,15 +2,14 @@ package com.app.dao.implementations;
 
 import com.app.dao.BaseDao;
 import com.app.dao.interfaces.IUsuarioDao;
-import com.app.models.FamiliaProductora;
-import com.app.models.IngredienteReceta;
 import com.app.models.Usuario;
 import com.app.models.enums.RolUsuario;
 import org.hibernate.Session;
+import org.jvnet.hk2.annotations.Service;
 
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
+@Service
 public class UsuarioDao extends BaseDao<Usuario> implements IUsuarioDao {
 
 

@@ -2,12 +2,13 @@ package com.app.dao.implementations;
 
 import com.app.dao.BaseDao;
 import com.app.dao.interfaces.IEstadoMateriaPrimaDao;
-import com.app.models.EstadoLote;
 import com.app.models.EstadoMateriaPrima;
+import org.jvnet.hk2.annotations.Service;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+@Service
 public class EstadoMateriaPrimaDao extends BaseDao<EstadoMateriaPrima> implements IEstadoMateriaPrimaDao {
 
     @Override

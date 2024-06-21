@@ -3,12 +3,12 @@ package com.app.dao.implementations;
 import com.app.dao.BaseDao;
 import com.app.dao.interfaces.IEntregaProductoDao;
 import com.app.models.EntregaProducto;
-import com.app.models.IngredienteReceta;
-import com.app.models.PuntoVenta;
+import org.jvnet.hk2.annotations.Service;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+@Service
 public class EntregaProductoDao extends BaseDao<EntregaProducto> implements IEntregaProductoDao {
 
     @Override

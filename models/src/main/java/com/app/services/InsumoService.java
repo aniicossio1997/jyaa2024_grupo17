@@ -6,6 +6,8 @@ import com.app.dao.interfaces.IInsumoDao;
 import com.app.models.Insumo;
 import com.app.services.interfaces.IInsumoService;
 import com.app.utils.ListUtils;
+import com.app.viewModels.InsumoCreateViewModel;
+import com.app.viewModels.InsumoViewModel;
 import com.app.viewModels.RecursoPostViewModel;
 import com.app.viewModels.base.NameableViewModel;
 import org.glassfish.hk2.api.PerLookup;
@@ -23,13 +25,18 @@ public class InsumoService  implements IInsumoService {
     }
 
     @Override
-    public RecursoPostViewModel create(RecursoPostViewModel materiaPrima) {
-        return null;
+    public InsumoViewModel create(InsumoCreateViewModel entityToAdd) {
+        Insumo insumo=new Insumo(entityToAdd.getNombre(), entityToAdd.getCantidadDisponible(), entityToAdd.getDescripcion(), entityToAdd.getUnidadMedida());
+       this.insumoDao.save(insumo );
+       return this.toViewModel(insumo);
     }
-    private NameableViewModel toViewModel(Insumo insumo) {
-        return new NameableViewModel(
+    private InsumoViewModel toViewModel(Insumo insumo) {
+        return new InsumoViewModel(
                 insumo.getId(),
-                insumo.getNombre()
+                insumo.getNombre(),
+                insumo.getCantidadDisponible(),
+                insumo.getUnidadMedida(),
+                insumo.getDescripcion()
 
         );
     }

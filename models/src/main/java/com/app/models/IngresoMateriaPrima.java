@@ -1,5 +1,8 @@
 package com.app.models;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -8,6 +11,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "ingreso_materia_prima")
+@SQLDelete(sql = "UPDATE ingreso_materia_prima SET fechaBaja = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "fechaBaja IS NULL")
 public class IngresoMateriaPrima extends IngresoBase {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,8 +30,19 @@ public class IngresoMateriaPrima extends IngresoBase {
     @Column(name = "is_deleted")
     private boolean isDeleted;
 
+    @OneToMany(mappedBy = "ingreso", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    public List<ConsumoMateriaPrima> consumoMateriaPrimas = new ArrayList<>();
+
     public IngresoMateriaPrima() {
         super();
+    }
+
+    public List<ConsumoMateriaPrima> getConsumoMateriaPrimas() {
+        return consumoMateriaPrimas;
+    }
+
+    public void setConsumoMateriaPrimas(List<ConsumoMateriaPrima> consumoMateriaPrimas) {
+        this.consumoMateriaPrimas = consumoMateriaPrimas;
     }
 
     public IngresoMateriaPrima(double cantidad, String codigo, String descripcion, Date fecha, double valorCompra, List<EstadoMateriaPrima> estados, MateriaPrima materiaPrima, FamiliaProductora productor) {
@@ -42,6 +58,12 @@ public class IngresoMateriaPrima extends IngresoBase {
         super(cantidad, codigo, descripcion, fecha, valorCompra);
         this.materiaPrima = materiaPrima;
         this.familiaProductora = productor;
+        this.isDeleted = false;
+
+    }
+    public IngresoMateriaPrima(double cantidad, String codigo, String descripcion, Date fecha, double valorCompra
+                               ) {
+        super(cantidad, codigo, descripcion, fecha, valorCompra);
         this.isDeleted = false;
     }
 

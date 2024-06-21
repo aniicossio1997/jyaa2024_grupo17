@@ -1,11 +1,12 @@
 package com.app.models;
 
+import com.app.models.baseEntity.DeletableBaseEntity;
 import com.app.models.baseEntity.IdentifiableBaseEntity;
 
 import javax.persistence.MappedSuperclass;
 import java.util.Date;
 @MappedSuperclass
-public class IngresoBase extends IdentifiableBaseEntity {
+public class IngresoBase extends DeletableBaseEntity {
     protected Date fecha;
     protected String descripcion;
     protected double cantidad;

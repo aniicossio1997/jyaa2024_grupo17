@@ -15,4 +15,5 @@ public class ApplicationBinder extends AbstractBinder {
         bind(JustInTimeServiceResolver.class).to(JustInTimeInjectionResolver.class);
     }
 
+
 }

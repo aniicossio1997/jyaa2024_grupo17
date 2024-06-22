@@ -7,9 +7,9 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class Recurso extends NameableBaseEntity {
 
-    String descripcion;
-    UnidadMedidaEnum unidadMedida;
-    Double cantidadDisponible;
+    public String descripcion;
+    public UnidadMedidaEnum unidadMedida;
+    public Double cantidadDisponible;
 
     public Recurso() {
         super();
@@ -20,6 +20,15 @@ public class Recurso extends NameableBaseEntity {
         this.cantidadDisponible = cantidadDisponible;
         this.descripcion = descripcion;
         this.unidadMedida = unidadMedida;
+    }
+
+    public Recurso(String nombre, UnidadMedidaEnum unidadMedida,
+                        String descripcion) {
+        super(nombre);
+        this.cantidadDisponible = 0.0;
+        this.descripcion = descripcion;
+        this.unidadMedida = unidadMedida;
+
     }
 
     public String getNombre() {

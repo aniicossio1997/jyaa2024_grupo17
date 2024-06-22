@@ -1,5 +1,6 @@
 package com.app.dao;
 
+import com.app.dao.interfaces.IBasicDao;
 import jakarta.inject.Inject;
 
 import java.lang.reflect.ParameterizedType;
@@ -9,7 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
-public abstract class BaseDao<T> {
+public abstract class BaseDao<T> implements IBasicDao<T> {
 
     @Inject
     protected EntityManager em;
@@ -57,26 +58,27 @@ public abstract class BaseDao<T> {
         TypedQuery<T> q = em.createQuery(query, this.getGenericClass());
         return q.getResultList();
     }
-    public void deleteLogically(Long id) {
-        EntityTransaction etx = em.getTransaction();
-        etx.begin();
-        T item = getById(id);
-        try {
-            item.getClass().getMethod("setDeleted", boolean.class).invoke(item, true);
-            em.merge(item);
-            etx.commit();
-        } catch (Exception e) {
-            etx.rollback();
-            throw new RuntimeException("Failed to perform logical delete", e);
-        }
-    }
 
-    public List<T> getAllNotDeleted() {
-        TypedQuery<T> q = em.createQuery(
-                "FROM " + this.getGenericClass().getName() + " i WHERE i.isDeleted = false",
-                this.getGenericClass()
-        );
-        return q.getResultList();
+
+    public List<T> getAll(boolean isActive) {
+
+            String query = "FROM " + this.getGenericClass().getName() + " i";
+            if (isActive) query += " WHERE i.fechaBaja is NULL";
+            TypedQuery<T> q = em.createQuery(query, this.getGenericClass());
+            return q.getResultList();
+
+    }
+    public T getById(Long id, boolean isActive) {
+        //JPAQL
+        String query = "FROM " + this.getGenericClass().getName() + " i";
+        if (isActive) query += " WHERE i.fechaBaja is NULL and i.id = :id ";
+
+        TypedQuery<T> q = em.createQuery(query, this.getGenericClass());
+
+        q.setParameter("id", id);
+
+
+        return q.getSingleResult();
     }
 
 }

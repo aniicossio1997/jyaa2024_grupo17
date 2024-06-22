@@ -14,6 +14,11 @@ public class MateriaPrima extends Recurso {
 
 
     public MateriaPrima(String nombre, UnidadMedidaEnum unidadMedida,
+                        String descripcion)  {
+        super(nombre,  unidadMedida, descripcion);
+
+    }
+    public MateriaPrima(String nombre, UnidadMedidaEnum unidadMedida,
                         Double cantidadDisponible, String descripcion,
                         List<IngresoMateriaPrima> ingresos) {
         super(cantidadDisponible, descripcion, nombre, unidadMedida);
@@ -36,5 +41,15 @@ public class MateriaPrima extends Recurso {
     @Override
     public String toString() {
         return "Materia Prima" + super.toString();
+    }
+
+    public List<IngresoMateriaPrima> getIngresos() {
+        return ingresos;
+    }
+
+    public double getCantidadIngresos() {
+        return ingresos.stream()
+                .mapToDouble(IngresoMateriaPrima::getCantidad)
+                .sum();
     }
 }

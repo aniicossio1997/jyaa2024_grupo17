@@ -10,7 +10,9 @@ import com.app.viewModels.InsumoCreateViewModel;
 import com.app.viewModels.InsumoViewModel;
 import com.app.viewModels.RecursoPostViewModel;
 import com.app.viewModels.base.NameableViewModel;
+import jakarta.inject.Inject;
 import org.glassfish.hk2.api.PerLookup;
+import org.jvnet.hk2.annotations.Contract;
 import org.jvnet.hk2.annotations.Service;
 
 import java.util.List;
@@ -18,7 +20,8 @@ import java.util.List;
 @Service
 @PerLookup
 public class InsumoService  implements IInsumoService {
-    private IInsumoDao insumoDao= FactoryDAO.createInsumoDao();
+    @Inject
+    private IInsumoDao insumoDao;
     @Override
     public List<NameableViewModel> getAll() {
         return  ListUtils.mapList(insumoDao.getAll(), this::toViewModel);
@@ -30,6 +33,7 @@ public class InsumoService  implements IInsumoService {
        this.insumoDao.save(insumo );
        return this.toViewModel(insumo);
     }
+
     private InsumoViewModel toViewModel(Insumo insumo) {
         return new InsumoViewModel(
                 insumo.getId(),

@@ -14,6 +14,7 @@ import com.app.utils.MappingUtils;
 import com.app.viewModels.IngresoMateriaPrimaCreateViewModel;
 import com.app.viewModels.IngresoMateriaPrimaViewModel;
 import com.app.viewModels.InsumoViewModel;
+import jakarta.inject.Inject;
 import org.glassfish.hk2.api.PerLookup;
 import org.jvnet.hk2.annotations.Service;
 
@@ -23,13 +24,16 @@ import java.util.List;
 @Service
 @PerLookup
 public class IngresoMateriaPrimaService implements IIngresoMateriaPrimaService {
-    private IFamiliaProductoraDao familiaProductoraDao = FactoryDAO.createFamiliaProductoraDao();
-    private IMateriaPrimaDao materiaPrimaDao = FactoryDAO.createMateriaPrimaDao();
-    private IIngresoMateriaPrimaDao ingresoMateriaPrimaDao = FactoryDAO.createIngresoMateriaPrimaDao();
+    @Inject
+    private IFamiliaProductoraDao familiaProductoraDao;
+    @Inject
+    private IMateriaPrimaDao materiaPrimaDao;
+    @Inject
+    private IIngresoMateriaPrimaDao ingresoMateriaPrimaDao;
 
     @Override
     public IngresoMateriaPrimaViewModel create(IngresoMateriaPrimaCreateViewModel entityToAdd) {
-        FamiliaProductora familia = familiaProductoraDao.getById(entityToAdd.familiaPrimaId);
+        FamiliaProductora familia = familiaProductoraDao.getById(entityToAdd.familiaPrimaId,true);
         MateriaPrima materiaPrima = this.materiaPrimaDao.getById(entityToAdd.materiaPrimaId);
         IngresoMateriaPrima ingresoMateriaPrima = new IngresoMateriaPrima(entityToAdd.cantidad, entityToAdd.codigo, entityToAdd.descripcion,
                 entityToAdd.fecha, entityToAdd.valorCompra);
@@ -48,10 +52,15 @@ public class IngresoMateriaPrimaService implements IIngresoMateriaPrimaService {
     @Override
     public boolean delete(Long id) {
         IngresoMateriaPrima entityToDelete= this.ingresoMateriaPrimaDao.getById(id);
-        entityToDelete.setDeleted(true);
+        entityToDelete.setFechaBaja(new Date());;
         ingresoMateriaPrimaDao.save(entityToDelete);
         return  true;
         
+    }
+
+    @Override
+    public IngresoMateriaPrimaViewModel getById(Long id) {
+        return toViewModel(this.ingresoMateriaPrimaDao.getById(id));
     }
 
 

@@ -11,4 +11,5 @@ public interface IIngresoMateriaPrimaService {
     IngresoMateriaPrimaViewModel create(IngresoMateriaPrimaCreateViewModel ingresoMateriaPrima);
     List<IngresoMateriaPrimaViewModel> getByFilters();
     boolean delete(Long id);
+    IngresoMateriaPrimaViewModel getById(Long id);
 }

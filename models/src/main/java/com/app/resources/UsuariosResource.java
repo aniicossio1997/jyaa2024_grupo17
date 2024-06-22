@@ -5,7 +5,6 @@ import com.app.services.interfaces.IUsuarioService;
 import com.app.viewModels.UsuarioCreateViewModel;
 import com.app.viewModels.UsuarioViewModel;
 import jakarta.inject.Inject;
-import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 
@@ -20,8 +19,8 @@ public class UsuariosResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<UsuarioViewModel> getUsuarios() {
-        return usuarioService.getAll();
+    public List<UsuarioViewModel> getUsuarios(@QueryParam("includeBlocked") boolean includeBlocked) {
+        return usuarioService.getAll(includeBlocked);
     }
 
 

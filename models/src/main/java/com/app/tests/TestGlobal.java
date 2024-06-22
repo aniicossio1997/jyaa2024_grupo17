@@ -5,6 +5,7 @@ import com.app.dao.interfaces.*;
 import com.app.models.*;
 import com.app.models.enums.EstadoLoteEnum;
 import com.app.models.enums.EstadoMateriaPrimaEnum;
+import com.app.models.enums.RolUsuario;
 import com.app.models.enums.UnidadMedidaEnum;
 
 import java.io.PrintWriter;
@@ -39,7 +40,7 @@ public class TestGlobal extends BaseTest {
 
         writer.h1("Usuarios");
 
-        Administrador administrador = new Administrador("Ad", "Min", "admin", "asdasd123", "admin@test.com");
+        Usuario administrador = new Usuario("Ad", "Min", "admin", "asdasd123", "admin@test.com", RolUsuario.ADMIN);
         List<Usuario> usuarios;
 
         // CREATE
@@ -50,14 +51,14 @@ public class TestGlobal extends BaseTest {
 
         // CREATE
         writer.h2("↳ Se creara un nuevo usuario Encargado de Sala: ");
-        EncargadoDeSala encargadoDeSala = new EncargadoDeSala("Encargado", "Sala", "encargadosala", "asdasd123", "encargado@test.com");
+        Usuario encargadoDeSala = new Usuario("Encargado", "Sala", "encargadosala", "asdasd123", "encargado@test.com", RolUsuario.ENCARGADO_SALA);
         usuarioDao.save(encargadoDeSala);
 
         writer.item(encargadoDeSala);
 
         // LIST
         writer.h2("Listado de Usuarios: ");
-        usuarios = usuarioDao.getAll();
+        usuarios = usuarioDao.getAll(false);
         writer.list(usuarios);
 
         writer.h2("Se modificará el usuario con id: " + administrador.getId());
@@ -72,7 +73,7 @@ public class TestGlobal extends BaseTest {
         writer.item(u2);
 
         writer.h2("Listado de Usuarios: ");
-        usuarios = usuarioDao.getAll();
+        usuarios = usuarioDao.getAll(false);
         writer.list(usuarios);
 
         // ============================== FAMILIA PRODUCTORA =======================================
@@ -310,7 +311,7 @@ public class TestGlobal extends BaseTest {
         List<IngredienteReceta> ingredientes = new ArrayList<>();
 
         // CREATE
-        Receta receta = new Receta("Mermelada de Frutilla", "Deliciosa mermelada", ingredientes);
+        Receta receta = new Receta("Mermelada de Frutilla", "Deliciosa mermelada", ingredientes, encargadoDeSala);
 
         ingredientes.add(new IngredienteReceta(0.3, azucar, receta));
         ingredientes.add(new IngredienteReceta(1.0, frascos, receta));

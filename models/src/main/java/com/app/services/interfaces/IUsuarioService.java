@@ -9,7 +9,7 @@ import java.util.List;
 @Contract
 public interface IUsuarioService {
 
-    List<UsuarioViewModel> getAll();
+    List<UsuarioViewModel> getAll(boolean includeBlocked);
 
     UsuarioViewModel create(UsuarioCreateViewModel usuario);
 

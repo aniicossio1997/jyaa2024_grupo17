@@ -4,6 +4,10 @@ public class NameableViewModel extends IdentifiableViewModel {
 
     String nombre;
 
+    public NameableViewModel() {
+        super();
+    }
+
     public NameableViewModel(Long id, String nombre) {
         super(id);
         this.nombre = nombre;

@@ -8,18 +8,16 @@ import org.hibernate.Session;
 import org.jvnet.hk2.annotations.Service;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Service
 public class UsuarioDao extends BaseDao<Usuario> implements IUsuarioDao {
 
-
-    @Override
-    public void updateRol(Usuario usuario, RolUsuario rol) {
-        Session session = em.unwrap(Session.class);
-        Query q = session.createNativeQuery("UPDATE " + this.getGenericClass().getName() + " SET rol = :rol WHERE id = :userId");
-        q.setParameter("rol", rol.getValue());
-        q.setParameter("userId", usuario.getId());
-        q.executeUpdate();
-        em.refresh(usuario);
+    public List<Usuario> getAll(boolean includeBlocked) {
+        String query = "FROM " + this.getGenericClass().getName() + " i";
+        if (!includeBlocked) query += " WHERE i.blocked = false";
+        TypedQuery<Usuario> q = em.createQuery(query, this.getGenericClass());
+        return q.getResultList();
     }
 }

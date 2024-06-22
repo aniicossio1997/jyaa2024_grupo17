@@ -17,8 +17,8 @@ public class Nota extends DeletableBaseEntity {
     private String descripcion;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "insumo_id")
-    private EncargadoDeSala autor;
+    @JoinColumn(name = "autor_id")
+    private Usuario autor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lote_producto_elaborado_id")
@@ -28,18 +28,18 @@ public class Nota extends DeletableBaseEntity {
         super();
     }
 
-    public Nota(EncargadoDeSala autor, String descripcion, LoteProductoElaborado lote) {
+    public Nota(Usuario autor, String descripcion, LoteProductoElaborado lote) {
         this.autor = autor;
         this.fecha = new Date();
         this.lote = lote;
         this.descripcion = descripcion;
     }
 
-    public EncargadoDeSala getAutor() {
+    public Usuario getAutor() {
         return autor;
     }
 
-    public void setAutor(EncargadoDeSala autor) {
+    public void setAutor(Usuario autor) {
         this.autor = autor;
     }
 

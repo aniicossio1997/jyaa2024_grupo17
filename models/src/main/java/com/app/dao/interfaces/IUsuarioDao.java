@@ -14,9 +14,5 @@ public interface IUsuarioDao {
 
     Usuario getById(Long id);
 
-    List<Usuario> getAll();
-
-    void updateRol(Usuario usuario, RolUsuario rol);
-    /* void delete(Long id); */
-
+    List<Usuario> getAll(boolean includeBlocked);
 }

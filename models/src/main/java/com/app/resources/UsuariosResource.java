@@ -4,12 +4,13 @@ package com.app.resources;
 import com.app.services.interfaces.IUsuarioService;
 import com.app.viewModels.UsuarioCreateViewModel;
 import com.app.viewModels.UsuarioViewModel;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
-
+@Tag(name = "Usuarios")
 @Path("/usuarios")
 @Produces(MediaType.APPLICATION_JSON)
 public class UsuariosResource {

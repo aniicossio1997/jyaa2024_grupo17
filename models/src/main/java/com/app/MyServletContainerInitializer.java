@@ -26,5 +26,8 @@ public class MyServletContainerInitializer implements ServletContainerInitialize
         registration.setLoadOnStartup(1);
 
         registration.addMapping("/api/*");
+
+        ServletRegistration.Dynamic defaultServlet = ctx.addServlet("default", new ServletContainer(resourceConfig) );
+        defaultServlet.addMapping("/swagger/*");
     }
 }

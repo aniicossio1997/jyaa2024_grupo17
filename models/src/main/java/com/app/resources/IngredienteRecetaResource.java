@@ -4,6 +4,7 @@ package com.app.resources;
 import com.app.services.interfaces.IIngredienteRecetaService;
 import com.app.services.interfaces.IRecetaService;
 import com.app.viewModels.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -11,7 +12,8 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
-@Path("/ingrediente")
+@Path("/ingredientes")
+@Tag(name = "Ingredientes")
 @Produces(MediaType.APPLICATION_JSON)
 public class IngredienteRecetaResource {
 
@@ -25,6 +27,7 @@ public class IngredienteRecetaResource {
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     public IngredienteRecetaViewModel create(IngredienteRecetaCreateViewModel viewModel) {
         return ingredienteRecetaService.create(viewModel);
     }

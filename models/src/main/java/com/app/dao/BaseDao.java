@@ -21,7 +21,7 @@ public abstract class BaseDao<T> implements IBasicDao<T> {
 
     public BaseDao() {
         super();
-        //this.em = DBConnection.getInstance().getEntityManager();
+        this.em = DBConnection.getInstance().getEntityManager();
 
     }
 
@@ -47,7 +47,9 @@ public abstract class BaseDao<T> implements IBasicDao<T> {
 
     public T getById(Long id) {
         //JPAQL
-        TypedQuery<T> q = em.createQuery("FROM " + this.getGenericClass().getName() + " i WHERE i.id = :id", this.getGenericClass());
+        String query = "FROM " + this.getGenericClass().getName() + " i WHERE i.id = :id";
+        if (getDeletable()) query += " AND i.fechaBaja is NULL";
+        TypedQuery<T> q = em.createQuery(query, this.getGenericClass());
         q.setParameter("id", id);
         return q.getSingleResult();
     }
@@ -58,6 +60,7 @@ public abstract class BaseDao<T> implements IBasicDao<T> {
         TypedQuery<T> q = em.createQuery(query, this.getGenericClass());
         return q.getResultList();
     }
+
 
 
     public List<T> getAll(boolean isActive) {

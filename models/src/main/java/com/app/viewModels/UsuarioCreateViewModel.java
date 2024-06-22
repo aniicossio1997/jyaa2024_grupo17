@@ -9,6 +9,7 @@ public class UsuarioCreateViewModel {
     String username;
     String password;
     RolUsuario rol;
+    Boolean blocked;
 
     public UsuarioCreateViewModel() {
     }
@@ -59,5 +60,13 @@ public class UsuarioCreateViewModel {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Boolean getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(Boolean blocked) {
+        this.blocked = blocked;
     }
 }

@@ -12,6 +12,10 @@ public class Receta extends IdentifiableBaseEntity {
     public String nombre;
     public String descripcion;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "autor_id")
+    public Usuario autor;
+
     @OneToMany(mappedBy = "receta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     public List<IngredienteReceta> ingredientes = new ArrayList<>();
 
@@ -22,10 +26,11 @@ public class Receta extends IdentifiableBaseEntity {
         super();
     }
 
-    public Receta(String nombre, String descripcion, List<IngredienteReceta> ingredientes) {
+    public Receta(String nombre, String descripcion, List<IngredienteReceta> ingredientes, Usuario autor) {
         this.nombre = nombre;
         this.ingredientes = ingredientes;
         this.descripcion = descripcion;
+        this.autor = autor;
     }
 
     public String getDescripcion() {
@@ -52,12 +57,26 @@ public class Receta extends IdentifiableBaseEntity {
         this.ingredientes = ingredientes;
     }
 
+    public void addIngrediente(IngredienteReceta ingrediente) {
+        ingredientes.add(ingrediente);
+    }
+
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+
+    public Usuario getAutor() {
+        return autor;
+    }
+
+
+    public void setAutor(Usuario autor) {
+        this.autor = autor;
     }
 
     @Override

@@ -11,6 +11,11 @@ import java.util.List;
 @Service
 public class IngredienteRecetaDao extends BaseDao<IngredienteReceta> implements IIngredienteRecetaDao {
 
+    @Override
+    public boolean getDeletable() {
+        return true;
+    }
+
     public List<IngredienteReceta> getByRecetaId(Long recetaId) {
         TypedQuery<IngredienteReceta> q = em.createQuery("FROM " + this.getGenericClass().getName() + " i WHERE receta_id = :recetaId", this.getGenericClass());
         q.setParameter("recetaId", recetaId);

@@ -9,12 +9,15 @@ public class UsuarioViewModel extends NameableViewModel {
     String username;
     String email;
     RolUsuario rol;
+    Boolean blocked;
 
-    public UsuarioViewModel(Long id, String nombre, String apellido, RolUsuario rol, String username, String email) {
+    public UsuarioViewModel(Long id, String nombre, String apellido, RolUsuario rol, String username, String email, boolean blocked) {
         super(id, nombre);
         this.apellido = apellido;
         this.rol = rol;
         this.username = username;
+        this.email = email;
+        this.blocked = blocked;
     }
 
     public String getApellido() {
@@ -39,5 +42,21 @@ public class UsuarioViewModel extends NameableViewModel {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Boolean getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(Boolean blocked) {
+        this.blocked = blocked;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

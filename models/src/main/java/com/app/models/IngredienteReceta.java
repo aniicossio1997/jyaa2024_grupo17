@@ -1,13 +1,18 @@
 package com.app.models;
 
 
+import com.app.models.baseEntity.DeletableBaseEntity;
 import com.app.models.baseEntity.IdentifiableBaseEntity;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "ingrediente_receta")
-public class IngredienteReceta extends IdentifiableBaseEntity {
+@SQLDelete(sql = "UPDATE nota SET fechaBaja = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "fechaBaja IS NULL")
+public class IngredienteReceta extends DeletableBaseEntity {
 
     private Double cantidad;
 

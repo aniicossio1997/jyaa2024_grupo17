@@ -6,4 +6,5 @@ import org.jvnet.hk2.annotations.Contract;
 
 @Contract
 public interface IMateriaPrimaDao extends  IBasicDao<MateriaPrima> {
+    double getCantidadIngresos(Long materiaPrimaId);
 }

@@ -1,6 +1,7 @@
 package com.app;
 
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
+import com.app.exceptions.ServerExceptionMapper;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletProperties;
 
@@ -10,6 +11,8 @@ import javax.ws.rs.ApplicationPath;
 public class MyApplication extends ResourceConfig {
     public MyApplication() {
         packages("com.app");
+        //register(NoResultExceptionMapper.class);
+        register(ServerExceptionMapper.class);
 
         register(new ApplicationBinder());
 

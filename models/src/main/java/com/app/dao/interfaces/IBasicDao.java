@@ -9,6 +9,6 @@ public interface IBasicDao<T> {
     T getById(Long id);
 
     List<T> getAll();
-
-    /* void delete(Long id); */
+    List<T> getAll(boolean isActive);
+    T getById(Long id, boolean isActive);
 }

@@ -3,6 +3,7 @@ package com.app.resources;
 import com.app.models.FamiliaProductora;
 import com.app.services.interfaces.IFamiliaProductoraService;
 import com.app.viewModels.FamiliaProductoraPostViewModel;
+import com.app.viewModels.base.NameableViewModel;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Path;
@@ -24,7 +25,7 @@ public class FamiliaProductoraResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<FamiliaProductora> getByList() {
+    public List<NameableViewModel> getByList() {
         return this.familiaProductoraService.getByFilter();
     }
 
@@ -33,14 +34,8 @@ public class FamiliaProductoraResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createFamiliaProductora(@Valid FamiliaProductoraPostViewModel familiaProductora) {
 
-        try {
-            FamiliaProductora createdFamiliaProductora = familiaProductoraService.save(familiaProductora);
-            // Devolver una respuesta 201 CREATED con el objeto creado
-            return Response.status(Response.Status.CREATED).entity(createdFamiliaProductora).build();
-        } catch (Exception e) {
-            // Manejar la excepción y devolver una respuesta de error 400 Bad Request
-            return Response.status(Response.Status.CONFLICT).entity(e.getMessage()).build();
-        }
+        FamiliaProductora createdFamiliaProductora = familiaProductoraService.save(familiaProductora);
+        return Response.status(Response.Status.CREATED).entity(createdFamiliaProductora).build();
 
     }
 
@@ -49,15 +44,25 @@ public class FamiliaProductoraResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response editar(@PathParam("id") Long id,@Valid FamiliaProductoraPostViewModel entityToEdit){
-        try {
-            FamiliaProductora createdFamiliaProductora = familiaProductoraService.update(id,entityToEdit);
-            // Devolver una respuesta 201 CREATED con el objeto creado
-            return Response.status(Response.Status.CREATED).entity(createdFamiliaProductora).build();
-        } catch (Exception e) {
-            // Manejar la excepción y devolver una respuesta de error 400 Bad Request
-            return Response.status(Response.Status.CONFLICT).entity(e.getMessage()).build();
-        }
+        FamiliaProductora createdFamiliaProductora = familiaProductoraService.update(id,entityToEdit);
+        return Response.status(Response.Status.ACCEPTED).entity(createdFamiliaProductora).build();
     }
 
+    @DELETE
+    @Path("{id}")
+    public Response delete(@PathParam("id") Long id){
+        familiaProductoraService.delete(id);
+        return Response.status(Response.Status.OK).build();
+    }
+
+
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public FamiliaProductora getById(@PathParam("id") Long id) {
+
+        return this.familiaProductoraService.getById(id);
+    }
 
 }

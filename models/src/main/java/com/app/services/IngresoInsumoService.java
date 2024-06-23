@@ -10,6 +10,7 @@ import com.app.utils.MappingUtils;
 import com.app.viewModels.IngresoInsumoCreateViewModel;
 import com.app.viewModels.IngresoMateriaPrimaCreateViewModel;
 import com.app.viewModels.IngresoInsumoViewModel;
+import jakarta.inject.Inject;
 import org.glassfish.hk2.api.PerLookup;
 import org.jvnet.hk2.annotations.Service;
 
@@ -19,8 +20,10 @@ import java.util.List;
 @Service
 @PerLookup
 public class IngresoInsumoService implements IIngresoInsumoService {
-    private IInsumoDao insumoDao = FactoryDAO.createInsumoDao();
-    private IIngresoInsumoDao ingresoInsumoDao = FactoryDAO.createIngresoInsumoDao();
+    @Inject
+    private IInsumoDao insumoDao;
+    @Inject
+    private IIngresoInsumoDao ingresoInsumoDao;
 
     @Override
     public IngresoInsumoViewModel create(IngresoInsumoCreateViewModel entityToAdd) {

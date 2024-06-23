@@ -37,7 +37,8 @@ public class MappingService {
     public RecetaDetalleViewModel toDetalleViewModel(Receta receta) {
         return new RecetaDetalleViewModel(
                 receta.getId(), receta.getNombre(),
-                receta.getDescripcion(), this.toViewModel(receta.getAutor()),
+                receta.getDescripcion(),
+                Optional.ofNullable(receta.getAutor()).map(this::toViewModel).orElse(null),
                 ListUtils.mapList(receta.getIngredientes(), this::toViewModel)
         );
     }

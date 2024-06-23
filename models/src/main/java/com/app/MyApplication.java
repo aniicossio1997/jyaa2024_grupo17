@@ -1,9 +1,10 @@
 package com.app;
 
-import com.app.exceptions.NoResultExceptionMapper;
+import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 import com.app.exceptions.ServerExceptionMapper;
-import com.app.resources.FamiliaProductoraResource;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.servlet.ServletProperties;
+
 import javax.ws.rs.ApplicationPath;
 
 @ApplicationPath("/api")
@@ -15,5 +16,8 @@ public class MyApplication extends ResourceConfig {
 
         register(new ApplicationBinder());
 
+        register(OpenApiResource.class);
+
+        property(ServletProperties.FILTER_STATIC_CONTENT_REGEX, "/swagger/.*");
     }
 }

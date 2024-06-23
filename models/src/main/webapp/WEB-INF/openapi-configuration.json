@@ -1,0 +1,22 @@
+{
+  "resourcePackages": [
+    "com.app.resources"
+  ],
+  "openAPI": {
+    "info": {
+      "version": "1.0",
+      "title": "Sala de Elaboracion",
+      "description": "",
+      "termsOfService": "http://swagger.io/terms/",
+      "license": {
+        "name": "Apache 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      }
+    },
+    "servers": [
+      {
+        "url": "http://localhost:8080/SalaDeElaboracion/api"
+      }
+    ]
+  }
+}

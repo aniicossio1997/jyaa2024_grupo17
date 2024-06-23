@@ -4,6 +4,7 @@ package com.app.resources;
 import com.app.services.interfaces.IIngredienteRecetaService;
 import com.app.services.interfaces.IRecetaService;
 import com.app.viewModels.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -11,6 +12,7 @@ import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("/recetas")
+@Tag(name = "Recetas")
 @Produces(MediaType.APPLICATION_JSON)
 public class RecetaResource {
 

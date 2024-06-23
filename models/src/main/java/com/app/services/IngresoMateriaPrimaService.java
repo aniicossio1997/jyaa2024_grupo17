@@ -4,11 +4,12 @@ import com.app.dao.FactoryDAO;
 import com.app.dao.interfaces.IFamiliaProductoraDao;
 import com.app.dao.interfaces.IIngresoMateriaPrimaDao;
 import com.app.dao.interfaces.IMateriaPrimaDao;
-import com.app.models.FamiliaProductora;
-import com.app.models.IngresoMateriaPrima;
-import com.app.models.Insumo;
-import com.app.models.MateriaPrima;
+import com.app.dao.interfaces.IUsuarioDao;
+import com.app.models.*;
+import com.app.models.enums.EstadoMateriaPrimaEnum;
 import com.app.services.interfaces.IIngresoMateriaPrimaService;
+import com.app.services.interfaces.IInsumoService;
+import com.app.services.interfaces.IUsuarioService;
 import com.app.utils.ListUtils;
 import com.app.utils.MappingUtils;
 import com.app.viewModels.IngresoMateriaPrimaCreateViewModel;
@@ -30,16 +31,23 @@ public class IngresoMateriaPrimaService implements IIngresoMateriaPrimaService {
     private IMateriaPrimaDao materiaPrimaDao;
     @Inject
     private IIngresoMateriaPrimaDao ingresoMateriaPrimaDao;
+    @Inject
+    private IUsuarioDao _usuarioDao;
 
     @Override
     public IngresoMateriaPrimaViewModel create(IngresoMateriaPrimaCreateViewModel entityToAdd) {
         FamiliaProductora familia = familiaProductoraDao.getById(entityToAdd.familiaPrimaId,true);
         MateriaPrima materiaPrima = this.materiaPrimaDao.getById(entityToAdd.materiaPrimaId);
+        Usuario user=_usuarioDao.getById(Long.valueOf(1));
+
         IngresoMateriaPrima ingresoMateriaPrima = new IngresoMateriaPrima(entityToAdd.cantidad, entityToAdd.codigo, entityToAdd.descripcion,
                 entityToAdd.fecha, entityToAdd.valorCompra);
+
         ingresoMateriaPrima.setMateriaPrima(materiaPrima);
         ingresoMateriaPrima.setProductor(familia);
 
+        EstadoMateriaPrima estado= new EstadoMateriaPrima(user, EstadoMateriaPrimaEnum.ESTANTE);
+        ingresoMateriaPrima.addEstado(estado);
         ingresoMateriaPrimaDao.save(ingresoMateriaPrima);
         return this.toViewModel(ingresoMateriaPrima);
     }

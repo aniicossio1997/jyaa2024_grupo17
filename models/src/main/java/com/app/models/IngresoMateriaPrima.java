@@ -64,6 +64,14 @@ public class IngresoMateriaPrima extends IngresoBase {
     public IngresoMateriaPrima(double cantidad, String codigo, String descripcion, Date fecha, double valorCompra
                                ) {
         super(cantidad, codigo, descripcion, fecha, valorCompra);
+
+        this.isDeleted = false;
+    }
+    public IngresoMateriaPrima(EstadoMateriaPrima estado,double cantidad, String codigo, String descripcion, Date fecha, double valorCompra
+    ) {
+
+        super(cantidad, codigo, descripcion, fecha, valorCompra);
+        this.estados.add(estado);
         this.isDeleted = false;
     }
 
@@ -129,6 +137,9 @@ public class IngresoMateriaPrima extends IngresoBase {
                 + ", \"valorCompra\":\"" + valorCompra + "\""
                 + ", \"id\":\"" + id + "\""
                 + "}";
+    }
+    public void addEstado(EstadoMateriaPrima estado) {
+        this.estados.add(estado);
     }
 
 }

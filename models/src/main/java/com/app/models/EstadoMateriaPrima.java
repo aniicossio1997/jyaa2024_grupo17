@@ -33,6 +33,10 @@ public class EstadoMateriaPrima  extends EstadoBase{
         super(autor, fecha);
         this.estado = estado;
     }
+    public EstadoMateriaPrima(Usuario autor,  EstadoMateriaPrimaEnum estado) {
+        super(autor, new Date());
+        this.estado = estado;
+    }
     public EstadoMateriaPrimaEnum getEstado() {
         return estado;
     }

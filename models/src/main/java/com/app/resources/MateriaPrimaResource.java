@@ -34,9 +34,9 @@ public class MateriaPrimaResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response editar(@PathParam("id") Long id, @Valid RecursoPostViewModel entityToEdit){
-        RecursoViewModel entityNew = materiaPrimaService.update(id,entityToEdit);
-        return Response.status(Response.Status.ACCEPTED).entity(entityNew).build();
+    public RecursoViewModel editar(@PathParam("id") Long id, @Valid RecursoPostViewModel entityToEdit){
+
+        return materiaPrimaService.update(id,entityToEdit);
     }
 
     @GET

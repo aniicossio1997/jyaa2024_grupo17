@@ -28,6 +28,8 @@ public abstract class EstadoBase extends IdentifiableBaseEntity {
         this.fecha = new Date();
     }
 
+
+
     public Usuario getAutor() {
         return autor;
     }

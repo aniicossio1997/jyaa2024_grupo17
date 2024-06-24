@@ -27,57 +27,61 @@ public class IngresoInsumoService implements IIngresoInsumoService {
 
     @Override
     public IngresoInsumoViewModel create(IngresoInsumoCreateViewModel entityToAdd) {
-        return null;
+        Insumo insumo= insumoDao.getById(entityToAdd.insumoId);
+
+
+        IngresoInsumo entity = new IngresoInsumo(insumo,new Date(),entityToAdd.descripcion,
+                entityToAdd.cantidad,entityToAdd.codigo,entityToAdd.valorCompra
+                );
+        insumo.addIngresoInsumo(entity);
+        ingresoInsumoDao.save(entity);
+
+        return this.toViewModel(entity);
+    }
+
+    @Override
+    public IngresoInsumoViewModel getById(Long id) {
+        return this.toViewModel(this.ingresoInsumoDao.getById(id));
+    }
+
+    @Override
+    public IngresoInsumoViewModel update(Long id, IngresoInsumoCreateViewModel entityToAdd) {
+        Insumo insumo= insumoDao.getById(entityToAdd.insumoId);
+        IngresoInsumo entity=ingresoInsumoDao.getById(id);
+
+        entity.setInsumo(insumo);
+        entity.setCantidad(entityToAdd.cantidad);
+        entity.setCodigo(entityToAdd.codigo);
+        entity.setDescripcion(entityToAdd.descripcion);
+        entity.setValorCompra(entityToAdd.valorCompra);
+
+        ingresoInsumoDao.save(entity);
+
+        return this.toViewModel(entity);
     }
 
     @Override
     public List<IngresoInsumoViewModel> getByFilters() {
-        return List.of();
+        return ListUtils.mapList(this.ingresoInsumoDao.getAll(), this::toViewModel);
     }
 
     @Override
     public boolean delete(Long id) {
-        return false;
-    }
-/*
-    @Override
-    public IngresoInsumoViewModel create(IngresoInsumoCreateViewModel entityToAdd) {
-        Insumo insumo = this.insumoDao.getById(entityToAdd.insumoId);
-
-
-        IngresoInsumo ingresoInsumoI = new IngresoInsumo( insumo, new Date(), entityToAdd.descripcion, entityToAddantidad, String codigo, double valorCompra);
-        ingresoMateriaPrima.setMateriaPrima(materiaPrima);
-
-
-        ingresoInsumoDao.save(insumo);
-        return this.toViewModel(ingresoMateriaPrima);
-    }
-
-    @Override
-    public List<IngresoInsumoViewModel> getByFilters() {
-        return ListUtils.mapList(this.ingresoMateriaPrimaDao.getAll(), this::toViewModel);
-    }
-
-    @Override
-    public boolean delete(Long id) {
-        IngresoMateriaPrima entityToDelete= this.ingresoMateriaPrimaDao.getById(id);
-        entityToDelete.setDeleted(true);
-        ingresoMateriaPrimaDao.save(entityToDelete);
+        IngresoInsumo entityToDelete= this.ingresoInsumoDao.getById(id);
+        entityToDelete.setFechaBaja(new Date());
+        ingresoInsumoDao.save(entityToDelete);
         return  true;
-        
     }
 
+    private IngresoInsumoViewModel toViewModel(IngresoInsumo imp) {
 
-    private IngresoInsumoViewModel toViewModel(IngresoMateriaPrima imp) {
         return new IngresoInsumoViewModel(
                 imp.getId(), imp.getValorCompra(),
-                imp.getMateriaPrima(), imp.getFecha(),
-                MappingUtils.toViewModel(imp.getProductor()),
+                imp.getFecha(),imp.getInsumo(),
                 imp.getDescripcion(), imp.getCodigo(), imp.getCantidad()
 
 
         );
     }
-    */
 
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "ingreso_materia_prima")
@@ -27,8 +28,7 @@ public class IngresoMateriaPrima extends IngresoBase {
     @OneToMany(mappedBy = "ingresoMateriaPrima", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     public List<EstadoMateriaPrima> estados = new ArrayList<>();
 
-    @Column(name = "is_deleted")
-    private boolean isDeleted;
+
 
     @OneToMany(mappedBy = "ingreso", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     public List<ConsumoMateriaPrima> consumoMateriaPrimas = new ArrayList<>();
@@ -50,7 +50,6 @@ public class IngresoMateriaPrima extends IngresoBase {
         this.estados = estados;
         this.materiaPrima = materiaPrima;
         this.familiaProductora = productor;
-        this.isDeleted = false;
     }
 
     public IngresoMateriaPrima(double cantidad, String codigo, String descripcion, Date fecha, double valorCompra,
@@ -58,21 +57,20 @@ public class IngresoMateriaPrima extends IngresoBase {
         super(cantidad, codigo, descripcion, fecha, valorCompra);
         this.materiaPrima = materiaPrima;
         this.familiaProductora = productor;
-        this.isDeleted = false;
+
 
     }
     public IngresoMateriaPrima(double cantidad, String codigo, String descripcion, Date fecha, double valorCompra
                                ) {
         super(cantidad, codigo, descripcion, fecha, valorCompra);
 
-        this.isDeleted = false;
     }
     public IngresoMateriaPrima(EstadoMateriaPrima estado,double cantidad, String codigo, String descripcion, Date fecha, double valorCompra
     ) {
 
         super(cantidad, codigo, descripcion, fecha, valorCompra);
         this.estados.add(estado);
-        this.isDeleted = false;
+
     }
 
 
@@ -117,11 +115,14 @@ public class IngresoMateriaPrima extends IngresoBase {
     }
 
     public boolean isDeleted() {
-        return isDeleted;
+        return this.fechaBaja !=null;
     }
 
-    public void setDeleted(boolean isDeleted) {
-        this.isDeleted = isDeleted;
+
+    public List<EstadoMateriaPrima> getEstadosOrderById(){
+        return this.estados.stream()
+                .sorted((e1, e2) -> Integer.compare(Math.toIntExact(e1.getId()), Math.toIntExact(e2.getId())))
+                .collect(Collectors.toList());
     }
 
     @Override

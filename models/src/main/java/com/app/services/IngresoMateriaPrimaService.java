@@ -5,6 +5,7 @@ import com.app.dao.interfaces.IFamiliaProductoraDao;
 import com.app.dao.interfaces.IIngresoMateriaPrimaDao;
 import com.app.dao.interfaces.IMateriaPrimaDao;
 import com.app.dao.interfaces.IUsuarioDao;
+import com.app.exceptions.InvalidParameterException;
 import com.app.models.*;
 import com.app.models.enums.EstadoMateriaPrimaEnum;
 import com.app.services.interfaces.IIngresoMateriaPrimaService;
@@ -12,15 +13,15 @@ import com.app.services.interfaces.IInsumoService;
 import com.app.services.interfaces.IUsuarioService;
 import com.app.utils.ListUtils;
 import com.app.utils.MappingUtils;
-import com.app.viewModels.IngresoMateriaPrimaCreateViewModel;
-import com.app.viewModels.IngresoMateriaPrimaViewModel;
-import com.app.viewModels.InsumoViewModel;
+import com.app.viewModels.*;
+import com.app.viewModels.base.NameableViewModel;
 import jakarta.inject.Inject;
 import org.glassfish.hk2.api.PerLookup;
 import org.jvnet.hk2.annotations.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @PerLookup
@@ -40,14 +41,22 @@ public class IngresoMateriaPrimaService implements IIngresoMateriaPrimaService {
         MateriaPrima materiaPrima = this.materiaPrimaDao.getById(entityToAdd.materiaPrimaId);
         Usuario user=_usuarioDao.getById(Long.valueOf(1));
 
+        if(entityToAdd.estado ==null ){
+            EstadoMateriaPrimaEnum estado=EstadoMateriaPrimaEnum.valueOf(entityToAdd.estado.toString());
+            throw new InvalidParameterException("Name cannot be null or empty.");
+        }
+
+
         IngresoMateriaPrima ingresoMateriaPrima = new IngresoMateriaPrima(entityToAdd.cantidad, entityToAdd.codigo, entityToAdd.descripcion,
-                entityToAdd.fecha, entityToAdd.valorCompra);
+                new Date(), entityToAdd.valorCompra);
 
         ingresoMateriaPrima.setMateriaPrima(materiaPrima);
         ingresoMateriaPrima.setProductor(familia);
 
-        EstadoMateriaPrima estado= new EstadoMateriaPrima(user, EstadoMateriaPrimaEnum.ESTANTE);
+        EstadoMateriaPrima estado= new EstadoMateriaPrima(user, (EstadoMateriaPrimaEnum) entityToAdd.estado);
         ingresoMateriaPrima.addEstado(estado);
+        estado.setIngresoMateriaPrima(ingresoMateriaPrima);
+
         ingresoMateriaPrimaDao.save(ingresoMateriaPrima);
         return this.toViewModel(ingresoMateriaPrima);
     }
@@ -67,8 +76,39 @@ public class IngresoMateriaPrimaService implements IIngresoMateriaPrimaService {
     }
 
     @Override
-    public IngresoMateriaPrimaViewModel getById(Long id) {
-        return toViewModel(this.ingresoMateriaPrimaDao.getById(id));
+    public IngresoMateriaPrimaDetailViewModel getById(Long id) {
+        IngresoMateriaPrimaDetailViewModel result=  toViewModelDetails(this.ingresoMateriaPrimaDao.getById(id));
+        return  result;
+    }
+
+    @Override
+    public IngresoMateriaPrimaDetailViewModel update(Long id,
+                                               IngresoMateriaPrimaUpdateViewModel entityToEdit ) {
+
+            FamiliaProductora familia = familiaProductoraDao.getById(entityToEdit.familiaPrimaId,true);
+            MateriaPrima materiaPrima = this.materiaPrimaDao.getById(entityToEdit.materiaPrimaId);
+            Usuario user=_usuarioDao.getById(Long.valueOf(1));
+
+            IngresoMateriaPrima ingresoMateriaPrima=ingresoMateriaPrimaDao.getById(id,true);
+
+            ingresoMateriaPrima.setCantidad(entityToEdit.cantidad);
+            ingresoMateriaPrima.setCodigo(entityToEdit.codigo);
+            ingresoMateriaPrima.setDescripcion(entityToEdit.descripcion);
+            ingresoMateriaPrima.setValorCompra(entityToEdit.valorCompra);
+
+            ingresoMateriaPrima.setMateriaPrima(materiaPrima);
+            ingresoMateriaPrima.setProductor(familia);
+
+            if(!(ingresoMateriaPrima.getEstadoActual().getEstado().getValue().equals(entityToEdit.estado.getValue()))){
+                EstadoMateriaPrima estado= new EstadoMateriaPrima(user, entityToEdit.estado);
+                ingresoMateriaPrima.addEstado(estado);
+                estado.setIngresoMateriaPrima(ingresoMateriaPrima);
+            }
+
+            ingresoMateriaPrimaDao.save(ingresoMateriaPrima);
+            return this.toViewModelDetails(ingresoMateriaPrima);
+
+
     }
 
 
@@ -77,9 +117,43 @@ public class IngresoMateriaPrimaService implements IIngresoMateriaPrimaService {
                 imp.getId(), imp.getValorCompra(),
                 imp.getMateriaPrima(), imp.getFecha(),
                 MappingUtils.toViewModel(imp.getProductor()),
-                imp.getDescripcion(), imp.getCodigo(), imp.getCantidad()
-
-
+                imp.getDescripcion(), imp.getCodigo(), imp.getCantidad(),
+                imp.getEstadoActual()
         );
     }
+    private IngresoMateriaPrimaDetailViewModel toViewModelDetails(IngresoMateriaPrima imp) {
+        if (imp == null) {
+            throw new InvalidParameterException("IngresoMateriaPrima cannot be null.");
+        }
+
+        List<EstadoViewModel> estadoViewModels = imp.getEstadosOrderById().stream()
+                .map(e -> {
+                    if (e == null || e.getAutor() == null) {
+                        throw new InvalidParameterException("Estado or its Autor cannot be null.");
+                    }
+                    return new EstadoViewModel(
+                            e.getId(),
+                            new NameableViewModel(e.getAutor().getId(), e.getAutor().getNombre() + " " + e.getAutor().getApellido()),
+                            e.getEstadoName(),
+                            e.getFecha()
+                    );
+                })
+                .collect(Collectors.toList());
+
+        IngresoMateriaPrimaDetailViewModel entity = new IngresoMateriaPrimaDetailViewModel(
+                imp.getId(),
+                imp.getValorCompra(),
+                imp.getMateriaPrima(),
+                imp.getFecha(),
+                MappingUtils.toViewModel(imp.getProductor()),
+                imp.getDescripcion(),
+                imp.getCodigo(),
+                imp.getCantidad(),
+                imp.getEstadoActual(),
+                estadoViewModels
+        );
+
+        return entity;
+    }
+
 }

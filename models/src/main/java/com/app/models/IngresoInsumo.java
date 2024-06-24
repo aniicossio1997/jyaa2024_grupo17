@@ -1,18 +1,18 @@
 package com.app.models;
 
 import com.app.models.baseEntity.IdentifiableBaseEntity;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "ingreso_insumo")
-public class IngresoInsumo extends IdentifiableBaseEntity {
-    protected Date fecha;
-    protected String descripcion;
-    protected double cantidad;
-    protected String codigo;
-    protected double valorCompra;
+@SQLDelete(sql = "UPDATE ingreso_materia_prima SET fechaBaja = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "fechaBaja IS NULL")
+public class IngresoInsumo extends IngresoBase {
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "insumo_id")

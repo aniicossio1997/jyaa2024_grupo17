@@ -45,8 +45,20 @@ public class EstadoMateriaPrima  extends EstadoBase{
         this.estado = estado;
     }
 
+    public void setIngresoMateriaPrima(IngresoMateriaPrima ingresoMateriaPrima) {
+        this.ingresoMateriaPrima = ingresoMateriaPrima;
+    }
 
+    public String getEstadoName() {
+        if (this.estado.getValue() != null){
+            return this.estado.getValue();
+        }
+        return "";
+    }
 
+    public IngresoMateriaPrima getIngresoMateriaPrima() {
+        return ingresoMateriaPrima;
+    }
 
 
     @Override

@@ -41,4 +41,7 @@ public class Insumo extends Recurso {
                 + ", \"ingresos\":" + ingresos
                 + "}";
     }
+    public void addIngresoInsumo(IngresoInsumo entity){
+        this.ingresos.add(entity);
+    }
 }

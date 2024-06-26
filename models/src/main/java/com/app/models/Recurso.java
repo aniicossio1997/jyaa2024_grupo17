@@ -78,4 +78,14 @@ public class Recurso extends DeletableWithNameBaseEntity {
 
                 '}';
     }
+
+    public double getCantidadIngresos() {
+        return 0;
+    }
+
+    public double getTotalValorDeCompra() {
+        return 0;
+    }
+
+
 }

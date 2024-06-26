@@ -4,18 +4,15 @@ import com.app.models.enums.UnidadMedidaEnum;
 import com.app.viewModels.base.NameableViewModel;
 
 public class RecursoViewModel extends NameableViewModel {
-    public String descripcion;
     public UnidadMedidaEnum unidadMedida;
-    public Double cantidadDisponible;
+    public Double totalCantidadDisponible;
+    public Double totalValorCompra;
 
-    public RecursoViewModel(Long id, String nombre) {
-        super(id, nombre);
-    }
 
-    public RecursoViewModel(Long id, String nombre, Double cantidadDisponible, UnidadMedidaEnum unidadMedida, String descripcion) {
+    public RecursoViewModel(Long id, String nombre,  UnidadMedidaEnum unidadMedida , Double totalCantidadDisponible, Double totalValorCompra) {
         super(id, nombre);
-        this.cantidadDisponible = cantidadDisponible;
+        this.totalCantidadDisponible = totalCantidadDisponible;
+        this.totalValorCompra = totalValorCompra;
         this.unidadMedida = unidadMedida;
-        this.descripcion = descripcion;
     }
 }

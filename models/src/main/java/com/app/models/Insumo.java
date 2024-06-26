@@ -2,16 +2,14 @@ package com.app.models;
 
 import com.app.models.enums.UnidadMedidaEnum;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "insumo")
 public class Insumo extends Recurso {
-    @Transient
+    @OneToMany(mappedBy = "insumo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<IngresoInsumo> ingresos = new ArrayList<>();
 
     public Insumo() {
@@ -47,5 +45,15 @@ public class Insumo extends Recurso {
     }
     public void addIngresoInsumo(IngresoInsumo entity){
         this.ingresos.add(entity);
+    }
+    public double getCantidadIngresos() {
+        return this.ingresos.stream()
+                .mapToDouble(IngresoInsumo::getCantidad)
+                .sum();
+    }
+    public double getTotalValorDeCompra() {
+        return ingresos.stream()
+                .mapToDouble(IngresoInsumo::getValorCompra)
+                .sum();
     }
 }

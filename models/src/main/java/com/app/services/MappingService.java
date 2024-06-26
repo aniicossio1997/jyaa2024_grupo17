@@ -1,9 +1,6 @@
 package com.app.services;
 
-import com.app.models.IngredienteReceta;
-import com.app.models.Insumo;
-import com.app.models.Receta;
-import com.app.models.Usuario;
+import com.app.models.*;
 import com.app.utils.ListUtils;
 import com.app.viewModels.*;
 import org.jvnet.hk2.annotations.Service;
@@ -29,7 +26,7 @@ public class MappingService {
         return new IngredienteRecetaViewModel(
                 ingrediente.getId(),
                 ingrediente.getCantidad(),
-                Optional.ofNullable(ingrediente.getInsumo()).map(this::toViewModel).orElse(null),
+                Optional.ofNullable(ingrediente.getInsumo()).map(this::toViewModelInsumo).orElse(null),
                 null
         );
     }
@@ -54,13 +51,36 @@ public class MappingService {
         );
     }
 
-    public InsumoViewModel toViewModel(Insumo insumo) {
+    public InsumoViewModel toViewModelInsumo(Insumo insumo) {
         return new InsumoViewModel(
                 insumo.getId(),
                 insumo.getNombre(),
                 insumo.getCantidadDisponible(),
                 insumo.getUnidadMedida(),
                 insumo.getDescripcion()
+
+        );
+    }
+
+
+
+    public RecursoViewModel toViewModel(Recurso entity) {
+        return new RecursoViewModel(
+                entity.getId(),
+                entity.getNombre(),
+                entity.getUnidadMedida(),
+                entity.getCantidadIngresos(),
+                entity.getTotalValorDeCompra()
+        );
+    }
+    public RecursoDetailViewModel toViewModelDetail(Recurso entity) {
+        return new RecursoDetailViewModel(
+                entity.getId(),
+                entity.getNombre(),
+                entity.getUnidadMedida(),
+                entity.getDescripcion(),
+                entity.getCantidadIngresos(),
+                entity.getTotalValorDeCompra()
 
         );
     }

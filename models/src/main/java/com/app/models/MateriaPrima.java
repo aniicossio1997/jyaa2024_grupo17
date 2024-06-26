@@ -52,4 +52,9 @@ public class MateriaPrima extends Recurso {
                 .mapToDouble(IngresoMateriaPrima::getCantidad)
                 .sum();
     }
+    public double getTotalValorDeCompra() {
+        return ingresos.stream()
+                .mapToDouble(IngresoMateriaPrima::getValorCompra)
+                .sum();
+    }
 }

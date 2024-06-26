@@ -9,8 +9,9 @@ import com.app.models.MateriaPrima;
 import com.app.services.interfaces.IInsumoService;
 import com.app.utils.ListUtils;
 import com.app.viewModels.InsumoCreateViewModel;
-import com.app.viewModels.InsumoViewModel;
+import com.app.viewModels.RecursoDetailViewModel;
 import com.app.viewModels.RecursoPostViewModel;
+import com.app.viewModels.RecursoViewModel;
 import com.app.viewModels.base.NameableViewModel;
 import jakarta.inject.Inject;
 import org.glassfish.hk2.api.PerLookup;
@@ -25,32 +26,37 @@ import java.util.List;
 public class InsumoService  implements IInsumoService {
     @Inject
     private IInsumoDao insumoDao;
+
+
+    @Inject
+    private MappingService mappingService;
+
     @Override
-    public List<NameableViewModel> getAll() {
+    public List<RecursoViewModel> getAll() {
         return  ListUtils.mapList(insumoDao.getAll(true), this::toViewModel);
     }
 
     @Override
-    public InsumoViewModel create(InsumoCreateViewModel entityToAdd) {
+    public RecursoDetailViewModel create(InsumoCreateViewModel entityToAdd) {
         Insumo insumo=new Insumo(entityToAdd.getNombre(),  entityToAdd.getDescripcion(), entityToAdd.getUnidadMedida());
        this.insumoDao.save(insumo );
-       return this.toViewModel(insumo);
+       return  mappingService.toViewModelDetail(insumo);
     }
 
     @Override
-    public InsumoViewModel getById(Long id) {
-        return toViewModel(insumoDao.getById(id));
+    public RecursoDetailViewModel getById(Long id) {
+        return mappingService.toViewModelDetail(insumoDao.getById(id));
     }
 
     @Override
-    public InsumoViewModel update(Long id, RecursoPostViewModel entityToEdit) {
+    public RecursoDetailViewModel update(Long id, RecursoPostViewModel entityToEdit) {
         Insumo entity = this.insumoDao.getById(id);
 
         entity.setNombre(entityToEdit.nombre);
         entity.setDescripcion(entityToEdit.descripcion);
         entity.setUnidadMedida(entityToEdit.unidadMedida);
         this.insumoDao.save(entity);
-        return this.toViewModel(entity);
+        return mappingService.toViewModelDetail(entity);
     }
 
 
@@ -62,14 +68,17 @@ public class InsumoService  implements IInsumoService {
 
     }
 
-    private InsumoViewModel toViewModel(Insumo insumo) {
-        return new InsumoViewModel(
-                insumo.getId(),
-                insumo.getNombre(),
-                insumo.getCantidadDisponible(),
-                insumo.getUnidadMedida(),
-                insumo.getDescripcion()
-
+    private RecursoViewModel toViewModel(Insumo entity) {
+        double total=entity.getTotalValorDeCompra();
+        double t1=entity.getCantidadIngresos();
+        return new RecursoViewModel(
+                entity.getId(),
+                entity.getNombre(),
+                entity.getUnidadMedida(),
+                entity.getCantidadIngresos(),
+                entity.getTotalValorDeCompra()
         );
     }
+
+
 }

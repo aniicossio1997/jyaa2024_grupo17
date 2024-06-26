@@ -27,7 +27,7 @@ public class IngresoInsumoService implements IIngresoInsumoService {
 
     @Override
     public IngresoInsumoViewModel create(IngresoInsumoCreateViewModel entityToAdd) {
-        Insumo insumo= insumoDao.getById(entityToAdd.insumoId);
+        Insumo insumo= insumoDao.getById(entityToAdd.insumoId,true);
 
 
         IngresoInsumo entity = new IngresoInsumo(insumo,new Date(),entityToAdd.descripcion,

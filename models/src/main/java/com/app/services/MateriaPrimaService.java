@@ -1,14 +1,12 @@
 package com.app.services;
 
-import com.app.dao.FactoryDAO;
 import com.app.dao.interfaces.IMateriaPrimaDao;
-import com.app.models.FamiliaProductora;
-import com.app.models.Insumo;
 import com.app.models.MateriaPrima;
+import com.app.models.Recurso;
 import com.app.services.interfaces.IMateriaPrimaService;
 import com.app.utils.ListUtils;
-import com.app.viewModels.InsumoViewModel;
 import com.app.viewModels.RecursoPostViewModel;
+import com.app.viewModels.RecursoDetailViewModel;
 import com.app.viewModels.RecursoViewModel;
 import com.app.viewModels.base.NameableViewModel;
 import jakarta.inject.Inject;
@@ -23,34 +21,36 @@ import java.util.List;
 public class MateriaPrimaService  implements IMateriaPrimaService {
     @Inject
     private IMateriaPrimaDao materiaPrimaDao;
+    @Inject
+    private MappingService mappingService;
 
     @Override
-    public List<NameableViewModel> getAll() {
-        return  ListUtils.mapList(materiaPrimaDao.getAll(), this::toViewModelName);
+    public List<RecursoViewModel> getAll() {
+        return  ListUtils.mapList(materiaPrimaDao.getAll(true), this::toViewModel);
     }
 
     @Override
-    public RecursoViewModel getById(Long id) {
+    public RecursoDetailViewModel getById(Long id) {
         MateriaPrima entity = this.materiaPrimaDao.getById(id);
-        return this.toViewModel(entity);
+        return mappingService.toViewModelDetail(entity);
     }
 
     @Override
-    public RecursoViewModel create(RecursoPostViewModel entityToAdd) {
+    public RecursoDetailViewModel create(RecursoPostViewModel entityToAdd) {
         MateriaPrima entityNew= new MateriaPrima(entityToAdd.nombre, entityToAdd.unidadMedida, entityToAdd.descripcion);
         this.materiaPrimaDao.save(entityNew);
-        return this.toViewModel(entityNew);
+        return mappingService.toViewModelDetail(entityNew);
     }
 
     @Override
-    public RecursoViewModel update(Long id, RecursoPostViewModel entityToEdit) {
+    public RecursoDetailViewModel update(Long id, RecursoPostViewModel entityToEdit) {
         MateriaPrima entity = this.materiaPrimaDao.getById(id);
         entity.setNombre(entityToEdit.nombre);
         entity.setDescripcion(entityToEdit.descripcion);
         entity.setUnidadMedida(entityToEdit.unidadMedida);
 
         this.materiaPrimaDao.save(entity);
-        return this.toViewModel(entity);
+        return mappingService.toViewModelDetail(entity);
     }
 
     @Override
@@ -60,21 +60,25 @@ public class MateriaPrimaService  implements IMateriaPrimaService {
         this.materiaPrimaDao.save(entityToDelete);
     }
 
-    private NameableViewModel toViewModelName(MateriaPrima entity) {
-        return new NameableViewModel(
-                entity.getId(),
-                entity.getNombre()
-
-        );
-    }
-    private RecursoViewModel toViewModel(MateriaPrima entity) {
+    public RecursoViewModel toViewModel(MateriaPrima entity) {
         return new RecursoViewModel(
                 entity.getId(),
                 entity.getNombre(),
-                entity.getCantidadIngresos(),
                 entity.getUnidadMedida(),
-                entity.getDescripcion()
+                entity.getCantidadIngresos(),
+                entity.getTotalValorDeCompra()
+        );
+    }
+    public RecursoDetailViewModel toViewModelDetail(Recurso entity) {
+        return new RecursoDetailViewModel(
+                entity.getId(),
+                entity.getNombre(),
+                entity.getUnidadMedida(),
+                entity.getDescripcion(),
+                entity.getCantidadIngresos(),
+                entity.getTotalValorDeCompra()
 
         );
     }
+
 }

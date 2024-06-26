@@ -38,7 +38,7 @@ public class IngresoMateriaPrimaService implements IIngresoMateriaPrimaService {
     @Override
     public IngresoMateriaPrimaViewModel create(IngresoMateriaPrimaCreateViewModel entityToAdd) {
         FamiliaProductora familia = familiaProductoraDao.getById(entityToAdd.familiaPrimaId,true);
-        MateriaPrima materiaPrima = this.materiaPrimaDao.getById(entityToAdd.materiaPrimaId);
+        MateriaPrima materiaPrima = this.materiaPrimaDao.getById(entityToAdd.materiaPrimaId,true);
         Usuario user=_usuarioDao.getById(Long.valueOf(1));
 
         if(entityToAdd.estado ==null ){

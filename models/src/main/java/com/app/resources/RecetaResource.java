@@ -33,8 +33,6 @@ public class RecetaResource extends BaseResource {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public RecetaDetalleViewModel create(RecetaCreateViewModel viewModel) {
         return recetaService.create(viewModel);
     }

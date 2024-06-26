@@ -1,9 +1,7 @@
 package com.app.resources;
 
 import com.app.services.interfaces.IInsumoService;
-import com.app.services.interfaces.IMateriaPrimaService;
 import com.app.viewModels.*;
-import com.app.viewModels.base.NameableViewModel;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -22,24 +20,23 @@ public class InsumoResource extends BaseResource {
     private IInsumoService insumoServicio;
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<NameableViewModel> getByFilters() {
+    public List<RecursoViewModel> getAll() {
         return this.insumoServicio.getAll();
     }
     @POST
-    public InsumoViewModel getByFilters(@Valid InsumoCreateViewModel entityToAdd) {
+    public RecursoDetailViewModel getByFilters(@Valid InsumoCreateViewModel entityToAdd) {
         return this.insumoServicio.create(entityToAdd);
     }
 
     @GET
     @Path("{id}")
-    public InsumoViewModel getById(@PathParam("id") Long id) {
+    public RecursoDetailViewModel getById(@PathParam("id") Long id) {
         return this.insumoServicio.getById(id);
     }
 
     @PUT
     @Path("{id}")
-    public InsumoViewModel editar(@PathParam("id") Long id, @Valid RecursoPostViewModel entityToEdit){
+    public RecursoDetailViewModel editar(@PathParam("id") Long id, @Valid RecursoPostViewModel entityToEdit){
         return insumoServicio.update(id,entityToEdit);
     }
     @DELETE

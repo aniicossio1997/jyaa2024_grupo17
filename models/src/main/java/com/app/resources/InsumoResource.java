@@ -16,6 +16,8 @@ import java.util.List;
 @Tag(name = "Insumos")
 @Path("/insumos")
 public class InsumoResource extends BaseResource {
+
+
     @Inject
     private IInsumoService insumoServicio;
 

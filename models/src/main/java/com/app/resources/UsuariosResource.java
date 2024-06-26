@@ -12,8 +12,7 @@ import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 @Tag(name = "Usuarios")
 @Path("/usuarios")
-@Produces(MediaType.APPLICATION_JSON)
-public class UsuariosResource {
+public class UsuariosResource extends BaseResource {
     @Inject
     private IUsuarioService usuarioService;
 

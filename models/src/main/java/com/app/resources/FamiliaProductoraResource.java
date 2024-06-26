@@ -16,8 +16,10 @@ import java.util.List;
 
 @Tag(name = "FamiliaProductoras")
 @Path("/familiaProductoras")
-@Produces(MediaType.APPLICATION_JSON)
+
 public class FamiliaProductoraResource extends BaseResource {
+
+
 
     @Inject
     private IFamiliaProductoraService familiaProductoraService;

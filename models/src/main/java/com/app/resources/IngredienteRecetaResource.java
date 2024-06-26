@@ -1,6 +1,7 @@
 package com.app.resources;
 
 
+import com.app.exceptions.InvalidParameterException;
 import com.app.services.interfaces.IIngredienteRecetaService;
 import com.app.services.interfaces.IRecetaService;
 import com.app.viewModels.*;
@@ -15,6 +16,7 @@ import java.util.List;
 @Path("/ingredientes")
 @Tag(name = "Ingredientes")
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class IngredienteRecetaResource {
 
     @Inject
@@ -40,7 +42,7 @@ public class IngredienteRecetaResource {
 
     @DELETE
     @Path("{id}")
-    public Response update(@PathParam("id") Long id) {
+    public Response delete(@PathParam("id") Long id) {
         boolean deleted = ingredienteRecetaService.delete(id);
         if (deleted) return Response.ok().build();
         return  Response.status(400).build();

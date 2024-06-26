@@ -1,6 +1,8 @@
 package com.app.models;
 
-import com.app.models.baseEntity.IdentifiableBaseEntity;
+import com.app.models.baseEntity.DeletableBaseEntity;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -8,7 +10,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "receta")
-public class Receta extends IdentifiableBaseEntity {
+@SQLDelete(sql = "UPDATE receta SET fechaBaja = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "fechaBaja IS NULL")
+public class Receta extends DeletableBaseEntity {
     public String nombre;
     public String descripcion;
 

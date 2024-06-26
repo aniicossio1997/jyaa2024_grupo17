@@ -16,6 +16,7 @@ import java.util.List;
 
 @Tag(name = "MateriaPrimas")
 @Path("/materiaPrimas")
+
 public class MateriaPrimaResource extends BaseResource{
     @Inject
     private IMateriaPrimaService materiaPrimaService;

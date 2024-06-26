@@ -14,6 +14,8 @@ public interface IRecetaService {
 
     RecetaDetalleViewModel create(RecetaCreateViewModel view);
 
+    boolean delete(Long id);
+
     RecetaDetalleViewModel update(Long recetaId, RecetaCreateViewModel view);
 
 }

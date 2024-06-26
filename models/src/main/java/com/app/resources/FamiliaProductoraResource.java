@@ -4,6 +4,7 @@ import com.app.models.FamiliaProductora;
 import com.app.services.interfaces.IFamiliaProductoraService;
 import com.app.viewModels.FamiliaProductoraPostViewModel;
 import com.app.viewModels.base.NameableViewModel;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Path;
@@ -13,7 +14,7 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
-
+@Tag(name = "FamiliaProductoras")
 @Path("/familiaProductoras")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

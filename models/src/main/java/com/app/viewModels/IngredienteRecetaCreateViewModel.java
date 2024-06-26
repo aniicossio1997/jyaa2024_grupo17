@@ -21,4 +21,20 @@ public class IngredienteRecetaCreateViewModel extends IdentifiableViewModel {
     public IngredienteRecetaCreateViewModel(Long id) {
         super(id);
     }
+
+    public Double getCantidad() {
+        return cantidad;
+    }
+
+    public Long getInsumoId() {
+        return insumoId;
+    }
+
+    public Long getMateriaPrimaId() {
+        return materiaPrimaId;
+    }
+
+    public Long getRecetaId() {
+        return recetaId;
+    }
 }

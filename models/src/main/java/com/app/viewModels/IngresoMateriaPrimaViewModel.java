@@ -1,5 +1,6 @@
 package com.app.viewModels;
 
+import com.app.models.EstadoMateriaPrima;
 import com.app.models.MateriaPrima;
 import com.app.utils.MappingUtils;
 import com.app.viewModels.base.IdentifiableViewModel;
@@ -16,6 +17,7 @@ public class IngresoMateriaPrimaViewModel extends IdentifiableViewModel {
     public NameableViewModel materiaPrima;
     public NameableViewModel familiaPrima;
 
+    public NameableViewModel currentState;
     public IngresoMateriaPrimaViewModel(Long id) {
         super(id);
     }
@@ -24,7 +26,7 @@ public class IngresoMateriaPrimaViewModel extends IdentifiableViewModel {
                                         MateriaPrima materiaPrima,
                                         Date fecha,
                                         NameableViewModel familiaPrima,
-                                        String descripcion, String codigo, double cantidad) {
+                                        String descripcion, String codigo, double cantidad, EstadoMateriaPrima estado) {
         super(id);
         this.valorCompra = valorCompra;
         this.materiaPrima = MappingUtils.toViewModel(materiaPrima);
@@ -33,5 +35,6 @@ public class IngresoMateriaPrimaViewModel extends IdentifiableViewModel {
         this.descripcion = descripcion;
         this.codigo = codigo;
         this.cantidad = cantidad;
+        this.currentState= estado !=null ? (new NameableViewModel(estado.getId(),estado.getEstadoName())) : null;
     }
 }

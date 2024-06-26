@@ -4,6 +4,7 @@ import com.app.dao.FactoryDAO;
 import com.app.dao.interfaces.IInsumoDao;
 
 import com.app.models.Insumo;
+import com.app.models.MateriaPrima;
 import com.app.services.interfaces.IInsumoService;
 import com.app.utils.ListUtils;
 import com.app.viewModels.InsumoCreateViewModel;
@@ -32,6 +33,26 @@ public class InsumoService  implements IInsumoService {
         Insumo insumo=new Insumo(entityToAdd.getNombre(), entityToAdd.getCantidadDisponible(), entityToAdd.getDescripcion(), entityToAdd.getUnidadMedida());
        this.insumoDao.save(insumo );
        return this.toViewModel(insumo);
+    }
+
+    @Override
+    public InsumoViewModel getById(Long id) {
+        return toViewModel(insumoDao.getById(id));
+    }
+
+    @Override
+    public InsumoViewModel update(Long id, RecursoPostViewModel entityToEdit) {
+        Insumo entity = this.insumoDao.getById(id);
+        entity.setNombre(entityToEdit.nombre);
+        entity.setDescripcion(entityToEdit.descripcion);
+        this.insumoDao.save(entity);
+        return this.toViewModel(entity);
+    }
+
+
+    @Override
+    public void delete(Long id) {
+
     }
 
     private InsumoViewModel toViewModel(Insumo insumo) {

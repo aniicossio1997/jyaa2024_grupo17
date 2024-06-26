@@ -9,7 +9,9 @@ import java.util.List;
 
 @Contract
 public interface IIngresoInsumoService {
-    IngresoInsumoViewModel create(IngresoInsumoCreateViewModel entityToAdd);
     List<IngresoInsumoViewModel> getByFilters();
+    IngresoInsumoViewModel create(IngresoInsumoCreateViewModel entityToAdd);
+    IngresoInsumoViewModel getById(Long id);
+    IngresoInsumoViewModel update(Long id,IngresoInsumoCreateViewModel entityToAdd);
     boolean delete(Long id);
 }

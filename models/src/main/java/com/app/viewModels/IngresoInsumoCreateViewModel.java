@@ -3,7 +3,7 @@ package com.app.viewModels;
 import java.util.Date;
 
 public class IngresoInsumoCreateViewModel {
-    public Date fecha;
+    protected Date fecha;
     public String descripcion;
     public double cantidad;
     public String codigo;

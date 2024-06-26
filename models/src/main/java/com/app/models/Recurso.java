@@ -1,11 +1,15 @@
 package com.app.models;
 
+import com.app.models.baseEntity.DeletableWithNameBaseEntity;
 import com.app.models.baseEntity.NameableBaseEntity;
 import com.app.models.enums.UnidadMedidaEnum;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.MappedSuperclass;
 @MappedSuperclass
-public class Recurso extends NameableBaseEntity {
+@SQLDelete(sql = "UPDATE nota SET fechaBaja = CURRENT_TIMESTAMP WHERE id = ?")
+public class Recurso extends DeletableWithNameBaseEntity {
 
     public String descripcion;
     public UnidadMedidaEnum unidadMedida;

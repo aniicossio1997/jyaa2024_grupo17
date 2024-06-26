@@ -16,34 +16,29 @@ import java.util.List;
 
 @Tag(name = "MateriaPrimas")
 @Path("/materiaPrimas")
-public class MateriaPrimaResource {
+public class MateriaPrimaResource extends BaseResource{
     @Inject
     private IMateriaPrimaService materiaPrimaService;
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public List<NameableViewModel> getByFilters() {
         return this.materiaPrimaService.getAll();
     }
 
     @GET
     @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
     public RecursoViewModel getById(@PathParam("id") Long id){
         return this.materiaPrimaService.getById(id);
     }
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
+
     public RecursoViewModel save(@Valid RecursoPostViewModel entityToAdd) {
         return this.materiaPrimaService.create(entityToAdd);
     }
 
     @PUT
     @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public RecursoViewModel editar(@PathParam("id") Long id, @Valid RecursoPostViewModel entityToEdit){
 
         return materiaPrimaService.update(id,entityToEdit);
@@ -51,7 +46,6 @@ public class MateriaPrimaResource {
 
     @DELETE
     @Path("{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("id") Long id){
 
         materiaPrimaService.delete(id);

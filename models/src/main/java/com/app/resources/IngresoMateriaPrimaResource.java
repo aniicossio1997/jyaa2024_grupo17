@@ -15,27 +15,23 @@ import java.util.List;
 
 @Tag(name = "IngresoMateriaPrimas")
 @Path("/ingresoMateriaPrima")
-public class IngresoMateriaPrimaResource {
+public class IngresoMateriaPrimaResource extends BaseResource {
 
 
     @Inject
     private IIngresoMateriaPrimaService ingresoMateriaPrimaService;
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public List<IngresoMateriaPrimaViewModel> getByFilter() {
         return this.ingresoMateriaPrimaService.getByFilters();
     }
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public IngresoMateriaPrimaViewModel create(@Valid IngresoMateriaPrimaCreateViewModel entityToAdd) {
         return this.ingresoMateriaPrimaService.create(entityToAdd);
     }
 
     @GET
     @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
     public IngresoMateriaPrimaDetailViewModel getId(@PathParam("id") Long id) {
         return this.ingresoMateriaPrimaService.getById(id);
     }
@@ -49,8 +45,6 @@ public class IngresoMateriaPrimaResource {
 
     @PUT
     @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public IngresoMateriaPrimaDetailViewModel update(@PathParam("id") Long id, IngresoMateriaPrimaUpdateViewModel entityToEdit){
 
         return this.ingresoMateriaPrimaService.update(id, entityToEdit);

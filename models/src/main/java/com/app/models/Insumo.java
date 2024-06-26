@@ -22,6 +22,10 @@ public class Insumo extends Recurso {
         super(cantidadDisponible, descripcion, nombre, unidadMedida);
     }
 
+    public Insumo(String nombre,  String descripcion, UnidadMedidaEnum unidadMedida) {
+        super(0.0, descripcion, nombre, unidadMedida);
+    }
+
     public List<IngresoInsumo> getIngresos() {
         return ingresos;
     }

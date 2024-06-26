@@ -6,10 +6,6 @@ import org.jvnet.hk2.annotations.Contract;
 
 import java.util.List;
 @Contract
-public interface IInsumoDao {
-    void save(Insumo item);
+public interface IInsumoDao extends IBasicDao<Insumo> {
 
-    Insumo getById(Long id);
-
-    List<Insumo> getAll();
 }

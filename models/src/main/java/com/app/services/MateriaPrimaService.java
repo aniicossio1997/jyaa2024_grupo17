@@ -15,6 +15,7 @@ import jakarta.inject.Inject;
 import org.glassfish.hk2.api.PerLookup;
 import org.jvnet.hk2.annotations.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -46,13 +47,17 @@ public class MateriaPrimaService  implements IMateriaPrimaService {
         MateriaPrima entity = this.materiaPrimaDao.getById(id);
         entity.setNombre(entityToEdit.nombre);
         entity.setDescripcion(entityToEdit.descripcion);
+        entity.setUnidadMedida(entityToEdit.unidadMedida);
+
         this.materiaPrimaDao.save(entity);
         return this.toViewModel(entity);
     }
 
     @Override
     public void delete(Long id) {
-
+        MateriaPrima entityToDelete= this.materiaPrimaDao.getById(id,true);
+        entityToDelete.setFechaBaja(new Date());;
+        this.materiaPrimaDao.save(entityToDelete);
     }
 
     private NameableViewModel toViewModelName(MateriaPrima entity) {

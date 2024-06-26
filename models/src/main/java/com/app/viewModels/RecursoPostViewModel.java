@@ -5,26 +5,20 @@ import com.app.models.enums.UnidadMedidaEnum;
 public class RecursoPostViewModel {
     public String nombre;
     public UnidadMedidaEnum unidadMedida;
-    public Double cantidadDisponible;
     public String descripcion;
 
     public RecursoPostViewModel() {
     }
 
     public RecursoPostViewModel(Double cantidadDisponible, String descripcion, String nombre, UnidadMedidaEnum unidadMedida) {
-        this.cantidadDisponible = cantidadDisponible;
         this.descripcion = descripcion;
         this.nombre = nombre;
         this.unidadMedida = unidadMedida;
     }
 
-    public Double getCantidadDisponible() {
-        return cantidadDisponible;
-    }
 
-    public void setCantidadDisponible(Double cantidadDisponible) {
-        this.cantidadDisponible = cantidadDisponible;
-    }
+
+
 
     public UnidadMedidaEnum getUnidadMedida() {
         return unidadMedida;

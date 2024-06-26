@@ -3,6 +3,7 @@ package com.app.services;
 import com.app.dao.FactoryDAO;
 import com.app.dao.interfaces.IInsumoDao;
 
+import com.app.models.IngresoMateriaPrima;
 import com.app.models.Insumo;
 import com.app.models.MateriaPrima;
 import com.app.services.interfaces.IInsumoService;
@@ -16,6 +17,7 @@ import org.glassfish.hk2.api.PerLookup;
 import org.jvnet.hk2.annotations.Contract;
 import org.jvnet.hk2.annotations.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,12 +27,12 @@ public class InsumoService  implements IInsumoService {
     private IInsumoDao insumoDao;
     @Override
     public List<NameableViewModel> getAll() {
-        return  ListUtils.mapList(insumoDao.getAll(), this::toViewModel);
+        return  ListUtils.mapList(insumoDao.getAll(true), this::toViewModel);
     }
 
     @Override
     public InsumoViewModel create(InsumoCreateViewModel entityToAdd) {
-        Insumo insumo=new Insumo(entityToAdd.getNombre(), entityToAdd.getCantidadDisponible(), entityToAdd.getDescripcion(), entityToAdd.getUnidadMedida());
+        Insumo insumo=new Insumo(entityToAdd.getNombre(),  entityToAdd.getDescripcion(), entityToAdd.getUnidadMedida());
        this.insumoDao.save(insumo );
        return this.toViewModel(insumo);
     }
@@ -43,8 +45,10 @@ public class InsumoService  implements IInsumoService {
     @Override
     public InsumoViewModel update(Long id, RecursoPostViewModel entityToEdit) {
         Insumo entity = this.insumoDao.getById(id);
+
         entity.setNombre(entityToEdit.nombre);
         entity.setDescripcion(entityToEdit.descripcion);
+        entity.setUnidadMedida(entityToEdit.unidadMedida);
         this.insumoDao.save(entity);
         return this.toViewModel(entity);
     }
@@ -52,6 +56,9 @@ public class InsumoService  implements IInsumoService {
 
     @Override
     public void delete(Long id) {
+        Insumo entityToDelete= this.insumoDao.getById(id,true);
+        entityToDelete.setFechaBaja(new Date());;
+        this.insumoDao.save(entityToDelete);
 
     }
 

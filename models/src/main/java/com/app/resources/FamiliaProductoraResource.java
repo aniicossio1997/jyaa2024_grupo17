@@ -17,22 +17,17 @@ import java.util.List;
 @Tag(name = "FamiliaProductoras")
 @Path("/familiaProductoras")
 @Produces(MediaType.APPLICATION_JSON)
-public class FamiliaProductoraResource {
+public class FamiliaProductoraResource extends BaseResource {
 
     @Inject
     private IFamiliaProductoraService familiaProductoraService;
 
-
-
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public List<NameableViewModel> getByList() {
         return this.familiaProductoraService.getByFilter();
     }
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public Response createFamiliaProductora(@Valid FamiliaProductoraPostViewModel familiaProductora) {
 
         FamiliaProductora createdFamiliaProductora = familiaProductoraService.save(familiaProductora);
@@ -42,8 +37,6 @@ public class FamiliaProductoraResource {
 
     @PUT
     @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public Response editar(@PathParam("id") Long id,@Valid FamiliaProductoraPostViewModel entityToEdit){
         FamiliaProductora createdFamiliaProductora = familiaProductoraService.update(id,entityToEdit);
         return Response.status(Response.Status.ACCEPTED).entity(createdFamiliaProductora).build();
@@ -59,8 +52,6 @@ public class FamiliaProductoraResource {
 
     @GET
     @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public FamiliaProductora getById(@PathParam("id") Long id) {
 
         return this.familiaProductoraService.getById(id);

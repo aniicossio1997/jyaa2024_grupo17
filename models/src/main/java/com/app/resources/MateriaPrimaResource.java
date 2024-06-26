@@ -14,6 +14,8 @@ import jakarta.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/materiaPrimas")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class MateriaPrimaResource {
     @Inject
     private IMateriaPrimaService materiaPrimaService;

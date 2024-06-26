@@ -1,12 +1,14 @@
 package com.app.services;
 
 import com.app.dao.interfaces.*;
+import com.app.exceptions.InvalidParameterException;
 import com.app.models.*;
 import com.app.services.interfaces.IIngredienteRecetaService;
 import com.app.services.interfaces.IRecetaService;
 import com.app.utils.ListUtils;
 import com.app.viewModels.*;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.NotFoundException;
 import org.glassfish.hk2.api.PerLookup;
 import org.jvnet.hk2.annotations.Service;
 
@@ -41,7 +43,9 @@ public class IngredienteRecetaService implements IIngredienteRecetaService {
 
     @Override
     public IngredienteRecetaViewModel getById(Long id) {
-        return mappingService.toViewModel(ingredienteRecetaDao.getById(id));
+        IngredienteReceta ingredienteReceta = ingredienteRecetaDao.getById(id);
+        if (ingredienteReceta == null) throw new NotFoundException("ingrediente_not_found");
+        return mappingService.toViewModel(ingredienteReceta);
     }
 
     @Override

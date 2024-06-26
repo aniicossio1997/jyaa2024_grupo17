@@ -16,6 +16,7 @@ import java.util.List;
 
 @Path("/familiaProductoras")
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class FamiliaProductoraResource {
 
     @Inject

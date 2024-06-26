@@ -61,8 +61,6 @@ public abstract class BaseDao<T> implements IBasicDao<T> {
         return q.getResultList();
     }
 
-
-
     public List<T> getAll(boolean isActive) {
 
             String query = "FROM " + this.getGenericClass().getName() + " i";

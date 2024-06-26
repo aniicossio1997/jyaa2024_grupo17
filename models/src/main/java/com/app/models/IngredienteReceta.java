@@ -59,6 +59,7 @@ public class IngredienteReceta extends DeletableBaseEntity {
 
     public void setInsumo(Insumo insumo) {
         this.insumo = insumo;
+        this.materiaPrima = null;
     }
 
     public MateriaPrima getMateriaPrima() {
@@ -67,6 +68,7 @@ public class IngredienteReceta extends DeletableBaseEntity {
 
     public void setMateriaPrima(MateriaPrima materiaPrima) {
         this.materiaPrima = materiaPrima;
+        this.insumo = null;
     }
 
     public Receta getReceta() {

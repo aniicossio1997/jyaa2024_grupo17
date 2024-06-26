@@ -13,6 +13,7 @@ import java.util.List;
 @Tag(name = "Usuarios")
 @Path("/usuarios")
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class UsuariosResource {
     @Inject
     private IUsuarioService usuarioService;

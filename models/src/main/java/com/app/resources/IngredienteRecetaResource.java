@@ -15,9 +15,7 @@ import java.util.List;
 
 @Path("/ingredientes")
 @Tag(name = "Ingredientes")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
-public class IngredienteRecetaResource {
+public class IngredienteRecetaResource extends BaseResource {
 
     @Inject
     private IIngredienteRecetaService ingredienteRecetaService;
@@ -29,7 +27,6 @@ public class IngredienteRecetaResource {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
     public IngredienteRecetaViewModel create(IngredienteRecetaCreateViewModel viewModel) {
         return ingredienteRecetaService.create(viewModel);
     }

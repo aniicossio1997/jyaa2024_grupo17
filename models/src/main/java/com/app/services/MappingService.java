@@ -27,7 +27,7 @@ public class MappingService {
                 ingrediente.getId(),
                 ingrediente.getCantidad(),
                 Optional.ofNullable(ingrediente.getInsumo()).map(this::toViewModelInsumo).orElse(null),
-                null
+                Optional.ofNullable(ingrediente.getMateriaPrima()).map(this::toViewModel).orElse(null)
         );
     }
 
@@ -84,4 +84,6 @@ public class MappingService {
 
         );
     }
+
+
 }

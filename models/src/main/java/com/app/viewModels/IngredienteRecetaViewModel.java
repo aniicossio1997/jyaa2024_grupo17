@@ -12,9 +12,9 @@ import javax.persistence.ManyToOne;
 public class IngredienteRecetaViewModel extends IdentifiableViewModel {
     Double cantidad;
     InsumoViewModel insumo;
-    InsumoViewModel materiaPrima;
+    RecursoViewModel materiaPrima;
 
-    public IngredienteRecetaViewModel(Long id, Double cantidad, InsumoViewModel insumo, InsumoViewModel materiaPrima) {
+    public IngredienteRecetaViewModel(Long id, Double cantidad, InsumoViewModel insumo, RecursoViewModel materiaPrima) {
         super(id);
         this.cantidad = cantidad;
         this.insumo = insumo;
@@ -37,11 +37,11 @@ public class IngredienteRecetaViewModel extends IdentifiableViewModel {
         this.insumo = insumo;
     }
 
-    public InsumoViewModel getMateriaPrima() {
+    public RecursoViewModel getMateriaPrima() {
         return materiaPrima;
     }
 
-    public void setMateriaPrima(InsumoViewModel materiaPrima) {
+    public void setMateriaPrima(RecursoViewModel materiaPrima) {
         this.materiaPrima = materiaPrima;
     }
 }

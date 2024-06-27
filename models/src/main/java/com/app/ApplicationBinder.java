@@ -9,6 +9,7 @@ import jakarta.inject.Singleton;
 import jakarta.ws.rs.ext.Provider;
 import org.glassfish.hk2.api.JustInTimeInjectionResolver;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
+import org.glassfish.jersey.process.internal.RequestScoped;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -25,8 +26,8 @@ public class ApplicationBinder extends AbstractBinder {
                 .to(EntityManagerFactory.class)
                 .in(Singleton.class);
         bindFactory(EntityManagerProvider.class)
-                .to(EntityManager.class);
-
+                .to(EntityManager.class)
+                .in(RequestScoped.class);
         // DAO
         bind(ConsumoInsumoDao.class).to(IConsumoInsumoDao.class);
         bind(ConsumoMateriaPrimaDao.class).to(IConsumoMateriaPrimaDao.class);

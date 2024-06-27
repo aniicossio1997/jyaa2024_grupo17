@@ -18,21 +18,18 @@ public class UsuariosResource extends BaseResource {
 
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public List<UsuarioViewModel> getUsuarios(@QueryParam("includeBlocked") boolean includeBlocked) {
         return usuarioService.getAll(includeBlocked);
     }
 
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
     public UsuarioViewModel create(UsuarioCreateViewModel usuarioCreateViewModel) {
         return usuarioService.create(usuarioCreateViewModel);
     }
 
     @PATCH
     @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
     public UsuarioViewModel update(@PathParam("id") Long id, UsuarioCreateViewModel usuarioCreateViewModel) {
         return usuarioService.update(id, usuarioCreateViewModel);
     }

@@ -74,7 +74,7 @@ public class RecetaService implements IRecetaService {
         if (view.getNombre() != null) receta.setNombre(view.getNombre());
 
         for (IngredienteRecetaCreateViewModel ing : view.getIngredientes()) {
-            if (ing.getInsumoId() == null) { // Se agrega un nuevo ingrediente
+            if (ing.getId() == null) { // Se agrega un nuevo ingrediente
                 IngredienteReceta ingrediente = buildIngrediente(ing, receta);
                 receta.addIngrediente(ingrediente);
             } else { // Se modifica uno existente

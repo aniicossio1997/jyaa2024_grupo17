@@ -13,7 +13,10 @@ public class ServerExceptionMapper implements ExceptionMapper<WebApplicationExce
         String message = exception.getMessage();
         Response response = exception.getResponse();
         Response.Status status = response.getStatusInfo().toEnum();
-        ErrorResponse error = new ErrorResponse();
+
+        // Suponiendo que el código de error es el código de estado HTTP y el mensaje es el mensaje de la excepción.
+        ErrorResponse error = new ErrorResponse(message,status.getStatusCode());
+
         return Response.status(status)
                 .entity(error)
                 .type(MediaType.APPLICATION_JSON)

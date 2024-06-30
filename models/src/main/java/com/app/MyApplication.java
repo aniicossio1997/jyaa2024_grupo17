@@ -17,7 +17,6 @@ public class MyApplication extends ResourceConfig {
         register(new ApplicationBinder());
 
         register(OpenApiResource.class);
-
         property(ServletProperties.FILTER_STATIC_CONTENT_REGEX, "/swagger/.*");
     }
 }

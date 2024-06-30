@@ -10,4 +10,12 @@ import lombok.Setter;
 public class ErrorResponse {
     int status;
     String message;
+
+    public ErrorResponse() {
+    }
+
+    public ErrorResponse(String message, int status) {
+        this.message = message;
+        this.status = status;
+    }
 }

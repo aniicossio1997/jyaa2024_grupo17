@@ -9,7 +9,7 @@ import { ShellComponent } from './core/shell/shell.component';
 import { CoreModule } from './core/core.module';
 import { CommonModule } from '@angular/common';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
   ],
@@ -19,7 +19,8 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
     ButtonModule,
     CardModule,
     FormsModule,
-    CoreModule
+    CoreModule,
+    BrowserAnimationsModule,
     ],
   providers: [provideHttpClient(withFetch())],
   bootstrap: [ShellComponent],

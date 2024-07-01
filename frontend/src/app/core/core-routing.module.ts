@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'familiaProductora', pathMatch: 'full' },
+  { path: '', redirectTo: 'familiaProductoras', pathMatch: 'full' },
   {
-    path: 'familiaProductora',
+    path: 'familiaProductoras',
     loadChildren: () => import('../familia-productora/familia-productora.module').then(m => m.FamiliaProductoraModule)
   },
   {

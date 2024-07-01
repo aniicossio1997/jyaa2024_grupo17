@@ -1,0 +1,34 @@
+.layout-wrapper {
+  min-height: 100vh;
+}
+
+.layout-sidebar {
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+  width: 18rem;
+  background: #fff;
+  border-right: var(--sidebar-border);
+  box-shadow: var(--sidebar-shadow);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #e0dada;
+}
+.layout-main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+  padding: 2em;
+  transition: margin-left 0.2s;
+}
+
+@media (min-width: 982px) {
+  .layout-main-container {
+      margin-left: 250px;
+  }
+}
+
+
+

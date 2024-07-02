@@ -6,12 +6,14 @@
   <div class="flex justify-content-end flex-wrap mb-3">
     <div class="flex align-items-center justify-content-center">
       <p-button
-      pRipple
-      severity="success"
-      label="New"
-      icon="pi pi-plus"
-      class="mr-2"
-      (click)="openNew()" />
+        pRipple
+        severity="success"
+        label="New"
+        icon="pi pi-plus"
+        class="mr-2"
+        [routerLink]="['/' + RoutestEnum.FamiliaProductora + '/' + RoutestEnum.New]"
+
+      />
     </div>
   </div>
 

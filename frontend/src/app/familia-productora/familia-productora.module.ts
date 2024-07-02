@@ -31,17 +31,20 @@ import { RatingModule } from 'primeng/rating';
 import { ButtonGroupModule } from 'primeng/buttongroup';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { MenuModule } from 'primeng/menu';
+import { NewComponent } from './new/new.component';
+import { ManagementRoutes } from '../routers';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'query', pathMatch: 'full' },
-  { path: 'query', component: QueryComponent },
+  { path: ManagementRoutes.Query, component: QueryComponent },
+  { path: ManagementRoutes.New, component: NewComponent },
 
 
   /* { path: 'detalle/:idJuicio/nuevoEscrito', component: FormComponent } */
 ];
 
 @NgModule({
-  declarations: [QueryComponent],
+  declarations: [QueryComponent, NewComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(appRoutes),

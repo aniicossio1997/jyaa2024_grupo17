@@ -75,7 +75,8 @@ const appRoutes: Routes = [
     RippleModule,
     ButtonGroupModule,
     MultiSelectModule,
-    MenuModule
+    MenuModule,
+    ReactiveFormsModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -3,16 +3,34 @@ export interface IRouteModel{
   routerLink:string[],
   icon:string,
 }
+export enum ManagementRoutes {
+  Query = 'query',
+  New = 'new',
+  Edit = 'edit',
+  Detail = 'detail',
+
+  Usuario='usuarios',
+  FamiliaProductora='familiaProductoras',
+  MateriaPrima='materiaPrimas',
+  Insumo='Insumos',
+  Receta='Recetas'
+
+}
+export enum Routes {
+  AppRoot = '',
+  Login = 'login',
+
+}
 
 export const  ITEMS_ROUTERS:IRouteModel[]=[
   {
     title:'Usuarios',
-    routerLink:['/usuarios'],
+    routerLink:[`/${ManagementRoutes.Usuario}`],
     icon:'pi-users'
   },
   {
     title:'Familia Productora',
-    routerLink:['/familiaProductoras'],
+    routerLink:[`/${ManagementRoutes.FamiliaProductora}`],
     icon:'pi-address-book'
   },
   {
@@ -35,3 +53,5 @@ export const  ITEMS_ROUTERS:IRouteModel[]=[
   //------------------------------------
 
 ]
+
+

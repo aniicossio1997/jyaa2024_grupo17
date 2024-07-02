@@ -4,6 +4,7 @@ import { ProductService } from '../ProductService';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Menu } from 'primeng/menu';
+import { ManagementRoutes } from '../../routers';
 
 interface Product {
   id?: string;
@@ -38,7 +39,9 @@ export class QueryComponent  implements OnInit{
 
 
   selectedProducts!: any[] | null;
-
+  public get RoutestEnum(): typeof ManagementRoutes {
+    return ManagementRoutes;
+  }
 
 
   constructor(private familiaProductoraService: FamiliaProductoraService,

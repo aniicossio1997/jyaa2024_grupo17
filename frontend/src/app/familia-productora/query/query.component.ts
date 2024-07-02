@@ -1,23 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FamiliaProductoraService } from '../familia-productora.service';
-import { ProductService } from '../ProductService';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Menu } from 'primeng/menu';
 import { ManagementRoutes } from '../../routers';
+import { Router } from '@angular/router';
 
-interface Product {
-  id?: string;
-  code?: string;
-  name?: string;
-  description?: string;
-  price?: number;
-  quantity?: number;
-  inventoryStatus: string;
-  category?: string;
-  image?: string;
-  rating?: number;
-}
+
 
 @Component({
   selector: 'app-query',
@@ -25,7 +14,7 @@ interface Product {
   styleUrl: './query.component.scss',
   providers:[
     FamiliaProductoraService,
-    MessageService, ConfirmationService, ProductService
+    MessageService, ConfirmationService,
   ]
 })
 export class QueryComponent  implements OnInit{
@@ -46,8 +35,8 @@ export class QueryComponent  implements OnInit{
 
   constructor(private familiaProductoraService: FamiliaProductoraService,
 
-    private productService: ProductService, private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private router:Router
   ){
 
   }
@@ -75,37 +64,12 @@ export class QueryComponent  implements OnInit{
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
               this.selectedProducts = null;
-              this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
           }
       });
   }
 
-  editProduct(product: Product) {
-      //this.product = { ...product };
-      this.productDialog = true;
-  }
 
-  deleteProduct(product: Product) {
-      this.confirmationService.confirm({
-          message: 'Are you sure you want to delete ' + product.name + '?',
-          header: 'Confirm',
-          icon: 'pi pi-exclamation-triangle',
-          accept: () => {
-              //this.products = this.products.filter((val) => val.id !== product.id);
-              //this.product = null!;
-              this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-          }
-      });
-  }
 
-  hideDialog() {
-      this.productDialog = false;
-      //this.submitted = false;
-  }
-
-  saveProduct() {
-
-  }
 
 
   generateMenu(item: any, menu: Menu, event: any) {
@@ -113,24 +77,16 @@ export class QueryComponent  implements OnInit{
 
     this.itemsMenu = [
       {
-        label: 'Ver detalle',
-        icon: 'pi pi-eye',
-        command: () => {
-
-        },
-        visible: true,
-        // visible: item.canViewDetail
-      },
-      {
         label: 'Editar',
         icon: 'pi pi-pencil',
         command: () => {
-          // Add your code here
+          this.router.navigate([`/${ManagementRoutes.FamiliaProductora}/${ManagementRoutes.Edit}/`, item.id]); // Usa item.id para redirigir
+
         },
       },
       {
         label: 'Eliminar',
-        icon: 'pi pi-file',
+        icon: 'pi pi-trash',
         command: () => {
 
         },

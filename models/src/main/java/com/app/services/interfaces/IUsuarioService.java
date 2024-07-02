@@ -1,5 +1,6 @@
 package com.app.services.interfaces;
 
+import com.app.viewModels.RecetaDetalleViewModel;
 import com.app.viewModels.UsuarioCreateViewModel;
 import com.app.viewModels.UsuarioViewModel;
 import org.jvnet.hk2.annotations.Contract;
@@ -14,5 +15,7 @@ public interface IUsuarioService {
     UsuarioViewModel create(UsuarioCreateViewModel usuario);
 
     UsuarioViewModel update(Long usuarioId, UsuarioCreateViewModel usuario);
+
+    UsuarioViewModel getById(Long recetaId);
 
 }

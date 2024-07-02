@@ -4,6 +4,7 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 @import 'primeflex/primeflex.scss';
+@import "@fortawesome/fontawesome-free/css/all.css";
 // regular style toast
 @import 'ngx-toastr/toastr';
 
@@ -14,7 +15,6 @@
 
 html{
   font-size: 14px;
-
 }
 
 a{
@@ -24,3 +24,7 @@ a{
 
 
 
+.p-datatable-header{
+  background: none;
+  border-top: none;
+}

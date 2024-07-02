@@ -1,0 +1,52 @@
+<div class="card" style="max-width: 600px">
+  <h2 class="mb-5 m-2">Agregar Usuario</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="p-fluid p-formgrid grid">
+      <div class="field col-12 md:col-12">
+        <label htmlFor="nombre">Nombre</label>
+        <input pInputText id="firstname2" type="text" placeholder="Nombre" formControlName="nombre" />
+      </div>
+      <div class="field col-12 md:col-12">
+        <label htmlFor="apellido">Apellido</label>
+        <input pInputText id="apellido" type="text" placeholder="Apellido" formControlName="apellido" />
+      </div>
+      <div class="field col-12 md:col-12">
+        <label htmlFor="username">Nombre de usuario</label>
+        <input
+          pInputText
+          id="username"
+          type="text"
+          placeholder="Nombre de usuario"
+          formControlName="username"
+        />
+      </div>
+      <div class="field col-12 md:col-12">
+        <label htmlFor="email">Email</label>
+        <input pInputText id="email" type="text" placeholder="Email" formControlName="email"/>
+      </div>
+      <div class="field col-12 md:col-12">
+        <label htmlFor="password">Contraseña</label>
+        <input
+          pInputText
+          id="password"
+          type="password"
+          placeholder="Contraseña"
+          formControlName="password"
+        />
+      </div>
+
+      <div class="field col-12 md:col-12">
+        <label htmlFor="rol">Rol</label>
+        <p-dropdown
+          [options]="roles"
+          optionLabel="label"
+          placeholder="Selecciona un rol"
+          [autoDisplayFirst]="false"
+          formControlName="rol"
+          [value]="form.get('rol')"
+        />
+      </div>
+      <span class="ml-auto"><p-button label="Guardar" size="large" type="submit" [disabled] = "form.invalid"/></span>
+    </div>
+  </form>
+</div>

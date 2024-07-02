@@ -33,18 +33,20 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { MenuModule } from 'primeng/menu';
 import { NewComponent } from './new/new.component';
 import { ManagementRoutes } from '../routers';
+import { EditFamiliaComponent } from './edit-familia/edit-familia.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'query', pathMatch: 'full' },
+
+  { path: `${ManagementRoutes.Edit}/:id`, component: EditFamiliaComponent },
   { path: ManagementRoutes.Query, component: QueryComponent },
   { path: ManagementRoutes.New, component: NewComponent },
 
 
-  /* { path: 'detalle/:idJuicio/nuevoEscrito', component: FormComponent } */
 ];
 
 @NgModule({
-  declarations: [QueryComponent, NewComponent],
+  declarations: [QueryComponent, NewComponent, EditFamiliaComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(appRoutes),
@@ -76,7 +78,7 @@ const appRoutes: Routes = [
     ButtonGroupModule,
     MultiSelectModule,
     MenuModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })

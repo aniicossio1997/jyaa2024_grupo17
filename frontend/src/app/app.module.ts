@@ -9,6 +9,7 @@ import { ShellComponent } from './core/shell/shell.component';
 import { CoreModule } from './core/core.module';
 import { CommonModule } from '@angular/common';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -21,6 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
     CardModule,
     FormsModule,
     CoreModule,
+    BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 4000,
       positionClass: "toast-top-right",

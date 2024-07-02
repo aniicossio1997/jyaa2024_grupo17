@@ -6,8 +6,8 @@
 
   [ngClass]="{'active-route': (item.routerLink[0]==currentRoute)}"
 
-  routerLinkActive="bg-black-active" [routerLinkActiveOptions]="{exact: true}"
+  routerLinkActive="bg-black-active"
 >
-  <i [ngClass]="['pi ',item.icon, 'mr-2']"></i>
+  <i [ngClass]="[item.icon, 'mr-2']"></i>
   <span class="font-medium"> {{item.title}} </span>
 </a>

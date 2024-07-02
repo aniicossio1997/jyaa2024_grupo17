@@ -13,6 +13,7 @@ export class ShellComponent  implements OnInit{
   ngOnInit(): void {
 
     this.menuActive = this.isStatic() && !this.isMobile();
+    this.isResponsive= window.innerWidth <= 991;
   }
   isMobile() {
     return window.innerWidth <= 980;

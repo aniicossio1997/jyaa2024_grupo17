@@ -35,6 +35,20 @@ export class FamiliaProductoraService implements OnDestroy{
     );
   }
 
+  putFamilia(id:number,entity: any): Observable<any> {
+    const url = `${this.API_URL}/${id}`;
+    return this.http.put<any[]>(url, entity).pipe(
+      map((res: any) => {
+        this.toastr.success("Se ha editado la familia productora");
+        return res;
+      }),
+      catchError(e => {
+        this.toastr.error("No se ha podido editar la familia productora ")
+        return of([]);
+      })
+    );
+  }
+
   ngOnDestroy(): void {
 
   }

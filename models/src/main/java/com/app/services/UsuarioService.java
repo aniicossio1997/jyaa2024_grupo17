@@ -48,6 +48,11 @@ public class UsuarioService implements IUsuarioService {
         return toViewModel(usuario);
     }
 
+    @Override
+    public UsuarioViewModel getById(Long id) {
+        return toViewModel(this.usuarioDao.getById(id));
+    }
+
     private UsuarioViewModel toViewModel(Usuario usuario) {
         return new UsuarioViewModel(
                 usuario.getId(),

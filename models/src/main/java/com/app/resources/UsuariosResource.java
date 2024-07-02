@@ -10,6 +10,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
+
 @Tag(name = "Usuarios")
 @Path("/usuarios")
 public class UsuariosResource extends BaseResource {
@@ -23,12 +24,18 @@ public class UsuariosResource extends BaseResource {
     }
 
 
+    @GET
+    @Path("{id}")
+    public UsuarioViewModel getById(@PathParam("id") Long id) {
+        return usuarioService.getById(id);
+    }
+
     @POST
     public UsuarioViewModel create(UsuarioCreateViewModel usuarioCreateViewModel) {
         return usuarioService.create(usuarioCreateViewModel);
     }
 
-    @PATCH
+    @PUT
     @Path("{id}")
     public UsuarioViewModel update(@PathParam("id") Long id, UsuarioCreateViewModel usuarioCreateViewModel) {
         return usuarioService.update(id, usuarioCreateViewModel);

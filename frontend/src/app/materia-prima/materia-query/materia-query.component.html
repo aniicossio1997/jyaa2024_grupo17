@@ -1,0 +1,94 @@
+<!-- eslint-disable @angular-eslint/template/eqeqeq -->
+
+<div class="card">
+
+  <div class="flex justify-content-end flex-wrap mb-3">
+    <div class="flex align-items-center justify-content-center">
+      <p-button
+        pRipple
+        severity="success"
+        label="New"
+        icon="pi pi-plus"
+        class="mr-2"
+        [routerLink]="['/' + RoutestEnum.MateriaPrima + '/' + RoutestEnum.New]"
+
+      />
+    </div>
+  </div>
+
+
+  <p-table
+      #dt
+      [value]="materias"
+      [rows]="5"
+      [paginator]="true"
+      [globalFilterFields]="['nombre',]"
+      [tableStyle]="{ 'min-width': 'auto' }"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Mostrar {first} a {last} de {totalRecords} registros"
+      [showCurrentPageReport]="true"
+  >
+      <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-between">
+              <h5 class="m-0">Materias Primas</h5>
+              <span class="p-input-icon-left">
+                  <i class="pi pi-search"></i>
+                  <input
+                      pInputText
+                      type="text"
+                      (input)="dt.filterGlobal($event.target.value, 'contains')"
+                      placeholder="Search..." />
+              </span>
+          </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 4rem" >
+            Acciones
+          </th>
+          <th pSortableColumn="id" >
+              id <p-sortIcon field="id" />
+          </th>
+          <th pSortableColumn="nombre" >
+              Nombre <p-sortIcon field="nombre" />
+          </th>
+
+
+      </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-family>
+          <tr>
+            <td>
+              <button pButton pRipple type="button" icon="pi pi-bars" class="p-button-rounded p-button-text"
+                  (click)="generateMenu(family, menu, $event)">
+              </button>
+              <p-menu #menu [popup]="true" [model]="itemsMenu" appendTo="body"></p-menu>
+            </td>
+              <td>
+                #{{ family.id }}
+              </td>
+              <td>
+                  {{ family.nombre }}
+              </td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">
+              En total hay {{ materias ? materias.length : 0 }} registros.
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+            <td class="text-center py-4" [attr.colspan]="4 + 1">
+                No se encontraron registros
+            </td>
+        </tr>
+    </ng-template>
+
+
+  </p-table>
+
+
+</div>

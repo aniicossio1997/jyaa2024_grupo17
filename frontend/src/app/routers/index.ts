@@ -8,6 +8,8 @@ export enum ManagementRoutes {
   New = 'new',
   Edit = 'edit',
   Detail = 'detail',
+  AddIngredientes='add-ingredientes',
+
 
   Usuario='usuarios',
   FamiliaProductora='familiaProductoras',
@@ -35,7 +37,7 @@ export const  ITEMS_ROUTERS:IRouteModel[]=[
   },
   {
     title:'Materia Prima',
-    routerLink:['/'],
+    routerLink:[`/${ManagementRoutes.MateriaPrima}`],
     icon:'pi-folder'
   },
   {

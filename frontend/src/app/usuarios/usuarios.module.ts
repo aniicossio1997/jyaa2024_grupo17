@@ -14,21 +14,19 @@ import { NewComponent } from './new/new.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditComponent } from './edit/edit.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'query', pathMatch: 'full' },
   { path: 'query', component: QueryComponent },
   { path: 'new', component: NewComponent },
-
+  { path: 'edit', component: EditComponent },
 
   /* { path: 'detalle/:idJuicio/nuevoEscrito', component: FormComponent } */
 ];
 
 @NgModule({
-  declarations: [
-    QueryComponent,
-    NewComponent,
-  ],
+  declarations: [QueryComponent, NewComponent, EditComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(appRoutes),
@@ -46,6 +44,6 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
   ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class UsuariosModule { }
+export class UsuariosModule {}

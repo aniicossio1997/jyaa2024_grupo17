@@ -15,9 +15,21 @@ export class UsuariosService implements OnDestroy {
       .pipe(map((res: UsuarioViewModel[]) => res));
   }
 
+  detail(id: number) {
+    return this.http
+      .get<UsuarioViewModel>(this.API_URL + '/' + id)
+      .pipe(map((res: UsuarioViewModel) => res));
+  }
+
   create(usuario: Omit<UsuarioViewModel, 'id'>) {
     return this.http
       .post<UsuarioViewModel>(this.API_URL, usuario)
+      .pipe(map((res: UsuarioViewModel) => res));
+  }
+
+  edit(id: number, usuario: Partial<UsuarioViewModel>) {
+    return this.http
+      .put<UsuarioViewModel>(this.API_URL + '/' + id, usuario)
       .pipe(map((res: UsuarioViewModel) => res));
   }
 

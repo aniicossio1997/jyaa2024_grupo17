@@ -10,6 +10,8 @@ import { CoreModule } from './core/core.module';
 import { CommonModule } from '@angular/common';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
   ],
@@ -21,9 +23,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     CoreModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 4000,
+      positionClass: "toast-top-right",
+      progressBar: true,
+      progressAnimation: "increasing",
+      closeButton:true
+    }),
     ],
   providers: [provideHttpClient(withFetch())],
   bootstrap: [ShellComponent],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+
 })
 export class AppModule { }

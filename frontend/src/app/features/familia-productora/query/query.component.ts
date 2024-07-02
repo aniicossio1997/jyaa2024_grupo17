@@ -3,8 +3,8 @@ import { FamiliaProductoraService } from '../familia-productora.service';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Menu } from 'primeng/menu';
-import { ManagementRoutes } from '../../routers';
 import { Router } from '@angular/router';
+import { ManagementRoutes } from '../../../routers/index';
 
 
 

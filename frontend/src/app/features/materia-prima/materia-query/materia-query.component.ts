@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ManagementRoutes } from '../../routers';
-import { MateriaPrimaService } from '../../services/materia-prima.service';
+import { ManagementRoutes } from '../../../routers';
+import { MateriaPrimaService } from '../../../services/materia-prima.service';
 import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
 import { MenuItem } from 'primeng/api';

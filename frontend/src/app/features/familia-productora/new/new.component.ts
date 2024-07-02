@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ManagementRoutes } from '../../routers';
 import { Router } from '@angular/router';
 import { FamiliaProductoraService } from '../familia-productora.service';
-import { FamialiProductoraCreateViewModel } from '../../interfaces/FamiliaProductoraCreateViewModel';
 import { catchError, of, switchMap } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { ManagementRoutes } from '../../../routers';
+import { FamialiProductoraCreateViewModel } from '../../../interfaces/FamiliaProductoraCreateViewModel';
 
 @Component({
   selector: 'app-new',

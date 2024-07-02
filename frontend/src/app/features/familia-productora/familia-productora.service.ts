@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
-import { NameableViewModel } from '../interfaces/NameableViewModel';
-import { FamialiProductoraCreateViewModel } from '../interfaces/FamiliaProductoraCreateViewModel';
 import { ToastrService } from 'ngx-toastr';
+import { NameableViewModel } from '../../interfaces/NameableViewModel';
 
 @Injectable()
 export class FamiliaProductoraService implements OnDestroy{

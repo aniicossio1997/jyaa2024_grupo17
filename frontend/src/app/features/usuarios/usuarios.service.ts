@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { map } from 'rxjs';
-import { UsuarioViewModel } from '../interfaces/UsuarioViewModel';
+import { UsuarioViewModel } from '../../interfaces/UsuarioViewModel';
 
 @Injectable()
 export class UsuariosService implements OnDestroy {

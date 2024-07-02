@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UsuariosService } from '../usuarios.service';
-import { NameableViewModel } from '../../interfaces/NameableViewModel';
+import { NameableViewModel } from '../../../interfaces/NameableViewModel';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Menu } from 'primeng/menu';
-import { ManagementRoutes } from '../../routers';
+import { ManagementRoutes } from '../../../routers';
 
 @Component({
   providers: [UsuariosService],
@@ -17,7 +17,7 @@ export class QueryComponent implements OnInit {
 
   // Menus
   itemsMenu: MenuItem[] = [];
-  
+
   constructor(private usuariosService: UsuariosService) {}
   ngOnInit(): void {
     this.usuariosService.get().subscribe((res) => (this.usuarios = res));

@@ -7,15 +7,15 @@ const routes: Routes = [
   { path: '', redirectTo: 'familiaProductoras', pathMatch: 'full' },
   {
     path: 'familiaProductoras',
-    loadChildren: () => import('../familia-productora/familia-productora.module').then(m => m.FamiliaProductoraModule)
+    loadChildren: () => import('../features/familia-productora/familia-productora.module').then(m => m.FamiliaProductoraModule)
   },
   {
     path: 'usuarios',
-    loadChildren: () => import('./../usuarios/usuarios.module').then(m => m.UsuariosModule)
+    loadChildren: () => import('../features/usuarios/usuarios.module').then(m => m.UsuariosModule)
   },
   {
     path: ManagementRoutes.MateriaPrima,
-    loadChildren: () => import('./../materia-prima/materia-prima.module').then(m => m.MateriaPrimaModule)
+    loadChildren: () => import('../features/materia-prima/materia-prima.module').then(m => m.MateriaPrimaModule)
   },
 
 ];

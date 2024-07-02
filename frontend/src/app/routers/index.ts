@@ -26,27 +26,27 @@ export const  ITEMS_ROUTERS:IRouteModel[]=[
   {
     title:'Usuarios',
     routerLink:[`/${ManagementRoutes.Usuario}`],
-    icon:'pi-users'
+    icon:'fa-solid fa-user-group'
   },
   {
-    title:'Familia Productora',
+    title:'Familias Productoras',
     routerLink:[`/${ManagementRoutes.FamiliaProductora}`],
-    icon:'pi-address-book'
+    icon:'fa-solid fa-tractor'
   },
   {
-    title:'Materia Prima',
+    title:'Materias Primas',
     routerLink:['/'],
-    icon:'pi-folder'
+    icon:'fa-solid fa-wheat-awn'
   },
   {
-    title:'Insumo',
+    title:'Insumos',
     routerLink:['/'],
-    icon:'pi-folder'
+    icon:'fa-solid fa-clipboard-list'
   },
   {
     title:'Recetas',
     routerLink:['/'],
-    icon:'pi-folder'
+    icon:'fa-solid fa-kitchen-set'
   },
 
 

@@ -1,68 +1,92 @@
-<h1>Usuarios</h1>
-
-<p-table
-  #dt
-  [value]="usuarios"
-  [tableStyle]="{ 'min-width': '50rem' }"
-  [paginator]="true"
-  [rows]="5"
-  [tableStyle]="{ 'min-width': '50rem' }"
-  [rowsPerPageOptions]="[5, 10, 20]"
-  [globalFilterFields]="['nombre', 'apellido', 'username', 'email']"
->
-  <ng-template pTemplate="caption">
-    <div class="flex align-items-center">
-      <p-iconField iconPosition="left" class="ml-auto">
-        <p-inputIcon>
-          <i class="pi pi-search"></i>
-        </p-inputIcon>
-        <input
-          pInputText
-          type="text"
-          (input)="applyFilterGlobal($event, 'contains')"
-          placeholder="Buscar"
-        />
-      </p-iconField>
-    </div>
-  </ng-template>
-  <ng-template pTemplate="header">
-    <tr>
-      <th>Acciones</th>
-      <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre" /></th>
-      <th pSortableColumn="apellido">
-        Apellido <p-sortIcon field="apellido" />
-      </th>
-      <th pSortableColumn="email">Email <p-sortIcon field="email" /></th>
-      <th pSortableColumn="username">
-        Nombre de usuario <p-sortIcon field="username" />
-      </th>
-      <th pSortableColumn="rol">Rol <p-sortIcon field="rol" /></th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-usuario>
-    <tr>
-      <td>
-        <div class="card flex justify-content-center">
-          <p-menu #menu [model]="actions" [popup]="true" appendTo="action" />
+<div class="card">
+  <p-table
+    #dt
+    [value]="usuarios"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [paginator]="true"
+    [rows]="5"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [globalFilterFields]="['nombre', 'apellido', 'username', 'email']"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between flex-wrap">
+        <h2 class="m-0">Usuarios</h2>
+        <div class="flex gap-4 flex-wrap">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              (input)="dt.filterGlobal($event.target.value, 'contains')"
+              placeholder="Buscar..."
+            />
+          </span>
           <p-button
-            #action
-            [text]="true"
-            (click)="menu.toggle($event)"
-            icon="pi pi-ellipsis-v"
-            severity="secondary"
+            pRipple
+            severity="primary"
+            label="Agregar Usuario"
+            icon="pi pi-plus"
+            class="mr-2"
+            [routerLink]="[
+              Routes.NEW
+            ]"
           />
         </div>
-      </td>
-      <td>{{ usuario.nombre }}</td>
-      <td>{{ usuario.apellido }}</td>
-      <td>{{ usuario.email }}</td>
-      <td>{{ usuario.username }}</td>
-      <td>
-        <p-tag
-          value="{{ usuario.rol }}"
-          [severity]="usuario.rol === 'ADMIN' ? 'info' : 'success'"
-        />
-      </td>
-    </tr>
-  </ng-template>
-</p-table>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Acciones</th>
+        <th pSortableColumn="username">
+          Nombre de usuario <p-sortIcon field="username" />
+        </th>
+        <th pSortableColumn="email">Email <p-sortIcon field="email" /></th>
+        <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre" /></th>
+        <th pSortableColumn="apellido">
+          Apellido <p-sortIcon field="apellido" />
+        </th>
+
+        <th pSortableColumn="rol">Rol <p-sortIcon field="rol" /></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-usuario>
+      <tr>
+        <td>
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-bars"
+            class="p-button-rounded p-button-text"
+            (click)="generateMenu(entity, menu, $event)"
+          ></button>
+          <p-menu
+            #menu
+            [popup]="true"
+            [model]="itemsMenu"
+            appendTo="body"
+          ></p-menu>
+        </td>
+        <td>{{ usuario.username }}</td>
+        <td>{{ usuario.email }}</td>
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.apellido }}</td>
+        <td>
+          <p-tag
+            value="{{ usuario.rol }}"
+            [severity]="usuario.rol === 'ADMIN' ? 'info' : 'success'"
+          />
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td class="text-center py-4" [attr.colspan]="4 + 1">
+          No se encontraron usuarios
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

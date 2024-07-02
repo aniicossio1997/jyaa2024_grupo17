@@ -2,7 +2,7 @@
   font-family: "Poppins", sans-serif;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   font-variation-settings: normal;
-  --font-family:"Poppins", sans-serif;
+  --font-family:"Nunito Sans", sans-serif;
   --font-feature-settings: "cv02","cv03","cv04","cv11";
   --surface-a:#ffffff;
   --surface-b:#f9fafb;
@@ -173,7 +173,7 @@
   --primary-700:#0b825a;
   --primary-800:#096647;
   --primary-900:#064a34;
-  --sidebar-shadow: 0px 4px 50px #D9DDFC;
+  --sidebar-shadow: 0px 4px 50px #8ef0c733;
   --sidebar-border: 1px solid transparent;
   --card-shadow: 0px 4px 30px rgba(221, 224, 255, .54);
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { map } from 'rxjs';
-import { NameableViewModel } from '../interfaces/NameableViewModel';
+import { UsuarioViewModel } from '../interfaces/UsuarioViewModel';
 
 @Injectable()
 export class UsuariosService implements OnDestroy {
@@ -10,8 +10,15 @@ export class UsuariosService implements OnDestroy {
   constructor(private http: HttpClient) {}
 
   get() {
-    const url = `${this.API_URL}`;
-    return this.http.get<NameableViewModel[]>(url).pipe(map((res: any) => res));
+    return this.http
+      .get<UsuarioViewModel[]>(this.API_URL)
+      .pipe(map((res: UsuarioViewModel[]) => res));
+  }
+
+  create(usuario: Omit<UsuarioViewModel, 'id'>) {
+    return this.http
+      .post<UsuarioViewModel>(this.API_URL, usuario)
+      .pipe(map((res: UsuarioViewModel) => res));
   }
 
   ngOnDestroy(): void {

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QueryComponent } from './query/query.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -10,10 +10,15 @@ import { TagModule } from 'primeng/tag';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { IconFieldModule } from 'primeng/iconfield';
+import { NewComponent } from './new/new.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'query', pathMatch: 'full' },
   { path: 'query', component: QueryComponent },
+  { path: 'new', component: NewComponent },
 
 
   /* { path: 'detalle/:idJuicio/nuevoEscrito', component: FormComponent } */
@@ -21,7 +26,8 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    QueryComponent
+    QueryComponent,
+    NewComponent,
   ],
   imports: [
     CommonModule,
@@ -34,6 +40,12 @@ const appRoutes: Routes = [
     InputIconModule,
     InputTextModule,
     IconFieldModule,
-  ]
+    RouterModule,
+    InputTextareaModule,
+    DropdownModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class UsuariosModule { }

@@ -2,6 +2,15 @@ a.active-route, a.active-route > span {
   font-weight: 800 !important;
   color: #4b5563 !important;
 }
+
+.active-route {
+  background-color: #e8fff7 !important;
+}
+
+.active-route:hover {
+  background: #e2fff5 !important;
+}
+
 .layout-sidebar .layout-menu ul a .layout-menuitem-icon, i {
   margin-right: .5rem;
   color: #10b981 !important;

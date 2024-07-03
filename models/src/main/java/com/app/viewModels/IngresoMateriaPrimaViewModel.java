@@ -15,9 +15,10 @@ public class IngresoMateriaPrimaViewModel extends IdentifiableViewModel {
     public String codigo;
     public double valorCompra;
     public NameableViewModel materiaPrima;
-    public NameableViewModel familiaPrima;
+    public NameableViewModel familiaProductora;
 
     public NameableViewModel currentState;
+
     public IngresoMateriaPrimaViewModel(Long id) {
         super(id);
     }
@@ -31,7 +32,7 @@ public class IngresoMateriaPrimaViewModel extends IdentifiableViewModel {
         this.valorCompra = valorCompra;
         this.materiaPrima = MappingUtils.toViewModel(materiaPrima);
         this.fecha = fecha;
-        this.familiaPrima = familiaPrima;
+        this.familiaProductora = familiaPrima;
         this.descripcion = descripcion;
         this.codigo = codigo;
         this.cantidad = cantidad;

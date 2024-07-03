@@ -25,7 +25,7 @@ public class MateriaPrimaResource extends BaseResource{
 
     @GET
     @Path("{id}")
-    public RecursoDetailViewModel getById(@PathParam("id") Long id){
+    public MateriaPrimaDetailViewModel getById(@PathParam("id") Long id){
         return this.materiaPrimaService.getById(id);
     }
 

@@ -25,7 +25,7 @@
     </init-param>
     <init-param>
       <param-name>cors.support.credentials</param-name>
-      <param-value>false</param-value>
+      <param-value>falseS</param-value>
     </init-param>
     <init-param>
       <param-name>cors.preflight.maxage</param-name>

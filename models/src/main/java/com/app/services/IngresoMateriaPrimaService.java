@@ -122,9 +122,6 @@ public class IngresoMateriaPrimaService implements IIngresoMateriaPrimaService {
         );
     }
     private IngresoMateriaPrimaDetailViewModel toViewModelDetails(IngresoMateriaPrima imp) {
-        if (imp == null) {
-            throw new InvalidParameterException("IngresoMateriaPrima cannot be null.");
-        }
 
         List<EstadoViewModel> estadoViewModels = imp.getEstadosOrderById().stream()
                 .map(e -> {

@@ -3,6 +3,7 @@ package com.app.resources;
 import com.app.models.FamiliaProductora;
 import com.app.services.interfaces.IFamiliaProductoraService;
 import com.app.viewModels.FamiliaProductoraPostViewModel;
+import com.app.viewModels.FamiliaProductoraViewModel;
 import com.app.viewModels.base.NameableViewModel;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.inject.Inject;
@@ -25,7 +26,7 @@ public class FamiliaProductoraResource extends BaseResource {
     private IFamiliaProductoraService familiaProductoraService;
 
     @GET
-    public List<NameableViewModel> getByList() {
+    public List<FamiliaProductoraViewModel> getByList() {
         return this.familiaProductoraService.getByFilter();
     }
 

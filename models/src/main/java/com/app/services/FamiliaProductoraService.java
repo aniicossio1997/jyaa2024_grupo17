@@ -8,6 +8,7 @@ import com.app.services.interfaces.IFamiliaProductoraService;
 import com.app.utils.ListUtils;
 import com.app.viewModels.FamiliaProductoraPostViewModel;
 
+import com.app.viewModels.FamiliaProductoraViewModel;
 import com.app.viewModels.base.NameableViewModel;
 import org.glassfish.hk2.api.PerLookup;
 import org.jvnet.hk2.annotations.Service;
@@ -26,7 +27,7 @@ public class FamiliaProductoraService implements IFamiliaProductoraService {
     private IFamiliaProductoraDao familiaProductoraDao;
 
     @Override
-    public List<NameableViewModel> getByFilter() {
+    public List<FamiliaProductoraViewModel> getByFilter() {
         return  ListUtils.mapList(familiaProductoraDao.getAll(true), this::toViewModel);
 
     }
@@ -63,11 +64,11 @@ public class FamiliaProductoraService implements IFamiliaProductoraService {
     public FamiliaProductora getById(Long id) {
         return this.familiaProductoraDao.getById(id);
     }
-    private NameableViewModel toViewModel(FamiliaProductora entity) {
-        return new NameableViewModel(
+    private FamiliaProductoraViewModel toViewModel(FamiliaProductora entity) {
+        return new FamiliaProductoraViewModel(
                 entity.getId(),
-                entity.getNombre()
-
+                entity.getNombre(),
+                entity.getDescripcion()
         );
     }
 }

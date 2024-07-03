@@ -1,13 +1,13 @@
 package com.app.services;
 
 import com.app.dao.interfaces.IMateriaPrimaDao;
+import com.app.models.IngresoMateriaPrima;
 import com.app.models.MateriaPrima;
 import com.app.models.Recurso;
 import com.app.services.interfaces.IMateriaPrimaService;
 import com.app.utils.ListUtils;
-import com.app.viewModels.RecursoPostViewModel;
-import com.app.viewModels.RecursoDetailViewModel;
-import com.app.viewModels.RecursoViewModel;
+import com.app.utils.MappingUtils;
+import com.app.viewModels.*;
 import com.app.viewModels.base.NameableViewModel;
 import jakarta.inject.Inject;
 import org.glassfish.hk2.api.PerLookup;
@@ -15,6 +15,7 @@ import org.jvnet.hk2.annotations.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @PerLookup
@@ -30,9 +31,9 @@ public class MateriaPrimaService  implements IMateriaPrimaService {
     }
 
     @Override
-    public RecursoDetailViewModel getById(Long id) {
+    public MateriaPrimaDetailViewModel getById(Long id) {
         MateriaPrima entity = this.materiaPrimaDao.getById(id);
-        return mappingService.toViewModelDetail(entity);
+        return toViewModelDetail(entity);
     }
 
     @Override
@@ -69,16 +70,24 @@ public class MateriaPrimaService  implements IMateriaPrimaService {
                 entity.getTotalValorDeCompra()
         );
     }
-    public RecursoDetailViewModel toViewModelDetail(Recurso entity) {
-        return new RecursoDetailViewModel(
+
+
+    public MateriaPrimaDetailViewModel toViewModelDetail(MateriaPrima entity) {
+        List<IngresoMateriaPrimaShortViewModel> listIngresos = entity.getIngresos()
+                .stream()
+                .map(MappingUtils::toViewModelDetails)
+                .collect(Collectors.toList());
+
+        return new MateriaPrimaDetailViewModel(
                 entity.getId(),
                 entity.getNombre(),
                 entity.getUnidadMedida(),
                 entity.getDescripcion(),
                 entity.getCantidadIngresos(),
-                entity.getTotalValorDeCompra()
-
+                entity.getTotalValorDeCompra(),
+                listIngresos
         );
     }
+
 
 }

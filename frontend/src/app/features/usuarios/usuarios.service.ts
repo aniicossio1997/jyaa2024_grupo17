@@ -33,6 +33,10 @@ export class UsuariosService implements OnDestroy {
       .pipe(map((res: UsuarioViewModel) => res));
   }
 
+  delete(id: number) {
+    return this.http.delete<void>(this.API_URL + '/' + id).pipe(map((res) => res));
+  }
+
   ngOnDestroy(): void {
     console.log('DESTROY');
   }

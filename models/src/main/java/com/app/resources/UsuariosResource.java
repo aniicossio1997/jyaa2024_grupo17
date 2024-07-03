@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
@@ -39,6 +40,13 @@ public class UsuariosResource extends BaseResource {
     @Path("{id}")
     public UsuarioViewModel update(@PathParam("id") Long id, UsuarioCreateViewModel usuarioCreateViewModel) {
         return usuarioService.update(id, usuarioCreateViewModel);
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response block(@PathParam("id") Long id) {
+        usuarioService.delete(id);
+        return Response.status(Response.Status.OK).build();
     }
 
 }

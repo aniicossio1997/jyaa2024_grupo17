@@ -17,6 +17,7 @@ public class UsuarioDao extends BaseDao<Usuario> implements IUsuarioDao {
     public List<Usuario> getAll(boolean includeBlocked) {
         String query = "FROM " + this.getGenericClass().getName() + " i";
         if (!includeBlocked) query += " WHERE i.blocked = false";
+        query += " ORDER BY i.id DESC";
         TypedQuery<Usuario> q = em.createQuery(query, this.getGenericClass());
         return q.getResultList();
     }

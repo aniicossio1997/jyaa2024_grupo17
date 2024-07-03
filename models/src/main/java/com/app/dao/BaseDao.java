@@ -57,6 +57,7 @@ public abstract class BaseDao<T> implements IBasicDao<T> {
     public List<T> getAll() {
         String query = "FROM " + this.getGenericClass().getName() + " i";
         if (getDeletable()) query += " WHERE i.fechaBaja is NULL";
+        query += " ORDER By i.id DESC";
         TypedQuery<T> q = em.createQuery(query, this.getGenericClass());
         return q.getResultList();
     }
@@ -65,6 +66,7 @@ public abstract class BaseDao<T> implements IBasicDao<T> {
 
             String query = "FROM " + this.getGenericClass().getName() + " i";
             if (isActive) query += " WHERE i.fechaBaja is NULL";
+            query += " ORDER By i.id DESC";
             TypedQuery<T> q = em.createQuery(query, this.getGenericClass());
             return q.getResultList();
 

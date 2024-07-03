@@ -5,6 +5,12 @@
 
   </div>
   <div class="layout-main-container">
+    <div class=" flex justify-content-start m-2">
+      <p-breadcrumb
+              class="max-w-full"
+              [model]="items"
+              [home]="home" />
+      </div>
       <div class="layout-main">
           <router-outlet></router-outlet>
       </div>

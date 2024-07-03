@@ -49,8 +49,9 @@ const appRoutes: Routes = [
 
   { path: ManagementRoutes.New, component: MateriaNewComponent },
 
+  { path: `${ManagementRoutes.Gestion}/:id`, component: MateriaDetailComponent },
+
   { path: `${ManagementRoutes.AddIngresos}/:id`, component: AgregarIngresosComponent },
-  { path: `${ManagementRoutes.AddIngresos}`, component: AgregarIngresosComponent },
 
 
 ];

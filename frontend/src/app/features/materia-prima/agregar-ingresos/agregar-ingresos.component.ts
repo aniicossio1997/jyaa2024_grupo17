@@ -10,6 +10,8 @@ import { FamiliaProductoraService } from '../../familia-productora/familia-produ
 import { FamiliaProductoraViewModel } from '../../../interfaces/FamiliaProductoraViewModel';
 import { UnidadMedidaEnum } from '../../../interfaces/UnidadMedidaEnum';
 import { EstadoIngresoEnums } from '../../../model/EstadoIngresoEnums';
+import { ManagementRoutes } from '../../../routers';
+import { IngresoMateriaPrimaCreateViewModel } from '../../../interfaces/ingresoMateriaPrimaCreate';
 
 @Component({
   selector: 'app-agregar-ingresos',
@@ -57,6 +59,7 @@ export class AgregarIngresosComponent implements OnInit {
     const id = Number(this.activatedRoute.snapshot.paramMap.get('id')!);
     this.materiaPrimaService.getById(id).subscribe(data=>{
       this.materiaPrima=data;
+      this.myForm.get("materiaPrimaId").setValue(this.materiaPrima.id)
       this.myForm.updateValueAndValidity();
     });
     this.familiaProductoraService.get().subscribe(data=>{
@@ -66,19 +69,24 @@ export class AgregarIngresosComponent implements OnInit {
   }
 
   cancel(){
-    //this.router.navigate(['/' + ManagementRoutes.MateriaPrima]);
+    this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.Gestion}`,this.materiaPrima.id!]);
+
 
   }
   save(){
-   /* if (this.myForm.valid) {
+   if (this.myForm.valid) {
 
-      const entityToAdd:MateriaPrimaCreateViewModel= {
-            nombre:this.myForm.get("nombre").value,
+      const entityToAdd:IngresoMateriaPrimaCreateViewModel= {
             descripcion:this.myForm.get("descripcion").value,
-            unidadMedida: this.myForm.get(formKeysEnum.unidadMedida).value
+            cantidad: this.myForm.get("cantidad").value,
+            codigo:this.myForm.get("codigo").value,
+            estado:this.myForm.get("estado").value,
+            familiaPrimaId:this.myForm.get("familiaPrimaId").value,
+            materiaPrimaId: this.myForm.get("materiaPrimaId").value,
+            valorCompra: this.myForm.get("valorCompra").value
       }
 
-      this.materiaPrimaService.post(entityToAdd).subscribe(
+      this.ingresoMateriaPrimasService.post(entityToAdd).subscribe(
         result => {
           if (result) {
 
@@ -88,7 +96,7 @@ export class AgregarIngresosComponent implements OnInit {
       );
 
     }
-      */
+
 
   }
   positiveNumberValidator: ValidatorFn = (control: AbstractControl): { [key: string]: any } | null => {

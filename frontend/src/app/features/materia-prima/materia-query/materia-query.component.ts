@@ -54,18 +54,10 @@ export class MateriaQueryComponent implements OnInit {
 
     this.itemsMenu = [
       {
-        label: 'Detalle',
-        icon: 'pi pi-eye',
-        command: () => {
-          this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.Detail}/`, item.id]); // Usa item.id para redirigir
-
-        },
-      },
-      {
         label: 'Gestionar ingresos',
         icon: 'pi pi-arrow-right',
         command: () => {
-          this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.AddIngresos}/`, item.id]); // Usa item.id para redirigir
+          this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.Gestion}/`, item.id]); // Usa item.id para redirigir
 
         },
       },

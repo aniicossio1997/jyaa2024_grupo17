@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ManagementRoutes } from '../routers';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
-const routes: Routes = [
+export const routesRoot: Routes = [
   { path: '', redirectTo: 'familiaProductoras', pathMatch: 'full' },
   {
     path: 'familiaProductoras',
@@ -21,7 +22,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routesRoot)],
   exports: [RouterModule]
 })
 export class CoreRoutingModule {

@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class IngresoMateriaPrimasService {
-  private API_URL ='http://localhost:8080/SalaDeElaboracion/api/materiaPrimas' ;
+  private API_URL ='http://localhost:8080/SalaDeElaboracion/api/ingresoMateriaPrima' ;
 
 
   constructor(private http: HttpClient,private toastr: ToastrService) { }

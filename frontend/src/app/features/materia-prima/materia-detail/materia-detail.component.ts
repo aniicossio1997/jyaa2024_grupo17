@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MateriaPrimaService } from '../../../services/materia-prima.service';
 import { ManagementRoutes } from '../../../routers';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MateriaPrimaDetailViewModel } from '../../../interfaces/MateriaPrimaDetailViewModel';
 import { Menu } from 'primeng/menu';
 import { Table } from 'primeng/table';
@@ -31,7 +31,9 @@ export class MateriaDetailComponent implements OnInit {
     return ManagementRoutes;
   }
 
-  constructor(private materiaPrimaService: MateriaPrimaService, private activateRouter:ActivatedRoute){
+  constructor(private materiaPrimaService: MateriaPrimaService, private activateRouter:ActivatedRoute,
+    private router:Router
+  ){
 
   }
   ngOnInit(): void {
@@ -82,6 +84,14 @@ export class MateriaDetailComponent implements OnInit {
       },
 
     ];
+  }
+  toAddIngreso(){
+    this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.AddIngresos}/`, this.materiaPrimaDetail.id]); // Usa item.id para redirigir
+
+  }
+  back(){
+    this.router.navigate([`/${ManagementRoutes.MateriaPrima}`]); // Usa item.id para redirigir
+
   }
 
 }

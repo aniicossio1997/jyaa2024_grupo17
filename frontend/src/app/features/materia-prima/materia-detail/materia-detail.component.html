@@ -1,28 +1,51 @@
 
+<p-button
+pRipple
+label="Volver"
+icon="pi pi-arrow-left"
+styleClass="mb-4"
+(click)="back()"
+severity="secondary"
+/>
 <p-card   >
 
   <div class="grid">
-    <div class="col-12">
-        <div class=" font-bold">
-          <div class="p-card-title"> {{materiaPrimaDetail?.nombre}}</div>
+    <div class="col-6">
+      <span class="mb-4 text-sm">Gestion de ingresos</span>
+      <div class=" font-bold mt-2">
+          <div class="p-card-title "> {{materiaPrimaDetail?.nombre | titlecase}}</div>
 
         </div>
+    </div>
+    <div class="col-6">
+      <div class="flex justify-content-end flex-wrap mb-3">
+        <p-button
+        pRipple
+        severity="success"
+        label="Agregar Ingreso"
+        icon="pi pi-plus"
+        class="mr-2"
+        (click)="toAddIngreso()"
+
+      />
+
+      </div>
     </div>
     <div class="col-12">
         <div class=" p-card-subtitle">
-          {{materiaPrimaDetail?.descripcion}}
+          Descripción: <b>{{materiaPrimaDetail?.descripcion || '-'}}</b>
 
         </div>
     </div>
     <div class="col-6">
-        <div class=" font-bold">
-          Cantidad total: {{materiaPrimaDetail?.totalCantidadDisponible}}
+        <div class=" ">
+          Cantidad total: <b>{{materiaPrimaDetail?.totalCantidadDisponible}}</b>
 
         </div>
     </div>
     <div class="col-6">
-        <div class="font-bold">
-          Valor de compra total: {{materiaPrimaDetail?.totalValorCompra | currency}}
+        <div class="">
+          Valor de compra total:  <b>{{materiaPrimaDetail?.totalValorCompra | currency}}</b>
 
         </div>
     </div>

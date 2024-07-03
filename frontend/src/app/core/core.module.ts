@@ -4,6 +4,7 @@ import { ShellComponent } from './shell/shell.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 
 
@@ -16,7 +17,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     CommonModule,
     CoreRoutingModule,
     SidebarComponent,
-
+    BreadcrumbModule
   ],
   exports:[ShellComponent],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],

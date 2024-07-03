@@ -39,3 +39,10 @@ a{
     border: 1px solid 1px solid;
   }
 }
+
+.p-breadcrumb {
+  background: transparent !important;
+  border: unset;
+  border-radius: 2px !important;
+  padding: 0.5rem;
+}

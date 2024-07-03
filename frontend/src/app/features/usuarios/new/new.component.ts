@@ -31,7 +31,7 @@ export class NewComponent implements OnInit {
       Validators.minLength(3),
     ]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    rol: new FormControl({ label: '', value: null }, Validators.required),
+    rol: new FormControl(null, Validators.required),
   });
 
   constructor(

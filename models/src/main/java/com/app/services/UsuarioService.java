@@ -49,6 +49,14 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
+    public boolean delete(Long usuarioId) {
+        Usuario usuario = usuarioDao.getById(usuarioId);
+        usuario.setBlocked(true);
+        this.usuarioDao.save(usuario);
+        return true;
+    }
+
+    @Override
     public UsuarioViewModel getById(Long id) {
         return toViewModel(this.usuarioDao.getById(id));
     }

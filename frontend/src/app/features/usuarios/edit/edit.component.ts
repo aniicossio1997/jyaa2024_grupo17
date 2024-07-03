@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { Validators } from '@angular/forms';
 import { UsuariosService } from '../usuarios.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UsuarioViewModel } from '../../../interfaces/UsuarioViewModel';
 import { RolUsuario } from '../../../model/RolUsuario';
@@ -18,12 +18,12 @@ import { ManagementRoutes } from '../../../routers';
 })
 export class EditComponent implements OnInit {
   usuario: UsuarioViewModel;
-
+  id:number;
   roles: SelectItem[] = [
     { label: 'Administrador', value: 'ADMIN' },
     { label: 'Encargado de Sala', value: 'ENCARGADO_SALA' },
   ];
-  rol = 'ADMIN';
+  rol = null;
   loading = false;
 
   form = new FormGroup({
@@ -40,11 +40,14 @@ export class EditComponent implements OnInit {
   constructor(
     private usuariosService: UsuariosService,
     private router: Router,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    private activatedRoute:ActivatedRoute
+  ) {
+    this.id = Number(this.activatedRoute.snapshot.paramMap.get('id')!);
+  }
 
   ngOnInit() {
-    this.usuariosService.detail(1).subscribe((res) => {
+    this.usuariosService.detail(this.id).subscribe((res) => {
       this.usuario = res;
       this.form.setValue({
         nombre: res.nombre,
@@ -72,7 +75,7 @@ export class EditComponent implements OnInit {
 
     this.loading = true;
     this.usuariosService.edit(this.usuario.id, request).subscribe(() => {
-      this.toastr.success('Se han guardado los cambios el usuario');
+      this.toastr.success('Se han guardado los cambios');
       this.router.navigate([
         '/' + ManagementRoutes.Usuario,
         ManagementRoutes.Query,

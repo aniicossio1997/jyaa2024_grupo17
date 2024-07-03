@@ -16,6 +16,8 @@ public interface IUsuarioService {
 
     UsuarioViewModel update(Long usuarioId, UsuarioCreateViewModel usuario);
 
+    boolean delete(Long usuarioId);
+
     UsuarioViewModel getById(Long recetaId);
 
 }

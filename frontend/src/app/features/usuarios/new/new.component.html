@@ -4,11 +4,37 @@
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12 md:col-12">
         <label htmlFor="nombre">Nombre</label>
-        <input pInputText id="firstname2" type="text" placeholder="Nombre" formControlName="nombre" />
+        <input
+          pInputText
+          id="firstname2"
+          type="text"
+          placeholder="Nombre"
+          formControlName="nombre"
+          appCustomInputError
+          [errors]="form.get('nombre')?.errors"
+        />
+        <span
+          customLabel
+          [valueForm]="form.get('nombre')?.value"
+          [errors]="form.get('nombre')?.errors"
+        ></span>
       </div>
       <div class="field col-12 md:col-12">
         <label htmlFor="apellido">Apellido</label>
-        <input pInputText id="apellido" type="text" placeholder="Apellido" formControlName="apellido" />
+        <input
+          pInputText
+          id="apellido"
+          type="text"
+          placeholder="Apellido"
+          formControlName="apellido"
+          appCustomInputError
+          [errors]="form.get('apellido')?.errors"
+        />
+        <span
+          customLabel
+          [valueForm]="form.get('apellido')?.value"
+          [errors]="form.get('apellido')?.errors"
+        ></span>
       </div>
       <div class="field col-12 md:col-12">
         <label htmlFor="username">Nombre de usuario</label>
@@ -18,11 +44,31 @@
           type="text"
           placeholder="Nombre de usuario"
           formControlName="username"
+          appCustomInputError
+          [errors]="form.get('username')?.errors"
         />
+        <span
+          customLabel
+          [valueForm]="form.get('username')?.value"
+          [errors]="form.get('username')?.errors"
+        ></span>
       </div>
       <div class="field col-12 md:col-12">
         <label htmlFor="email">Email</label>
-        <input pInputText id="email" type="text" placeholder="Email" formControlName="email"/>
+        <input
+          pInputText
+          id="email"
+          type="text"
+          placeholder="Email"
+          formControlName="email"
+          appCustomInputError
+          [errors]="form.get('email')?.errors"
+        />
+        <span
+          customLabel
+          [valueForm]="form.get('email')?.value"
+          [errors]="form.get('email')?.errors"
+        ></span>
       </div>
       <div class="field col-12 md:col-12">
         <label htmlFor="password">Contraseña</label>
@@ -32,7 +78,14 @@
           type="password"
           placeholder="Contraseña"
           formControlName="password"
+          appCustomInputError
+          [errors]="form.get('password')?.errors"
         />
+        <span
+          customLabel
+          [valueForm]="form.get('password')?.value"
+          [errors]="form.get('password')?.errors"
+        ></span>
       </div>
 
       <div class="field col-12 md:col-12">
@@ -44,9 +97,23 @@
           [autoDisplayFirst]="false"
           formControlName="rol"
           [value]="form.get('rol')"
+          appCustomInputError
+          [errors]="form.get('rol')?.errors"
         />
+
+        <span
+          customLabel
+          [valueForm]="form.get('rol')?.value"
+          [errors]="form.get('rol')?.errors"
+        ></span>
       </div>
-      <span class="ml-auto"><p-button label="Guardar" size="large" type="submit" [disabled] = "form.invalid"/></span>
+      <span class="ml-auto"
+        ><p-button
+          label="Guardar"
+          size="large"
+          type="submit"
+          [disabled]="form.invalid"
+      /></span>
     </div>
   </form>
 </div>

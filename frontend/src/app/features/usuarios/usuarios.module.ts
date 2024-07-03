@@ -15,12 +15,17 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditComponent } from './edit/edit.component';
+import { SharedModule } from '../../shared/shared.module';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { DialogModule } from 'primeng/dialog';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'query', pathMatch: 'full' },
   { path: 'query', component: QueryComponent },
   { path: 'new', component: NewComponent },
-  { path: 'edit', component: EditComponent },
+  { path: 'edit/:id', component: EditComponent },
 
   /* { path: 'detalle/:idJuicio/nuevoEscrito', component: FormComponent } */
 ];
@@ -35,14 +40,19 @@ const appRoutes: Routes = [
     MenuModule,
     ToastModule,
     TagModule,
+    ConfirmDialogModule,
+    ConfirmPopupModule,
     InputIconModule,
     InputTextModule,
     IconFieldModule,
+    DialogModule,
+    DynamicDialogModule,
     RouterModule,
     InputTextareaModule,
     DropdownModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

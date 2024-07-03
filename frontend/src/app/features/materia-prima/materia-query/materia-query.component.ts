@@ -4,6 +4,7 @@ import { MateriaPrimaService } from '../../../services/materia-prima.service';
 import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
 import { MenuItem } from 'primeng/api';
+import { Menu } from 'primeng/menu';
 
 interface Column {
   field: string;
@@ -36,23 +37,54 @@ export class MateriaQueryComponent implements OnInit {
   }
   ngOnInit(): void {
     this.initColumns()
+    this.materiaPrimaService.get().subscribe(data=> this.materias=data)
   }
 
   initColumns(){
-    /*
-    id": 1,
-    "nombre": "Tomate",
-    "unidadMedida": "KG",
-    "totalCantidadDisponible": 20,
-    "totalValorCompra": 25000
-
-    */
-
     this.cols = [
       { field: 'nombre', header: 'Nombre' },
       { field: 'unidadMedida', header: 'Unidad de medida' },
       { field: 'totalCantidadDisponible', header: 'Total cantidad disponible' },
       { field: 'totalValorCompra', header: 'Total valor de compra' }
+    ];
+  }
+
+  generateMenu(item: any, menu: Menu, event: any) {
+    menu.toggle(event);
+
+    this.itemsMenu = [
+      {
+        label: 'Detalle',
+        icon: 'pi pi-eye',
+        command: () => {
+          this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.Detail}/`, item.id]); // Usa item.id para redirigir
+
+        },
+      },
+      {
+        label: 'Gestionar ingresos',
+        icon: 'pi pi-arrow-right',
+        command: () => {
+          this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.AddIngresos}/`, item.id]); // Usa item.id para redirigir
+
+        },
+      },
+      {
+        label: 'Editar',
+        icon: 'pi pi-pencil',
+        command: () => {
+          this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.Edit}/`, item.id]); // Usa item.id para redirigir
+
+        },
+      },
+      {
+        label: 'Eliminar',
+        icon: 'pi pi-trash',
+        command: () => {
+          //this.delete(item);
+        },
+      },
+
     ];
   }
 

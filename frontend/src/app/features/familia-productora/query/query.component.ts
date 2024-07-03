@@ -5,6 +5,7 @@ import { Table } from 'primeng/table';
 import { Menu } from 'primeng/menu';
 import { Router } from '@angular/router';
 import { ManagementRoutes } from '../../../routers/index';
+import { FamiliaProductoraViewModel } from '../../../interfaces/FamiliaProductoraViewModel';
 
 
 
@@ -50,28 +51,6 @@ export class QueryComponent  implements OnInit{
   }
 
 
-
-  openNew() {
-
-      //this.submitted = false;
-      this.productDialog = true;
-  }
-
-  deleteSelectedProducts() {
-      this.confirmationService.confirm({
-          message: 'Are you sure you want to delete the selected products?',
-          header: 'Confirm',
-          icon: 'pi pi-exclamation-triangle',
-          accept: () => {
-              this.selectedProducts = null;
-          }
-      });
-  }
-
-
-
-
-
   generateMenu(item: any, menu: Menu, event: any) {
     menu.toggle(event);
 
@@ -88,10 +67,32 @@ export class QueryComponent  implements OnInit{
         label: 'Eliminar',
         icon: 'pi pi-trash',
         command: () => {
-
+          this.delete(item);
         },
       },
 
     ];
   }
+
+  delete(item:FamiliaProductoraViewModel) {
+
+    this.confirmationService.confirm({
+      message: '¿Esta seguro de eliminar '+' la familia ' +item.nombre +'?',
+      header: 'Confirmar la Eliminación',
+      icon: 'pi pi-exclamation-triangle',
+      acceptIcon:"none",
+      rejectIcon:"none",
+
+      key:"positionDialog",
+      acceptButtonStyleClass:"p-button-danger p-button-text ",
+      rejectButtonStyleClass:"p-button-secondary p-button-text",
+      accept: () => {
+          console.log("SE ELIMINA")
+      },
+      reject: () => {
+        console.log("NO.. ELIMINA")
+      }
+  });
+ }
+
 }

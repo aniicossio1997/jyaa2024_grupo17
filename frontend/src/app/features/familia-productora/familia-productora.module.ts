@@ -34,6 +34,7 @@ import { MenuModule } from 'primeng/menu';
 import { NewComponent } from './new/new.component';
 import { EditFamiliaComponent } from './edit-familia/edit-familia.component';
 import { ManagementRoutes } from '../../routers';
+import { SharedModule } from '../../shared/shared.module';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'query', pathMatch: 'full' },
@@ -79,6 +80,7 @@ const appRoutes: Routes = [
     MultiSelectModule,
     MenuModule,
     ReactiveFormsModule,
+    SharedModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })

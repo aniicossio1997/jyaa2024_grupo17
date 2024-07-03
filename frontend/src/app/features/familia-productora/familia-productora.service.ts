@@ -3,6 +3,7 @@ import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { NameableViewModel } from '../../interfaces/NameableViewModel';
+import { FamiliaProductoraViewModel } from '../../interfaces/FamiliaProductoraViewModel';
 
 @Injectable()
 export class FamiliaProductoraService implements OnDestroy{
@@ -14,7 +15,7 @@ export class FamiliaProductoraService implements OnDestroy{
 
   get(){
     const url = `${this.API_URL}`;
-    return this.http.get<NameableViewModel[]>(url)
+    return this.http.get<FamiliaProductoraViewModel[]>(url)
       .pipe(
         map((res: any) => res)
         );
@@ -43,6 +44,27 @@ export class FamiliaProductoraService implements OnDestroy{
       }),
       catchError(e => {
         this.toastr.error("No se ha podido editar la familia productora ")
+        return of([]);
+      })
+    );
+  }
+  getById(id:number){
+    const url = `${this.API_URL}/${id}`;
+    return this.http.get<FamiliaProductoraViewModel>(url)
+      .pipe(
+        map((res: any) => res)
+        );
+  }
+
+  delete(id:number): Observable<any> {
+    const url = `${this.API_URL}/${id}`;
+    return this.http.delete(url).pipe(
+      map((res: any) => {
+        this.toastr.success("Se ha eliminado exitosamente la familia productora");
+        return res;
+      }),
+      catchError(e => {
+        this.toastr.error("No se ha podido Eliminar la familia productora ")
         return of([]);
       })
     );

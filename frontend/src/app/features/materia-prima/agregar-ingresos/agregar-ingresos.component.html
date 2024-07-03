@@ -1,0 +1,108 @@
+<div class="card" style="width: 80%;">
+  <h5 class="mb-5 m-2">Agregar materia prima</h5>
+  <form [formGroup]="myForm" class="p-fluid p-formgrid grid">
+
+
+    <div class="field col-12 md:col-12">
+      <label htmlFor="familiaPrimaId" class="mr-3">Familia Productora *</label>
+      <span
+      customLabel
+      [valueForm]="(myForm.get('familiaPrimaId')?.value)"
+      [errors]="myForm.get('familiaPrimaId')?.errors"
+    ></span>
+      <p-dropdown
+        [options]="familias"
+
+        placeholder="Selecciona una familia productora"
+        [autoDisplayFirst]="false"
+        formControlName="familiaPrimaId"
+        optionLabel="nombre" optionValue="id"
+        [filter]="true"
+        filterBy="nombre"
+        [showClear]="true"
+        appCustomInputError
+        [valueForm]="(myForm.get('familiaPrimaId')?.value)"
+        [errors]="myForm.get('familiaPrimaId')?.errors"
+      />
+
+    </div>
+
+    <div class="field col-12 md:col-12">
+      <label htmlFor="valorCompra">Valor de compra *</label>
+
+
+
+      <p-inputGroup>
+        <p-inputGroupAddon>$</p-inputGroupAddon>
+        <p-inputNumber
+        inputId="locale-user"
+        [minFractionDigits]="2"
+        id="valorCompra" formControlName="valorCompra"
+        appCustomInputError
+        [valueForm]="(myForm.get('valorCompra')?.value)"
+        [errors]="myForm.get('valorCompra')?.errors"
+        />
+    </p-inputGroup>
+
+      <span
+      customLabel
+      [valueForm]="(myForm.get('valorCompra')?.value)"
+      [errors]="myForm.get('valorCompra')?.errors"
+    ></span>
+    </div>
+
+    <div class="field col-12 md:col-12">
+      <label htmlFor="unidadMedida">Cantidad*</label>
+      <p-inputGroup>
+        <p-inputGroupAddon>
+            {{materiaPrima?.unidadMedida}}
+        </p-inputGroupAddon>
+        <input pInputText placeholder="Ingrese una cantidad" formControlName="cantidad" [value]="myForm.get('cantidad')" />
+    </p-inputGroup>
+    </div>
+    <div class="field col-12 md:col-12">
+      <label htmlFor="estado">Estado *</label>
+      <p-dropdown
+        [options]="estados"
+        placeholder="Selecciona una unidad de medida"
+        [autoDisplayFirst]="false"
+        formControlName="estado"
+        [value]="myForm.get('estado')"
+      />
+    </div>
+
+    <div class="field col-12 md:col-12">
+      <label htmlFor="descripcionid">Descripción</label>
+      <textarea
+      formControlName="descripcion"
+      rows="4"
+      cols="20"
+      pInputTextarea
+      [autoResize]="true"
+
+      >
+      </textarea>
+    </div>
+    <div class="field col-12">
+      <div class="flex justify-content-between flex-wrap">
+        <p-button
+        pRipple
+        label="Cancel"
+        icon="pi pi-times"
+
+        (click)="cancel()"
+        severity="secondary"
+        />
+    <p-button
+        pRipple
+        label="Save"
+        icon="pi pi-check"
+        [disabled]="myForm.invalid"
+        (click)="save()" />
+
+      </div>
+
+    </div>
+
+  </form>
+</div>

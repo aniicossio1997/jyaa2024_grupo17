@@ -1,12 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+@import "@fortawesome/fontawesome-free/css/all.css";
+// regular style toast
+@import 'ngx-toastr/toastr';
+
 @import "./app/assets/layout/style.css";
 @import "./app/assets/layout/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 @import 'primeflex/primeflex.scss';
-@import "@fortawesome/fontawesome-free/css/all.css";
-// regular style toast
-@import 'ngx-toastr/toastr';
+
 
 // bootstrap style toast
 // or import a bootstrap 4 alert styled design (SASS ONLY)
@@ -27,4 +29,13 @@ a{
 .p-datatable-header{
   background: none;
   border-top: none;
+}
+.p-inputtext:enabled:focus {
+  box-shadow: 0 0 0 0.1rem #a7f3d0 !important;
+
+  // Anular el box-shadow si también tienen la clase .invalid
+  &.invalid {
+    box-shadow: none !important;
+    border: 1px solid 1px solid;
+  }
 }

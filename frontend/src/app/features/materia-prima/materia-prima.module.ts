@@ -5,7 +5,6 @@ import { ManagementRoutes } from '../../routers';
 import { MateriaEditComponent } from './materia-edit/materia-edit.component';
 import { MateriaQueryComponent } from './materia-query/materia-query.component';
 import { MateriaNewComponent } from './materia-new/materia-new.component';
-import { FormIngredientesComponent } from './form-ingredientes/form-ingredientes.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
@@ -32,16 +31,26 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { DialogModule } from 'primeng/dialog';
+import { MateriaDetailComponent } from './materia-detail/materia-detail.component';
+import { SharedModule } from '../../shared/shared.module';
+import { FieldsetModule } from 'primeng/fieldset';
+import { DividerModule } from 'primeng/divider';
+import { AgregarIngresosComponent } from './agregar-ingresos/agregar-ingresos.component';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'query', pathMatch: 'full' },
   { path: ManagementRoutes.Query, component: MateriaQueryComponent },
 
+  { path: `${ManagementRoutes.Detail}/:id`, component:MateriaDetailComponent  },
+
   { path: `${ManagementRoutes.Edit}/:id`, component:MateriaEditComponent  },
 
   { path: ManagementRoutes.New, component: MateriaNewComponent },
-  { path: ManagementRoutes.AddIngredientes, component: FormIngredientesComponent },
+
+  { path: `${ManagementRoutes.AddIngresos}/:id`, component: AgregarIngresosComponent },
+  { path: `${ManagementRoutes.AddIngresos}`, component: AgregarIngresosComponent },
 
 
 ];
@@ -52,11 +61,17 @@ const appRoutes: Routes = [
     MateriaEditComponent,
     MateriaNewComponent,
     MateriaQueryComponent,
-    FormIngredientesComponent
+    AgregarIngresosComponent,
+    MateriaDetailComponent,
+    AgregarIngresosComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(appRoutes),
+
+    FieldsetModule,
+    DividerModule,
+
     ButtonModule,
     CardModule,
     InputTextModule,
@@ -65,6 +80,7 @@ const appRoutes: Routes = [
     ConfirmPopupModule,
     ToastModule,
     ToolbarModule,
+    ToggleButtonModule,
     TableModule,
     DragDropModule,
     FormsModule,
@@ -84,6 +100,8 @@ const appRoutes: Routes = [
     MultiSelectModule,
     MenuModule,
     ReactiveFormsModule,
+    InputGroupAddonModule,
+    SharedModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 

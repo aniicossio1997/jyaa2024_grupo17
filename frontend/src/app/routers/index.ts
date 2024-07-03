@@ -9,6 +9,7 @@ export enum ManagementRoutes {
   Edit = 'edit',
   Detail = 'detail',
   AddIngredientes='add-ingredientes',
+  AddIngresos='add-ingresos',
 
 
   Usuario='usuarios',

@@ -1,14 +1,13 @@
 <!-- eslint-disable @angular-eslint/template/eqeqeq -->
 
 <div class="card">
-  <p-toast />
 
-  <div class="flex justify-content-end flex-wrap mb-3">
+  <div class="flex justify-content-start flex-wrap mb-3">
     <div class="flex align-items-center justify-content-center">
       <p-button
         pRipple
         severity="success"
-        label="New"
+        label="Nuevo"
         icon="pi pi-plus"
         class="mr-2"
         [routerLink]="['/' + RoutestEnum.FamiliaProductora + '/' + RoutestEnum.New]"
@@ -55,6 +54,9 @@
           <th pSortableColumn="nombre" >
               Nombre <p-sortIcon field="nombre" />
           </th>
+          <th pSortableColumn="descripcion" >
+            Descripcion <p-sortIcon field="descripcion" />
+        </th>
 
 
       </tr>
@@ -73,6 +75,9 @@
               <td>
                   {{ family.nombre }}
               </td>
+              <td>
+                {{ family.descripcion }}
+            </td>
           </tr>
       </ng-template>
       <ng-template pTemplate="summary">
@@ -92,138 +97,36 @@
 
   </p-table>
 
-  <p-dialog
-      [(visible)]="productDialog"
-      [style]="{ width: '450px' }"
-      header="Product Details"
-      [modal]="true"
-      styleClass="p-fluid">
-          <ng-template pTemplate="content">
-              <img
-                  [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
-                  [alt]="product.image"
-                  class="block m-auto pb-3"
-                  *ngIf="product.image" />
-              <div class="field">
-                  <label for="name">Name hello</label>
-                  <input
-                      type="text"
-                      pInputText
-                      id="name"
-                      [(ngModel)]="product.name"
-                      required
-                      autofocus />
-                  <small class="p-error" *ngIf="submitted && !product.name">
-                      Name is required.
-                  </small>
-              </div>
-              <div class="field">
-                  <label for="description">Description</label>
-                  <textarea
-                      id="description"
-                      pInputTextarea
-                      [(ngModel)]="product.description"
-                      required
-                      rows="3"
-                      cols="20">
-                  </textarea>
-              </div>
 
-              <div class="field">
-                  <label for="inventoryStatus">Inventory Status</label>
-                  <p-dropdown
-                      [(ngModel)]="product.inventoryStatus"
-                      inputId="inventoryStatus"
-                      [options]="statuses">
-                          <ng-template pTemplate="selectedItem">
-                              <p-tag
-                                  [value]="product.inventoryStatus.toUpperCase()"
-                                  [severity]="getSeverity(product.inventoryStatus.toUpperCase())" />
-                          </ng-template>
-                          <ng-template let-option pTemplate="item">
-                              <p-tag
-                                  [value]="option.label"
-                                  [severity]="getSeverity(option.label)" />
-                          </ng-template>
-                  </p-dropdown>
+
+    <p-confirmDialog #cd
+    key="positionDialog"
+    position="center"
+    >
+      <ng-template pTemplate="headless" let-message>
+          <div class="flex flex-column  p-5 surface-overlay border-round">
+              <span class="font-bold text-2xl block mb-2 mt-4">
+                  {{ message.header }}
+              </span>
+              <p class="mb-0">{{ message.message }}</p>
+              <div class="flex justify-content-between flex-wrap mt-4">
+                <button
+                    pButton
+                    label="No"
+                    (click)="cd.reject()"
+                    class="p-button-outlined p-button-secondary w-5rem ">
+                </button>
+                  <button
+
+                      pButton
+                      label="Si"
+                      (click)="cd.accept()"
+                      class="w-5rem p-button-danger">
+                  </button>
+
               </div>
+          </div>
+      </ng-template>
+  </p-confirmDialog>
 
-              <div class="field">
-                  <label class="mb-3">Category</label>
-                  <div class="formgrid grid">
-                      <div class="field-radiobutton col-6">
-                          <p-radioButton
-                              id="category1"
-                              name="category"
-                              value="Accessories"
-                              [(ngModel)]="product.category" />
-                          <label for="category1">Accessories</label>
-                      </div>
-                      <div class="field-radiobutton col-6">
-                          <p-radioButton
-                              id="category2"
-                              name="category"
-                              value="Clothing"
-                              [(ngModel)]="product.category" />
-                          <label for="category2">Clothing</label>
-                      </div>
-                      <div class="field-radiobutton col-6">
-                          <p-radioButton
-                              id="category3"
-                              name="category"
-                              value="Electronics"
-                              [(ngModel)]="product.category" />
-                          <label for="category3">Electronics</label>
-                      </div>
-                      <div class="field-radiobutton col-6">
-                          <p-radioButton
-                              id="category4"
-                              name="category"
-                              value="Fitness"
-                              [(ngModel)]="product.category" />
-                          <label for="category4">Fitness</label>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="formgrid grid">
-                  <div class="field col">
-                      <label for="price">Price</label>
-                      <p-inputNumber
-                          id="price"
-                          [(ngModel)]="product.price"
-                          mode="currency"
-                          currency="USD"
-                          locale="en-US" />
-                  </div>
-                  <div class="field col">
-                      <label for="quantity">Quantity</label>
-                      <p-inputNumber
-                          id="quantity"
-                          [(ngModel)]="product.quantity" />
-                  </div>
-              </div>
-              <div  class="formgrid grid">
-                <p-button
-                pRipple
-                label="Cancel"
-                icon="pi pi-times"
-                [text]="true"
-                (click)="hideDialog()" />
-            <p-button
-                pRipple
-                label="Save"
-                icon="pi pi-check"
-                [text]="true"
-                (click)="saveProduct()" />
-              </div>
-          </ng-template>
-
-          <ng-template pTemplate="footer">
-            <h1>titulo</h1>
-
-          </ng-template>
-  </p-dialog>
-
-  <p-confirmDialog [style]="{ width: '450px' }" />
 </div>

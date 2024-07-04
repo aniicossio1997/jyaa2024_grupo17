@@ -6,7 +6,7 @@ import { ManagementRoutes } from '../routers';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 export const routesRoot: Routes = [
-  { path: '', redirectTo: 'familiaProductoras', pathMatch: 'full' },
+  { path: '', redirectTo: 'usuarios', pathMatch: 'full' },
   {
     path: 'familiaProductoras',
     loadChildren: () =>

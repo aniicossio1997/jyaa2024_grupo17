@@ -4,11 +4,12 @@ import { Observable, catchError, map, of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { NameableViewModel } from '../../interfaces/NameableViewModel';
 import { FamiliaProductoraViewModel } from '../../interfaces/FamiliaProductoraViewModel';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class FamiliaProductoraService implements OnDestroy{
 
-  private API_URL ='http://localhost:8080/SalaDeElaboracion/api/familiaProductoras' ;
+  private API_URL =environment.API_URL+'familiaProductoras' ;
 
 
   constructor(private http: HttpClient,  private toastr: ToastrService) { }

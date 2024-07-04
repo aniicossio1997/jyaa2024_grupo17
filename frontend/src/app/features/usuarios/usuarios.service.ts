@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { map } from 'rxjs';
 import { UsuarioViewModel } from '../../interfaces/UsuarioViewModel';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class UsuariosService implements OnDestroy {
-  public API_URL = 'http://localhost:8080/SalaDeElaboracion/api/usuarios';
+  public API_URL = environment.API_URL + 'usuarios';
 
   constructor(private http: HttpClient) {}
 

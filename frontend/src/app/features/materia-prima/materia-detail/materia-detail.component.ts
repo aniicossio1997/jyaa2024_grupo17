@@ -6,6 +6,7 @@ import { MateriaPrimaDetailViewModel } from '../../../interfaces/MateriaPrimaDet
 import { Menu } from 'primeng/menu';
 import { Table } from 'primeng/table';
 import { MenuItem } from 'primeng/api';
+import { EstadoIngresoEnums } from '../../../model/EstadoIngresoEnums';
 
 interface Column {
   field: string;
@@ -93,5 +94,15 @@ export class MateriaDetailComponent implements OnInit {
     this.router.navigate([`/${ManagementRoutes.MateriaPrima}`]); // Usa item.id para redirigir
 
   }
+  getSeverity(estado:EstadoIngresoEnums) {
+    switch (estado) {
+        case EstadoIngresoEnums.CAMARA_FRIO:
+            return 'primary';
+        case EstadoIngresoEnums.ESTANTE:
+            return 'warning';
+        case EstadoIngresoEnums.FREEZER:
+            return 'info';
+    }
+}
 
 }

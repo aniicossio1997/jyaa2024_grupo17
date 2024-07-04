@@ -65,6 +65,9 @@
             </td>
 
           <td *ngFor="let col of cols" [ngSwitch]="col.field">
+            <ng-container *ngSwitchCase="'nombre'">
+              {{ entity[col.field] | titlecase }}
+            </ng-container>
             <ng-container *ngSwitchCase="'totalValorCompra'">
               {{ entity[col.field] | currency }}
             </ng-container>

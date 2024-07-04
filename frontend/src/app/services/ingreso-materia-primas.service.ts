@@ -3,10 +3,11 @@ import { Injectable } from '@angular/core';
 import { IngresoMateriaPrimaCreateViewModel } from '../interfaces/ingresoMateriaPrimaCreate';
 import { map } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class IngresoMateriaPrimasService {
-  private API_URL ='http://localhost:8080/SalaDeElaboracion/api/ingresoMateriaPrima' ;
+  private API_URL =environment.API_URL + 'ingresoMateriaPrima' ;
 
 
   constructor(private http: HttpClient,private toastr: ToastrService) { }

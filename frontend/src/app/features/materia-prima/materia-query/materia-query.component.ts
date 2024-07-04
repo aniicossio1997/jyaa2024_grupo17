@@ -55,7 +55,7 @@ export class MateriaQueryComponent implements OnInit {
     this.itemsMenu = [
       {
         label: 'Gestionar ingresos',
-        icon: 'pi pi-arrow-right',
+        icon: 'pi pi-arrow-right-arrow-left ',
         command: () => {
           this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.Gestion}/`, item.id]); // Usa item.id para redirigir
 

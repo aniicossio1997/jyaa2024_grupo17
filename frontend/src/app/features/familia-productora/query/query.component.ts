@@ -43,13 +43,16 @@ export class QueryComponent  implements OnInit{
   }
 
   ngOnInit(): void {
+    this.fetchAll()
+
+  }
+
+  fetchAll(){
     this.familiaProductoraService.get().subscribe(data=>{
       this.familias=data;
 
     })
-
   }
-
 
   generateMenu(item: any, menu: Menu, event: any) {
     menu.toggle(event);
@@ -87,7 +90,9 @@ export class QueryComponent  implements OnInit{
       acceptButtonStyleClass:"p-button-danger p-button-text ",
       rejectButtonStyleClass:"p-button-secondary p-button-text",
       accept: () => {
-          console.log("SE ELIMINA")
+          this.familiaProductoraService.delete(item.id!).subscribe(data=>{
+            this.fetchAll();
+          });
       },
       reject: () => {
         console.log("NO.. ELIMINA")

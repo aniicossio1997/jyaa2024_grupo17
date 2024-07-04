@@ -9,9 +9,11 @@ export class UsuariosService implements OnDestroy {
 
   constructor(private http: HttpClient) {}
 
-  get() {
+  get(includeBlocked: boolean = false) {
     return this.http
-      .get<UsuarioViewModel[]>(this.API_URL)
+      .get<UsuarioViewModel[]>(
+        this.API_URL + '?includeBlocked=' + includeBlocked
+      )
       .pipe(map((res: UsuarioViewModel[]) => res));
   }
 
@@ -34,7 +36,9 @@ export class UsuariosService implements OnDestroy {
   }
 
   delete(id: number) {
-    return this.http.delete<void>(this.API_URL + '/' + id).pipe(map((res) => res));
+    return this.http
+      .delete<void>(this.API_URL + '/' + id)
+      .pipe(map((res) => res));
   }
 
   ngOnDestroy(): void {

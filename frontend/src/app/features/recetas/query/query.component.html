@@ -1,17 +1,17 @@
 <div class="card">
   <p-table
     #dt
-    [value]="usuarios"
+    [value]="recetas"
     [tableStyle]="{ 'min-width': '50rem' }"
     [paginator]="true"
     [rows]="5"
     [tableStyle]="{ 'min-width': '50rem' }"
     [rowsPerPageOptions]="[5, 10, 20]"
-    [globalFilterFields]="['nombre', 'apellido', 'username', 'email']"
+    [globalFilterFields]="['nombre']"
   >
     <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between flex-wrap">
-        <h2 class="m-0">Usuarios</h2>
+        <h2 class="m-0">Recetas</h2>
         <div class="flex gap-4 flex-wrap">
           <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
@@ -25,7 +25,7 @@
           <p-button
             pRipple
             severity="primary"
-            label="Agregar Usuario"
+            label="Agregar Receta"
             icon="pi pi-plus"
             class="mr-2"
             [routerLink]="[Routes.NEW]"
@@ -36,19 +36,20 @@
     <ng-template pTemplate="header">
       <tr>
         <th>Acciones</th>
-        <th pSortableColumn="username">
-          Nombre de usuario <p-sortIcon field="username" />
-        </th>
-        <th pSortableColumn="email">Email <p-sortIcon field="email" /></th>
         <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre" /></th>
-        <th pSortableColumn="apellido">
-          Apellido <p-sortIcon field="apellido" />
+        <th pSortableColumn="descripcion">
+          Descripción <p-sortIcon field="descripcion" />
         </th>
-
-        <th pSortableColumn="rol">Rol <p-sortIcon field="rol" /></th>
+        <th pSortableColumn="autor">Autor <p-sortIcon field="autor" /></th>
+        <th pSortableColumn="elaboraciones">
+          Cant. Elaboraciones <p-sortIcon field="elaboraciones" />
+        </th>
+        <th pSortableColumn="ingredientes">
+          Cant. Ingredientes <p-sortIcon field="ingredientes" />
+        </th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-usuario>
+    <ng-template pTemplate="body" let-item>
       <tr>
         <td>
           <button
@@ -57,7 +58,7 @@
             type="button"
             icon="pi pi-bars"
             class="p-button-rounded p-button-text"
-            (click)="generateMenu(usuario, menu, $event)"
+            (click)="generateMenu(item, menu, $event)"
           ></button>
           <p-menu
             #menu
@@ -66,38 +67,21 @@
             appendTo="body"
           ></p-menu>
         </td>
-        <td>{{ usuario.username }}</td>
-        <td>{{ usuario.email }}</td>
-        <td>{{ usuario.nombre }}</td>
-        <td>{{ usuario.apellido }}</td>
-        <td>
-          <p-tag
-            value="{{ usuario.rol }}"
-            [severity]="usuario.rol === 'ADMIN' ? 'info' : 'success'"
-          />
-        </td>
+        <td>{{ item.nombre }}</td>
+        <td>{{ item.descripcion }}</td>
+        <td>{{ item.autor }}</td>
+        <td>{{ item.elaboraciones }}</td>
+        <td>{{ item.ingredientes }}</td>
       </tr>
     </ng-template>
 
     <ng-template pTemplate="emptymessage">
       <tr>
-        <td class="text-center py-4" [attr.colspan]="4 + 1">
-          No se encontraron usuarios
+        <td class="text-center py-4" [attr.colspan]="6">
+          No se encontraron resultados
         </td>
       </tr>
     </ng-template>
 
-    <ng-template pTemplate="loadingbody" let-columns="columns">
-      <tr style="height: 46px">
-        <td *ngFor="let col of columns; let even = even">
-          <p-skeleton
-            [ngStyle]="{
-              width: even ? (col.field === 'year' ? '30%' : '40%') : '60%'
-            }"
-          />
-        </td>
-      </tr>
-    </ng-template>
   </p-table>
-
 </div>

@@ -33,7 +33,7 @@ import { IRouteModel, ITEMS_ROUTERS } from "../../routers";
 
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SidebarComponent  implements OnInit{
   @Input() isResponsive!:boolean;

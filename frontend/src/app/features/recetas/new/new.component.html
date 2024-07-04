@@ -1,0 +1,92 @@
+<div class="card" style="max-width: 600px">
+  <h2 class="mb-5 m-2">Agregar Receta</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="p-fluid p-formgrid grid">
+      <div class="field col-12 md:col-12">
+        <label htmlFor="nombre">Nombre</label>
+        <input
+          pInputText
+          id="firstname2"
+          type="text"
+          placeholder="Nombre"
+          formControlName="nombre"
+          appCustomInputError
+          [errors]="form.get('nombre')?.errors"
+        />
+        <span
+          customLabel
+          [valueForm]="form.get('nombre')?.value"
+          [errors]="form.get('nombre')?.errors"
+        ></span>
+      </div>
+      <div class="field col-12 md:col-12">
+        <label htmlFor="descripcion">Descripcion</label>
+        <input
+          pInputText
+          id="descripcion"
+          type="text"
+          placeholder="Descripcion"
+          formControlName="descripcion"
+          appCustomInputError
+          [errors]="form.get('descripcion')?.errors"
+        />
+        <span
+          customLabel
+          [valueForm]="form.get('descripcion')?.value"
+          [errors]="form.get('descripcion')?.errors"
+        ></span>
+      </div>
+      <p-divider class="w-full" />
+      <div class="field col-12 md:col-12">
+        <label htmlFor="familiaPrimaId" class="mr-3">Ingredientes</label>
+        <p-dropdown
+          #ingDropdown
+          [options]="allMateriasPrimas"
+          placeholder="Selecciona un ingrediente"
+          [autoDisplayFirst]="false"
+          optionLabel="nombre"
+          [filter]="true"
+          filterBy="nombre"
+          [showClear]="true"
+          (onChange)="onSelectMateriaPrima($event)"
+        />
+        <div class="flex flex-column gap-1 mt-2">
+          <div
+            *ngFor="let item of selectedMateriasPrimas; index as i"
+            class="shadow-1 px-2 pl-2 pr-1 flex justify-content-between align-items-center"
+          >
+            <span>
+              <b>{{ item.nombre }}</b></span
+            >
+            <div class="flex gap-2 align-items-center">
+              <p-inputGroup class="w-10rem" style="height: 2.5rem">
+                <p-inputNumber
+                  [maxFractionDigits]="2"
+                  placeholder="Cantidad"
+                  size="2"
+                />
+                <p-inputGroupAddon>{{ item.unidadMedida }}</p-inputGroupAddon>
+              </p-inputGroup>
+
+              <p-button
+                pRipple
+                icon="pi pi-trash"
+                [rounded]="true"
+                [text]="true"
+                severity="secondary"
+                (onClick)="onDeleteIngrediente(item.id)"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="ml-auto"
+        ><p-button
+          label="Guardar"
+          size="large"
+          type="submit"
+          [disabled]="form.invalid"
+      /></span>
+    </div>
+  </form>
+</div>

@@ -19,7 +19,7 @@ export enum ManagementRoutes {
   FamiliaProductora='familiaProductoras',
   MateriaPrima='materiaPrimas',
   Insumo='Insumos',
-  Receta='Recetas'
+  Receta='recetas'
 
 }
 export enum Routes {
@@ -51,7 +51,7 @@ export const  ITEMS_ROUTERS:IRouteModel[]=[
   },
   {
     title:'Recetas',
-    routerLink:['/'],
+    routerLink:[`/${ManagementRoutes.Receta}`],
     icon:'fa-solid fa-kitchen-set'
   },
 

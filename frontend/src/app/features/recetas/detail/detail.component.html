@@ -1,0 +1,98 @@
+<div *ngIf="!!receta" class="card relative">
+  <div class="font-bold mt-2">
+    <h1 class="p-card-title">{{ receta.nombre | titlecase }}</h1>
+  </div>
+  <button
+    pButton
+    pRipple
+    type="button"
+    icon="pi pi-pencil"
+    class="p-button p-button-text absolute gap-2"
+    style="top: 5px; right: 5px"
+  >
+    Editar receta
+  </button>
+  <p class="text-lg">{{ receta.descripcion }}</p>
+  <div class="grid text-lg">
+    <div class="col-6">
+      <b>Autor:</b> {{ receta.autor.nombre }} {{ receta.autor.apellido }}
+    </div>
+  </div>
+
+  <div>
+    <p-table
+      #dt
+      [value]="ingredientesNormal"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      [globalFilterFields]="[
+        'nombre',
+        'cantidad',
+        'cantidadDisponible',
+        'tipo'
+      ]"
+      [alwaysShowPaginator]="false"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between flex-wrap">
+          <h2 class="m-0">Ingredientes</h2>
+          <div class="flex gap-4 flex-wrap">
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                placeholder="Buscar..."
+              />
+            </span>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="nombre">
+            Ingrediente <p-sortIcon field="nombre" />
+          </th>
+          <th pSortableColumn="tipo">Tipo <p-sortIcon field="tipo" /></th>
+          <th pSortableColumn="cantidad">
+            Cantidad <p-sortIcon field="cantidad" />
+          </th>
+          <th pSortableColumn="cantidadDisponible">
+            Disponible <p-sortIcon field="cantidadDisponible" />
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td>
+            {{ item.nombre }}
+          </td>
+          <td>
+            {{ item.tipo }}
+          </td>
+          <td>{{ item.cantidad }} {{ item.unidadMedida }}</td>
+          <td
+            [ngClass]="
+              item.cantidadDisponible >= item.cantidad
+                ? 'text-green-400'
+                : 'text-red-400'
+            "
+          >
+            <b>{{ item.cantidadDisponible }} {{ item.unidadMedida }}</b>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td class="text-center py-4" [attr.colspan]="6">
+            No se encontraron resultados
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

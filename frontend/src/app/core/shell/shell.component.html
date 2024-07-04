@@ -1,20 +1,40 @@
-<div class="layout-wrapper" >
-
-  <div [ngClass]="{'layout-sidebar': (isResponsive==false)}">
+<div class="layout-wrapper">
+  <div [ngClass]="{ 'layout-sidebar': isResponsive == false }">
     <app-sidebar [isResponsive]="isResponsive"></app-sidebar>
-
   </div>
   <div class="layout-main-container">
-    <div class=" flex justify-content-start m-2">
-      <p-breadcrumb
-              class="max-w-full"
-              [model]="items"
-              [home]="home" />
-      </div>
-      <div class="layout-main">
-          <router-outlet></router-outlet>
-      </div>
-      <app-footer></app-footer>
+    <div class="flex justify-content-start m-2">
+      <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
+    </div>
+    <div class="layout-main">
+      <router-outlet></router-outlet>
+
+      <p-confirmDialog #cd key="positionDialog" position="center">
+        <ng-template pTemplate="headless" let-message>
+          <div class="flex flex-column p-5 pt-2 surface-overlay border-round" >
+            <span class="font-bold text-2xl block mb-2 mt-5 flex-grow-1">
+              {{ message.header }}
+            </span>
+            <p class="mb-0">{{ message.message }}</p>
+            <div class="flex justify-content-between flex-wrap mt-4">
+              <button
+                pButton
+                label="No"
+                (click)="cd.reject()"
+                class="p-button-outlined p-button-secondary w-5rem"
+              ></button>
+              <button
+                pButton
+                label="Si"
+                (click)="cd.accept()"
+                class="w-5rem p-button-danger"
+              ></button>
+            </div>
+          </div>
+        </ng-template>
+      </p-confirmDialog>
+    </div>
+    <app-footer></app-footer>
   </div>
   <app-config></app-config>
   <div class="layout-mask"></div>

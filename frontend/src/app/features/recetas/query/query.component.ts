@@ -1,50 +1,47 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { UsuariosService } from '../usuarios.service';
-import { NameableViewModel } from '../../../interfaces/NameableViewModel';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem, ConfirmationService, MessageService } from 'primeng/api';
 import { Menu } from 'primeng/menu';
 import { ManagementRoutes } from '../../../routers';
 import { Router } from '@angular/router';
-import { UsuarioViewModel } from '../../../interfaces/UsuarioViewModel';
 import { ToastrService } from 'ngx-toastr';
 import ConfirmationDialogService from '../../../core/ConfirmationDialogService';
+import { RecetasService } from '../recetas.service';
+import RecetaViewModel from '../../../interfaces/RecetaViewModel';
 
 @Component({
-  providers: [UsuariosService, ConfirmationService, MessageService],
+  providers: [RecetasService, ConfirmationService, MessageService],
   selector: 'app-query',
   templateUrl: './query.component.html',
-  styleUrl: './query.component.scss',
 })
 export class QueryComponent implements OnInit {
-  usuarios: NameableViewModel[] = [];
+  recetas: RecetaViewModel[] = [];
   loading: boolean = true;
 
   // Menus
   itemsMenu: MenuItem[] = [];
 
   constructor(
-    private usuariosService: UsuariosService,
+    private recetasService: RecetasService,
     private router: Router,
-    private confirmationService: ConfirmationService,
     private toastr: ToastrService,
     private confirmationDialogService: ConfirmationDialogService
   ) {}
 
   ngOnInit(): void {
-    this.fetchUsers();
+    this.fetchAll();
   }
 
-  fetchUsers() {
+  fetchAll() {
     this.loading = true;
-    this.usuariosService.get().subscribe((res) => {
-      this.usuarios = res;
+    this.recetasService.get().subscribe((res) => {
+      this.recetas = res;
       this.loading = false;
     });
   }
 
   public get Routes() {
     return {
-      NEW: `/${ManagementRoutes.Usuario}/${ManagementRoutes.New}`,
+      NEW: `/${ManagementRoutes.Receta}/${ManagementRoutes.New}`,
     };
   }
 
@@ -53,11 +50,21 @@ export class QueryComponent implements OnInit {
 
     this.itemsMenu = [
       {
+        label: 'Detalle',
+        icon: 'pi pi-eye',
+        command: () => {
+          this.router.navigate([
+            `/${ManagementRoutes.Receta}/${ManagementRoutes.Detail}/`,
+            item.id,
+          ]);
+        },
+      },
+      {
         label: 'Editar',
         icon: 'pi pi-pencil',
         command: () => {
           this.router.navigate([
-            `/${ManagementRoutes.Usuario}/${ManagementRoutes.Edit}/`,
+            `/${ManagementRoutes.Receta}/${ManagementRoutes.Edit}/`,
             item.id,
           ]);
         },
@@ -72,13 +79,13 @@ export class QueryComponent implements OnInit {
     ];
   }
 
-  delete(item: UsuarioViewModel) {
+  delete(item: RecetaViewModel) {
     this.confirmationDialogService.confirmDelete(
-      '¿Está seguro que desea eliminar el usuario?',
+      '¿Está seguro que desea eliminar la receta?',
       () => {
-        this.usuariosService.delete(item.id).subscribe(() => {
-          this.toastr.success('Se ha eliminado el usuario');
-          this.fetchUsers();
+        this.recetasService.delete(item.id).subscribe(() => {
+          this.toastr.success('Se ha eliminado la receta');
+          this.fetchAll();
         });
       }
     );

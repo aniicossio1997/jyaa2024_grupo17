@@ -54,10 +54,13 @@ export class NewComponent implements OnInit {
   @ViewChild('insumosDropdown') insumosDropdown: Dropdown;
 
   form = new FormGroup({
-    nombre: new FormControl('', Validators.required),
-    descripcion: new FormControl('', Validators.required),
-    materiasPrimas: new FormArray([]),
-    insumos: new FormArray([]),
+    nombre: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(256),
+    ]),
+    descripcion: new FormControl('', Validators.maxLength(256)),
+    materiasPrimas: new FormArray([], Validators.required),
+    insumos: new FormArray([], Validators.required),
   });
 
   constructor(
@@ -130,7 +133,6 @@ export class NewComponent implements OnInit {
   onSelectMateriaPrima(event: DropdownChangeEvent) {
     const materiaPrima = event.value;
     if (!materiaPrima) return;
-    console.log(materiaPrima);
     if (!this.selectedMateriasPrimas.find((i) => i.id == materiaPrima.id)) {
       this.selectedMateriasPrimas.push({
         id: materiaPrima.id,
@@ -160,7 +162,6 @@ export class NewComponent implements OnInit {
   onSelectInsumo(event: DropdownChangeEvent) {
     const insumos = event.value;
     if (!insumos) return;
-    console.log(insumos);
     if (!this.selectedInsumos.find((i) => i.id == insumos.id)) {
       this.selectedInsumos.push({
         id: insumos.id,
@@ -181,7 +182,7 @@ export class NewComponent implements OnInit {
     }
   }
 
-  back() {
+  cancel() {
     this.router.navigate([
       '/' + ManagementRoutes.Receta,
       ManagementRoutes.Query,

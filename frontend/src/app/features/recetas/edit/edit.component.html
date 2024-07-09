@@ -1,3 +1,11 @@
+<p-button
+  pRipple
+  label="Volver"
+  icon="pi pi-arrow-left"
+  styleClass="mb-2"
+  (click)="cancel()"
+  severity="secondary"
+/>
 <div *ngIf="!!form" class="card" [style]="{ maxWidth: '1000px' }">
   <h2 class="mb-5 m-2">Editar Receta</h2>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -37,7 +45,7 @@
           [errors]="form.get('descripcion')?.errors"
         ></span>
       </div>
-      <p-divider styleClass="my-0 w-full" [style]="{ width: '100%' }" />
+      <p-divider styleClass="my-0 w-full" [ngStyle]="{width: '100%'}" />
       <h5>Ingredientes</h5>
       <div class="grid w-full">
         <div class="col">

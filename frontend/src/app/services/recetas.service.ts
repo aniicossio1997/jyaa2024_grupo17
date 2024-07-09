@@ -37,6 +37,5 @@ export class RecetasService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('DESTROY');
   }
 }

@@ -43,6 +43,5 @@ export class UsuariosService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('DESTROY');
   }
 }

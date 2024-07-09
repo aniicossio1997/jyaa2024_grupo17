@@ -1,14 +1,34 @@
-<div *ngIf="!!usuario"  class="card" style="max-width: 600px">
+<p-button
+  pRipple
+  label="Volver"
+  icon="pi pi-arrow-left"
+  styleClass="mb-2"
+  (click)="back()"
+  severity="secondary"
+/>
+<div *ngIf="!!usuario" class="card" style="max-width: 600px">
   <h2 class="mb-5 m-2">Editar Usuario</h2>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12 md:col-12">
         <label htmlFor="nombre">Nombre</label>
-        <input pInputText id="firstname2" type="text" placeholder="Nombre" formControlName="nombre" />
+        <input
+          pInputText
+          id="firstname2"
+          type="text"
+          placeholder="Nombre"
+          formControlName="nombre"
+        />
       </div>
       <div class="field col-12 md:col-12">
         <label htmlFor="apellido">Apellido</label>
-        <input pInputText id="apellido" type="text" placeholder="Apellido" formControlName="apellido" />
+        <input
+          pInputText
+          id="apellido"
+          type="text"
+          placeholder="Apellido"
+          formControlName="apellido"
+        />
       </div>
       <div class="field col-12 md:col-12">
         <label htmlFor="username">Nombre de usuario</label>
@@ -22,7 +42,13 @@
       </div>
       <div class="field col-12 md:col-12">
         <label htmlFor="email">Email</label>
-        <input pInputText id="email" type="text" placeholder="Email" formControlName="email"/>
+        <input
+          pInputText
+          id="email"
+          type="text"
+          placeholder="Email"
+          formControlName="email"
+        />
       </div>
       <div class="field col-12 md:col-12">
         <label htmlFor="password">Contraseña</label>
@@ -47,7 +73,14 @@
           [value]="form.get('rol')"
         />
       </div>
-      <span class="ml-auto"><p-button label="Guardar" size="large" type="submit" [disabled] = "form.invalid" [loading]="loading"/></span>
+      <span class="ml-auto"
+        ><p-button
+          label="Guardar"
+          size="large"
+          type="submit"
+          [disabled]="form.invalid"
+          [loading]="loading"
+      /></span>
     </div>
   </form>
 </div>

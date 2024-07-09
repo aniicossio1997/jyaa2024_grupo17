@@ -67,13 +67,23 @@ export class CustomLabelDirective implements OnInit, OnChanges {
       return;
     }
 
+    
+    if ( errors.includes('maxlength') )  {
+      const min = this._errors!['maxlength']['requiredLength'];
+      const current = this._errors!['maxlength']['actualLength'];
+
+      this.htmlElement.nativeElement.innerText = `Máximo ${current}/${ min } caracteres.`;
+      return;
+    }
+
+
     if ( errors.includes('email') )  {
       this.htmlElement.nativeElement.innerText = 'No tiene formato de correo.';
       return;
     }
 
 
-
+    return;
   }
 
   ngOnChanges(changes: SimpleChanges): void {

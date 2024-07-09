@@ -10,8 +10,8 @@
     [globalFilterFields]="['nombre']"
   >
     <ng-template pTemplate="caption">
+      <h2 class="mb-4">Recetas</h2>
       <div class="flex align-items-center justify-content-between flex-wrap">
-        <h2 class="m-0">Recetas</h2>
         <div class="flex gap-4 flex-wrap">
           <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
@@ -22,15 +22,15 @@
               placeholder="Buscar..."
             />
           </span>
-          <p-button
-            pRipple
-            severity="primary"
-            label="Agregar Receta"
-            icon="pi pi-plus"
-            class="mr-2"
-            [routerLink]="[Routes.NEW]"
-          />
         </div>
+        <p-button
+          pRipple
+          severity="primary"
+          label="Agregar Receta"
+          icon="pi pi-plus"
+          class="mr-2"
+          [routerLink]="[Routes.NEW]"
+        />
       </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -82,6 +82,5 @@
         </td>
       </tr>
     </ng-template>
-
   </p-table>
 </div>

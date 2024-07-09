@@ -89,16 +89,21 @@ export class EditComponent implements OnInit {
         }));
       this.form = new FormGroup({
         nombre: new FormControl(res.nombre, Validators.required),
-        descripcion: new FormControl(res.descripcion, Validators.required),
+        descripcion: new FormControl(
+          res.descripcion,
+          Validators.maxLength(256)
+        ),
         insumos: new FormArray(
           this.selectedInsumos.map(
             (i) => new FormControl(i.cantidad, greaterThanZero)
-          )
+          ),
+          Validators.required
         ),
         materiasPrimas: new FormArray(
           this.selectedMateriasPrimas.map(
             (i) => new FormControl(i.cantidad, greaterThanZero)
-          )
+          ),
+          Validators.required
         ),
       });
     });
@@ -110,8 +115,6 @@ export class EditComponent implements OnInit {
   }
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.log(this.form.value);
     if (!this.form.valid) return;
     const raw = this.form.getRawValue();
     const insumos = this.selectedInsumos.map((i, index) => ({
@@ -139,7 +142,8 @@ export class EditComponent implements OnInit {
       this.toastr.success('Se han guardado los cambios');
       this.router.navigate([
         '/' + ManagementRoutes.Receta,
-        ManagementRoutes.Detail, this.receta.id,
+        ManagementRoutes.Detail,
+        this.receta.id,
       ]);
     });
   }
@@ -163,7 +167,6 @@ export class EditComponent implements OnInit {
   onSelectMateriaPrima(event: DropdownChangeEvent) {
     const materiaPrima = event.value;
     if (!materiaPrima) return;
-    console.log(materiaPrima);
     if (
       !this.selectedMateriasPrimas.find(
         (i) => i.id == materiaPrima.materiaPrimaId
@@ -200,7 +203,6 @@ export class EditComponent implements OnInit {
   onSelectInsumo(event: DropdownChangeEvent) {
     const insumo = event.value;
     if (!insumo) return;
-    console.log(insumo);
     if (!this.selectedInsumos.find((i) => i.insumoId == insumo.id)) {
       this.selectedInsumos.push({
         insumoId: insumo.id,
@@ -221,10 +223,10 @@ export class EditComponent implements OnInit {
     }
   }
 
-  back() {
+  cancel() {
     this.router.navigate([
       '/' + ManagementRoutes.Receta,
-      ManagementRoutes.Detail + '/' + this.id,
+      ManagementRoutes.Query,
     ]);
   }
 }

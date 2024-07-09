@@ -72,27 +72,6 @@ export class MateriaNewComponent {
 
   }
 
-  generateMenu(item: any, menu: Menu, event: any) {
-    menu.toggle(event);
 
-    this.itemsMenu = [
-      {
-        label: 'Editar',
-        icon: 'pi pi-pencil',
-        command: () => {
-          //this.router.navigate([`/${ManagementRoutes.FamiliaProductora}/${ManagementRoutes.Edit}/`, item.id]); // Usa item.id para redirigir
-
-        },
-      },
-      {
-        label: 'Eliminar',
-        icon: 'pi pi-trash',
-        command: () => {
-          //this.delete(item);
-        },
-      },
-
-    ];
-  }
 
 }

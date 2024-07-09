@@ -51,4 +51,13 @@ export class InsumosService {
       })
     );
   }
+  delete(id: number) {
+    const url = `${this.API_URL}/${id}`;
+    return this.http.delete<InsumoViewModel>(url).pipe(
+      map((res: InsumoViewModel) => {
+        this.toastr.success('Exito! se Eliminado el insumo');
+        return res;
+      })
+    );
+  }
 }

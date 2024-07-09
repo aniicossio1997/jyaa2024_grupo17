@@ -46,7 +46,7 @@ export const  ITEMS_ROUTERS:IRouteModel[]=[
   },
   {
     title:'Insumos',
-    routerLink:['/'],
+    routerLink:[`/${ManagementRoutes.Insumo}`],
     icon:'fa-solid fa-clipboard-list'
   },
   {

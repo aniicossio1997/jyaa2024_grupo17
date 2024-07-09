@@ -9,7 +9,7 @@
         label="Nuevo"
         icon="pi pi-plus"
         class="mr-2 "
-        [routerLink]="['/' + RoutestEnum.MateriaPrima + '/' + RoutestEnum.New]"
+        [routerLink]="['/' + RoutestEnum.Insumo + '/' + RoutestEnum.New]"
 
       />
     </div>
@@ -19,10 +19,10 @@
 
   <p-table
       #dt
-      [value]="materias"
+      [value]="insumos"
       [rows]="5"
       [paginator]="true"
-      [globalFilterFields]="['nombre',]"
+      [globalFilterFields]="['nombre','totalValorCompra']"
       [tableStyle]="{ 'min-width': 'auto' }"
       [rowHover]="true"
       dataKey="id"
@@ -81,8 +81,7 @@
       </ng-template>
       <ng-template pTemplate="summary">
           <div class="flex align-items-center justify-content-between">
-
-              En total hay {{ dt.filteredValue ? dt.filteredValue.length : materias.length}} registros.
+              En total hay {{ dt.filteredValue ? dt.filteredValue.length : insumos.length}} registros.
           </div>
       </ng-template>
 

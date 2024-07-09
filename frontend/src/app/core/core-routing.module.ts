@@ -33,6 +33,11 @@ export const routesRoot: Routes = [
     loadChildren: () =>
       import('../features/recetas/recetas.module').then((m) => m.RecetasModule),
   },
+  {
+    path: ManagementRoutes.Insumo,
+    loadChildren: () =>
+      import('../features/insumos/insumos.module').then((m) => m.InsumosModule),
+  },
 ];
 
 @NgModule({

@@ -57,7 +57,7 @@ export class ShellComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    this.isResponsive = window.innerWidth <= 991;
+    this.isResponsive = window.innerWidth <= 950;
   }
 
   extractBaseRoute(url: string): string {

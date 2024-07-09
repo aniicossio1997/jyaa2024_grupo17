@@ -70,9 +70,8 @@ export class AgregarIngresosComponent implements OnInit {
 
   cancel(){
     this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.Gestion}`,this.materiaPrima.id!]);
-
-
   }
+
   save(){
    if (this.myForm.valid) {
 
@@ -96,9 +95,8 @@ export class AgregarIngresosComponent implements OnInit {
       );
 
     }
-
-
   }
+
   positiveNumberValidator: ValidatorFn = (control: AbstractControl): { [key: string]: any } | null => {
     const value = control.value;
     if (isNaN(value) || value < 0) {
@@ -106,6 +104,8 @@ export class AgregarIngresosComponent implements OnInit {
     }
     return null;
   };
+
+
   initForm(){
     this.myForm = this.fb.group({
       descripcion: [''],

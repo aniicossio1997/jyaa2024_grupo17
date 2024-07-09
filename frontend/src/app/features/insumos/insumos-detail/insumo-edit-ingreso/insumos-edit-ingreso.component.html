@@ -7,45 +7,33 @@ styleClass="mb-4"
 severity="secondary"
 />
 <div class="card" style="width: 80%;">
-  <h5 class="mb-5 m-2">Agregar Ingreso</h5>
+  <h5 class="mb-5 m-2">Editar Ingreso</h5>
   <form [formGroup]="myForm" class="p-fluid p-formgrid grid">
 
-
     <div class="field col-12 md:col-12" >
-      <label htmlFor="familiaPrimaId" class="mr-3">Materia Prima: </label>
+      <label htmlFor="familiaPrimaId" class="mr-3">Codigo: </label>
       <input
       id="disabled-input"
       type="text"
       pInputText
       [disabled]="true"
-      [value]="materiaPrima?.nombre"
+      [value]="ingreso?.codigo"
       class="font-bold"
        />
     </div>
 
-    <div class="field col-12 md:col-12">
-      <label htmlFor="familiaPrimaId" class="mr-3">Familia Productora *</label>
-      <span
-      customLabel
-      [valueForm]="(myForm.get('familiaPrimaId')?.value)"
-      [errors]="myForm.get('familiaPrimaId')?.errors"
-    ></span>
-      <p-dropdown
-        [options]="familias"
-
-        placeholder="Selecciona una familia productora"
-        [autoDisplayFirst]="false"
-        formControlName="familiaPrimaId"
-        optionLabel="nombre" optionValue="id"
-        [filter]="true"
-        filterBy="nombre"
-        [showClear]="true"
-        appCustomInputError
-        [valueForm]="(myForm.get('familiaPrimaId')?.value)"
-        [errors]="myForm.get('familiaPrimaId')?.errors"
-      />
-
+    <div class="field col-12 md:col-12" >
+      <label htmlFor="familiaPrimaId" class="mr-3">Insumo: </label>
+      <input
+      id="disabled-input"
+      type="text"
+      pInputText
+      [disabled]="true"
+      [value]="ingreso?.insumo.nombre"
+      class="font-bold"
+       />
     </div>
+
 
     <div class="field col-12 md:col-12">
       <label htmlFor="valorCompra">Valor de compra *</label>
@@ -75,21 +63,12 @@ severity="secondary"
       <label htmlFor="unidadMedida">Cantidad*</label>
       <p-inputGroup>
         <p-inputGroupAddon>
-            {{materiaPrima?.unidadMedida}}
+            {{ingreso?.unidadMedida}}
         </p-inputGroupAddon>
         <input pInputText placeholder="Ingrese una cantidad" formControlName="cantidad" [value]="myForm.get('cantidad')" />
     </p-inputGroup>
     </div>
-    <div class="field col-12 md:col-12">
-      <label htmlFor="estado">Estado *</label>
-      <p-dropdown
-        [options]="estados"
-        placeholder="Selecciona un estado"
-        [autoDisplayFirst]="false"
-        formControlName="estado"
-        [value]="myForm.get('estado')"
-      />
-    </div>
+
 
     <div class="field col-12 md:col-12">
       <label htmlFor="descripcionid">Descripción</label>

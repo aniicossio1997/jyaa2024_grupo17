@@ -1,0 +1,132 @@
+<p-button
+pRipple
+label="Volver"
+icon="pi pi-arrow-left"
+styleClass="mb-4"
+(click)="back()"
+severity="secondary"
+/>
+<p-card   >
+
+  <div class="grid">
+    <div class="col-12">
+      Ingreso: <b class="font"> {{ ingreso?.materiaPrima?.nombre || ''}} {{ ingreso?.codigo | titlecase}} </b>
+    </div>
+    <div class="col-6">
+      Materia Prima: <b>{{ ingreso?.materiaPrima.nombre || ''}}</b>
+  </div>
+    <div class="col-6">
+      Codigo: <b>{{ ingreso?.codigo | titlecase}}</b>
+    </div>
+
+    <div class="col-6">
+      Cantidad ingresada: <b>{{ingreso?.cantidad}} {{ingreso?.unidadMedida}}</b>
+
+    </div>
+    <div class="col-6">
+      Valor de compra ingresada:  <b>{{ingreso?.valorCompra! | currency}}</b>
+
+    </div>
+    <div class="col-6">
+      Estado Actual: <b>{{ingreso?.currentState?.nombre}}</b>
+    </div>
+    <div class="col-6">
+      Familia productora: <b>{{ingreso?.familiaProductora?.nombre}}</b>
+    </div>
+  <div class="col-12">
+    Descripción: <b>{{ingreso?.descripcion || '-'}}</b>
+  </div>
+</div>
+
+<p-divider />
+
+
+  <p-table
+      #dt
+      [value]="ingreso?.estados"
+      [rows]="5"
+      [paginator]="true"
+      [globalFilterFields]="['fecha', 'autor.nombre', 'estado']"
+      [tableStyle]="{ 'min-width': 'auto' }"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Mostrar {first} a {last} de {totalRecords} registros"
+      [showCurrentPageReport]="true"
+  >
+      <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-between">
+              <h5 class="m-0">Historial de Estados</h5>
+              <span class="p-input-icon-left">
+                  <i class="pi pi-search"></i>
+                  <input
+                      pInputText
+                      type="text"
+                      (input)="dt.filterGlobal($event.target.value, 'contains')"
+                      placeholder="Search..." />
+              </span>
+          </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+
+        @for (col of cols; track col) {
+
+          @switch (col.field) {
+
+            @case ('autor') {
+              <th [pSortableColumn]="col.field">
+                 {{ col.header }}
+                <p-sortIcon [field]="col.field.nombre" />
+              </th>
+            }
+            @default {
+            <th [pSortableColumn]="col.field">
+                {{ col.header }} <p-sortIcon [field]="col.field" />
+            </th>
+            }
+          }
+      }
+
+
+      </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-entity>
+          <tr>
+
+            @for (col of cols; track col) {
+
+                @switch (col.field) {
+                  @case ('fecha') {
+                    <td>{{ entity[col.field] | dateTransformPipe }}</td>
+                  }
+                  @case ('autor') {
+                    <td>{{ entity[col.field].nombre }}</td>
+                  }
+                  @case ('estado') {
+                    <td><p-tag [value]="entity[col.field]" [severity]="getSeverity(entity[col.field])" /></td>
+                  }
+                }
+            }
+
+
+
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">
+              En total hay {{ ingreso?.estados ? ingreso.estados.length : 0 }} registros.
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+            <td class="text-center py-4" [attr.colspan]="4 + 1">
+                No se encontraron registros
+            </td>
+        </tr>
+    </ng-template>
+
+
+  </p-table>
+
+</p-card>

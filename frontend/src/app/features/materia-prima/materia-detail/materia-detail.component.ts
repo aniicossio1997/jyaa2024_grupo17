@@ -5,8 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MateriaPrimaDetailViewModel } from '../../../interfaces/MateriaPrimaDetailViewModel';
 import { Menu } from 'primeng/menu';
 import { Table } from 'primeng/table';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { EstadoIngresoEnums } from '../../../model/EstadoIngresoEnums';
+import ConfirmationDialogService from '../../../core/ConfirmationDialogService';
+import { IngresoMateriaPrimaShortViewModel } from '../../../interfaces/ingresoMateriaPrimaShortViewModel';
+import { IngresoMateriaPrimasService } from '../../../services/ingreso-materia-primas.service';
 
 interface Column {
   field: string;
@@ -18,7 +21,9 @@ interface Column {
   selector: 'app-materia-detail',
   templateUrl: './materia-detail.component.html',
   styleUrl: './materia-detail.component.scss',
-  providers:[MateriaPrimaService]
+  providers:[MateriaPrimaService, ConfirmationService, MessageService,
+    IngresoMateriaPrimasService
+  ]
 })
 export class MateriaDetailComponent implements OnInit {
   materiaPrimaDetail!:MateriaPrimaDetailViewModel;
@@ -33,23 +38,24 @@ export class MateriaDetailComponent implements OnInit {
   }
 
   constructor(private materiaPrimaService: MateriaPrimaService, private activateRouter:ActivatedRoute,
-    private router:Router
-  ){
+    private router:Router, private confirmationDialogService: ConfirmationDialogService,
+    private ingresoMateriaPrimasService:IngresoMateriaPrimasService
+  ){}
 
-  }
+
   ngOnInit(): void {
-    this.id = Number(this.activateRouter.snapshot.paramMap.get('id')!);
-    this.materiaPrimaService.getById(this.id).subscribe(data=>this.materiaPrimaDetail=data)
+    this.getRefresh();
     this.initColumns()
 
   }
 
   initColumns(){
     this.cols = [
-      { field: 'fecha', header: 'Fecha', sort:true },
+      { field: 'codigo', header: 'Codigo', sort:true },
       { field: 'cantidad', header: 'Cantidad',sort:true },
-      { field: 'valorCompra', header: 'Valor de compra', sort:true },
+      { field: 'valorCompra', header: 'Valor', sort:true },
       { field: 'familiaProductora', header: 'familia Productora', sort:true },
+      { field: 'fecha', header: 'Fecha de creacion', sort:true },
       { field: 'currentState', header: 'Estado', sort:true },
 
 
@@ -64,7 +70,7 @@ export class MateriaDetailComponent implements OnInit {
         label: 'Detalle',
         icon: 'pi pi-eye',
         command: () => {
-          //this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.Detail}/`, item.id]); // Usa item.id para redirigir
+          this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.Gestion}/${ManagementRoutes.Detail}/`, item.id]); // Usa item.id para redirigir
 
         },
       },
@@ -72,7 +78,7 @@ export class MateriaDetailComponent implements OnInit {
         label: 'Editar',
         icon: 'pi pi-pencil',
         command: () => {
-          //this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.Edit}/`, item.id]); // Usa item.id para redirigir
+          this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.Gestion}/${ManagementRoutes.Edit}/`, item.id]); // Usa item.id para redirigir
 
         },
       },
@@ -80,7 +86,7 @@ export class MateriaDetailComponent implements OnInit {
         label: 'Eliminar',
         icon: 'pi pi-trash',
         command: () => {
-          //this.delete(item);
+          this.delete(item);
         },
       },
 
@@ -103,6 +109,19 @@ export class MateriaDetailComponent implements OnInit {
         case EstadoIngresoEnums.FREEZER:
             return 'info';
     }
-}
-
+  }
+  delete(item:IngresoMateriaPrimaShortViewModel) {
+    this.confirmationDialogService.confirmDelete(
+      `¿Está seguro que desea eliminar el ingreso con codigo ${item.codigo} ?`,
+      () => {
+        this.ingresoMateriaPrimasService.delete(item.id!).subscribe(() => {
+          this.getRefresh();
+        });
+      }
+    );
+  }
+  getRefresh(){
+    this.id = Number(this.activateRouter.snapshot.paramMap.get('id')!);
+    this.materiaPrimaService.getById(this.id).subscribe(data=>this.materiaPrimaDetail=data)
+  }
 }

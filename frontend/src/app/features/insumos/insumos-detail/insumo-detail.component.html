@@ -1,0 +1,154 @@
+
+<p-button
+pRipple
+label="Volver"
+icon="pi pi-arrow-left"
+styleClass="mb-4"
+(click)="back()"
+severity="secondary"
+/>
+<p-card   >
+
+  <div class="grid">
+    <div class="col-6">
+      <span class="mb-4 text-sm">Gestion de ingresos</span>
+      <div class=" font-bold mt-2">
+          <div class="p-card-title "> {{insumo?.nombre | titlecase}}</div>
+
+        </div>
+    </div>
+    <div class="col-6">
+      <div class="flex justify-content-end flex-wrap mb-3">
+        <p-button
+        pRipple
+        severity="success"
+        label="Agregar Ingreso"
+        icon="pi pi-plus"
+        class="mr-2"
+        (click)="toAddIngreso()"
+
+      />
+
+      </div>
+    </div>
+
+    <div class="col-6">
+      Cantidad total: <b>{{insumo?.totalCantidadDisponible}} {{insumo?.unidadMedida}}</b>
+    </div>
+    <div class="col-6">
+      Valor de compra total:  <b>{{insumo?.totalValorCompra | currency}}</b>
+
+    </div>
+    <div class="col-12">
+      Descripción: <b>{{insumo?.descripcion || '-'}}</b>
+  </div>
+</div>
+
+<p-divider />
+
+
+  <p-table
+      #dt
+      [value]="insumo?.ingresos"
+      [rows]="5"
+      [paginator]="true"
+      [globalFilterFields]="['nombre','cantidad', 'descripcion', 'valorCompra']"
+      [tableStyle]="{ 'min-width': 'auto' }"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Mostrar {first} a {last} de {totalRecords} registros"
+      [showCurrentPageReport]="true"
+  >
+      <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-between">
+              <h5 class="m-0">Historial de ingresos</h5>
+              <span class="p-input-icon-left">
+                  <i class="pi pi-search"></i>
+                  <input
+                      pInputText
+                      type="text"
+                      (input)="dt.filterGlobal($event.target.value, 'contains')"
+                      placeholder="Search..." />
+              </span>
+          </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 4rem" >
+            Acciones
+          </th>
+
+
+
+        @for (col of cols; track col) {
+
+          @switch (col.field) {
+
+            @case ('familiaProductora') {
+              <th [pSortableColumn]="col.field">
+                 {{ col.header }}
+                <p-sortIcon [field]="col.field.nombre" />
+              </th>
+            }
+            @default {
+            <th [pSortableColumn]="col.field">
+                {{ col.header }} <p-sortIcon [field]="col.field" />
+            </th>
+            }
+          }
+      }
+
+
+      </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-entity>
+          <tr>
+            <td>
+              <button pButton pRipple type="button" icon="pi pi-bars" class="p-button-rounded p-button-text"
+                  (click)="generateMenu(entity, menu, $event)">
+              </button>
+              <p-menu #menu [popup]="true" [model]="itemsMenu" appendTo="body"></p-menu>
+            </td>
+
+            @for (col of cols; track col) {
+
+                @switch (col.field) {
+                  @case ('fecha') {
+                    <td>{{ entity[col.field] | dateTransformPipe }}</td>
+                  }
+                  @case ('valorCompra') {
+                    <td>{{ entity[col.field] | currency }}</td>
+                  }
+                  @case ('cantidad') {
+                    <td>{{ entity[col.field] }} <b>{{insumo?.unidadMedida}}</b> </td>
+                  }
+                  @default {
+                    <td >
+                      {{ entity[col.field]== '' ? '-' : entity[col.field] }}
+                    </td>
+                  }
+                }
+            }
+
+
+
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">
+              En total hay {{ insumo?.ingresos ? insumo.ingresos.length : 0 }} registros.
+          </div>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+            <td class="text-center py-4" [attr.colspan]="4 + 1">
+                No se encontraron registros
+            </td>
+        </tr>
+    </ng-template>
+
+
+  </p-table>
+
+</p-card>

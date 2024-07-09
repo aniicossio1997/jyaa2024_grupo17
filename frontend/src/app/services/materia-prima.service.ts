@@ -57,4 +57,15 @@ export class MateriaPrimaService {
         })
       );
   }
+  delete(id:number){
+    const url = `${this.API_URL}/${id}`;
+    return this.http.delete<MateriaPrimaViewModel>(url)
+      .pipe(
+        map((res: MateriaPrimaViewModel) => {
+          this.toastr.success("Exito! Se elimino la Materia Prima ")
+
+          return res
+        })
+      );
+  }
 }

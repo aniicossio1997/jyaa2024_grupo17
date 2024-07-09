@@ -3,8 +3,10 @@ import { ManagementRoutes } from '../../../routers';
 import { MateriaPrimaService } from '../../../services/materia-prima.service';
 import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Menu } from 'primeng/menu';
+import ConfirmationDialogService from '../../../core/ConfirmationDialogService';
+import { MateriaPrimaViewModel } from '../../../interfaces/MateriaPrimaViewModel';
 
 interface Column {
   field: string;
@@ -15,7 +17,7 @@ interface Column {
   selector: 'app-materia-query',
   templateUrl: './materia-query.component.html',
   styleUrl: './materia-query.component.scss',
-  providers:[MateriaPrimaService]
+  providers:[MateriaPrimaService,  ConfirmationService, MessageService]
 })
 export class MateriaQueryComponent implements OnInit {
 
@@ -31,13 +33,13 @@ export class MateriaQueryComponent implements OnInit {
 
 
   constructor(private materiaPrimaService: MateriaPrimaService,
-    private router:Router
+    private router:Router, private confirmationDialogService: ConfirmationDialogService
   ){
 
   }
   ngOnInit(): void {
     this.initColumns()
-    this.materiaPrimaService.get().subscribe(data=> this.materias=data)
+    this.getAll()
   }
 
   initColumns(){
@@ -49,7 +51,7 @@ export class MateriaQueryComponent implements OnInit {
     ];
   }
 
-  generateMenu(item: any, menu: Menu, event: any) {
+  generateMenu(item: MateriaPrimaViewModel, menu: Menu, event: any) {
     menu.toggle(event);
 
     this.itemsMenu = [
@@ -73,11 +75,24 @@ export class MateriaQueryComponent implements OnInit {
         label: 'Eliminar',
         icon: 'pi pi-trash',
         command: () => {
-          //this.delete(item);
+          this.delete(item)
         },
       },
 
     ];
   }
 
+  delete(item:MateriaPrimaViewModel) {
+    this.confirmationDialogService.confirmDelete(
+      `¿Está seguro que desea eliminar la materia prima ${item.nombre.toLocaleUpperCase()} ?`,
+      () => {
+        this.materiaPrimaService.delete(item.id!).subscribe(() => {
+          this.getAll();
+        });
+      }
+    );
+  }
+  getAll(){
+    this.materiaPrimaService.get().subscribe(data=> this.materias=data)
+  }
 }

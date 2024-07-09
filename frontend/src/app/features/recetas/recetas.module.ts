@@ -26,16 +26,19 @@ import { ListboxModule } from 'primeng/listbox';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { EditComponent } from './edit/edit.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'query', pathMatch: 'full' },
-  { path: 'query', component: QueryComponent },
-  { path: 'new', component: NewComponent },
-  { path: 'detail/:id', component: DetailComponent },
+  { path: 'query', component: QueryComponent, title: "Listado de Recetas"  },
+  { path: 'new', component: NewComponent , title: "Agregar Receta" },
+  { path: 'detail/:id', component: DetailComponent , title: "Detalle de Receta" },
+  { path: 'edit/:id', component: EditComponent, title: "Editar Receta" },
+
 ];
 
 @NgModule({
-  declarations: [QueryComponent, DetailComponent, NewComponent],
+  declarations: [QueryComponent, DetailComponent, NewComponent, EditComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(appRoutes),

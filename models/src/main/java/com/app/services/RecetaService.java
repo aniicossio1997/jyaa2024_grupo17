@@ -1,9 +1,6 @@
 package com.app.services;
 
-import com.app.dao.interfaces.IInsumoDao;
-import com.app.dao.interfaces.IMateriaPrimaDao;
-import com.app.dao.interfaces.IRecetaDao;
-import com.app.dao.interfaces.IUsuarioDao;
+import com.app.dao.interfaces.*;
 import com.app.models.*;
 import com.app.services.interfaces.IRecetaService;
 import com.app.utils.ListUtils;
@@ -27,6 +24,9 @@ public class RecetaService implements IRecetaService {
 
     @Inject
     private IInsumoDao insumoDao;
+
+    @Inject
+    private IIngredienteRecetaDao ingredienteRecetaDao;
 
     @Inject
     private IMateriaPrimaDao materiaPrimaDao;
@@ -72,14 +72,37 @@ public class RecetaService implements IRecetaService {
         Receta receta = recetaDao.getById(recetaId);
         if (view.getDescripcion() != null) receta.setDescripcion(view.getDescripcion());
         if (view.getNombre() != null) receta.setNombre(view.getNombre());
-
+        Set<Long> insumoIds = new HashSet<>();
+        Set<Long> materiaPrimaIds = new HashSet<>();
         for (IngredienteRecetaCreateViewModel ing : view.getIngredientes()) {
-            if (ing.getId() == null) { // Se agrega un nuevo ingrediente
+            Optional<IngredienteReceta> existe = Optional.empty();
+            if (ing.getInsumoId() != null) {
+                existe = receta.getIngredientes().stream().filter(i -> i.getInsumo() != null && Objects.equals(i.getInsumo().getId(), ing.getInsumoId())).findFirst();
+                insumoIds.add(ing.getInsumoId());
+            } else if (ing.getMateriaPrimaId() != null) {
+                existe = receta.getIngredientes().stream().filter(i -> i.getMateriaPrima() != null && Objects.equals(i.getMateriaPrima().getId(), ing.getMateriaPrimaId())).findFirst();
+                materiaPrimaIds.add(ing.getMateriaPrimaId());
+            }
+            if (existe.isEmpty()) { // Se agrega un nuevo ingrediente
                 IngredienteReceta ingrediente = buildIngrediente(ing, receta);
                 receta.addIngrediente(ingrediente);
             } else { // Se modifica uno existente
-                updateIngrediente(ing, receta);
+                updateIngrediente(ing, existe.get());
             }
+        }
+
+        List<IngredienteReceta> ingredientesToRemove = new ArrayList<>();
+        for (IngredienteReceta ing : receta.getIngredientes()) {
+            if (ing.getMateriaPrima() != null && !materiaPrimaIds.contains(ing.getMateriaPrima().getId())) {
+                ingredientesToRemove.add(ing);
+            } else if (ing.getInsumo() != null && !insumoIds.contains(ing.getInsumo().getId())) {
+                ingredientesToRemove.add(ing);
+            }
+        }
+
+        for (IngredienteReceta ing : ingredientesToRemove) {
+            ingredienteRecetaDao.delete(ing.getId());
+            receta.getIngredientes().remove(ing);
         }
         recetaDao.save(receta);
         return mappingService.toDetalleViewModel(receta);
@@ -99,18 +122,15 @@ public class RecetaService implements IRecetaService {
         return ingrediente;
     }
 
-    private void updateIngrediente(IngredienteRecetaCreateViewModel ing, Receta receta) {
-        Optional<IngredienteReceta> optIngrediente = receta.ingredientes.stream().filter(i -> Objects.equals(i.getId(), ing.getId())).findFirst();
-        if (optIngrediente.isEmpty()) throw new NotFoundException("missing_ingredient");
-        IngredienteReceta ingrediente = optIngrediente.get();
-        if (ing.getCantidad() != null) ingrediente.setCantidad(ing.getCantidad());
-        if (ing.getInsumoId() != null) {
-            Insumo insumo = insumoDao.getById(ing.getInsumoId());
+    private void updateIngrediente(IngredienteRecetaCreateViewModel view, IngredienteReceta ingrediente) {
+        if (view.getCantidad() != null) ingrediente.setCantidad(view.getCantidad());
+        if (view.getInsumoId() != null) {
+            Insumo insumo = insumoDao.getById(view.getInsumoId());
             if (insumo == null) throw new NotFoundException("insumo_not_found");
             ingrediente.setInsumo(insumo);
         }
-        if (ing.getMateriaPrimaId() != null) {
-            MateriaPrima materiaPrima = materiaPrimaDao.getById(ing.getMateriaPrimaId());
+        if (view.getMateriaPrimaId() != null) {
+            MateriaPrima materiaPrima = materiaPrimaDao.getById(view.getMateriaPrimaId());
             if (materiaPrima == null) throw new NotFoundException("materia_prima_not_found");
             ingrediente.setMateriaPrima(materiaPrima);
         }

@@ -5,7 +5,7 @@ import { ManagementRoutes } from '../../../routers';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import ConfirmationDialogService from '../../../core/ConfirmationDialogService';
-import { RecetasService } from '../recetas.service';
+import { RecetasService } from '../../../services/recetas.service';
 import RecetaViewModel from '../../../interfaces/RecetaViewModel';
 
 @Component({

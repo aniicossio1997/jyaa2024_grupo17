@@ -2,16 +2,16 @@
   <div class="font-bold mt-2">
     <h1 class="p-card-title">{{ receta.nombre | titlecase }}</h1>
   </div>
-  <button
-    pButton
+  <span class="absolute" style="top: 5px; right: 5px;">
+  <p-button
     pRipple
-    type="button"
+    severity="primary"
+    label="Editar"
+    [text]="true"
     icon="pi pi-pencil"
-    class="p-button p-button-text absolute gap-2"
-    style="top: 5px; right: 5px"
-  >
-    Editar receta
-  </button>
+    class="mr-2"
+    [routerLink]="[Routes.EDIT]"
+  /></span>
   <p class="text-lg">{{ receta.descripcion }}</p>
   <div class="grid text-lg">
     <div class="col-6">

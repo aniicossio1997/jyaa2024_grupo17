@@ -1,4 +1,4 @@
-import { RecetasService } from './../recetas.service';
+import { RecetasService } from '../../../services/recetas.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -49,6 +49,12 @@ export class DetailComponent implements OnInit {
     });
   }
 
+  public get Routes() {
+    return {
+      EDIT: `/${ManagementRoutes.Receta}/${ManagementRoutes.Edit}/${this.receta?.id}`,
+    };
+  }
+  
   back() {
     this.router.navigate([
       '/' + ManagementRoutes.Receta,

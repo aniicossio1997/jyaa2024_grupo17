@@ -1,5 +1,5 @@
-<div class="card" style="max-width: 1200px">
-  <h2 class="mb-5 m-2">Agregar Receta</h2>
+<div *ngIf="!!form" class="card" [style]="{ maxWidth: '1000px' }">
+  <h2 class="mb-5 m-2">Editar Receta</h2>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="p-fluid p-formgrid grid">
       <h5>Detalles</h5>
@@ -37,7 +37,7 @@
           [errors]="form.get('descripcion')?.errors"
         ></span>
       </div>
-      <p-divider styleClass="my-0 w-full" style="width: 100%;" />
+      <p-divider styleClass="my-0 w-full" [style]="{ width: '100%' }" />
       <h5>Ingredientes</h5>
       <div class="grid w-full">
         <div class="col">
@@ -89,7 +89,7 @@
                   [rounded]="true"
                   [text]="true"
                   severity="secondary"
-                  (onClick)="onDeleteMateriaPrima(item.id)"
+                  (onClick)="onDeleteMateriaPrima(item.materiaPrimaId)"
                 />
               </div>
             </div>
@@ -142,7 +142,7 @@
                   [rounded]="true"
                   [text]="true"
                   severity="secondary"
-                  (onClick)="onDeleteInsumo(item.id)"
+                  (onClick)="onDeleteInsumo(item.insumoId)"
                 />
               </div>
             </div>

@@ -10,7 +10,7 @@ import {
 import { SelectItem } from 'primeng/api';
 import { Validators } from '@angular/forms';
 import { Password } from 'primeng/password';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ManagementRoutes } from '../../../routers';
 import { ToastrService } from 'ngx-toastr';
 import { RecetaDetalleViewModel } from '../../../interfaces/RecetaDetalleViewModel';
@@ -25,9 +25,9 @@ interface IngredienteCreateViewModel {
   insumoId?: number;
   materiaPrimaId?: number;
   id?: number;
-  cantidad: number;
   nombre: string;
   unidadMedida: string;
+  cantidad?: number;
 }
 
 function greaterThanZero(control: AbstractControl): ValidationErrors | null {
@@ -37,13 +37,13 @@ function greaterThanZero(control: AbstractControl): ValidationErrors | null {
 
 @Component({
   providers: [RecetasService, MateriaPrimaService, InsumosService],
-  selector: 'app-new',
-  templateUrl: './new.component.html',
-  styleUrls: ['./new.component.css'],
+  selector: 'receta-edit',
+  templateUrl: './edit.component.html',
 })
-export class NewComponent implements OnInit {
+export class EditComponent implements OnInit {
+  receta: RecetaDetalleViewModel;
   loading = false;
-
+  id: number;
   allMateriasPrimas: MateriaPrimaViewModel[] = [];
   allInsumos: InsumoViewModel[] = [];
 
@@ -52,24 +52,56 @@ export class NewComponent implements OnInit {
 
   @ViewChild('materiaPrimaDropdown') materiaPrimaDropdown: Dropdown;
   @ViewChild('insumosDropdown') insumosDropdown: Dropdown;
-
-  form = new FormGroup({
-    nombre: new FormControl('', Validators.required),
-    descripcion: new FormControl('', Validators.required),
-    materiasPrimas: new FormArray([]),
-    insumos: new FormArray([]),
-  });
+  form: FormGroup;
 
   constructor(
     private recetasService: RecetasService,
     private materiaPrimaService: MateriaPrimaService,
     private insumosService: InsumosService,
-
     private router: Router,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.id = Number(this.activatedRoute.snapshot.paramMap.get('id')!);
+  }
 
   ngOnInit() {
+    this.recetasService.detail(this.id).subscribe((res) => {
+      this.receta = res;
+      this.selectedInsumos = res.ingredientes
+        .filter((i) => i.insumo != null)
+        .map((i) => ({
+          id: i.id,
+          nombre: i.insumo.nombre,
+          insumoId: i.insumo.id,
+          unidadMedida: i.insumo.unidadMedida,
+          cantidad: i.cantidad,
+        }));
+
+      this.selectedMateriasPrimas = res.ingredientes
+        .filter((i) => i.materiaPrima != null)
+        .map((i) => ({
+          id: i.id,
+          nombre: i.materiaPrima.nombre,
+          materiaPrimaId: i.materiaPrima.id,
+          unidadMedida: i.materiaPrima.unidadMedida,
+          cantidad: i.cantidad,
+        }));
+      this.form = new FormGroup({
+        nombre: new FormControl(res.nombre, Validators.required),
+        descripcion: new FormControl(res.descripcion, Validators.required),
+        insumos: new FormArray(
+          this.selectedInsumos.map(
+            (i) => new FormControl(i.cantidad, greaterThanZero)
+          )
+        ),
+        materiasPrimas: new FormArray(
+          this.selectedMateriasPrimas.map(
+            (i) => new FormControl(i.cantidad, greaterThanZero)
+          )
+        ),
+      });
+    });
     this.materiaPrimaService
       .get()
       .subscribe((res) => (this.allMateriasPrimas = res));
@@ -79,18 +111,17 @@ export class NewComponent implements OnInit {
 
   onSubmit() {
     // TODO: Use EventEmitter with form value
-    console.warn(this.form.value);
+    console.log(this.form.value);
     if (!this.form.valid) return;
     const raw = this.form.getRawValue();
-
     const insumos = this.selectedInsumos.map((i, index) => ({
-      insumoId: i.id,
+      insumoId: i.insumoId,
       materiaPrimaId: null,
       cantidad: raw.insumos[index],
     }));
 
     const materiasPrimas = this.selectedMateriasPrimas.map((i, index) => ({
-      materiaPrimaId: i.id,
+      materiaPrimaId: i.materiaPrimaId,
       insumoId: null,
       cantidad: raw.materiasPrimas[index],
     }));
@@ -104,22 +135,24 @@ export class NewComponent implements OnInit {
     };
 
     this.loading = true;
-    this.recetasService.create(request).subscribe((res) => {
-      this.toastr.success('Se ha agregado la receta');
+    this.recetasService.edit(this.id, request).subscribe((res) => {
+      this.toastr.success('Se han guardado los cambios');
       this.router.navigate([
         '/' + ManagementRoutes.Receta,
-        ManagementRoutes.Query,
+        ManagementRoutes.Detail, this.receta.id,
       ]);
     });
   }
 
   get filteredInsumos() {
-    const selectedIds = this.selectedInsumos.map((insumo) => insumo.id);
+    const selectedIds = this.selectedInsumos.map((insumo) => insumo.insumoId);
     return this.allInsumos.filter((insumo) => !selectedIds.includes(insumo.id));
   }
 
   get filteredMateriasPrimas() {
-    const selectedIds = this.selectedMateriasPrimas.map((mp) => mp.id);
+    const selectedIds = this.selectedMateriasPrimas.map(
+      (mp) => mp.materiaPrimaId
+    );
     return this.allMateriasPrimas.filter((mp) => !selectedIds.includes(mp.id));
   }
 
@@ -131,9 +164,14 @@ export class NewComponent implements OnInit {
     const materiaPrima = event.value;
     if (!materiaPrima) return;
     console.log(materiaPrima);
-    if (!this.selectedMateriasPrimas.find((i) => i.id == materiaPrima.id)) {
+    if (
+      !this.selectedMateriasPrimas.find(
+        (i) => i.id == materiaPrima.materiaPrimaId
+      )
+    ) {
       this.selectedMateriasPrimas.push({
         id: materiaPrima.id,
+        materiaPrimaId: materiaPrima.id,
         nombre: materiaPrima.nombre,
         cantidad: 0,
         unidadMedida: materiaPrima.unidadMedida,
@@ -146,7 +184,9 @@ export class NewComponent implements OnInit {
   }
 
   onDeleteMateriaPrima(id: Number) {
-    const index = this.selectedMateriasPrimas.findIndex((i) => i.id == id);
+    const index = this.selectedMateriasPrimas.findIndex(
+      (i) => i.materiaPrimaId == id
+    );
     if (index > -1) {
       this.selectedMateriasPrimas.splice(index, 1);
       this.getMateriasPrimasFormArr().removeAt(index);
@@ -158,15 +198,15 @@ export class NewComponent implements OnInit {
   }
 
   onSelectInsumo(event: DropdownChangeEvent) {
-    const insumos = event.value;
-    if (!insumos) return;
-    console.log(insumos);
-    if (!this.selectedInsumos.find((i) => i.id == insumos.id)) {
+    const insumo = event.value;
+    if (!insumo) return;
+    console.log(insumo);
+    if (!this.selectedInsumos.find((i) => i.insumoId == insumo.id)) {
       this.selectedInsumos.push({
-        id: insumos.id,
-        nombre: insumos.nombre,
+        insumoId: insumo.id,
+        nombre: insumo.nombre,
         cantidad: 0,
-        unidadMedida: insumos.unidadMedida,
+        unidadMedida: insumo.unidadMedida,
       });
       this.getInsumosArr().push(new FormControl('', greaterThanZero));
     }
@@ -174,7 +214,7 @@ export class NewComponent implements OnInit {
   }
 
   onDeleteInsumo(id: Number) {
-    const index = this.selectedInsumos.findIndex((i) => i.id == id);
+    const index = this.selectedInsumos.findIndex((i) => i.insumoId == id);
     if (index > -1) {
       this.selectedInsumos.splice(index, 1);
       this.getInsumosArr().removeAt(index);
@@ -184,7 +224,7 @@ export class NewComponent implements OnInit {
   back() {
     this.router.navigate([
       '/' + ManagementRoutes.Receta,
-      ManagementRoutes.Query,
+      ManagementRoutes.Detail + '/' + this.id,
     ]);
   }
 }

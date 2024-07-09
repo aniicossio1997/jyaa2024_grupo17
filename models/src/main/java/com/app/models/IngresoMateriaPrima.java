@@ -12,8 +12,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "ingreso_materia_prima")
-@SQLDelete(sql = "UPDATE ingreso_materia_prima SET fechaBaja = CURRENT_TIMESTAMP WHERE id = ?")
-@Where(clause = "fechaBaja IS NULL")
+@SQLDelete(sql = "UPDATE nota SET fechaBaja = CURRENT_TIMESTAMP WHERE id = ?")
 public class IngresoMateriaPrima extends IngresoBase {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -121,7 +120,7 @@ public class IngresoMateriaPrima extends IngresoBase {
 
     public List<EstadoMateriaPrima> getEstadosOrderById(){
         return this.estados.stream()
-                .sorted((e1, e2) -> Integer.compare(Math.toIntExact(e1.getId()), Math.toIntExact(e2.getId())))
+                .sorted((i1, i2) -> i2.getId().compareTo(i1.getId()))
                 .collect(Collectors.toList());
     }
 

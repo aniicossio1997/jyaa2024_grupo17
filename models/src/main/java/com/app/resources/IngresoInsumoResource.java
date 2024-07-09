@@ -38,4 +38,11 @@ public class IngresoInsumoResource extends BaseResource{
     public IngresoInsumoViewModel update(@PathParam("id") Long id, IngresoInsumoCreateViewModel entityToEdit){
         return this.service.update(id, entityToEdit);
     }
+
+    @DELETE
+    @Path("{id}")
+    public Response delete(@PathParam("id") Long id){
+        this.service.delete(id);
+        return Response.status(Response.Status.OK).build();
+    }
 }

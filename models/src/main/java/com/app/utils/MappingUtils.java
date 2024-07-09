@@ -1,9 +1,11 @@
 package com.app.utils;
 
 import com.app.exceptions.InvalidParameterException;
+import com.app.models.IngresoInsumo;
 import com.app.models.IngresoMateriaPrima;
 import com.app.models.baseEntity.NameableBaseEntity;
 import com.app.viewModels.EstadoViewModel;
+import com.app.viewModels.IngresoInsumoViewModel;
 import com.app.viewModels.IngresoMateriaPrimaShortViewModel;
 import com.app.viewModels.base.NameableViewModel;
 
@@ -41,6 +43,16 @@ public class MappingUtils {
                 imp.getCantidad(),
                 imp.getEstadoActual(),
                 estadoViewModels
+        );
+
+        return entity;
+    }
+    public  static IngresoInsumoViewModel toViewModelDetails(IngresoInsumo imp){
+        IngresoInsumoViewModel entity = new IngresoInsumoViewModel(
+                imp.getId(),imp.getValorCompra(),
+                imp.getFecha(),imp.getInsumo(), imp.getDescripcion(),
+                imp.getCodigo(), imp.getCantidad(),
+                imp.getInsumo().getUnidadMedida()
         );
 
         return entity;

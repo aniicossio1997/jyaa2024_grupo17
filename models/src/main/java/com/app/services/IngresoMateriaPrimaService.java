@@ -58,17 +58,19 @@ public class IngresoMateriaPrimaService implements IIngresoMateriaPrimaService {
         estado.setIngresoMateriaPrima(ingresoMateriaPrima);
 
         ingresoMateriaPrimaDao.save(ingresoMateriaPrima);
+        ingresoMateriaPrima.setCodigo("M-"+ingresoMateriaPrimaDao.getAll(false).size());
+        ingresoMateriaPrimaDao.save(ingresoMateriaPrima);
         return this.toViewModel(ingresoMateriaPrima);
     }
 
     @Override
     public List<IngresoMateriaPrimaViewModel> getByFilters() {
-        return ListUtils.mapList(this.ingresoMateriaPrimaDao.getAll(), this::toViewModel);
+        return ListUtils.mapList(this.ingresoMateriaPrimaDao.getAll(true), this::toViewModel);
     }
 
     @Override
     public boolean delete(Long id) {
-        IngresoMateriaPrima entityToDelete= this.ingresoMateriaPrimaDao.getById(id);
+        IngresoMateriaPrima entityToDelete= this.ingresoMateriaPrimaDao.getById(id,true);
         entityToDelete.setFechaBaja(new Date());;
         ingresoMateriaPrimaDao.save(entityToDelete);
         return  true;
@@ -77,7 +79,8 @@ public class IngresoMateriaPrimaService implements IIngresoMateriaPrimaService {
 
     @Override
     public IngresoMateriaPrimaDetailViewModel getById(Long id) {
-        IngresoMateriaPrimaDetailViewModel result=  toViewModelDetails(this.ingresoMateriaPrimaDao.getById(id));
+        IngresoMateriaPrimaDetailViewModel result=  toViewModelDetails(this.ingresoMateriaPrimaDao.getById(id,true));
+
         return  result;
     }
 
@@ -147,7 +150,9 @@ public class IngresoMateriaPrimaService implements IIngresoMateriaPrimaService {
                 imp.getCodigo(),
                 imp.getCantidad(),
                 imp.getEstadoActual(),
-                estadoViewModels
+                estadoViewModels,
+                imp.getMateriaPrima().getUnidadMedida()
+
         );
 
         return entity;

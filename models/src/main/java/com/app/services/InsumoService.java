@@ -8,10 +8,8 @@ import com.app.models.Insumo;
 import com.app.models.MateriaPrima;
 import com.app.services.interfaces.IInsumoService;
 import com.app.utils.ListUtils;
-import com.app.viewModels.InsumoCreateViewModel;
-import com.app.viewModels.RecursoDetailViewModel;
-import com.app.viewModels.RecursoPostViewModel;
-import com.app.viewModels.RecursoViewModel;
+import com.app.utils.MappingUtils;
+import com.app.viewModels.*;
 import com.app.viewModels.base.NameableViewModel;
 import jakarta.inject.Inject;
 import org.glassfish.hk2.api.PerLookup;
@@ -20,6 +18,7 @@ import org.jvnet.hk2.annotations.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @PerLookup
@@ -39,18 +38,19 @@ public class InsumoService  implements IInsumoService {
     @Override
     public RecursoDetailViewModel create(InsumoCreateViewModel entityToAdd) {
         Insumo insumo=new Insumo(entityToAdd.getNombre(),  entityToAdd.getDescripcion(), entityToAdd.getUnidadMedida());
-       this.insumoDao.save(insumo );
+
+        this.insumoDao.save(insumo );
        return  mappingService.toViewModelDetail(insumo);
     }
 
     @Override
-    public RecursoDetailViewModel getById(Long id) {
-        return mappingService.toViewModelDetail(insumoDao.getById(id));
+    public InsumoDetailViewModel getById(Long id) {
+        return this.toViewModelDetail(insumoDao.getById(id,true));
     }
 
     @Override
     public RecursoDetailViewModel update(Long id, RecursoPostViewModel entityToEdit) {
-        Insumo entity = this.insumoDao.getById(id);
+        Insumo entity = this.insumoDao.getById(id,true);
 
         entity.setNombre(entityToEdit.nombre);
         entity.setDescripcion(entityToEdit.descripcion);
@@ -77,6 +77,23 @@ public class InsumoService  implements IInsumoService {
                 entity.getUnidadMedida(),
                 entity.getCantidadIngresos(),
                 entity.getTotalValorDeCompra()
+        );
+    }
+
+    public InsumoDetailViewModel toViewModelDetail(Insumo entity) {
+        List<IngresoInsumoViewModel> listIngresos = entity.getIngresos()
+                .stream()
+                .map(MappingUtils::toViewModelDetails)
+                .collect(Collectors.toList());
+
+        return new InsumoDetailViewModel(
+                entity.getId(),
+                entity.getNombre(),
+                entity.getUnidadMedida(),
+                entity.getDescripcion(),
+                entity.getCantidadIngresos(),
+                entity.getTotalValorDeCompra(),
+                listIngresos
         );
     }
 

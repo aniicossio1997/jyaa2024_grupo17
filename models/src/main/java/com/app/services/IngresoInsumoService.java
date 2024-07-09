@@ -35,19 +35,20 @@ public class IngresoInsumoService implements IIngresoInsumoService {
                 );
         insumo.addIngresoInsumo(entity);
         ingresoInsumoDao.save(entity);
-
+        entity.setCodigo("IN-"+entity.getId());
+        ingresoInsumoDao.save(entity);
         return this.toViewModel(entity);
     }
 
     @Override
     public IngresoInsumoViewModel getById(Long id) {
-        return this.toViewModel(this.ingresoInsumoDao.getById(id));
+        return this.toViewModel(this.ingresoInsumoDao.getById(id,true));
     }
 
     @Override
     public IngresoInsumoViewModel update(Long id, IngresoInsumoCreateViewModel entityToAdd) {
-        Insumo insumo= insumoDao.getById(entityToAdd.insumoId);
-        IngresoInsumo entity=ingresoInsumoDao.getById(id);
+        Insumo insumo= insumoDao.getById(entityToAdd.insumoId,true);
+        IngresoInsumo entity=ingresoInsumoDao.getById(id,true);
 
         entity.setInsumo(insumo);
         entity.setCantidad(entityToAdd.cantidad);
@@ -78,8 +79,8 @@ public class IngresoInsumoService implements IIngresoInsumoService {
         return new IngresoInsumoViewModel(
                 imp.getId(), imp.getValorCompra(),
                 imp.getFecha(),imp.getInsumo(),
-                imp.getDescripcion(), imp.getCodigo(), imp.getCantidad()
-
+                imp.getDescripcion(), imp.getCodigo(), imp.getCantidad(),
+                imp.getInsumo().getUnidadMedida()
 
         );
     }

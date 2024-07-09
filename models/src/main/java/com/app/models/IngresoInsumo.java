@@ -10,7 +10,6 @@ import java.util.Date;
 @Entity
 @Table(name = "ingreso_insumo")
 @SQLDelete(sql = "UPDATE ingreso_materia_prima SET fechaBaja = CURRENT_TIMESTAMP WHERE id = ?")
-@Where(clause = "fechaBaja IS NULL")
 public class IngresoInsumo extends IngresoBase {
 
 

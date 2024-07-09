@@ -32,8 +32,13 @@ public class MateriaPrimaService  implements IMateriaPrimaService {
 
     @Override
     public MateriaPrimaDetailViewModel getById(Long id) {
-        MateriaPrima entity = this.materiaPrimaDao.getById(id);
-        return toViewModelDetail(entity);
+        try{
+            MateriaPrima entity = this.materiaPrimaDao.getById(id);
+            return toViewModelDetail(entity);
+        }catch (Exception e){
+            System.out.println(e);
+           return  null;
+        }
     }
 
     @Override

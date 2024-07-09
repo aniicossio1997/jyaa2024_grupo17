@@ -5,6 +5,7 @@ import com.app.models.enums.UnidadMedidaEnum;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "materia_prima")
@@ -44,16 +45,22 @@ public class MateriaPrima extends Recurso {
     }
 
     public List<IngresoMateriaPrima> getIngresos() {
+        return ingresos.stream()
+                .filter(ingreso -> ingreso.getFechaBaja() == null)
+                .sorted((i1, i2) -> i2.getId().compareTo(i1.getId()))
+                .collect(Collectors.toList());
+    }
+    public List<IngresoMateriaPrima> getIngresosConBajas() {
         return ingresos;
     }
 
     public double getCantidadIngresos() {
-        return ingresos.stream()
+        return this.getIngresos().stream()
                 .mapToDouble(IngresoMateriaPrima::getCantidad)
                 .sum();
     }
     public double getTotalValorDeCompra() {
-        return ingresos.stream()
+        return this.getIngresos().stream()
                 .mapToDouble(IngresoMateriaPrima::getValorCompra)
                 .sum();
     }

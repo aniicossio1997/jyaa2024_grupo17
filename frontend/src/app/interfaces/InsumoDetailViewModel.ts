@@ -1,3 +1,4 @@
+import { IngresoInsumoViewModel } from './IngresoInsumoViewModel';
 import { IngresoMateriaPrimaShortViewModel } from './ingresoMateriaPrimaShortViewModel';
 
 export interface InsumoDetailViewModel {
@@ -7,4 +8,5 @@ export interface InsumoDetailViewModel {
   unidadMedida: string;
   totalCantidadDisponible: number;
   totalValorCompra: number;
+  ingresos:IngresoInsumoViewModel[]
 }

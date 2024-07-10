@@ -44,21 +44,21 @@ import { IngresoCambiarEstadoComponent } from './materia-detail/ingreso-cambiar-
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'query', pathMatch: 'full' },
-  { path: ManagementRoutes.Query, component: MateriaQueryComponent },
+  { path: ManagementRoutes.Query, component: MateriaQueryComponent, title: "Listado de Materias Primas"},
 
-  { path: `${ManagementRoutes.Detail}/:id`, component:MateriaDetailComponent  },
+  { path: `${ManagementRoutes.Detail}/:id`, component:MateriaDetailComponent, title: "Detalle de Materia Prima"  },
 
-  { path: `${ManagementRoutes.Edit}/:id`, component:MateriaEditComponent  },
+  { path: `${ManagementRoutes.Edit}/:id`, component:MateriaEditComponent, title: "Editar Materia Prima"  },
 
-  { path: ManagementRoutes.New, component: MateriaNewComponent },
+  { path: ManagementRoutes.New, component: MateriaNewComponent, title: "Agregar Materia Prima" },
 
-  { path: `${ManagementRoutes.Gestion}/:id`, component: MateriaDetailComponent },
+  { path: `${ManagementRoutes.Gestion}/:id`, component: MateriaDetailComponent, title: "Gestion de Ingresos de Materias Primas" },
 
-  { path: `${ManagementRoutes.Gestion}/${ManagementRoutes.New}/:id`, component: AgregarIngresosComponent },
+  { path: `${ManagementRoutes.Gestion}/${ManagementRoutes.New}/:id`, component: AgregarIngresosComponent, title: "Registrar Ingreso de Materia Prima" },
 
-  { path: `${ManagementRoutes.Gestion}/${ManagementRoutes.Detail}/:id`, component: IngresoDetailComponent },
+  { path: `${ManagementRoutes.Gestion}/${ManagementRoutes.Detail}/:id`, component: IngresoDetailComponent, title: "Detalle de Ingreso de Materia Prima" },
 
-  { path: `${ManagementRoutes.Gestion}/${ManagementRoutes.Edit}/:id`, component: IngresoEditComponent },
+  { path: `${ManagementRoutes.Gestion}/${ManagementRoutes.Edit}/:id`, component: IngresoEditComponent, title: "Editar Ingreso de Materia Prima" },
 
 
 ];

@@ -39,9 +39,9 @@ import { SharedModule } from '../../shared/shared.module';
 const appRoutes: Routes = [
   { path: '', redirectTo: 'query', pathMatch: 'full' },
 
-  { path: `${ManagementRoutes.Edit}/:id`, component: EditFamiliaComponent },
-  { path: ManagementRoutes.Query, component: QueryComponent },
-  { path: ManagementRoutes.New, component: NewComponent },
+  { path: `${ManagementRoutes.Edit}/:id`, component: EditFamiliaComponent, title: "Editar Familia Productora" },
+  { path: ManagementRoutes.Query, component: QueryComponent, title: "Listado de Familias Productoras" },
+  { path: ManagementRoutes.New, component: NewComponent, title: "Agregar Familia Productora" },
 
 
 ];

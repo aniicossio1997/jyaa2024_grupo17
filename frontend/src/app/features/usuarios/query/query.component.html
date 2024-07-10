@@ -87,16 +87,14 @@
       </tr>
     </ng-template>
 
-    <ng-template pTemplate="loadingbody" let-columns="columns">
-      <tr style="height: 46px">
-        <td *ngFor="let col of columns; let even = even">
-          <p-skeleton
-            [ngStyle]="{
-              width: even ? (col.field === 'year' ? '30%' : '40%') : '60%'
-            }"
-          />
-        </td>
-      </tr>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        En total hay
+        {{
+          dt.filteredValue ? dt.filteredValue.length : usuarios.length
+        }}
+        registros.
+      </div>
     </ng-template>
   </p-table>
 </div>

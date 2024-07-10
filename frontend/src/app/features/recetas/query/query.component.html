@@ -82,5 +82,15 @@
         </td>
       </tr>
     </ng-template>
+
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        En total hay
+        {{
+          dt.filteredValue ? dt.filteredValue.length : recetas.length
+        }}
+        registros.
+      </div>
+    </ng-template>
   </p-table>
 </div>

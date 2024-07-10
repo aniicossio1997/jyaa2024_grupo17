@@ -23,9 +23,9 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'query', pathMatch: 'full' },
-  { path: 'query', component: QueryComponent },
-  { path: 'new', component: NewComponent },
-  { path: 'edit/:id', component: EditComponent },
+  { path: 'query', component: QueryComponent, title: 'Listado de Usuarios' },
+  { path: 'new', component: NewComponent, title: 'Agregar Usuario' },
+  { path: 'edit/:id', component: EditComponent, title: 'Editar Usuario' },
 
   /* { path: 'detalle/:idJuicio/nuevoEscrito', component: FormComponent } */
 ];

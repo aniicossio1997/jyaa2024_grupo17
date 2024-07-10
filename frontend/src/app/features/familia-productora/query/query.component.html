@@ -1,133 +1,121 @@
 <!-- eslint-disable @angular-eslint/template/eqeqeq -->
 
 <div class="card">
-
-  <div class="flex justify-content-start flex-wrap mb-3">
-    <div class="flex align-items-center justify-content-center">
-      <p-button
-        pRipple
-        severity="success"
-        label="Nuevo"
-        icon="pi pi-plus"
-        class="mr-2"
-        [routerLink]="['/' + RoutestEnum.FamiliaProductora + '/' + RoutestEnum.New]"
-
-      />
-    </div>
-  </div>
-
-
   <p-table
-      #dt
-      [value]="familias"
-      [rows]="5"
-      [paginator]="true"
-      [globalFilterFields]="['nombre',]"
-      [tableStyle]="{ 'min-width': 'auto' }"
-      [(selection)]="selectedProducts"
-      [rowHover]="true"
-      dataKey="id"
-      currentPageReportTemplate="Mostrar {first} a {last} de {totalRecords} registros"
-      [showCurrentPageReport]="true"
+    #dt
+    [value]="familias"
+    [rows]="5"
+    [paginator]="true"
+    [globalFilterFields]="['nombre']"
+    [tableStyle]="{ 'min-width': 'auto' }"
+    [(selection)]="selectedProducts"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Mostrar {first} a {last} de {totalRecords} registros"
+    [showCurrentPageReport]="true"
   >
-      <ng-template pTemplate="caption">
-          <div class="flex align-items-center justify-content-between">
-              <h5 class="m-0">Familia Productora</h5>
-              <span class="p-input-icon-left">
-                  <i class="pi pi-search"></i>
-                  <input
-                      pInputText
-                      type="text"
-                      (input)="dt.filterGlobal($event.target.value, 'contains')"
-                      placeholder="Search..." />
-              </span>
-          </div>
-      </ng-template>
-      <ng-template pTemplate="header">
-        <tr>
-          <th style="width: 4rem" >
-            Acciones
-          </th>
-          <th pSortableColumn="id" >
-              id <p-sortIcon field="id" />
-          </th>
-          <th pSortableColumn="nombre" >
-              Nombre <p-sortIcon field="nombre" />
-          </th>
-          <th pSortableColumn="descripcion" >
-            Descripcion <p-sortIcon field="descripcion" />
+    <ng-template pTemplate="caption">
+      <h2 class="mb-4">Familias Productoras</h2>
+      <div class="flex align-items-center justify-content-between flex-wrap">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Search..."
+          />
+        </span>
+        <p-button
+          pRipple
+          severity="primary"
+          label="Agregar Familia Productora"
+          icon="pi pi-plus"
+          class="mr-2"
+          [routerLink]="[
+            '/' + RoutestEnum.FamiliaProductora + '/' + RoutestEnum.New
+          ]"
+        />
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 4rem">Acciones</th>
+        <th pSortableColumn="id">id <p-sortIcon field="id" /></th>
+        <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre" /></th>
+        <th pSortableColumn="descripcion">
+          Descripcion <p-sortIcon field="descripcion" />
         </th>
-
-
       </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-family>
-          <tr>
-            <td>
-              <button pButton pRipple type="button" icon="pi pi-bars" class="p-button-rounded p-button-text"
-                  (click)="generateMenu(family, menu, $event)">
-              </button>
-              <p-menu #menu [popup]="true" [model]="itemsMenu" appendTo="body"></p-menu>
-            </td>
-              <td>
-                #{{ family.id }}
-              </td>
-              <td>
-                  {{ family.nombre }}
-              </td>
-              <td>
-                {{ family.descripcion }}
-            </td>
-          </tr>
-      </ng-template>
-      <ng-template pTemplate="summary">
-          <div class="flex align-items-center justify-content-between">
-
-              En total hay {{ dt.filteredValue ? dt.filteredValue.length : familias.length}} registros.
-          </div>
-      </ng-template>
-
-      <ng-template pTemplate="emptymessage">
-        <tr>
-            <td class="text-center py-4" [attr.colspan]="4 + 1">
-                No se encontraron registros
-            </td>
-        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-family>
+      <tr>
+        <td>
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-bars"
+            class="p-button-rounded p-button-text"
+            (click)="generateMenu(family, menu, $event)"
+          ></button>
+          <p-menu
+            #menu
+            [popup]="true"
+            [model]="itemsMenu"
+            appendTo="body"
+          ></p-menu>
+        </td>
+        <td>#{{ family.id }}</td>
+        <td>
+          {{ family.nombre }}
+        </td>
+        <td>
+          {{ family.descripcion }}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        En total hay
+        {{
+          dt.filteredValue ? dt.filteredValue.length : familias.length
+        }}
+        registros.
+      </div>
     </ng-template>
 
-
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td class="text-center py-4" [attr.colspan]="4 + 1">
+          No se encontraron registros
+        </td>
+      </tr>
+    </ng-template>
   </p-table>
 
-
-
-    <p-confirmDialog #cd
-    key="positionDialog"
-    position="center"
-    >
-      <ng-template pTemplate="headless" let-message>
-          <div class="flex flex-column  p-5 surface-overlay border-round">
-              <span class="font-bold text-2xl block mb-2 mt-4">
-                  {{ message.header }}
-              </span>
-              <p class="mb-0">{{ message.message }}</p>
-              <div class="flex justify-content-between flex-wrap mt-4">
-                <button
-                    pButton
-                    label="No"
-                    (click)="cd.reject()"
-                    class="p-button-outlined p-button-secondary w-5rem ">
-                </button>
-                  <button
-
-                      pButton
-                      label="Si"
-                      (click)="cd.accept()"
-                      class="w-5rem p-button-danger">
-                  </button>
-
-              </div>
-          </div>
-      </ng-template>
+  <p-confirmDialog #cd key="positionDialog" position="center">
+    <ng-template pTemplate="headless" let-message>
+      <div class="flex flex-column p-5 surface-overlay border-round">
+        <span class="font-bold text-2xl block mb-2 mt-4">
+          {{ message.header }}
+        </span>
+        <p class="mb-0">{{ message.message }}</p>
+        <div class="flex justify-content-between flex-wrap mt-4">
+          <button
+            pButton
+            label="No"
+            (click)="cd.reject()"
+            class="p-button-outlined p-button-secondary w-5rem"
+          ></button>
+          <button
+            pButton
+            label="Si"
+            (click)="cd.accept()"
+            class="w-5rem p-button-danger"
+          ></button>
+        </div>
+      </div>
+    </ng-template>
   </p-confirmDialog>
-
 </div>

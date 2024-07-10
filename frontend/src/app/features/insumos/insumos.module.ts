@@ -44,35 +44,23 @@ import { InsumoDetailComponent } from './insumos-detail/insumo-detail.component'
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'query', pathMatch: 'full' },
-  { path: ManagementRoutes.Query, component: InsumosQueryComponent },
+  { path: ManagementRoutes.Query, component: InsumosQueryComponent, title: "Listado de Insumos" },
 
-  { path: `${ManagementRoutes.Edit}/:id`, component:InsumosEditComponent  },
+  { path: `${ManagementRoutes.Edit}/:id`, component:InsumosEditComponent , title: "Editar Insumo" },
 
-  { path: ManagementRoutes.New, component: InsumosNewComponent },
+  { path: ManagementRoutes.New, component: InsumosNewComponent, title: "Agregar Insumo" },
 
-  { path: `${ManagementRoutes.Gestion}/:id`, component: InsumoDetailComponent },
+  { path: `${ManagementRoutes.Gestion}/:id`, component: InsumoDetailComponent, title: "Detalle de Insumo" },
 
-  { path: `${ManagementRoutes.Gestion}/${ManagementRoutes.New}/:id`, component: InsumoAddIngresoComponent },
+  { path: `${ManagementRoutes.Gestion}/${ManagementRoutes.New}/:id`, component: InsumoAddIngresoComponent, title: "Registrar Ingreso de Insumo" },
 
-  { path: `${ManagementRoutes.Gestion}/${ManagementRoutes.Edit}/:id`, component: InsumosEditIngresoComponent },
-
-
-/*
-
-
-  { path: `${ManagementRoutes.AddIngresos}/:id`, component: AgregarIngresosComponent },
-
-  { path: `${ManagementRoutes.Gestion}/${ManagementRoutes.Detail}/:id`, component: IngresoDetailComponent },
-
-  { path: `${ManagementRoutes.Gestion}/${ManagementRoutes.Edit}/:id`, component: IngresoEditComponent },
-*/
+  { path: `${ManagementRoutes.Gestion}/${ManagementRoutes.Edit}/:id`, component: InsumosEditIngresoComponent, title: "Editar Ingreso de Insumo" },
 
 ];
 
 @NgModule({
   declarations: [
     InsumosQueryComponent,InsumosEditComponent, InsumosNewComponent,
-
     InsumoDetailComponent,
     InsumoAddIngresoComponent,
     InsumosEditIngresoComponent

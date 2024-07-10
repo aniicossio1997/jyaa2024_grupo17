@@ -82,7 +82,7 @@ export class NewComponent implements OnInit {
 
   onSubmit() {
     // TODO: Use EventEmitter with form value
-    console.warn(this.form.value);
+    this.form.markAllAsTouched();
     if (!this.form.valid) return;
     const raw = this.form.getRawValue();
 

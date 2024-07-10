@@ -6,7 +6,7 @@
   (click)="cancel()"
   severity="secondary"
 />
-<div class="card" [ngStyle]="{maxWidth: '1200px'}">
+<div class="card" [ngStyle]="{ maxWidth: '1200px' }">
   <h2 class="mb-5 m-2">Agregar Receta</h2>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="p-fluid p-formgrid grid">
@@ -45,8 +45,16 @@
           [errors]="form.get('descripcion')?.errors"
         ></span>
       </div>
-      <p-divider styleClass="my-0 w-full" [ngStyle]="{width: '100%'}" />
-      <h5>Ingredientes</h5>
+      <p-divider styleClass="my-0 w-full" [ngStyle]="{ width: '100%' }" />
+      <div class="my-4">
+        <h5>Ingredientes</h5>
+        <p class="text-500">
+          Los ingredientes deben estar especificados para la elaboración de <b>una
+          unidad</b> del producto final. <br />
+          Debes incluir al menos un ingrediente de cada tipo: materia prima y
+          receta.
+        </p>
+      </div>
       <div class="grid w-full">
         <div class="col">
           <label htmlFor="familiaPrimaId" class="mr-3">Materias Primas</label>

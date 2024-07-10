@@ -6,6 +6,8 @@ import { IngresoMateriaPrimasService } from '../../../../services/ingreso-materi
 import { IngresoMateriaPrimaDetailViewModel } from '../../../../interfaces/IngresoMateriaPrimaDetailViewModel';
 import { Table } from 'primeng/table';
 import { EstadoIngresoEnums } from '../../../../model/EstadoIngresoEnums';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { IngresoCambiarEstadoComponent } from '../ingreso-cambiar-estado/ingreso-cambiar-estado.component';
 interface Column {
   field: string;
   header: string;
@@ -17,7 +19,7 @@ interface Column {
   selector: 'app-ingreso-detail',
   templateUrl: './ingreso-detail.component.html',
   styleUrl: './ingreso-detail.component.scss',
-  providers:[IngresoMateriaPrimasService]
+  providers:[IngresoMateriaPrimasService,DialogService]
 })
 
 
@@ -27,9 +29,11 @@ export class IngresoDetailComponent implements OnInit {
   @ViewChild('dt') dt: Table;
   cols!: Column[];
 
+
   constructor(private activatedRoute:ActivatedRoute,
     private router:Router, private confirmationDialogService: ConfirmationDialogService,
-    private ingresoMateriaPrimasService: IngresoMateriaPrimasService
+    private ingresoMateriaPrimasService: IngresoMateriaPrimasService,
+
   ){}
 
 
@@ -70,4 +74,6 @@ export class IngresoDetailComponent implements OnInit {
             return 'info';
     }
   }
+
+
 }

@@ -10,6 +10,8 @@ import { EstadoIngresoEnums } from '../../../model/EstadoIngresoEnums';
 import ConfirmationDialogService from '../../../core/ConfirmationDialogService';
 import { IngresoMateriaPrimaShortViewModel } from '../../../interfaces/ingresoMateriaPrimaShortViewModel';
 import { IngresoMateriaPrimasService } from '../../../services/ingreso-materia-primas.service';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { IngresoCambiarEstadoComponent } from './ingreso-cambiar-estado/ingreso-cambiar-estado.component';
 
 interface Column {
   field: string;
@@ -22,7 +24,7 @@ interface Column {
   templateUrl: './materia-detail.component.html',
   styleUrl: './materia-detail.component.scss',
   providers:[MateriaPrimaService, ConfirmationService, MessageService,
-    IngresoMateriaPrimasService
+    IngresoMateriaPrimasService, DialogService
   ]
 })
 export class MateriaDetailComponent implements OnInit {
@@ -30,6 +32,7 @@ export class MateriaDetailComponent implements OnInit {
   id:number;
   @ViewChild('dt') dt: Table;
   cols!: Column[];
+  ref: DynamicDialogRef | undefined;
 
   itemsMenu: MenuItem[] = [];
 
@@ -39,7 +42,8 @@ export class MateriaDetailComponent implements OnInit {
 
   constructor(private materiaPrimaService: MateriaPrimaService, private activateRouter:ActivatedRoute,
     private router:Router, private confirmationDialogService: ConfirmationDialogService,
-    private ingresoMateriaPrimasService:IngresoMateriaPrimasService
+    private ingresoMateriaPrimasService:IngresoMateriaPrimasService,
+    private dialogService: DialogService
   ){}
 
 
@@ -71,6 +75,14 @@ export class MateriaDetailComponent implements OnInit {
         icon: 'pi pi-eye',
         command: () => {
           this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.Gestion}/${ManagementRoutes.Detail}/`, item.id]); // Usa item.id para redirigir
+
+        },
+      },
+      {
+        label: 'Cambiar Estado',
+        icon: 'pi pi-eye',
+        command: () => {
+          this.changeState(item)
 
         },
       },
@@ -123,5 +135,27 @@ export class MateriaDetailComponent implements OnInit {
   getRefresh(){
     this.id = Number(this.activateRouter.snapshot.paramMap.get('id')!);
     this.materiaPrimaService.getById(this.id).subscribe(data=>this.materiaPrimaDetail=data)
+  }
+
+  changeState(item:any) {
+    const callbackFunction = this.getRefresh.bind(this);
+    this.ref = this.dialogService.open(IngresoCambiarEstadoComponent, {
+      header: 'Cambiar estado de del ingreso',
+      width: '50vw',
+      closable:false,
+      contentStyle: { overflow: 'visible' },
+      data: {
+        ingreso:item,
+        callback:callbackFunction,
+      }
+    });
+
+    this.ref.onClose.subscribe((data: any) => {
+
+      // console.log("CLOSE")
+
+    });
+
+
   }
 }

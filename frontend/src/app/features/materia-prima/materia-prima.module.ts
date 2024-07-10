@@ -39,6 +39,7 @@ import { AgregarIngresosComponent } from './agregar-ingresos/agregar-ingresos.co
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { IngresoDetailComponent } from './materia-detail/ingreso-detail/ingreso-detail.component';
 import { IngresoEditComponent } from './materia-detail/ingreso-edit/ingreso-edit.component';
+import { IngresoCambiarEstadoComponent } from './materia-detail/ingreso-cambiar-estado/ingreso-cambiar-estado.component';
 
 
 const appRoutes: Routes = [
@@ -72,7 +73,8 @@ const appRoutes: Routes = [
     MateriaDetailComponent,
     AgregarIngresosComponent,
     IngresoDetailComponent,
-    IngresoEditComponent
+    IngresoEditComponent,
+    IngresoCambiarEstadoComponent
   ],
   imports: [
     CommonModule,

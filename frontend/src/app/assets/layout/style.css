@@ -13349,6 +13349,10 @@ p:last-child {
   background-color: var(--red-500)!important
 }
 
+.text-red {
+  color: var(--red-500)!important;
+}
+
 .bg-primary {
   color: var(--primary-color-text)!important;
   background-color: var(--primary-color)!important

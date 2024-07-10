@@ -95,7 +95,7 @@ export class QueryComponent  implements OnInit{
           });
       },
       reject: () => {
-        console.log("NO.. ELIMINA")
+
       }
   });
  }

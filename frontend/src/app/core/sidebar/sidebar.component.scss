@@ -3,11 +3,15 @@
 
 }
 
+.layout-sidebar{
+  background-color: var(--surface-overlay);
+}
+
 .layout-menu-container {
   font-size: 1.2rem;
 }
 
 .sidebar-footer{
-  background-color: #fff;
+  background-color: var(--surface-overlay);
   margin-bottom: 1rem;
 }

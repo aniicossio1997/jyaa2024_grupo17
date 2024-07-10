@@ -7,6 +7,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "receta")
@@ -54,7 +55,10 @@ public class Receta extends DeletableBaseEntity {
     }
 
     public List<IngredienteReceta> getIngredientes() {
-        return ingredientes;
+        return ingredientes.stream()
+                .filter(ingreso -> ingreso.getFechaBaja() == null)
+                .sorted((i1, i2) -> i2.getId().compareTo(i1.getId()))
+                .collect(Collectors.toList());
     }
 
     public void setIngredientes(List<IngredienteReceta> ingredientes) {

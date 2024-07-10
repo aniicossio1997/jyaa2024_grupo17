@@ -3,6 +3,7 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
   Input,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -18,6 +19,7 @@ import { Sidebar, SidebarModule } from 'primeng/sidebar';
 import { StyleClassModule } from 'primeng/styleclass';
 import { ItemMenuComponent } from '../item-menu/item-menu.component';
 import { IRouteModel, ITEMS_ROUTERS } from '../../routers';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -39,20 +41,34 @@ import { IRouteModel, ITEMS_ROUTERS } from '../../routers';
   styleUrl: './sidebar.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy{
   @Input() isResponsive!: boolean;
   @ViewChild('sidebarRef') sidebarRef!: Sidebar;
-
+  subs=new Subscription();
+  sidebarVisible: boolean = false;
+  event:any
   itemsRoutes: IRouteModel[] = ITEMS_ROUTERS;
 
   constructor(private router: Router) {
-    router.events.subscribe((val) => this.closeCallback(null));
+
+  }
+  ngOnDestroy(): void {
+    this.subs?.unsubscribe()
   }
 
   closeCallback(e: any): void {
-    this.sidebarRef.close(e);
+    this.event=e;
+    this.sidebarRef.close(this.event);
   }
 
-  sidebarVisible: boolean = false;
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    this.router.events.subscribe((val) =>
+    {
+      if(this.event){
+        this.closeCallback(this.event);
+      }
+    }
+    );
+  }
 }

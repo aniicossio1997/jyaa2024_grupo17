@@ -55,7 +55,7 @@ public class MappingService {
         return new InsumoViewModel(
                 insumo.getId(),
                 insumo.getNombre(),
-                insumo.getCantidadDisponible(),
+                insumo.getCantidadIngresos(),
                 insumo.getUnidadMedida(),
                 insumo.getDescripcion()
 

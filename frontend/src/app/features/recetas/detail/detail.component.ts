@@ -44,7 +44,7 @@ export class DetailComponent implements OnInit {
         tipo: i.insumo ? 'INSUMO' : 'MATERIA PRIMA',
         cantidadDisponible:
           i.insumo?.cantidadDisponible ||
-          i.materiaPrima.totalCantidadDisponible,
+          i.materiaPrima?.totalCantidadDisponible || 0,
       }));
     });
   }
@@ -54,7 +54,7 @@ export class DetailComponent implements OnInit {
       EDIT: `/${ManagementRoutes.Receta}/${ManagementRoutes.Edit}/${this.receta?.id}`,
     };
   }
-  
+
   back() {
     this.router.navigate([
       '/' + ManagementRoutes.Receta,

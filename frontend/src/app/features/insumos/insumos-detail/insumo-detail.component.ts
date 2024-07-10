@@ -46,11 +46,11 @@ export class InsumoDetailComponent {
 
   initColumns(){
     this.cols = [
-      { field: 'codigo', header: 'Codigo', sort:true },
+      { field: 'codigo', header: 'Código', sort:true },
       { field: 'cantidad', header: 'Cantidad',sort:true },
       { field: 'valorCompra', header: 'Valor', sort:true },
-      { field: 'fecha', header: 'Fecha de creacion', sort:true },
-      { field: 'descripcion', header: 'Descripcion', sort:true },
+      { field: 'fecha', header: 'Fecha de creación', sort:true },
+      { field: 'descripcion', header: 'Descripción', sort:true },
 
     ];
   }

@@ -50,7 +50,7 @@ export class IngresoMateriaPrimasService {
     return this.http.put<any>(url,entity)
       .pipe(
         map((res: any) => {
-          this.toastr.success("Exito! se ha Editado el ingreso con codigo " + entity.codigo)
+          this.toastr.success("Exito! se ha Editado el ingreso con código " + entity.codigo)
 
          return res;
         })

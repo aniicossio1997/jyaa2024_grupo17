@@ -16,7 +16,7 @@ severity="secondary"
       Materia Prima: <b>{{ ingreso?.materiaPrima.nombre || ''}}</b>
   </div>
     <div class="col-6">
-      Codigo: <b>{{ ingreso?.codigo | titlecase}}</b>
+      Código: <b>{{ ingreso?.codigo | titlecase}}</b>
     </div>
 
     <div class="col-6">
@@ -62,7 +62,7 @@ severity="secondary"
                       pInputText
                       type="text"
                       (input)="dt.filterGlobal($event.target.value, 'contains')"
-                      placeholder="Search..." />
+                      placeholder="Buscar..." />
               </span>
           </div>
       </ng-template>

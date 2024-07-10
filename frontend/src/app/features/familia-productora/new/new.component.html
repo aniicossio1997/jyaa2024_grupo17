@@ -2,8 +2,8 @@
   <h5 class="mb-5 m-2">Agregar familia productora</h5>
   <form [formGroup]="myForm" class="p-fluid p-formgrid grid">
     <div class="field col-12 md:col-12">
-      <label htmlFor="firstname2">Nombre / Razon social *</label>
-      <input pInputText id="firstname2" type="text" formControlName="nombre"
+      <label htmlFor="firstname2">Nombre / Razón social *</label>
+      <input pInputText id="firstname2" type="text" formControlName="nombre" placeholder="Nombre / Razón social"
 
       appCustomInputError
       [valueForm]="(myForm.get('nombre')?.value)"
@@ -22,6 +22,7 @@
       rows="5"
       cols="30"
       pInputTextarea
+      placeholder="Descripción"
       [autoResize]="true"
 
       >
@@ -31,7 +32,7 @@
       <div class="flex justify-content-between flex-wrap">
         <p-button
         pRipple
-        label="Cancel"
+        label="Cancelar"
         icon="pi pi-times"
 
         (click)="cancel()"
@@ -39,7 +40,7 @@
         />
     <p-button
         pRipple
-        label="Save"
+        label="Guardar"
         icon="pi pi-check"
         [disabled]="myForm.invalid"
         (click)="save()" />

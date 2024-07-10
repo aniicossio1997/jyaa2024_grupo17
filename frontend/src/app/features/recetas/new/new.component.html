@@ -7,11 +7,12 @@
   severity="secondary"
 />
 <div class="card" [ngStyle]="{ maxWidth: '1200px' }">
-  <h2 class="mb-5 m-2">Agregar Receta</h2>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="p-fluid p-formgrid grid">
-      <h5>Detalles</h5>
+  <h5 class="mb-5 m-2">Agregar receta</h5>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-fluid p-formgrid grid">
+    
+     
       <div class="field col-12 md:col-12">
+        <h5>Detalles</h5>
         <label htmlFor="nombre">Nombre</label>
         <input
           pInputText
@@ -29,7 +30,7 @@
         ></span>
       </div>
       <div class="field col-12 md:col-12">
-        <label htmlFor="descripcion">Descripcion</label>
+        <label htmlFor="descripcion">Descripción</label>
         <input
           pInputText
           id="descripcion"
@@ -46,7 +47,7 @@
         ></span>
       </div>
       <p-divider styleClass="my-0 w-full" [ngStyle]="{ width: '100%' }" />
-      <div class="my-4">
+      <div class="my-4 field col-12 md:col-12">
         <h5>Ingredientes</h5>
         <p class="text-500">
           Los ingredientes deben estar especificados para la elaboración de <b>una
@@ -55,7 +56,7 @@
           receta.
         </p>
       </div>
-      <div class="grid w-full">
+      <div class="grid w-full field col-12">
         <div class="col">
           <label htmlFor="familiaPrimaId" class="mr-3">Materias Primas</label>
           <p-dropdown
@@ -173,6 +174,5 @@
           type="submit"
           [disabled]="form.invalid"
       /></span>
-    </div>
   </form>
 </div>

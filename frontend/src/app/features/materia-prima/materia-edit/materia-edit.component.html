@@ -3,7 +3,7 @@
   <form [formGroup]="myForm" class="p-fluid p-formgrid grid">
     <div class="field col-12 md:col-12">
       <label htmlFor="firstname2">Nombre *</label>
-      <input pInputText id="firstname2" type="text" formControlName="nombre"
+      <input pInputText id="firstname2" type="text" formControlName="nombre" placeholder="Nombre"
 
       appCustomInputError
       [valueForm]="(myForm.get('nombre')?.value)"
@@ -34,6 +34,7 @@
       rows="5"
       cols="30"
       pInputTextarea
+      placeholder="Descripción"
       [autoResize]="true"
 
       >
@@ -51,7 +52,7 @@
         />
     <p-button
         pRipple
-        label="Save"
+        label="Guardar"
         icon="pi pi-check"
         [disabled]="myForm.invalid"
         (click)="save()" />

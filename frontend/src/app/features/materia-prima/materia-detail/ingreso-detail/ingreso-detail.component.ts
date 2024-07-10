@@ -57,7 +57,7 @@ export class IngresoDetailComponent implements OnInit {
     this.cols = [
 
       { field: 'autor', header: 'Autor', sort:true },
-      { field: 'fecha', header: 'Fecha de creacion', sort:true },
+      { field: 'fecha', header: 'Fecha de creación', sort:true },
       { field: 'estado', header: 'Estado', sort:true },
 
 

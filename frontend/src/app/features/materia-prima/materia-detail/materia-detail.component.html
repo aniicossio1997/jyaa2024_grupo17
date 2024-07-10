@@ -68,8 +68,9 @@ severity="secondary"
   >
       <ng-template pTemplate="caption">
           <div class="flex align-items-center justify-content-between">
-              <h5 class="m-0">Historial de ingresos</h5>
-              <span class="p-input-icon-left">
+            <div>
+              <h5 class="m-0 ">Historial de ingresos</h5>
+              <span class="p-input-icon-left mt-4">
                   <i class="pi pi-search"></i>
                   <input
                       pInputText
@@ -77,6 +78,7 @@ severity="secondary"
                       (input)="dt.filterGlobal($event.target.value, 'contains')"
                       placeholder="Buscar..." />
               </span>
+            </div>
           </div>
       </ng-template>
       <ng-template pTemplate="header">

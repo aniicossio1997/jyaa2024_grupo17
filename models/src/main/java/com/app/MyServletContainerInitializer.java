@@ -29,5 +29,6 @@ public class MyServletContainerInitializer implements ServletContainerInitialize
 
         ServletRegistration.Dynamic defaultServlet = ctx.addServlet("default", new ServletContainer(resourceConfig) );
         defaultServlet.addMapping("/swagger/*");
+        defaultServlet.addMapping("/ui/*");
     }
 }

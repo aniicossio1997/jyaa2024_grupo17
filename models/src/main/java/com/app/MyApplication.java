@@ -18,5 +18,6 @@ public class MyApplication extends ResourceConfig {
 
         register(OpenApiResource.class);
         property(ServletProperties.FILTER_STATIC_CONTENT_REGEX, "/swagger/.*");
+        property(ServletProperties.FILTER_STATIC_CONTENT_REGEX, "/ui/.*");
     }
 }

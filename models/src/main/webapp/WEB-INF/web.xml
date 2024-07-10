@@ -85,6 +85,11 @@
   </servlet-mapping>
 
 
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/ui/*</url-pattern>
+  </servlet-mapping>
+
 
   <servlet>
     <servlet-name>Jersey2Config</servlet-name>

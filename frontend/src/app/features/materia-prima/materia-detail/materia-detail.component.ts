@@ -80,7 +80,7 @@ export class MateriaDetailComponent implements OnInit {
       },
       {
         label: 'Cambiar Estado',
-        icon: 'pi pi-eye',
+        icon: 'pi pi-tags',
         command: () => {
           this.changeState(item)
 
@@ -105,7 +105,7 @@ export class MateriaDetailComponent implements OnInit {
     ];
   }
   toAddIngreso(){
-    this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.AddIngresos}/`, this.materiaPrimaDetail.id]); // Usa item.id para redirigir
+    this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.Gestion}/${ManagementRoutes.New}`, this.materiaPrimaDetail.id]); // Usa item.id para redirigir
 
   }
   back(){

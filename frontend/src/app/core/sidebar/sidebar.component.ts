@@ -1,3 +1,4 @@
+import { ThemeService } from './../../services/theme.service';
 import { CommonModule } from '@angular/common';
 import {
   CUSTOM_ELEMENTS_SCHEMA,
@@ -49,7 +50,7 @@ export class SidebarComponent implements OnInit, OnDestroy{
   event:any
   itemsRoutes: IRouteModel[] = ITEMS_ROUTERS;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private themeService: ThemeService) {
 
   }
   ngOnDestroy(): void {
@@ -59,6 +60,14 @@ export class SidebarComponent implements OnInit, OnDestroy{
   closeCallback(e: any): void {
     this.event=e;
     this.sidebarRef.close(this.event);
+  }
+
+  toggleTheme(){
+    this.themeService.toggleTheme();
+  }
+
+  get themeIcon(): string {
+    return this.themeService.theme === 'light' ? 'pi pi-sun' : 'pi pi-moon'; // Emoji for illustration; replace with icon classes if needed
   }
 
 

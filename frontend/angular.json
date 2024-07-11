@@ -35,6 +35,11 @@
             "assets": [
               {
                 "glob": "**/*",
+                "input": "src/app/layout/themes",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
                 "input": "public"
               }
             ],
@@ -107,7 +112,17 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              {
+                "input": "src/app/assets/layout/theme.css",
+                "bundleName": "light",
+                "inject": false
+              },
+              {
+                "input": "src/app/assets/layout/theme-dark.css",
+                "bundleName": "dark",
+                "inject": false
+              }
             ],
             "scripts": []
           }

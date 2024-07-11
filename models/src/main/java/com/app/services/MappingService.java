@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 public class MappingService {
 
-    private UsuarioViewModel toViewModel(Usuario usuario) {
+    public UsuarioViewModel toViewModel(Usuario usuario) {
         return new UsuarioViewModel(
                 usuario.getId(),
                 usuario.getNombre(),

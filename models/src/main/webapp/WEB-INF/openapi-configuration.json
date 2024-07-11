@@ -17,6 +17,16 @@
       {
         "url": "http://localhost:8080/SalaDeElaboracion/api"
       }
-    ]
+    ],
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
+    }
+
   }
 }

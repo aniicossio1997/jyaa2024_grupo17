@@ -35,8 +35,8 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "src/app/layout/themes",
-                "output": "/assets"
+                "input": "src/app/assets/layout/themes",
+                "output": "assets/themes"
               },
               {
                 "glob": "**/*",

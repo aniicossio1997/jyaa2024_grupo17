@@ -1,5 +1,6 @@
 package com.app.filters;
 
+import com.app.JwtTokenHolder;
 import com.app.annotations.Secured;
 import com.app.services.AuthService;
 import com.app.viewModels.ErrorResponse;
@@ -58,9 +59,10 @@ public class AuthFilter implements ContainerRequestFilter {
         Optional<Claims> claims = getClaimsFromToken(token);
         if (claims.isEmpty()) {
             abortWithUnauthorized(requestContext);
-
+            return;
         }
-        requestContext.setProperty("claims", claims);
+        JwtTokenHolder.setClaims(claims.get());
+        requestContext.setProperty("claims", claims.get());
     }
 
     private Optional<Claims> getClaimsFromToken(String token) {

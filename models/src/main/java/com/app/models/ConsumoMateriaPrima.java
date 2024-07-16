@@ -18,10 +18,10 @@ public class ConsumoMateriaPrima extends ConsumoRecurso {
         super();
     }
 
-    public ConsumoMateriaPrima(Double cantidad, MateriaPrima materiaPrima, IngresoMateriaPrima ingreso, LoteProductoElaborado lote) {
+    public ConsumoMateriaPrima(Double cantidad, IngresoMateriaPrima ingreso, LoteProductoElaborado lote) {
         super(cantidad);
         this.ingreso = ingreso;
-        this.materiaPrima = materiaPrima;
+        this.materiaPrima = ingreso.getMateriaPrima();
         this.lote = lote;
     }
 

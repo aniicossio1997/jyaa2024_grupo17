@@ -494,17 +494,17 @@ public class TestGlobal extends BaseTest {
         writer.h1("Consumos de Materia Prima");
 
         writer.h2("Se agregará un consumo al lote con id " + lote2.getId() + "(Tomate 1kg) ");
-        ConsumoMateriaPrima consumoTomate = new ConsumoMateriaPrima(1D, tomate, ingresoTomates, lote2);
+        ConsumoMateriaPrima consumoTomate = new ConsumoMateriaPrima(1D, ingresoTomates, lote2);
         consumoMateriaPrimaDao.save(consumoTomate);
         writer.item(consumoTomate);
 
         writer.h2("Se agregará un consumo al lote con id " + lote.getId() + "(Miel 5kg) ");
-        ConsumoMateriaPrima consumoMiel = new ConsumoMateriaPrima(1D, miel, ingresoMiel, lote);
+        ConsumoMateriaPrima consumoMiel = new ConsumoMateriaPrima(1D, ingresoMiel, lote);
         consumoMateriaPrimaDao.save(consumoMiel);
         writer.item(consumoMiel);
 
         writer.h2("Se agregará un nuevo consumo al lote con id " + lote.getId() + "(Tomate 1kg) ");
-        ConsumoMateriaPrima consumoTomate2 = new ConsumoMateriaPrima(1D, tomate, ingresoTomates, lote);
+        ConsumoMateriaPrima consumoTomate2 = new ConsumoMateriaPrima(1D, ingresoTomates, lote);
         consumoMateriaPrimaDao.save(consumoTomate2);
         writer.item(consumoTomate2);
 

@@ -29,6 +29,7 @@ public class FamiliaProductoraResource extends BaseResource {
 
     @GET
     public List<FamiliaProductoraViewModel> getByList() {
+        Long id = this.getUsuarioId();
         return this.familiaProductoraService.getByFilter();
     }
 

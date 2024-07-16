@@ -61,6 +61,18 @@ public class Receta extends DeletableBaseEntity {
                 .collect(Collectors.toList());
     }
 
+    public List<IngredienteReceta> getMateriasPrimas() {
+        return ingredientes.stream()
+                .filter(i -> i.getFechaBaja() == null && i.getMateriaPrima() != null)
+                .collect(Collectors.toList());
+    }
+
+    public List<IngredienteReceta> getInsumos() {
+        return ingredientes.stream()
+                .filter(i -> i.getFechaBaja() == null && i.getInsumo() != null)
+                .collect(Collectors.toList());
+    }
+
     public void setIngredientes(List<IngredienteReceta> ingredientes) {
         this.ingredientes = ingredientes;
     }

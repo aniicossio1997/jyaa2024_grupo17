@@ -1,5 +1,6 @@
 package com.app.models;
 
+import com.app.models.baseEntity.DeletableBaseEntity;
 import com.app.models.baseEntity.IdentifiableBaseEntity;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "lote_producto_elaborado")
-public class LoteProductoElaborado extends IdentifiableBaseEntity {
+public class LoteProductoElaborado extends DeletableBaseEntity {
     private Date fecha;
     private String codigo;
     private int cantidad;
@@ -66,6 +67,14 @@ public class LoteProductoElaborado extends IdentifiableBaseEntity {
 
     public void setConsumoInsumos(List<ConsumoInsumo> consumos) {
         this.consumoInsumos = consumos;
+    }
+
+    public List<ConsumoMateriaPrima> getConsumoMateriasPrimas() {
+        return consumoMateriasPrimas;
+    }
+
+    public void setConsumoMateriasPrimas(List<ConsumoMateriaPrima> consumoMateriasPrimas) {
+        this.consumoMateriasPrimas = consumoMateriasPrimas;
     }
 
     public List<EntregaProducto> getEntregas() {

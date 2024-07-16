@@ -46,14 +46,18 @@ public class AuthService implements IAuthService {
             throw new BadRequestException("invalid_credentials");
         }
         Usuario usuario = optUsuario.get();
-        String token = generateToken(usuario.getUsername());
+        String token = generateToken(usuario);
         return new AuthViewModel(token, mappingService.toViewModel(usuario));
     }
 
 
-    private String generateToken(String username) {
+    private String generateToken(Usuario usuario) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", usuario.getId());
+        claims.put("email", usuario.getEmail());
         return Jwts.builder()
-                .subject(username)
+                .claims(claims)
+                .subject(usuario.getUsername())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(secretKey)

@@ -51,6 +51,29 @@ public class MappingService {
         );
     }
 
+    public LoteProductoElaboradoViewModel toViewModel(LoteProductoElaborado lote) {
+        return new LoteProductoElaboradoViewModel(
+                lote.getId(),
+                lote.getCantidad(),
+                lote.getCodigo(),
+                lote.getEstados().stream().findFirst().orElse(null),
+                lote.getFecha(),
+                lote.getReceta().getId()
+        );
+    }
+
+    public LoteProductoElaboradoDetalleViewModel toDetalleViewModel(LoteProductoElaborado lote) {
+        return new LoteProductoElaboradoDetalleViewModel(
+                lote.getId(),
+                lote.getCantidad(),
+                lote.getCodigo(),
+                lote.getEstados().stream().findFirst().orElse(null),
+                lote.getEstados(),
+                lote.getFecha(),
+                this.toViewModel(lote.getReceta())
+        );
+    }
+
     public InsumoViewModel toViewModelInsumo(Insumo insumo) {
         return new InsumoViewModel(
                 insumo.getId(),

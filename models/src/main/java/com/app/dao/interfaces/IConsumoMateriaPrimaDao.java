@@ -7,7 +7,7 @@ import java.util.List;
 @Contract
 public interface IConsumoMateriaPrimaDao extends IBasicDao<ConsumoMateriaPrima> {
 
-    List<ConsumoMateriaPrima> getByLote(Long loteId);
+    List<ConsumoMateriaPrima> getByElaboracion(Long elaboracionId);
 
     List<ConsumoMateriaPrima> getByMateriaPrima(Long materiaPrimaId);
 

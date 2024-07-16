@@ -16,8 +16,8 @@
         <class>com.app.models.Receta</class>
         <class>com.app.models.IngredienteReceta</class>
         <class>com.app.models.MateriaPrima</class>
-        <class>com.app.models.LoteProductoElaborado</class>
-        <class>com.app.models.EstadoLote</class>
+        <class>com.app.models.Elaboracion</class>
+        <class>com.app.models.EstadoElaboracion</class>
         <class>com.app.models.Nota</class>
 
         <class>com.app.models.IngresoMateriaPrima</class>

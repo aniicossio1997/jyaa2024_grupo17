@@ -26,9 +26,9 @@ public class InfoTypesResource extends BaseResource {
         return this.service.getAllUnidadMedida();
     }
     @GET
-    @Path("EstadoLoteTypes")
-    public List<String> GetAllEstadoLoteTypes() {
-        return this.service.getAllEstadoLote();
+    @Path("EstadoElaboracionTypes")
+    public List<String> GetAllEstadoElaboracionTypes() {
+        return this.service.getAllEstadoElaboracion();
     }
     @GET
     @Path("RolUsuarioTypes")

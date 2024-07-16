@@ -25,7 +25,7 @@ public class Receta extends DeletableBaseEntity {
     public List<IngredienteReceta> ingredientes = new ArrayList<>();
 
     @OneToMany(mappedBy = "receta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    public List<LoteProductoElaborado> elaboraciones = new ArrayList<>();
+    public List<Elaboracion> elaboraciones = new ArrayList<>();
 
     public Receta() {
         super();
@@ -46,11 +46,11 @@ public class Receta extends DeletableBaseEntity {
         this.descripcion = descripcion;
     }
 
-    public List<LoteProductoElaborado> getElaboraciones() {
+    public List<Elaboracion> getElaboraciones() {
         return elaboraciones;
     }
 
-    public void setElaboraciones(List<LoteProductoElaborado> elaboraciones) {
+    public void setElaboraciones(List<Elaboracion> elaboraciones) {
         this.elaboraciones = elaboraciones;
     }
 

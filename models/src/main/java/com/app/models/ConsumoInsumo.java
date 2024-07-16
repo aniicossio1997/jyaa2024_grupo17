@@ -13,10 +13,10 @@ public class ConsumoInsumo extends ConsumoRecurso {
         super();
     }
 
-    public ConsumoInsumo(Double cantidad, Insumo insumo, LoteProductoElaborado lote) {
+    public ConsumoInsumo(Double cantidad, Insumo insumo, Elaboracion elaboracion) {
         super(cantidad);
         this.insumo = insumo;
-        this.lote = lote;
+        this.elaboracion = elaboracion;
     }
 
     public Insumo getInsumo() {
@@ -27,12 +27,12 @@ public class ConsumoInsumo extends ConsumoRecurso {
         this.insumo = insumo;
     }
 
-    public LoteProductoElaborado getLote() {
-        return lote;
+    public Elaboracion getElaboracion() {
+        return elaboracion;
     }
 
-    public void setLote(LoteProductoElaborado lote) {
-        this.lote = lote;
+    public void setElaboracion(Elaboracion elaboracion) {
+        this.elaboracion = elaboracion;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ConsumoInsumo extends ConsumoRecurso {
         return "{"
                 + " \"id\":\"" + id + "\""
                 + ", \"insumoId\":" + insumo.getId()
-                + ", \"loteId\":" + lote.getId()
+                + ", \"elaboracionId\":" + elaboracion.getId()
                 + ", \"cantidad\":\"" + cantidad + "\""
                 + "}";
     }

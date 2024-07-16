@@ -2,7 +2,7 @@ package com.app.models.enums;
 
 import java.util.Objects;
 
-public enum EstadoLoteEnum {
+public enum EstadoElaboracionEnum {
     EN_PROCESO("EN_PROCESO"),
     EN_DEPOSITO("EN_DEPOSITO"),
     ENTREGADO_PARCIAL("ENTREGADO_PARCIAL"),
@@ -10,7 +10,7 @@ public enum EstadoLoteEnum {
 
     private final String value;
 
-    EstadoLoteEnum(String value) {
+    EstadoElaboracionEnum(String value) {
         this.value = value;
     }
 
@@ -18,8 +18,8 @@ public enum EstadoLoteEnum {
         return value;
     }
 
-    public static EstadoLoteEnum fromValue(String value) {
-        for (EstadoLoteEnum estado : EstadoLoteEnum.values()) {
+    public static EstadoElaboracionEnum fromValue(String value) {
+        for (EstadoElaboracionEnum estado : EstadoElaboracionEnum.values()) {
             if (Objects.equals(estado.getValue(), value)) {
                 return estado;
             }

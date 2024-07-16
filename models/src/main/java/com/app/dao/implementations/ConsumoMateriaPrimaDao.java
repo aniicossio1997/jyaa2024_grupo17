@@ -12,9 +12,9 @@ import java.util.List;
 public class ConsumoMateriaPrimaDao extends BaseDao<ConsumoMateriaPrima> implements IConsumoMateriaPrimaDao {
 
     @Override
-    public List<ConsumoMateriaPrima> getByLote(Long loteId) {
-        TypedQuery<ConsumoMateriaPrima> q = em.createQuery("FROM " + this.getGenericClass().getName() + " i WHERE lote_producto_elaborado_id = :loteId", this.getGenericClass());
-        q.setParameter("loteId", loteId);
+    public List<ConsumoMateriaPrima> getByElaboracion(Long elaboracionId) {
+        TypedQuery<ConsumoMateriaPrima> q = em.createQuery("FROM " + this.getGenericClass().getName() + " i WHERE elaboracion_id = :elaboracionId", this.getGenericClass());
+        q.setParameter("elaboracionId", elaboracionId);
         return q.getResultList();
     }
 

@@ -18,11 +18,11 @@ public class ConsumoMateriaPrima extends ConsumoRecurso {
         super();
     }
 
-    public ConsumoMateriaPrima(Double cantidad, IngresoMateriaPrima ingreso, LoteProductoElaborado lote) {
+    public ConsumoMateriaPrima(Double cantidad, IngresoMateriaPrima ingreso, Elaboracion elaboracion) {
         super(cantidad);
         this.ingreso = ingreso;
         this.materiaPrima = ingreso.getMateriaPrima();
-        this.lote = lote;
+        this.elaboracion = elaboracion;
     }
 
     public IngresoMateriaPrima getIngreso() {
@@ -47,7 +47,7 @@ public class ConsumoMateriaPrima extends ConsumoRecurso {
                 + " \"id\":\"" + id + "\""
                 + ", \"materiaPrimaId\":" + materiaPrima.getId()
                 + ", \"ingresoMateriaPrimaId\":" + ingreso.getId()
-                + ", \"loteId\":" + lote.getId()
+                + ", \"elaboracionId\":" + elaboracion.getId()
                 + ", \"cantidad\":\"" + cantidad + "\""
                 + "}";
     }

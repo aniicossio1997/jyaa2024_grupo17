@@ -11,7 +11,7 @@ import jakarta.ws.rs.core.MediaType;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Secured
+//@Secured
 @SecurityRequirement(name = "bearerAuth")
 public abstract class BaseResource {
 

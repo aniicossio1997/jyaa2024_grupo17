@@ -1,21 +1,20 @@
 package com.app.viewModels;
 
 
-import com.app.models.EstadoLote;
 import com.app.viewModels.base.IdentifiableViewModel;
 
 import java.util.Date;
 import java.util.List;
 
-public class LoteProductoElaboradoDetalleViewModel extends IdentifiableViewModel {
+public class ElaboracionDetalleViewModel extends IdentifiableViewModel {
     public Date fecha;
     public String codigo;
     public long cantidad;
-    public List<EstadoLote> estados;
-    public EstadoLote estado;
+    public List<EstadoViewModel> estados;
+    public EstadoViewModel estado;
     public RecetaViewModel receta;
 
-    public LoteProductoElaboradoDetalleViewModel(Long id, long cantidad, String codigo, EstadoLote estado, List<EstadoLote> estados, Date fecha, RecetaViewModel receta) {
+    public ElaboracionDetalleViewModel(Long id, long cantidad, String codigo, EstadoViewModel estado, List<EstadoViewModel> estados, Date fecha, RecetaViewModel receta) {
         super(id);
         this.cantidad = cantidad;
         this.codigo = codigo;
@@ -25,7 +24,7 @@ public class LoteProductoElaboradoDetalleViewModel extends IdentifiableViewModel
         this.receta = receta;
     }
 
-    public LoteProductoElaboradoDetalleViewModel() {
+    public ElaboracionDetalleViewModel() {
     }
 }
 

@@ -16,8 +16,8 @@ public class EntregaProducto extends DeletableBaseEntity {
     private Date fecha;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lote_producto_elaborado_id")
-    private LoteProductoElaborado lote;
+    @JoinColumn(name = "elaboracion_id")
+    private Elaboracion elaboracion;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "punto_venta_id")
@@ -26,9 +26,9 @@ public class EntregaProducto extends DeletableBaseEntity {
     public EntregaProducto() {
     }
 
-    public EntregaProducto(Double cantidad, LoteProductoElaborado lote, PuntoVenta puntoVenta) {
+    public EntregaProducto(Double cantidad, Elaboracion elaboracion, PuntoVenta puntoVenta) {
         this.cantidad = cantidad;
-        this.lote = lote;
+        this.elaboracion = elaboracion;
         this.fecha = new Date();
         this.puntoVenta = puntoVenta;
     }
@@ -41,12 +41,12 @@ public class EntregaProducto extends DeletableBaseEntity {
         this.cantidad = cantidad;
     }
 
-    public LoteProductoElaborado getLote() {
-        return lote;
+    public Elaboracion getElaboracion() {
+        return elaboracion;
     }
 
-    public void setLote(LoteProductoElaborado lote) {
-        this.lote = lote;
+    public void setElaboracion(Elaboracion elaboracion) {
+        this.elaboracion = elaboracion;
     }
 
     public PuntoVenta getPuntoVenta() {
@@ -70,7 +70,7 @@ public class EntregaProducto extends DeletableBaseEntity {
         return "{"
                 + "\"id\":\"" + id + "\""
                 + ", \"cantidad\":\"" + cantidad + "\""
-                + ", \"loteId\":" + lote.getId()
+                + ", \"elaboracion\":" + elaboracion.getId()
                 + ", \"puntoVentaId\":" + puntoVenta.getId()
                 + "}";
     }

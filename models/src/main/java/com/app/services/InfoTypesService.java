@@ -1,6 +1,6 @@
 package com.app.services;
 
-import com.app.models.enums.EstadoLoteEnum;
+import com.app.models.enums.EstadoElaboracionEnum;
 import com.app.models.enums.EstadoMateriaPrimaEnum;
 import com.app.models.enums.RolUsuario;
 import com.app.models.enums.UnidadMedidaEnum;
@@ -41,9 +41,9 @@ public class InfoTypesService implements IInfoTypesService {
     }
 
     @Override
-    public List<String> getAllEstadoLote() {
-        List<String> enumValues = Arrays.stream(EstadoLoteEnum.values())
-                .map(EstadoLoteEnum::getValue)
+    public List<String> getAllEstadoElaboracion() {
+        List<String> enumValues = Arrays.stream(EstadoElaboracionEnum.values())
+                .map(EstadoElaboracionEnum::getValue)
                 .collect(Collectors.toList());
         return  enumValues;
     }

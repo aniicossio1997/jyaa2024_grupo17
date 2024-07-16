@@ -1,7 +1,6 @@
 package com.app.viewModels;
 
 
-import com.app.models.EstadoLote;
 import com.app.viewModels.base.IdentifiableViewModel;
 
 import java.util.Date;

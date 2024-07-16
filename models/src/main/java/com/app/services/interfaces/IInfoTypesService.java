@@ -9,6 +9,6 @@ public interface IInfoTypesService {
     List<String> getAllUnidadMedida();
     List<String> getAllRoles();
     List<String> getAllEstadoMateriaPrima();
-    List<String> getAllEstadoLote();
+    List<String> getAllEstadoElaboracion();
 
 }

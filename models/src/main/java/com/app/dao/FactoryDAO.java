@@ -37,8 +37,8 @@ public class FactoryDAO {
         return new RecetaDao();
     }
 
-    public static ILoteProductoElaboradoDao createLoteProductoElaboradoDao() {
-        return new LoteProductoElaboradoDao();
+    public static IElaboracionDao createElaboracionDao() {
+        return new ElaboracionDao();
     }
 
     public static INotaDao createNotaDao() {
@@ -61,8 +61,8 @@ public class FactoryDAO {
         return new ConsumoInsumoDao();
     }
 
-    public static IEstadoLoteDao createEstadoLoteDao() {
-        return new EstadoLoteDao();
+    public static IEstadoElaboracionDao createEstadoElaboracionDao() {
+        return new EstadoElaboracionDao();
     }
 
     public static IConsumoMateriaPrimaDao createConsumoMateriaPrimaDao() {

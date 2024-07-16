@@ -12,9 +12,9 @@ public class ConsumoInsumoDao extends BaseDao<ConsumoInsumo> implements IConsumo
 
 
     @Override
-    public List<ConsumoInsumo> getByLote(Long loteId) {
-        TypedQuery<ConsumoInsumo> q = em.createQuery("FROM " + this.getGenericClass().getName() + " i WHERE lote_producto_elaborado_id = :loteId", this.getGenericClass());
-        q.setParameter("loteId", loteId);
+    public List<ConsumoInsumo> getByElaboracion(Long elaboracionId) {
+        TypedQuery<ConsumoInsumo> q = em.createQuery("FROM " + this.getGenericClass().getName() + " i WHERE elaboracion_id = :elaboracionId", this.getGenericClass());
+        q.setParameter("elaboracionId", elaboracionId);
         return q.getResultList();
     }
 

@@ -1,7 +1,6 @@
 package com.app.models;
 
 import com.app.models.baseEntity.DeletableBaseEntity;
-import com.app.models.baseEntity.IdentifiableBaseEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,36 +8,36 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "lote_producto_elaborado")
-public class LoteProductoElaborado extends DeletableBaseEntity {
+@Table(name = "elaboracion")
+public class Elaboracion extends DeletableBaseEntity {
     private Date fecha;
     private String codigo;
     private int cantidad;
 
-    @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<EstadoLote> estados = new ArrayList<>();
+    @OneToMany(mappedBy = "elaboracion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<EstadoElaboracion> estados = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receta_id")
     private Receta receta;
 
-    @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "elaboracion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ConsumoInsumo> consumoInsumos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "elaboracion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ConsumoMateriaPrima> consumoMateriasPrimas = new ArrayList<>();
 
-    @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "elaboracion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Nota> notas = new ArrayList<>();
 
-    @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "elaboracion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EntregaProducto> entregas = new ArrayList<>();
 
-    public LoteProductoElaborado() {
+    public Elaboracion() {
         super();
     }
 
-    public LoteProductoElaborado(int cantidad, String codigo, Date fecha, Receta receta) {
+    public Elaboracion(int cantidad, String codigo, Date fecha, Receta receta) {
         this.cantidad = cantidad;
         this.codigo = codigo;
         this.fecha = fecha;
@@ -85,11 +84,11 @@ public class LoteProductoElaborado extends DeletableBaseEntity {
         this.entregas = entregas;
     }
 
-    public List<EstadoLote> getEstados() {
+    public List<EstadoElaboracion> getEstados() {
         return estados;
     }
 
-    public void updateEstado(EstadoLote estado) {
+    public void updateEstado(EstadoElaboracion estado) {
         this.estados.add(estado);
     }
 

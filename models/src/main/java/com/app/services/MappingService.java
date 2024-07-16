@@ -36,7 +36,8 @@ public class MappingService {
                 receta.getId(), receta.getNombre(),
                 receta.getDescripcion(),
                 Optional.ofNullable(receta.getAutor()).map(this::toViewModel).orElse(null),
-                ListUtils.mapList(receta.getIngredientes(), this::toViewModel)
+                ListUtils.mapList(receta.getIngredientes(), this::toViewModel),
+                ListUtils.mapList(receta.getElaboraciones(), this::toViewModel)
         );
     }
 
@@ -51,26 +52,26 @@ public class MappingService {
         );
     }
 
-    public LoteProductoElaboradoViewModel toViewModel(LoteProductoElaborado lote) {
-        return new LoteProductoElaboradoViewModel(
-                lote.getId(),
-                lote.getCantidad(),
-                lote.getCodigo(),
-                lote.getEstados().stream().findFirst().orElse(null),
-                lote.getFecha(),
-                lote.getReceta().getId()
+    public ElaboracionViewModel toViewModel(Elaboracion elaboracion) {
+        return new ElaboracionViewModel(
+                elaboracion.getId(),
+                elaboracion.getCantidad(),
+                elaboracion.getCodigo(),
+                elaboracion.getEstados().stream().findFirst().map(this::toViewModel).orElse(null),
+                elaboracion.getFecha(),
+                elaboracion.getReceta().getId()
         );
     }
 
-    public LoteProductoElaboradoDetalleViewModel toDetalleViewModel(LoteProductoElaborado lote) {
-        return new LoteProductoElaboradoDetalleViewModel(
-                lote.getId(),
-                lote.getCantidad(),
-                lote.getCodigo(),
-                lote.getEstados().stream().findFirst().orElse(null),
-                lote.getEstados(),
-                lote.getFecha(),
-                this.toViewModel(lote.getReceta())
+    public ElaboracionDetalleViewModel toDetalleViewModel(Elaboracion elaboracion) {
+        return new ElaboracionDetalleViewModel(
+                elaboracion.getId(),
+                elaboracion.getCantidad(),
+                elaboracion.getCodigo(),
+                elaboracion.getEstados().stream().findFirst().map(this::toViewModel).orElse(null),
+                ListUtils.mapList(elaboracion.getEstados(), this::toViewModel),
+                elaboracion.getFecha(),
+                this.toViewModel(elaboracion.getReceta())
         );
     }
 
@@ -86,6 +87,9 @@ public class MappingService {
     }
 
 
+    public EstadoViewModel toViewModel(EstadoElaboracion estadoElaboracion) {
+        return new EstadoViewModel(estadoElaboracion.getId(), this.toViewModel(estadoElaboracion.getAutor()), estadoElaboracion.getEstado().getValue(), estadoElaboracion.getFecha());
+    }
 
     public RecursoViewModel toViewModel(Recurso entity) {
         return new RecursoViewModel(
@@ -96,6 +100,7 @@ public class MappingService {
                 entity.getTotalValorDeCompra()
         );
     }
+
     public RecursoDetailViewModel toViewModelDetail(Recurso entity) {
         return new RecursoDetailViewModel(
                 entity.getId(),

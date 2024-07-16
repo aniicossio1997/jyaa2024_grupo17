@@ -3,7 +3,7 @@ package com.app.tests;
 import com.app.dao.FactoryDAO;
 import com.app.dao.interfaces.*;
 import com.app.models.*;
-import com.app.models.enums.EstadoLoteEnum;
+import com.app.models.enums.EstadoElaboracionEnum;
 import com.app.models.enums.EstadoMateriaPrimaEnum;
 import com.app.models.enums.RolUsuario;
 import com.app.models.enums.UnidadMedidaEnum;
@@ -31,7 +31,7 @@ public class TestGlobal extends BaseTest {
         IMateriaPrimaDao materiaPrimaDao = FactoryDAO.createMateriaPrimaDao();
         IPuntoVentaDao puntoVentaDao = FactoryDAO.createPuntoVentaDao();
         IConsumoInsumoDao consumoInsumoDao = FactoryDAO.createConsumoInsumoDao();
-        IEstadoLoteDao estadoLoteDao = FactoryDAO.createEstadoLoteDao();
+        IEstadoElaboracionDao estadoElaboracionDao = FactoryDAO.createEstadoElaboracionDao();
         IConsumoMateriaPrimaDao consumoMateriaPrimaDao = FactoryDAO.createConsumoMateriaPrimaDao();
         IIngresoMateriaPrimaDao ingresoMateriaPrimaDao = FactoryDAO.createIngresoMateriaPrimaDao();
         IEstadoMateriaPrimaDao estadoMateriaPrimaDao = FactoryDAO.createEstadoMateriaPrimaDao();
@@ -367,54 +367,54 @@ public class TestGlobal extends BaseTest {
         ingredientesList = ingredienteRecetaDao.getAll();
         writer.list(ingredientesList);
 
-        // ==============================LOTE PRODUCTO ELABORADO ============================
+        // ============================== ELABORACIONES ============================
 
-        ILoteProductoElaboradoDao loteProductoElaboradoDao = FactoryDAO.createLoteProductoElaboradoDao();
+        IElaboracionDao elaboracionDao = FactoryDAO.createElaboracionDao();
 
         writer.h1("Elaboraciones");
 
         writer.h2("Se crearán dos elaboraciones para la receta con id " + receta.getId());
 
-        LoteProductoElaborado lote = new LoteProductoElaborado(5, "pe-05052023/1", new Date(), receta);
-        lote.getConsumoInsumos().add(new ConsumoInsumo(10d, azucar, lote));
-        lote.updateEstado(new EstadoLote(encargadoDeSala, new Date(), EstadoLoteEnum.EN_PROCESO, lote));
+        Elaboracion elaboracion = new Elaboracion(5, "pe-05052023/1", new Date(), receta);
+        elaboracion.getConsumoInsumos().add(new ConsumoInsumo(10d, azucar, elaboracion));
+        elaboracion.updateEstado(new EstadoElaboracion(encargadoDeSala, new Date(), EstadoElaboracionEnum.EN_PROCESO, elaboracion));
 
-        LoteProductoElaborado lote2 = new LoteProductoElaborado(5, "pe-05052023/1", new Date(), receta);
-        lote2.getConsumoInsumos().add(new ConsumoInsumo(1d, frascos, lote));
-        lote2.updateEstado(new EstadoLote(encargadoDeSala, new Date(), EstadoLoteEnum.EN_PROCESO, lote));
+        Elaboracion elaboracion2 = new Elaboracion(5, "pe-05052023/1", new Date(), receta);
+        elaboracion2.getConsumoInsumos().add(new ConsumoInsumo(1d, frascos, elaboracion));
+        elaboracion2.updateEstado(new EstadoElaboracion(encargadoDeSala, new Date(), EstadoElaboracionEnum.EN_PROCESO, elaboracion));
 
-        loteProductoElaboradoDao.save(lote);
-        loteProductoElaboradoDao.save(lote2);
+        elaboracionDao.save(elaboracion);
+        elaboracionDao.save(elaboracion2);
 
         writer.h2("Listado de todas las elaboraciones");
-        List<LoteProductoElaborado> lotesList = loteProductoElaboradoDao.getAll();
-        writer.list(lotesList);
+        List<Elaboracion> elaboracionesList = elaboracionDao.getAll();
+        writer.list(elaboracionesList);
 
-        writer.h2("Se modificara la elaboracion con id " + lote.getId() + " (cantidad 5 > 10)");
-        lote.getEstados().add(new EstadoLote(encargadoDeSala, new Date(), EstadoLoteEnum.EN_DEPOSITO, lote));
-        lote.setCantidad(10);
-        lote.setCodigo("pe-07052023/1");
+        writer.h2("Se modificara la elaboracion con id " + elaboracion.getId() + " (cantidad 5 > 10)");
+        elaboracion.getEstados().add(new EstadoElaboracion(encargadoDeSala, new Date(), EstadoElaboracionEnum.EN_DEPOSITO, elaboracion));
+        elaboracion.setCantidad(10);
+        elaboracion.setCodigo("pe-07052023/1");
 
-        loteProductoElaboradoDao.save(lote);
-        writer.item(lote);
+        elaboracionDao.save(elaboracion);
+        writer.item(elaboracion);
 
         writer.h2("Listado de las elaboraciones asociadas a la receta con id " + receta.getId());
-        List<LoteProductoElaborado> lotesReceta = loteProductoElaboradoDao.getByRecetaId(receta.getId());
-        writer.list(lotesReceta);
+        List<Elaboracion> elaboracionesReceta = elaboracionDao.getByRecetaId(receta.getId());
+        writer.list(elaboracionesReceta);
 
         // ============================== NOTAS ============================
         writer.h1("Notas");
 
         INotaDao notaDao = FactoryDAO.createNotaDao();
-        writer.h2("Se agregaran dos notas a la elaboración con id " + lote.getId());
+        writer.h2("Se agregaran dos notas a la elaboración con id " + elaboracion.getId());
 
-        Nota nota = new Nota(encargadoDeSala, "Acidez levemente superior a la habitual", lote);
-        Nota nota2 = new Nota(encargadoDeSala, "Revisar cantidades de azucar", lote);
+        Nota nota = new Nota(encargadoDeSala, "Acidez levemente superior a la habitual", elaboracion);
+        Nota nota2 = new Nota(encargadoDeSala, "Revisar cantidades de azucar", elaboracion);
         notaDao.save(nota);
         notaDao.save(nota2);
 
-        writer.h2("Listado de notas para lote con id " + lote.getId());
-        List<Nota> notas = notaDao.getByLote(lote.getId());
+        writer.h2("Listado de notas para elaboracion con id " + elaboracion.getId());
+        List<Nota> notas = notaDao.getByElaboracion(elaboracion.getId());
         writer.list(notas);
 
         writer.h2("Se modificara la nota con id " + nota.getId());
@@ -427,8 +427,8 @@ public class TestGlobal extends BaseTest {
         nota2.setFechaBaja(new Date());
         notaDao.save(nota2);
 
-        writer.h2("Listado de notas para lote con id " + lote.getId());
-        notas = notaDao.getByLote(lote.getId());
+        writer.h2("Listado de notas para elaboracion con id " + elaboracion.getId());
+        notas = notaDao.getByElaboracion(elaboracion.getId());
         writer.list(notas);
 
         writer.h1("Entregas");
@@ -438,10 +438,10 @@ public class TestGlobal extends BaseTest {
         puntoVentaDao.save(puntoVenta);
         puntoVentaDao.save(puntoVenta2);
 
-        writer.h2("Se crearan dos entregas a distintos puntos para la elaboración con id " + lote.getId());
+        writer.h2("Se crearan dos entregas a distintos puntos para la elaboración con id " + elaboracion.getId());
 
-        EntregaProducto entrega1 = new EntregaProducto(10.0, lote, puntoVenta);
-        EntregaProducto entrega2 = new EntregaProducto(5.0, lote, puntoVenta2);
+        EntregaProducto entrega1 = new EntregaProducto(10.0, elaboracion, puntoVenta);
+        EntregaProducto entrega2 = new EntregaProducto(5.0, elaboracion, puntoVenta2);
 
         IEntregaProductoDao entregaProductoDao = FactoryDAO.createEntregaProductoDao();
 
@@ -455,8 +455,8 @@ public class TestGlobal extends BaseTest {
         entrega1.setCantidad(40D);
         entregaProductoDao.save(entrega1);
 
-        writer.h2("Listado de todas las entregas del lote con id " + lote.getId());
-        writer.list(entregaProductoDao.getByLote(lote.getId()));
+        writer.h2("Listado de todas las entregas de elaboracion con id " + elaboracion.getId());
+        writer.list(entregaProductoDao.getByElaboracion(elaboracion.getId()));
         writer.h2("Listado de todas las entregas al punto de venta con id " + puntoVenta.getId());
         writer.list(entregaProductoDao.getByPuntoVenta(puntoVenta.getId()));
 
@@ -475,16 +475,16 @@ public class TestGlobal extends BaseTest {
         List<ConsumoInsumo> consumoInsumoList = consumoInsumoDao.getAll();
         writer.list(consumoInsumoList);
 
-        writer.h2("Se agregarán dos consumos al lote con id " + lote2.getId() + "(Gelificante 1kg y Azucar 2kg)");
-        ConsumoInsumo consumoGelificante = new ConsumoInsumo(1D, gelificante, lote2);
+        writer.h2("Se agregarán dos consumos al elaboracion con id " + elaboracion2.getId() + "(Gelificante 1kg y Azucar 2kg)");
+        ConsumoInsumo consumoGelificante = new ConsumoInsumo(1D, gelificante, elaboracion2);
         consumoInsumoDao.save(consumoGelificante);
-        ConsumoInsumo consumoAzucar = new ConsumoInsumo(2D, azucar, lote2);
+        ConsumoInsumo consumoAzucar = new ConsumoInsumo(2D, azucar, elaboracion2);
         consumoInsumoDao.save(consumoAzucar);
         writer.list(Arrays.asList(consumoGelificante, consumoAzucar));
 
-        writer.h2("Listado de todos los consumos del lote con id " + lote2.getId());
-        List<ConsumoInsumo> consumosLote = consumoInsumoDao.getByLote(lote2.getId());
-        writer.list(consumosLote);
+        writer.h2("Listado de todos los consumos del elaboracion con id " + elaboracion2.getId());
+        List<ConsumoInsumo> consumosElaboracion = consumoInsumoDao.getByElaboracion(elaboracion2.getId());
+        writer.list(consumosElaboracion);
 
         writer.h2(MessageFormat.format("Listado de todos los consumos del insumo con id {0} ({1})", azucar.getId(), azucar.getNombre()));
         List<ConsumoInsumo> consumosAzucar = consumoInsumoDao.getByInsumo(azucar.getId());
@@ -493,18 +493,18 @@ public class TestGlobal extends BaseTest {
         // ============================== CONSUMOS DE MATERIA PRIMA ============================
         writer.h1("Consumos de Materia Prima");
 
-        writer.h2("Se agregará un consumo al lote con id " + lote2.getId() + "(Tomate 1kg) ");
-        ConsumoMateriaPrima consumoTomate = new ConsumoMateriaPrima(1D, ingresoTomates, lote2);
+        writer.h2("Se agregará un consumo al elaboracion con id " + elaboracion2.getId() + "(Tomate 1kg) ");
+        ConsumoMateriaPrima consumoTomate = new ConsumoMateriaPrima(1D, ingresoTomates, elaboracion2);
         consumoMateriaPrimaDao.save(consumoTomate);
         writer.item(consumoTomate);
 
-        writer.h2("Se agregará un consumo al lote con id " + lote.getId() + "(Miel 5kg) ");
-        ConsumoMateriaPrima consumoMiel = new ConsumoMateriaPrima(1D, ingresoMiel, lote);
+        writer.h2("Se agregará un consumo al elaboracion con id " + elaboracion.getId() + "(Miel 5kg) ");
+        ConsumoMateriaPrima consumoMiel = new ConsumoMateriaPrima(1D, ingresoMiel, elaboracion);
         consumoMateriaPrimaDao.save(consumoMiel);
         writer.item(consumoMiel);
 
-        writer.h2("Se agregará un nuevo consumo al lote con id " + lote.getId() + "(Tomate 1kg) ");
-        ConsumoMateriaPrima consumoTomate2 = new ConsumoMateriaPrima(1D, ingresoTomates, lote);
+        writer.h2("Se agregará un nuevo consumo al elaboracion con id " + elaboracion.getId() + "(Tomate 1kg) ");
+        ConsumoMateriaPrima consumoTomate2 = new ConsumoMateriaPrima(1D, ingresoTomates, elaboracion);
         consumoMateriaPrimaDao.save(consumoTomate2);
         writer.item(consumoTomate2);
 
@@ -517,8 +517,8 @@ public class TestGlobal extends BaseTest {
         consumoMateriaPrimaDao.save(consumoMiel);
         writer.item(consumoMiel);
 
-        writer.h2("Listado de todos los consumos del lote con id " + lote2.getId());
-        writer.list(consumoMateriaPrimaDao.getByLote(lote2.getId()));
+        writer.h2("Listado de todos los consumos del elaboracion con id " + elaboracion2.getId());
+        writer.list(consumoMateriaPrimaDao.getByElaboracion(elaboracion2.getId()));
 
         writer.h2("Listado de todos los consumos de la materia prima " + tomate.getNombre());
         writer.list(consumoMateriaPrimaDao.getByMateriaPrima(tomate.getId()));
@@ -526,23 +526,23 @@ public class TestGlobal extends BaseTest {
         writer.h2("Listado de todos los consumos del ingreso de materia prima con id " + ingresoTomates.getId());
         writer.list(consumoMateriaPrimaDao.getByIngresoMateriaPrima(ingresoTomates.getId()));
 
-        // ============================== ESTADOS DEL LOTE ============================
+        // ============================== ESTADOS DE ELABORACION ============================
         writer.h1("Estados de Elaboraciones");
 
         writer.h2("Listado de todos los estados");
-        List<EstadoLote> estadoLoteList = estadoLoteDao.getAll();
-        writer.list(estadoLoteList);
+        List<EstadoElaboracion> estadoElaboracionList = estadoElaboracionDao.getAll();
+        writer.list(estadoElaboracionList);
 
-        writer.h2("Se agregarán dos estados al lote con id " + lote2.getId() + " (en deposito y luego entregado)");
-        EstadoLote estadoEnDeposito = new EstadoLote(encargadoDeSala, new Date(), EstadoLoteEnum.EN_DEPOSITO, lote2);
-        estadoLoteDao.save(estadoEnDeposito);
-        EstadoLote estadoEntregado = new EstadoLote(encargadoDeSala, new Date(), EstadoLoteEnum.ENTREGADO_COMPLETO, lote2);
-        estadoLoteDao.save(estadoEntregado);
+        writer.h2("Se agregarán dos estados a elaboracion con id " + elaboracion2.getId() + " (en deposito y luego entregado)");
+        EstadoElaboracion estadoEnDeposito = new EstadoElaboracion(encargadoDeSala, new Date(), EstadoElaboracionEnum.EN_DEPOSITO, elaboracion2);
+        estadoElaboracionDao.save(estadoEnDeposito);
+        EstadoElaboracion estadoEntregado = new EstadoElaboracion(encargadoDeSala, new Date(), EstadoElaboracionEnum.ENTREGADO_COMPLETO, elaboracion2);
+        estadoElaboracionDao.save(estadoEntregado);
         writer.list(Arrays.asList(estadoEnDeposito, estadoEntregado));
 
-        writer.h2("Listado de todos los estados del lote con id " + lote2.getId());
-        List<EstadoLote> estadoLote2 = estadoLoteDao.getByLote(lote2.getId());
-        writer.list(estadoLote2);
+        writer.h2("Listado de todos los estados de elaboracion con id " + elaboracion2.getId());
+        List<EstadoElaboracion> estadoElaboracion2 = estadoElaboracionDao.getByElaboracion(elaboracion2.getId());
+        writer.list(estadoElaboracion2);
     }
 
 }

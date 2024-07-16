@@ -1,3 +1,4 @@
+import ElaboracionViewModel from './ElaboracionViewModel';
 import IngredienteViewModel from './IngredienteViewModel';
 import { UsuarioViewModel } from './UsuarioViewModel';
 
@@ -7,4 +8,5 @@ export interface RecetaDetalleViewModel {
   descripcion: string;
   autor: UsuarioViewModel;
   ingredientes: IngredienteViewModel[];
+  elaboraciones: ElaboracionViewModel[];
 }

@@ -8,8 +8,8 @@ import javax.persistence.*;
 public abstract class ConsumoRecurso extends IdentifiableBaseEntity {
     protected Double cantidad;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lote_producto_elaborado_id")
-    protected LoteProductoElaborado lote;
+    @JoinColumn(name = "elaboracion_id")
+    protected Elaboracion elaboracion;
 
     public ConsumoRecurso() {
         super();
@@ -27,11 +27,11 @@ public abstract class ConsumoRecurso extends IdentifiableBaseEntity {
         this.cantidad = cantidad;
     }
 
-    public LoteProductoElaborado getLote() {
-        return lote;
+    public Elaboracion getElaboracion() {
+        return elaboracion;
     }
 
-    public void setLote(LoteProductoElaborado lote) {
-        this.lote = lote;
+    public void setElaboracion(Elaboracion elaboracion) {
+        this.elaboracion = elaboracion;
     }
 }

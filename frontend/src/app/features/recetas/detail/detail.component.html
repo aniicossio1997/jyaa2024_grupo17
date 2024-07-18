@@ -44,8 +44,8 @@
       [alwaysShowPaginator]="false"
     >
       <ng-template pTemplate="caption">
+        <h4>Ingredientes</h4>
         <div class="flex align-items-center justify-content-between flex-wrap">
-          <h2 class="m-0">Ingredientes</h2>
           <div class="flex gap-4 flex-wrap">
             <span class="p-input-icon-left">
               <i class="pi pi-search"></i>
@@ -103,26 +103,21 @@
       </ng-template>
     </p-table>
   </div>
-
+</div>
+<div *ngIf="!!receta" class="card relative">
   <div>
     <p-table
       #dt2
       [value]="receta.elaboraciones"
       [tableStyle]="{ 'min-width': '50rem' }"
       [paginator]="true"
-      [rows]="10"
-      [rowsPerPageOptions]="[5, 10, 20]"
-      [globalFilterFields]="[
-        'cantidad',
-        'estado.estado',
-        'codigo',
-        'fecha'
-      ]"
+      [rows]="5"
+      [globalFilterFields]="['cantidad', 'estado.estado', 'codigo', 'fecha']"
       [alwaysShowPaginator]="false"
     >
       <ng-template pTemplate="caption">
+        <h4>Elaboraciones</h4>
         <div class="flex align-items-center justify-content-between flex-wrap">
-          <h2 class="m-0">Elaboraciones</h2>
           <div class="flex gap-4 flex-wrap">
             <span class="p-input-icon-left">
               <i class="pi pi-search"></i>
@@ -134,19 +129,28 @@
               />
             </span>
           </div>
+          <p-button
+          pRipple
+          severity="primary"
+          label="Gestionar Elaboraciones"
+          icon="fa-solid fa-jar"
+          [routerLink]="[Routes.ELABORACION_NEW]"
+      />
         </div>
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
           <th pSortableColumn="fecha">
-            Fecha <p-sortIcon field="fecha" />
+            Fecha Inicio<p-sortIcon field="fecha" />
           </th>
-          <th pSortableColumn="cantidad">Cantidad <p-sortIcon field="tipo" /></th>
-          <th pSortableColumn="codigo">
-            Codigo <p-sortIcon field="codigo" />
+
+          <th pSortableColumn="cantidad">
+            Cantidad <p-sortIcon field="tipo" />
           </th>
-          <th pSortableColumn="estado">
-            Estado <p-sortIcon field="estado" />
+          <th pSortableColumn="codigo">Codigo <p-sortIcon field="codigo" /></th>
+          <th pSortableColumn="estado">Estado <p-sortIcon field="estado" /></th>
+          <th pSortableColumn="fecha-mod">
+            Actualizado<p-sortIcon field="fecha-mod" />
           </th>
         </tr>
       </ng-template>
@@ -155,13 +159,16 @@
           <td>
             {{ item.fecha | dateTransformPipe }}
           </td>
+          
           <td>
             {{ item.cantidad }}
           </td>
-          <td>{{ item.codigo }}</td>
-          <td
-          >
-            <b>{{ item.estado.estado }}</b>
+          <td><b>{{ item.codigo }}</b></td>
+          <td>
+            <p-tag [value]="item.estado.estado" [severity]="getEstadoSeverity(item.estado.estado )" />
+          </td>
+          <td>
+            {{ item.estado.fecha | dateTransformPipe }}
           </td>
         </tr>
       </ng-template>

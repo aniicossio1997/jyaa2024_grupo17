@@ -4,3 +4,10 @@
 .toast-success {
   background-color: var(--primary-500) !important;
 }
+
+.text-danger {
+  color: var(--text-danger)
+}
+.text-success {
+  color: var(--text-success)
+}

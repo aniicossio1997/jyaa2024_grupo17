@@ -83,6 +83,8 @@ export class ShellComponent implements OnInit {
       [ManagementRoutes.New]: 'Agregar',
       [ManagementRoutes.Edit]: 'Editar',
       [ManagementRoutes.Detail]: 'Detalle',
+      [ManagementRoutes.Elaboracion]: 'Elaboracion',
+
     };
 
     const links: { label: string; path: string }[] = [];

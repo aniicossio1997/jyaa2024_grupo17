@@ -4,6 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ManagementRoutes } from '../../../routers';
 import { RecetaDetalleViewModel } from '../../../interfaces/RecetaDetalleViewModel';
+import { EstadoViewModel } from '../../../interfaces/EstadoViewModel';
+import { EstadoIngresoEnums } from '../../../model/EstadoIngresoEnums';
+import { EstadoElaboracionEnum } from '../../../model/EstadoElaboracionEnum';
 
 interface IngredienteNormal {
   cantidad: number;
@@ -44,14 +47,31 @@ export class DetailComponent implements OnInit {
         tipo: i.insumo ? 'INSUMO' : 'MATERIA PRIMA',
         cantidadDisponible:
           i.insumo?.cantidadDisponible ||
-          i.materiaPrima?.totalCantidadDisponible || 0,
+          i.materiaPrima?.totalCantidadDisponible ||
+          0,
       }));
     });
+  }
+
+  getEstadoSeverity(estado: string) {
+    switch (estado) {
+      case EstadoElaboracionEnum.ENTREGADO_COMPLETO:
+        return 'success';
+      case EstadoElaboracionEnum.ENTREGADO_PARCIAL:
+        return 'primary';
+      case EstadoElaboracionEnum.EN_DEPOSITO:
+        return 'warning';
+      case EstadoElaboracionEnum.EN_PROCESO:
+        return 'info';
+    }
+    return '';
   }
 
   public get Routes() {
     return {
       EDIT: `/${ManagementRoutes.Receta}/${ManagementRoutes.Edit}/${this.receta?.id}`,
+      ELABORACION_NEW: `/${ManagementRoutes.Receta}/${this.receta?.id}/${ManagementRoutes.Elaboracion}`,
+
     };
   }
 

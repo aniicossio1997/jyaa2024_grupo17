@@ -1,0 +1,116 @@
+<div class="card" style="width: 80%">
+  <h5 class="mb-5">Agregar Insumo</h5>
+  <form [formGroup]="form" class="p-fluid p-formgrid grid">
+    <div class="field col-12 md:col-12">
+      <label htmlFor="recetaId" class="mr-3">Receta: </label>
+      <input
+        id="recetaId"
+        type="text"
+        pInputText
+        [disabled]="true"
+        [value]="receta?.nombre"
+        class="font-bold"
+      />
+    </div>
+    <div class="field col-12 md:col-4">
+      <label htmlFor="unidadMedida">Cantidad*</label>
+      <p-inputGroup>
+        <p-inputNumber
+          placeholder="Ingrese una cantidad"
+          formControlName="cantidad"
+          [value]="form.get('cantidad')"
+        />
+      </p-inputGroup>
+    </div>
+    <div class="field col-12 md:col-8">
+      <label htmlFor="nota" class="mr-3">Nota Adicional: </label>
+      <input
+        id="nota"
+        type="text"
+        placeholder="Nota Adicional"
+        pInputText
+        [disabled]="true"
+        formControlName="nota"
+        [value]="form.get('nota')"
+      />
+    </div>
+
+    <p-divider styleClass="w-full" [ngStyle]="{ width: '100%' }" />
+
+    <div class="field col-12 md:col-12">
+      <h5>Ingredientes</h5>
+
+      <div class="grid w-full field col-12">
+        <div class="col">
+          <label htmlFor="familiaPrimaId" class="mr-3 text-lg font-bold"
+            >Insumos</label
+          >
+
+          <div class="flex flex-column gap-1 mt-2">
+            <div
+              *ngFor="let item of insumos; index as i"
+              class="shadow-1 p-3 border-round-md border-200 border-1"
+            >
+              <ng-container
+                *ngIf="
+                  ((form.get('cantidad')?.value *
+                  item.cantidad).toFixed(1)) as cantidadRequerida
+                "
+              >
+                <div class="flex justify-content-between align-items-center flex-wrap">
+                  <div>
+                    <h6 class="mb-2">{{ item.insumo.nombre }}</h6>
+                  </div>
+                  <div class="flex flex-column align-items-end">
+                    <div>
+                      {{getMin(cantidadRequerida, item.insumo.cantidadDisponible)}} /
+                      {{ cantidadRequerida }} {{ item.insumo.unidadMedida }}
+                      <i  *ngIf="cantidadRequerida <= item.insumo.cantidadDisponible" class="fa-solid fa-check text-success"></i>
+                    </div>
+                    <div
+                      class="flex align-items-end text-danger flex-wrap text-sm"
+                      *ngIf="cantidadRequerida > item.insumo.cantidadDisponible"
+                    >
+                      No cuentas con las cantidades necesarias 
+                      <div class="ml-1">
+                        (disponible: {{ item.insumo.cantidadDisponible }}
+                        {{ item.insumo.unidadMedida }})
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="
+                        cantidadRequerida <= item.insumo.cantidadDisponible
+                      "
+                      class="text-success text-sm"
+                    >
+                      disponible: {{ item.insumo.cantidadDisponible }}
+                      {{ item.insumo.unidadMedida }}
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="field col-12">
+      <div class="flex justify-content-between flex-wrap">
+        <p-button
+          pRipple
+          label="Cancelar"
+          icon="pi pi-times"
+          (click)="cancel()"
+          severity="secondary"
+        />
+        <p-button
+          pRipple
+          label="Guardar"
+          icon="pi pi-check"
+          [disabled]="form.invalid"
+          (click)="save()"
+        />
+      </div>
+    </div>
+  </form>
+</div>

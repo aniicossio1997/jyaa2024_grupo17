@@ -14,6 +14,10 @@
   --text-color-secondary:rgba(255, 255, 255, 0.6);
   --primary-color:#6ee7b7;
   --primary-color-text:#030712;
+  
+  --text-danger:var(--red-400);
+  --text-success:var(--green-400);
+
   --surface-0: #111827;
   --surface-50: #1f2937;
   --surface-100: #374151;

@@ -11,6 +11,7 @@ export enum ManagementRoutes {
   AddIngredientes='add-ingredientes',
   AddIngresos='add-ingresos',
   Gestion='gestion',
+  
 
 
 
@@ -19,7 +20,8 @@ export enum ManagementRoutes {
   FamiliaProductora='familiaProductoras',
   MateriaPrima='materiaPrimas',
   Insumo='Insumos',
-  Receta='recetas'
+  Receta='recetas',
+  Elaboracion='elaboracion',
 
 }
 export enum Routes {

@@ -14,6 +14,10 @@
   --text-color-secondary:#6b7280;
   --primary-color:#10b981;
   --primary-color-text:#ffffff;
+
+  --text-danger:var(--red-600);
+  --text-success:var(--green-600);
+
   --surface-0: #ffffff;
   --surface-50: #f9fafb;
   --surface-100: #f3f4f6;

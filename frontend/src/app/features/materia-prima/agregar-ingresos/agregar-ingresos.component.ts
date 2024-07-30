@@ -41,17 +41,6 @@ export class AgregarIngresosComponent implements OnInit {
     private materiaPrimaService: MateriaPrimaService,
     private familiaProductoraService: FamiliaProductoraService
   ){
-    /**
-     {
-  "descripcion": "string",
-  "cantidad": 4,
-  "codigo": "string",
-  "valorCompra": 15,
-  "materiaPrimaId": 1,
-  "familiaPrimaId": 2,
-  "estado": "ESTANTE"
-}
-     */
     this.initForm()
   }
 
@@ -65,6 +54,10 @@ export class AgregarIngresosComponent implements OnInit {
     this.familiaProductoraService.get().subscribe(data=>{
       this.familias=data
     });
+
+    this.myForm.get("fecha").valueChanges.subscribe(data=>{
+      console.log("FECHA", data)
+    })
 
   }
 
@@ -82,8 +75,11 @@ export class AgregarIngresosComponent implements OnInit {
             estado:this.myForm.get("estado").value,
             familiaPrimaId:this.myForm.get("familiaPrimaId").value,
             materiaPrimaId: this.myForm.get("materiaPrimaId").value,
-            valorCompra: this.myForm.get("valorCompra").value
+            valorCompra: this.myForm.get("valorCompra").value,
+            fecha:this.myForm.get("fecha").value
+
       }
+
 
       this.ingresoMateriaPrimasService.post(entityToAdd).subscribe(
         result => {
@@ -114,9 +110,13 @@ export class AgregarIngresosComponent implements OnInit {
       cantidad: ['', [Validators.required, this.positiveNumberValidator]],
       materiaPrimaId:['', Validators.required],
       familiaPrimaId:['',Validators.required],
-      estado:['', Validators.required]
+      estado:['', Validators.required],
+      fecha:['', Validators.required]
     });
   }
 
+  get currentDate(){
+    return new Date();
+  }
 
 }

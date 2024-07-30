@@ -21,6 +21,8 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { ItemMenuComponent } from '../item-menu/item-menu.component';
 import { IRouteModel, ITEMS_ROUTERS } from '../../routers';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
+import { SharedModule } from '../../shared/shared.module';
 
 @Component({
   selector: 'app-sidebar',
@@ -36,6 +38,7 @@ import { Subscription } from 'rxjs';
     StyleClassModule,
     CommonModule,
     ItemMenuComponent,
+    SharedModule
   ],
 
   templateUrl: './sidebar.component.html',
@@ -50,11 +53,14 @@ export class SidebarComponent implements OnInit, OnDestroy{
   event:any
   itemsRoutes: IRouteModel[] = ITEMS_ROUTERS;
 
-  constructor(private router: Router, private themeService: ThemeService) {
+  constructor(private router: Router, private themeService: ThemeService,
+    public authService:AuthService
+  ) {
 
   }
   ngOnDestroy(): void {
     this.subs?.unsubscribe()
+
   }
 
   closeCallback(e: any): void {
@@ -72,12 +78,12 @@ export class SidebarComponent implements OnInit, OnDestroy{
 
 
   ngOnInit(): void {
-    this.router.events.subscribe((val) =>
+    this.subs.add(this.router.events.subscribe((val) =>
     {
       if(this.event){
         this.closeCallback(this.event);
       }
     }
-    );
+    ));
   }
 }

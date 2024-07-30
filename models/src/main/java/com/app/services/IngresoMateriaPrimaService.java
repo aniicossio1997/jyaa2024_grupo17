@@ -39,21 +39,25 @@ public class IngresoMateriaPrimaService implements IIngresoMateriaPrimaService {
     public IngresoMateriaPrimaViewModel create(IngresoMateriaPrimaCreateViewModel entityToAdd) {
         FamiliaProductora familia = familiaProductoraDao.getById(entityToAdd.familiaPrimaId,true);
         MateriaPrima materiaPrima = this.materiaPrimaDao.getById(entityToAdd.materiaPrimaId,true);
-        Usuario user=_usuarioDao.getById(Long.valueOf(1));
+
+        Usuario user=_usuarioDao.getById(Long.valueOf(entityToAdd.getUsuarioId()));
 
         if(entityToAdd.estado ==null ){
             EstadoMateriaPrimaEnum estado=EstadoMateriaPrimaEnum.valueOf(entityToAdd.estado.toString());
             throw new InvalidParameterException("Name cannot be null or empty.");
         }
-
+        Date dateCreation=new Date();
+        if(entityToAdd.fecha==null){
+            entityToAdd.fecha=dateCreation;
+        }
 
         IngresoMateriaPrima ingresoMateriaPrima = new IngresoMateriaPrima(entityToAdd.cantidad, entityToAdd.codigo, entityToAdd.descripcion,
-                new Date(), entityToAdd.valorCompra);
+                entityToAdd.fecha, entityToAdd.valorCompra);
 
         ingresoMateriaPrima.setMateriaPrima(materiaPrima);
         ingresoMateriaPrima.setProductor(familia);
 
-        EstadoMateriaPrima estado= new EstadoMateriaPrima(user, (EstadoMateriaPrimaEnum) entityToAdd.estado);
+        EstadoMateriaPrima estado= new EstadoMateriaPrima(user, (EstadoMateriaPrimaEnum) entityToAdd.estado, entityToAdd.fecha);
         ingresoMateriaPrima.addEstado(estado);
         estado.setIngresoMateriaPrima(ingresoMateriaPrima);
 
@@ -90,20 +94,27 @@ public class IngresoMateriaPrimaService implements IIngresoMateriaPrimaService {
 
             FamiliaProductora familia = familiaProductoraDao.getById(entityToEdit.familiaPrimaId,true);
             MateriaPrima materiaPrima = this.materiaPrimaDao.getById(entityToEdit.materiaPrimaId);
-            Usuario user=_usuarioDao.getById(Long.valueOf(1));
+            Usuario user=_usuarioDao.getById(Long.valueOf(entityToEdit.getUsuarioId()));
+
+
 
             IngresoMateriaPrima ingresoMateriaPrima=ingresoMateriaPrimaDao.getById(id,true);
+            Date dateCreation=ingresoMateriaPrima.getFecha();
+            if(entityToEdit.fecha==null){
+                entityToEdit.fecha=dateCreation;
+            }
 
             ingresoMateriaPrima.setCantidad(entityToEdit.cantidad);
             ingresoMateriaPrima.setCodigo(entityToEdit.codigo);
             ingresoMateriaPrima.setDescripcion(entityToEdit.descripcion);
             ingresoMateriaPrima.setValorCompra(entityToEdit.valorCompra);
+            ingresoMateriaPrima.setFecha(entityToEdit.fecha);
 
             ingresoMateriaPrima.setMateriaPrima(materiaPrima);
             ingresoMateriaPrima.setProductor(familia);
 
             if(!(ingresoMateriaPrima.getEstadoActual().getEstado().getValue().equals(entityToEdit.estado.getValue()))){
-                EstadoMateriaPrima estado= new EstadoMateriaPrima(user, entityToEdit.estado);
+                EstadoMateriaPrima estado= new EstadoMateriaPrima(user, entityToEdit.estado,entityToEdit.fecha);
                 ingresoMateriaPrima.addEstado(estado);
                 estado.setIngresoMateriaPrima(ingresoMateriaPrima);
             }
@@ -113,6 +124,7 @@ public class IngresoMateriaPrimaService implements IIngresoMateriaPrimaService {
 
 
     }
+
 
 
     private IngresoMateriaPrimaViewModel toViewModel(IngresoMateriaPrima imp) {

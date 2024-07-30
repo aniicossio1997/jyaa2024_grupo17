@@ -3,7 +3,7 @@
     <app-sidebar [isResponsive]="isResponsive"></app-sidebar>
   </div>
   <div class="layout-main-container">
-    <div class="flex justify-content-start m-2">
+    <div class="flex justify-content-start m-2 mb-4">
       <p-breadcrumb class="max-w-full" [model]="breadcrumbItems" [home]="home">
         <ng-template pTemplate="item" let-item>
           <ng-container *ngIf="item.path; else elseBlock">

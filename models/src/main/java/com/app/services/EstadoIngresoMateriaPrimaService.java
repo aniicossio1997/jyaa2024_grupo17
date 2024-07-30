@@ -31,7 +31,7 @@ public class EstadoIngresoMateriaPrimaService implements IEstadoIngresoMateriaPr
     public EstadoViewModel create(EstadoIngresoMateriaPrimaCreateViewModel entityToAdd) {
         IngresoMateriaPrima ingresoMateriaPrima = this.ingresoMateriaPrimaDao.getById(entityToAdd.ingresoMateriaPrimaId);
 
-        Usuario user=_usuarioDao.getById(Long.valueOf(1));
+        Usuario user=_usuarioDao.getById(Long.valueOf(entityToAdd.getUserId()));
 
         EstadoMateriaPrima estado = new EstadoMateriaPrima(user, new Date(), entityToAdd.estado,ingresoMateriaPrima);
         ingresoMateriaPrima.addEstado(estado);

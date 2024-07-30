@@ -5,6 +5,7 @@ import { ITEMS_ROUTERS } from '../../routers/index';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import ConfirmationDialogService from '../ConfirmationDialogService';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-shell',
@@ -24,7 +25,8 @@ export class ShellComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private confirmationDialogService: ConfirmationDialogService,
-    private router: Router
+    private router: Router,
+    private authService:AuthService
   ) {}
   ngOnInit(): void {
     this.menuActive = this.isStatic() && !this.isMobile();
@@ -32,21 +34,16 @@ export class ShellComponent implements OnInit {
 
     this.home = { icon: 'pi pi-home', routerLink: '/' };
 
+    this.authService.init()
+    // Inicializar los breadcrumbs al cargar la página
+    this.updateBreadcrumbs(this.router.url);
+
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
-        const some = this.routesItems.filter((e) => {
-          this.breadcrumbItems = this.getBreadcrumbItems(
-            event.urlAfterRedirects
-          );
-          return (
-            e.routerLink[0] == this.extractBaseRoute(event.urlAfterRedirects)
-          );
-        });
-        if (some[0]) {
-          this.items = [{ label: some[0].title }];
-        }
+        this.updateBreadcrumbs(event.urlAfterRedirects);
       });
+
   }
   isMobile() {
     return window.innerWidth <= 980;
@@ -62,7 +59,7 @@ export class ShellComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    this.isResponsive = window.innerWidth <= 950;
+    this.isResponsive = window.innerWidth <= 952;
   }
 
   extractBaseRoute(url: string): string {
@@ -103,5 +100,15 @@ export class ShellComponent implements OnInit {
       }
     });
     return links;
+  }
+
+  updateBreadcrumbs(url: string): void {
+    this.breadcrumbItems = this.getBreadcrumbItems(url);
+    const some = this.routesItems.filter((e) => {
+      return e.routerLink[0] == this.extractBaseRoute(url);
+    });
+    if (some[0]) {
+      this.items = [{ label: some[0].title }];
+    }
   }
 }

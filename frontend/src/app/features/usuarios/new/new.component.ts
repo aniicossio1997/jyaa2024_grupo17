@@ -50,7 +50,7 @@ export class NewComponent implements OnInit {
       username: raw.username,
       email: raw.email,
       rol: raw.rol.value,
-      password: raw.rol.value,
+      password: raw.password,
     };
     this.loading = true;
     this.usuariosService.create(request).subscribe((res) => {

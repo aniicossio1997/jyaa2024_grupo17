@@ -5,5 +5,6 @@ export interface IngresoMateriaPrimaCreateViewModel{
   valorCompra: number
   materiaPrimaId: number
   familiaPrimaId: number
-  estado: string
+  estado: string,
+  fecha?:Date
 }

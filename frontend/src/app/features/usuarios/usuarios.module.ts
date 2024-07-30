@@ -22,6 +22,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 const appRoutes: Routes = [
+
   { path: '', redirectTo: 'query', pathMatch: 'full' },
   { path: 'query', component: QueryComponent, title: 'Listado de Usuarios' },
   { path: 'new', component: NewComponent, title: 'Agregar Usuario' },
@@ -55,5 +56,6 @@ const appRoutes: Routes = [
     SharedModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  exports:[RouterModule]
 })
 export class UsuariosModule {}

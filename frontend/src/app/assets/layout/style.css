@@ -5009,7 +5009,7 @@ p:last-child {
   padding: 2rem;
   margin-bottom: 2rem;
   box-shadow: var(--card-shadow);
-  border-radius: 12px
+  border-radius: 12px;
 }
 
 .card:last-child {

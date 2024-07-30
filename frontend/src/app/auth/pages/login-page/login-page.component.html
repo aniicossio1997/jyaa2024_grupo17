@@ -1,0 +1,73 @@
+
+<div class="px-5 flex justify-content-center align-items-center mt-6">
+
+
+ <div class="border-1 surface-border surface-card border-round py-6 px-3 md:px-7 z-1
+   md:w-50rem "
+  style="width: 30rem;"
+  >
+    <div class="mb-4">
+      <div class="text-900 text-3xl	font-bold mb-2 mb-4 text-center	">Inicia sesión</div>
+
+
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="flex flex-column gap-2">
+
+      <p-messages severity="error"
+      *ngIf="authService.isError"
+        >
+          <ng-template pTemplate>
+              <div class="ml-2">Usuario o contraseña incorrectos
+              </div>
+          </ng-template>
+      </p-messages>
+      </div>
+
+
+      <div class="flex flex-column gap-2 mb-4">
+        <label for="username">Nombre de usuario <span class="text-red">*</span> </label>
+        <input
+            pInputText
+            id="username"
+            aria-describedby="username-help"
+            formControlName="username"
+
+
+        />
+        <small id="username-help">
+
+        </small>
+      </div>
+
+      <div class="flex flex-column gap-2 mt-2">
+        <label for="password">Contraseña <span class="text-red">*</span></label>
+        <p-password  [toggleMask]="true" [feedback]="false"
+        formControlName="password"
+
+          />
+
+        <small id="username-help">
+        </small>
+      </div>
+
+      <div class="flex mt-4">
+        <p-button label="Login"
+          class="mt-2 text-lg w-full"
+          styleClass="text-lg w-full"
+
+          [disabled]="loginForm.invalid"
+          pTooltip="{{ loginForm.invalid ? 'Complete el nombre de usuario y la contraseña' : '' }}"
+          tooltipPosition="bottom"
+          type="submit"
+         />
+
+
+
+      </div>
+
+    </form>
+  </div>
+</div>
+
+

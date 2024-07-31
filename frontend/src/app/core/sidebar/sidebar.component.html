@@ -34,20 +34,24 @@
           </ul>
         </div>
         <div class="sidebar-footer mb-5 mt-auto">
-      
+
           <a
             pRipple
             class="m-3 mb-0 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
           >
             <p-avatar
               shape="circle"
-              label="AU"
+              [label]="authService?.userCurrent?.nombre +' '+authService?.userCurrent?.apellido | initialsTransform"
               size="large"
               [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }"
             />
-            <span class="font-bold">Admin User</span>
+            <span class="font-bold">{{authService?.userCurrent?.nombre}} {{authService?.userCurrent?.apellido}}</span>
           </a>
-    
+          <p-button label="Salir" [text]="true" severity="danger"  class="p-0 m-0 ml-3"
+          icon="pi pi-sign-in"
+          (click)="authService.logout()"
+          />
+
           <div class="flex justify-content-end"
             ><p-button
               type="button"
@@ -80,14 +84,26 @@
     <div class="sidebar-header">
       <div class="flex flex-column h-full">
         <div
-          class="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0"
+          class="flex  justify-content-between px-4 pt-3 flex-shrink-0 gap-2"
         >
           <span class="inline-flex align-items-center gap-4 text-primary">
             <i class="fa-solid fa-industry text-4xl"></i>
             <span class="font-semibold text-2xl">Sala de Elaboración</span>
           </span>
-          <span> </span>
+
+          <div class="flex justify-content-end"
+          ><p-button
+            type="button"
+            (click)="toggleTheme()"
+            [icon]="themeIcon"
+            [text]="true"
+            icon="pi pi-sun"
+            rounded="true"
+            class="mr-2"
+          ></p-button
+        ></div>
         </div>
+
         <hr class="mx-3 border-top-1 border-none surface-border" />
       </div>
     </div>
@@ -102,7 +118,7 @@
       </ul>
     </div>
     <div class="sidebar-footer mb-3">
-      
+
       <hr class=" mx-3 border-top-1 border-none surface-border" />
       <a
         pRipple
@@ -110,24 +126,19 @@
       >
         <p-avatar
           shape="circle"
-          label="AU"
+          [label]="authService?.userCurrent?.nombre +' '+authService?.userCurrent?.apellido | initialsTransform"
           size="large"
           [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }"
         />
-        <span class="font-bold">Admin User</span>
-      </a>
+        <span class="font-bold">{{authService?.userCurrent?.nombre}} {{authService?.userCurrent?.apellido}}</span>
 
-      <div class="flex justify-content-end"
-        ><p-button
-          type="button"
-          (click)="toggleTheme()"
-          [icon]="themeIcon"
-          [text]="true"
-          icon="pi pi-sun"
-          rounded="true"
-          class="mr-2"
-        ></p-button
-      ></div>
+      </a>
+      <p-button label="Salir" [text]="true" severity="danger"  class="p-0 m-0 ml-3"
+      icon="pi pi-sign-in"
+      (click)="authService.logout()"
+      />
+
+
     </div>
   </div>
 </ng-template>

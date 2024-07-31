@@ -53,6 +53,7 @@ export class IngresoEditComponent implements OnInit {
       this.myForm.get("materiaPrimaId").setValue(this.ingreso.materiaPrima.id);
       this.myForm.get("familiaPrimaId").setValue(this.ingreso.familiaProductora.id!);
       this.myForm.get("estado").setValue(this.ingreso.currentState.nombre);
+      this.myForm.get("fecha").setValue(new Date(this.ingreso.fecha));
 
       // Marcar controles como tocados para forzar la actualización de validaciones
 
@@ -71,7 +72,8 @@ export class IngresoEditComponent implements OnInit {
       cantidad: ['', [Validators.required, this.positiveNumberValidator]],
       materiaPrimaId:['', Validators.required],
       familiaPrimaId:['',Validators.required],
-      estado:['', Validators.required]
+      estado:['', Validators.required],
+      fecha:['', Validators.required]
     });
   }
 
@@ -113,5 +115,8 @@ export class IngresoEditComponent implements OnInit {
   back(){
     this.router.navigate([`/${ManagementRoutes.MateriaPrima}/${ManagementRoutes.Gestion}/`, this.ingreso.materiaPrima.id!]); // Usa item.id para redirigir
 
+  }
+  get currentDate(){
+    return new Date();
   }
 }

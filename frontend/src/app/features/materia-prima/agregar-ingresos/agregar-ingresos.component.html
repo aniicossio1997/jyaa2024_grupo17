@@ -14,17 +14,19 @@ severity="secondary"
     <div class="field col-12 md:col-12" >
       <label htmlFor="familiaPrimaId" class="mr-3">Materia Prima: </label>
       <input
-      id="disabled-input"
-      type="text"
-      pInputText
-      [disabled]="true"
-      [value]="materiaPrima?.nombre"
-      class="font-bold"
+        id="disabled-input"
+        type="text"
+        pInputText
+        [disabled]="true"
+        [value]="materiaPrima?.nombre"
+        class="font-bold"
+        style="color: var(--surface-950);"
+
        />
     </div>
 
     <div class="field col-12 md:col-12">
-      <label htmlFor="familiaPrimaId" class="mr-3">Familia Productora *</label>
+      <label htmlFor="familiaPrimaId" class="mr-3">Familia Productora <span class="text-danger">*</span></label>
       <span
       customLabel
       [valueForm]="(myForm.get('familiaPrimaId')?.value)"
@@ -48,9 +50,7 @@ severity="secondary"
     </div>
 
     <div class="field col-12 md:col-12">
-      <label htmlFor="valorCompra">Valor de compra *</label>
-
-
+      <label htmlFor="valorCompra">Valor de compra <span class="text-danger">*</span></label>
 
       <p-inputGroup>
         <p-inputGroupAddon>$</p-inputGroupAddon>
@@ -72,7 +72,7 @@ severity="secondary"
     </div>
 
     <div class="field col-12 md:col-12">
-      <label htmlFor="unidadMedida">Cantidad*</label>
+      <label htmlFor="unidadMedida">Cantidad <span class="text-danger">*</span></label>
       <p-inputGroup>
         <p-inputGroupAddon>
             {{materiaPrima?.unidadMedida}}
@@ -81,7 +81,7 @@ severity="secondary"
     </p-inputGroup>
     </div>
     <div class="field col-12 md:col-12">
-      <label htmlFor="estado">Estado *</label>
+      <label htmlFor="estado">Estado <span class="text-danger">*</span></label>
       <p-dropdown
         [options]="estados"
         placeholder="Selecciona un estado"
@@ -92,7 +92,22 @@ severity="secondary"
     </div>
 
     <div class="field col-12 md:col-12">
-      <label htmlFor="descripcionid">Descripción</label>
+      <label htmlFor="descripcionid">Fecha de ingreso <small class="text-color-secondary">(opcional)</small>  </label>
+      <p-calendar
+        inputId="calendar-24h"
+        class="min-w-full"
+        [placeholder]="currentDate | date : 'dd/MM/yyyy'"
+        [showTime]="true"
+        [hourFormat]="24"
+        [showIcon]="true"
+        formControlName="fecha"
+
+       />
+
+    </div>
+
+    <div class="field col-12 md:col-12">
+      <label htmlFor="descripcionid">Descripción <small class="text-color-secondary">(opcional)</small></label>
       <textarea
       formControlName="descripcion"
       rows="4"
@@ -103,6 +118,9 @@ severity="secondary"
       >
       </textarea>
     </div>
+
+
+
     <div class="field col-12">
       <div class="flex justify-content-between flex-wrap">
         <p-button

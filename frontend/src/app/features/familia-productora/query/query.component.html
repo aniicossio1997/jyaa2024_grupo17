@@ -41,7 +41,6 @@
     <ng-template pTemplate="header">
       <tr>
         <th style="width: 4rem">Acciones</th>
-        <th pSortableColumn="id">Código <p-sortIcon field="id" /></th>
         <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre" /></th>
         <th pSortableColumn="descripcion">
           Descripción <p-sortIcon field="descripcion" />
@@ -66,12 +65,11 @@
             appendTo="body"
           ></p-menu>
         </td>
-        <td>#{{ family.id }}</td>
         <td>
           {{ family.nombre }}
         </td>
         <td>
-          {{ family.descripcion }}
+          {{ family?.descripcion !='' ? family?.descripcion : '-' }}
         </td>
       </tr>
     </ng-template>

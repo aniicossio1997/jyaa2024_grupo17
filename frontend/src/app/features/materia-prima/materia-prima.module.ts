@@ -40,6 +40,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { IngresoDetailComponent } from './materia-detail/ingreso-detail/ingreso-detail.component';
 import { IngresoEditComponent } from './materia-detail/ingreso-edit/ingreso-edit.component';
 import { IngresoCambiarEstadoComponent } from './materia-detail/ingreso-cambiar-estado/ingreso-cambiar-estado.component';
+import { CalendarModule } from 'primeng/calendar';
 
 
 const appRoutes: Routes = [
@@ -112,7 +113,8 @@ const appRoutes: Routes = [
     MenuModule,
     ReactiveFormsModule,
     InputGroupAddonModule,
-    SharedModule
+    SharedModule,
+    CalendarModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 

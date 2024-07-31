@@ -1,0 +1,23 @@
+
+<div class="flex justify-content-between flex-wrap">
+  <div class="flex align-items-center justify-content-center  m-2">
+    <span class="inline-flex align-items-center  text-primary">
+      <i class="fa-solid fa-industry text-4xl"></i>
+      <span class="font-semibold text-xl ml-2">Sala de Elaboración</span>
+    </span>
+  </div>
+  <div class="flex align-items-center justify-content-center m-2">
+    <p-button
+    type="button"
+    (click)="toggleTheme()"
+    [icon]="themeIcon"
+    [text]="true"
+    icon="pi pi-sun"
+    rounded="true"
+    class=""
+    ></p-button>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
+

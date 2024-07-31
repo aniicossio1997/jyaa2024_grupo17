@@ -31,12 +31,7 @@ severity="secondary"
 
       </div>
     </div>
-    <div class="col-12">
-        <div class=" p-card-subtitle">
-          Descripción: <b>{{materiaPrimaDetail?.descripcion || '-'}}</b>
 
-        </div>
-    </div>
     <div class="col-6">
         <div class=" ">
           Cantidad total: <b>{{materiaPrimaDetail?.totalCantidadDisponible}} {{materiaPrimaDetail?.unidadMedida}}</b>
@@ -49,6 +44,12 @@ severity="secondary"
 
         </div>
     </div>
+    <div class="col-12">
+      <div class="">
+        Descripción: <b>{{materiaPrimaDetail?.descripcion || '-'}}</b>
+
+      </div>
+  </div>
 </div>
 
 <p-divider />

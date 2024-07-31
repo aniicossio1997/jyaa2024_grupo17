@@ -31,6 +31,7 @@
   --surface-700: #374151;
   --surface-800: #1f2937;
   --surface-900: #111827;
+  --surface-950: #000101;
   --gray-50: #f9fafb;
   --gray-100: #f3f4f6;
   --gray-200: #e5e7eb;
@@ -44,11 +45,11 @@
   --content-padding:1.25rem;
   --inline-spacing:0.5rem;
   --border-radius:6px;
-  --surface-ground:#f9fafb;
+  --surface-ground:#efeff0;
   --surface-section:#ffffff;
   --surface-card:#ffffff;
   --surface-overlay:#ffffff;
-  --surface-border:#dfe7ef;
+  --surface-border:#d1d9e1;
   --surface-hover:#f6f9fc;
   --focus-ring: 0 0 0 0.2rem #a7f3d0;
   --maskbg: rgba(0, 0, 0, 0.4);
@@ -6598,3 +6599,5 @@
   color: #047857;
   background: #ecfdf5;
 }
+
+

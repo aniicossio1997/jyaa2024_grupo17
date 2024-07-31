@@ -4,14 +4,16 @@ import { CustomInputErrorDirective } from './directives/custom-input-error.direc
 import { CustomLabelDirective } from './directives/custom-label.directive';
 import { DateTransformPipe } from './pipes/date-transform.pipe';
 import { PriceTransformPipe } from './pipes/price-transform.pipe';
+import {  InitialsTransformPipe } from './pipes/Initials-transform.pipe';
 
 
 
 @NgModule({
-  declarations: [CustomInputErrorDirective, CustomLabelDirective, DateTransformPipe, PriceTransformPipe],
+  declarations: [CustomInputErrorDirective, CustomLabelDirective, DateTransformPipe,
+     PriceTransformPipe, InitialsTransformPipe],
   imports: [
     CommonModule
   ],
-  exports:[CustomInputErrorDirective,CustomLabelDirective, DateTransformPipe, PriceTransformPipe]
+  exports:[CustomInputErrorDirective,CustomLabelDirective, DateTransformPipe, PriceTransformPipe, InitialsTransformPipe]
 })
 export class SharedModule { }

@@ -11,7 +11,7 @@ export enum ManagementRoutes {
   AddIngredientes='add-ingredientes',
   AddIngresos='add-ingresos',
   Gestion='gestion',
-  
+
 
 
 
@@ -22,6 +22,8 @@ export enum ManagementRoutes {
   Insumo='Insumos',
   Receta='recetas',
   Elaboracion='elaboracion',
+  Auth='auth',
+  Login='login'
 
 }
 export enum Routes {
@@ -61,6 +63,7 @@ export const  ITEMS_ROUTERS:IRouteModel[]=[
     routerLink:[`/${ManagementRoutes.Elaboracion}`],
     icon:'fa-solid fa-jar-wheat'
   },
+
 
 
   //------------------------------------

@@ -5,6 +5,8 @@
 
 .layout-sidebar{
   background-color: var(--surface-overlay);
+  border: 1px solid var(--surface-border);
+
 }
 
 .layout-menu-container {
@@ -12,6 +14,6 @@
 }
 
 .sidebar-footer{
-  background-color: var(--surface-overlay);
+  background-color: 1px solid var(--surface-overlay) !important;
   margin-bottom: 1rem;
 }

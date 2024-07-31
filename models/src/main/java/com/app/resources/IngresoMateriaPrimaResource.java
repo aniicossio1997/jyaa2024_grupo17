@@ -27,6 +27,8 @@ public class IngresoMateriaPrimaResource extends BaseResource {
     }
     @POST
     public IngresoMateriaPrimaViewModel create(@Valid IngresoMateriaPrimaCreateViewModel entityToAdd) {
+        Long id = this.getUsuarioId();
+        entityToAdd.setUsuarioId(id);
         return this.ingresoMateriaPrimaService.create(entityToAdd);
     }
 
@@ -47,6 +49,7 @@ public class IngresoMateriaPrimaResource extends BaseResource {
     @Path("{id}")
     public IngresoMateriaPrimaDetailViewModel update(@PathParam("id") Long id, IngresoMateriaPrimaUpdateViewModel entityToEdit){
 
+        entityToEdit.setUsuarioId(this.getUsuarioId());
         return this.ingresoMateriaPrimaService.update(id, entityToEdit);
 
     }

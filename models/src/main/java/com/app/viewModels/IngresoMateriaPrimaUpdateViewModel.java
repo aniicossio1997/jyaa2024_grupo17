@@ -12,4 +12,15 @@ public class IngresoMateriaPrimaUpdateViewModel {
     public Long materiaPrimaId;
     public Long familiaPrimaId;
     public EstadoMateriaPrimaEnum estado;
+    public Date fecha;
+
+    private Long usuarioId;
+
+    public Long getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
+    }
 }

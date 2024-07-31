@@ -5,6 +5,7 @@ import com.app.utils.ListUtils;
 import com.app.viewModels.*;
 import org.jvnet.hk2.annotations.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -59,7 +60,9 @@ public class MappingService {
                 elaboracion.getCodigo(),
                 elaboracion.getEstados().stream().findFirst().map(this::toViewModel).orElse(null),
                 elaboracion.getFecha(),
-                elaboracion.getReceta().getId()
+                elaboracion.getReceta().getId(),
+                Optional.ofNullable(elaboracion.getEstados().get(0)).map(e -> this.toViewModel(e.getAutor())).orElse(null),
+                elaboracion.getReceta().getNombre()
         );
     }
 
@@ -71,7 +74,9 @@ public class MappingService {
                 elaboracion.getEstados().stream().findFirst().map(this::toViewModel).orElse(null),
                 ListUtils.mapList(elaboracion.getEstados(), this::toViewModel),
                 elaboracion.getFecha(),
-                this.toViewModel(elaboracion.getReceta())
+                this.toViewModel(elaboracion.getReceta()),
+                ListUtils.mapList(elaboracion.getNotas(), this::toViewModel),
+                ListUtils.mapList(elaboracion.getConsumoMateriasPrimas(), this::toViewModel)
         );
     }
 
@@ -83,6 +88,12 @@ public class MappingService {
                 insumo.getUnidadMedida(),
                 insumo.getDescripcion()
 
+        );
+    }
+
+    public ConsumoMateriaPrimaViewModel toViewModel(ConsumoMateriaPrima entity) {
+        return new ConsumoMateriaPrimaViewModel(
+                entity.getId(), entity.getCantidad(), entity.getElaboracion().getId(), toViewModel(entity.getMateriaPrima())
         );
     }
 
@@ -98,6 +109,15 @@ public class MappingService {
                 entity.getUnidadMedida(),
                 entity.getCantidadIngresos(),
                 entity.getTotalValorDeCompra()
+        );
+    }
+
+    public NotaViewModel toViewModel(Nota entity) {
+        return new NotaViewModel(
+                entity.getId(),
+                toViewModel(entity.getAutor()),
+                entity.getDescripcion(),
+                entity.getFecha()
         );
     }
 

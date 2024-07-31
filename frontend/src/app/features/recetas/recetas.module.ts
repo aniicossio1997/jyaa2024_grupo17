@@ -28,19 +28,28 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { EditComponent } from './edit/edit.component';
 import { ManagementRoutes } from '../../routers';
-import { ElaboracionNewComponent } from './elaboraciones/new/elaboracion-new.component';
+import { SelectorIngresosComponent } from '../elaboraciones/selector-ingresos/selector-ingresos.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'query', pathMatch: 'full' },
-  { path: 'query', component: QueryComponent, title: "Listado de Recetas"  },
-  { path: 'new', component: NewComponent , title: "Agregar Receta" },
-  { path: 'detail/:id', component: DetailComponent , title: "Detalle de Receta" },
-  { path: 'edit/:id', component: EditComponent, title: "Editar Receta" },
-  { path: `:id/${ManagementRoutes.Elaboracion}`, component: ElaboracionNewComponent, title: "Nueva Elaboracion" },
+  { path: 'query', component: QueryComponent, title: 'Listado de Recetas' },
+  { path: 'new', component: NewComponent, title: 'Agregar Receta' },
+  {
+    path: 'detail/:id',
+    component: DetailComponent,
+    title: 'Detalle de Receta',
+  },
+  { path: 'edit/:id', component: EditComponent, title: 'Editar Receta' },
+ 
 ];
 
 @NgModule({
-  declarations: [QueryComponent, DetailComponent, NewComponent, EditComponent, ElaboracionNewComponent],
+  declarations: [
+    QueryComponent,
+    DetailComponent,
+    NewComponent,
+    EditComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(appRoutes),

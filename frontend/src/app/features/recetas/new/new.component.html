@@ -13,7 +13,7 @@
      
       <div class="field col-12 md:col-12">
         <h5>Detalles</h5>
-        <label htmlFor="nombre">Nombre</label>
+        <label htmlFor="nombre">Nombre <span class="text-danger">*</span></label>
         <input
           pInputText
           id="firstname2"
@@ -48,7 +48,7 @@
       </div>
       <p-divider styleClass="my-0 w-full" [ngStyle]="{ width: '100%' }" />
       <div class="my-4 field col-12 md:col-12">
-        <h5>Ingredientes</h5>
+        <h5>Ingredientes <span class="text-danger">*</span></h5>
         <p class="text-500">
           Los ingredientes deben estar especificados para la elaboración de <b>una
           unidad</b> del producto final. <br />
@@ -85,7 +85,7 @@
           >
             <div
               *ngFor="let item of selectedMateriasPrimas; index as i"
-              class="shadow-1 px-2 pl-2 pr-1 flex justify-content-between align-items-center border-round-md"
+              class="shadow-1 px-2 pl-2 pr-1 flex justify-content-between align-items-center border-round-md bg-item"
             >
               <span>
                 <b>{{ item.nombre }}</b></span
@@ -138,7 +138,7 @@
           <div class="flex flex-column gap-1 mt-2" formArrayName="insumos">
             <div
               *ngFor="let item of selectedInsumos; index as i"
-              class="shadow-1 px-2 pl-2 pr-1 flex justify-content-between align-items-center border-round-md"
+              class="shadow-1 px-2 pl-2 pr-1 flex justify-content-between align-items-center border-round-md bg-item"
             >
               <span>
                 <b>{{ item.nombre }}</b></span

@@ -38,6 +38,11 @@ export const routesRoot: Routes = [
     loadChildren: () =>
       import('../features/insumos/insumos.module').then((m) => m.InsumosModule),
   },
+  {
+    path: ManagementRoutes.Elaboracion,
+    loadChildren: () =>
+      import('../features/elaboraciones/elaboraciones.module').then((m) => m.ElaboracionesModule),
+  },
 ];
 
 @NgModule({

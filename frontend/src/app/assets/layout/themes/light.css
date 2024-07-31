@@ -17,7 +17,9 @@
 
   --text-danger:var(--red-600);
   --text-success:var(--green-600);
+  --text-info:var(--cyan-700);
 
+  --bg-item: var(--surface-50);
   --surface-0: #ffffff;
   --surface-50: #f9fafb;
   --surface-100: #f3f4f6;

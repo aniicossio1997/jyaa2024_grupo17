@@ -70,7 +70,7 @@ export class DetailComponent implements OnInit {
   public get Routes() {
     return {
       EDIT: `/${ManagementRoutes.Receta}/${ManagementRoutes.Edit}/${this.receta?.id}`,
-      ELABORACION_NEW: `/${ManagementRoutes.Receta}/${this.receta?.id}/${ManagementRoutes.Elaboracion}`,
+      ELABORACION_NEW: `/${ManagementRoutes.Elaboracion}/${ManagementRoutes.New}/${this.receta?.id}`,
 
     };
   }

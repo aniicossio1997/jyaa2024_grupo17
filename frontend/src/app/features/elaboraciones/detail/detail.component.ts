@@ -4,29 +4,23 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ManagementRoutes } from '../../../routers';
 import { RecetaDetalleViewModel } from '../../../interfaces/RecetaDetalleViewModel';
-
-interface IngredienteNormal {
-  cantidad: number;
-  nombre: string;
-  tipo: string;
-  unidadMedida: string;
-  cantidadDisponible: number;
-}
+import ElaboracionDetalleViewModel from '../../../interfaces/ElaboracionDetalleViewModel';
+import { ElaboracionService } from '../../../services/elaboracion.service';
+import { EstadoElaboracionEnum } from '../../../model/EstadoElaboracionEnum';
 
 @Component({
-  providers: [RecetasService],
-  selector: 'receta-detail',
+  providers: [ElaboracionService],
+  selector: 'elaboracion-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
 })
 export class DetailComponent implements OnInit {
-  receta: RecetaDetalleViewModel;
-  ingredientesNormal: IngredienteNormal[];
+  elaboracionDetalle: ElaboracionDetalleViewModel;
   id: number;
   loading = false;
 
   constructor(
-    private recetasService: RecetasService,
+    private elaboracionService: ElaboracionService,
     private router: Router,
     private toastr: ToastrService,
     private activatedRoute: ActivatedRoute
@@ -35,29 +29,33 @@ export class DetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.recetasService.detail(this.id).subscribe((res) => {
-      this.receta = res;
-      this.ingredientesNormal = this.receta.ingredientes.map((i) => ({
-        cantidad: i.cantidad,
-        nombre: i.insumo?.nombre || i.materiaPrima?.nombre,
-        unidadMedida: i.materiaPrima?.unidadMedida || i.insumo?.unidadMedida,
-        tipo: i.insumo ? 'INSUMO' : 'MATERIA PRIMA',
-        cantidadDisponible:
-          i.insumo?.cantidadDisponible ||
-          i.materiaPrima?.totalCantidadDisponible || 0,
-      }));
+    this.elaboracionService.detail(this.id).subscribe((r) => {
+      this.elaboracionDetalle = r;
     });
   }
 
-  public get Routes() {
-    return {
-      EDIT: `/${ManagementRoutes.Receta}/${ManagementRoutes.Edit}/${this.receta?.id}`,
-    };
+  get autor() {
+    if (!this.elaboracionDetalle) return '';
+    return this.elaboracionDetalle.estados[0]?.autor.nombre;
+  }
+
+  getEstadoSeverity(estado: string) {
+    switch (estado) {
+      case EstadoElaboracionEnum.ENTREGADO_COMPLETO:
+        return 'success';
+      case EstadoElaboracionEnum.ENTREGADO_PARCIAL:
+        return 'primary';
+      case EstadoElaboracionEnum.EN_DEPOSITO:
+        return 'warning';
+      case EstadoElaboracionEnum.EN_PROCESO:
+        return 'info';
+    }
+    return '';
   }
 
   back() {
     this.router.navigate([
-      '/' + ManagementRoutes.Receta,
+      '/' + ManagementRoutes.Elaboracion,
       ManagementRoutes.Query,
     ]);
   }

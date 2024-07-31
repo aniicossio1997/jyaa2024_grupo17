@@ -3,6 +3,7 @@ package com.app.services;
 import com.app.dao.interfaces.*;
 import com.app.exceptions.InvalidParameterException;
 import com.app.models.*;
+import com.app.models.enums.EstadoElaboracionEnum;
 import com.app.services.interfaces.IElaboracionService;
 import com.app.utils.ListUtils;
 import com.app.viewModels.*;
@@ -51,66 +52,67 @@ public class ElaboracionService implements IElaboracionService {
 
     @Override
     public ElaboracionDetalleViewModel create(ElaboracionCreateViewModel view) {
+        Usuario autor = usuarioDao.getById(1L);
         Receta receta = recetaDao.getById(view.recetaId);
         Elaboracion elaboracion = new Elaboracion(view.cantidad.intValue(), "", new Date(), receta);
 
 
         List<ConsumoInsumo> consumoInsumos = new ArrayList<>();
 
-        for (ConsumoCreateViewModel c : view.consumoInsumos) {
-            Insumo insumo = insumoDao.getById(c.insumoId);
-            if (insumo == null) throw new NotFoundException("insumo_not_found");
-            consumoInsumos.add(new ConsumoInsumo(c.cantidad, insumo, elaboracion));
-        }
         List<ConsumoMateriaPrima> consumoMateriasPrimas = new ArrayList<>();
 
-        for (ConsumoCreateViewModel c : view.consumoInsumos) {
+        for (ConsumoCreateViewModel c : view.consumoMateriasPrimas) {
             IngresoMateriaPrima ingresoMateriaPrima = ingresoMateriaPrimaDao.getById(c.ingresoMateriaPrimaId);
             if (ingresoMateriaPrima == null) throw new NotFoundException("ingreso_materia_prima_not_found");
             consumoMateriasPrimas.add(new ConsumoMateriaPrima(c.cantidad, ingresoMateriaPrima, elaboracion));
         }
 
+        for (IngredienteReceta ingrediente : receta.getIngredientes()) {
+            if (ingrediente.getInsumo() == null) continue;
+            ConsumoInsumo consumo = new ConsumoInsumo(ingrediente.getCantidad(), ingrediente.getInsumo(), elaboracion);
+            consumoInsumos.add(consumo);
+        }
         elaboracion.setConsumoInsumos(consumoInsumos);
         elaboracion.setConsumoMateriasPrimas(consumoMateriasPrimas);
 
+        EstadoElaboracion estado = new EstadoElaboracion(autor, elaboracion.getFecha(), view.estado, elaboracion);
+        elaboracion.getEstados().add(estado);
         checkCantidadesSuficientes(elaboracion);
 
+        if (!view.nota.isEmpty()) {
+            Nota nota = new Nota(autor, view.nota, elaboracion);
+            elaboracion.getNotas().add(nota);
+        }
+
         elaboracionDao.save(elaboracion);
+
+        elaboracion.setCodigo("e-" + elaboracion.getId());
+        elaboracionDao.save(elaboracion);
+
         return mappingService.toDetalleViewModel(elaboracion);
     }
 
 
     private void checkCantidadesSuficientes(Elaboracion elaboracion) {
         Map<Long, Double> cantidadesMateriasPrimasRequeridas = new HashMap<>();
-        Map<Long, Double> cantidadesInsumosRequeridas = new HashMap<>();
 
         Map<Long, Double> cantidadesMateriasPrimasAportadas = new HashMap<>();
-        Map<Long, Double> cantidadesInsumosAportados = new HashMap<>();
 
         List<IngredienteReceta> ingredientes = elaboracion.getReceta().getIngredientes();
         for (IngredienteReceta ingrediente : ingredientes) {
             if (ingrediente.getMateriaPrima() != null) {
-                cantidadesMateriasPrimasRequeridas.put(ingrediente.getId(), ingrediente.getCantidad() * elaboracion.getCantidad());
-                cantidadesMateriasPrimasAportadas.put(ingrediente.getId(), 0D);
-            } else {
-                cantidadesInsumosRequeridas.put(ingrediente.getId(), ingrediente.getCantidad() * elaboracion.getCantidad());
-                cantidadesInsumosAportados.put(ingrediente.getId(), 0D);
+                cantidadesMateriasPrimasRequeridas.put(ingrediente.getMateriaPrima().getId(), ingrediente.getCantidad() * elaboracion.getCantidad());
+                cantidadesMateriasPrimasAportadas.put(ingrediente.getMateriaPrima().getId(), 0D);
+            }
+            if (ingrediente.getInsumo() != null) {
+                if (ingrediente.getInsumo().getCantidadDisponible() < ingrediente.getCantidad()) {
+                    throw new InvalidParameterException(MessageFormat.format("Cantidad de insumo: {0} insuficiente. Requerido: {1} Disponible: {2}", ingrediente.getInsumo().getNombre(), ingrediente.getCantidad(), ingrediente.getInsumo().getCantidadDisponible()));
+                }
             }
         }
 
-        for (ConsumoInsumo consumo : elaboracion.getConsumoInsumos()) {
-            cantidadesInsumosAportados.merge(consumo.getElaboracion().getId(), consumo.getCantidad(), (Double::sum));
-        }
-
-        for (Map.Entry<Long, Double> req : cantidadesInsumosRequeridas.entrySet()) {
-            Double aportado = cantidadesInsumosAportados.getOrDefault(req.getKey(), 0D);
-            if (aportado < req.getValue()) {
-                Optional<IngredienteReceta> ing = ingredientes.stream().filter(i -> (i.getInsumo() != null && Objects.equals(i.getInsumo().getId(), req.getKey()))).findFirst();
-                throw new InvalidParameterException(MessageFormat.format("Cantidad de insumo: {0} insuficiente. Requerida: {1} Aportada: {2}", ing.map(i -> i.getInsumo().getNombre()), req.getValue(), aportado));
-            }
-        }
         for (ConsumoMateriaPrima consumo : elaboracion.getConsumoMateriasPrimas()) {
-            cantidadesMateriasPrimasAportadas.merge(consumo.getElaboracion().getId(), consumo.getCantidad(), (Double::sum));
+            cantidadesMateriasPrimasAportadas.merge(consumo.getMateriaPrima().getId(), consumo.getCantidad(), (Double::sum));
         }
 
         for (Map.Entry<Long, Double> req : cantidadesMateriasPrimasRequeridas.entrySet()) {

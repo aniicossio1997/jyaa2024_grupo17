@@ -56,6 +56,11 @@ export const  ITEMS_ROUTERS:IRouteModel[]=[
     routerLink:[`/${ManagementRoutes.Receta}`],
     icon:'fa-solid fa-kitchen-set'
   },
+  {
+    title:'Elaboraciones',
+    routerLink:[`/${ManagementRoutes.Elaboracion}`],
+    icon:'fa-solid fa-jar-wheat'
+  },
 
 
   //------------------------------------

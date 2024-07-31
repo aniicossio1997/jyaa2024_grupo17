@@ -6,47 +6,114 @@
   (click)="back()"
   severity="secondary"
 />
-<div *ngIf="!!receta" class="card relative">
-  <div class="font-bold mt-2">
-    <h1 class="p-card-title">{{ receta.nombre | titlecase }}</h1>
-  </div>
-  <span class="absolute" style="top: 5px; right: 5px">
-    <p-button
-      pRipple
-      severity="primary"
-      label="Editar"
-      [text]="true"
-      icon="pi pi-pencil"
-      class="mr-2"
-      [routerLink]="[Routes.EDIT]"
-  /></span>
-  <p class="text-lg">{{ receta.descripcion }}</p>
-  <div class="grid text-lg">
-    <div class="col-6">
-      <b>Autor:</b> {{ receta.autor.nombre }} {{ receta.autor.apellido }}
+<div *ngIf="!!elaboracionDetalle" class="card relative">
+  <div class="mt-2">
+    <div class="mb-4 font-bold">Detalle de elaboración</div>
+    <div class="mb-4 text-lg">
+      Receta: <b>{{ elaboracionDetalle.receta.nombre }}</b>
+    </div>
+    <div class="grid text-lg">
+      <div class="col-6">
+        Código: <b>{{ elaboracionDetalle.codigo }}</b>
+      </div>
+      <div class="col-6">
+        Autor: <b>{{ autor }}</b>
+      </div>
+      <div class="col-6">
+        Estado:
+        <p-tag
+          class="ml-1"
+          [value]="elaboracionDetalle.estado.estado"
+          [severity]="getEstadoSeverity(elaboracionDetalle.estado.estado)"
+        />
+      </div>
+      <div class="col-6">
+        Cantidad: <b>{{ elaboracionDetalle.cantidad }}</b>
+      </div>
+      <div class="col-6">
+        Actualizado:
+        <b>{{ elaboracionDetalle.estado.fecha | dateTransformPipe }}</b>
+      </div>
     </div>
   </div>
 
   <div>
-    <p-table
-      #dt
-      [value]="ingredientesNormal"
-      [tableStyle]="{ 'min-width': '50rem' }"
-      [paginator]="true"
-      [rows]="10"
-      [rowsPerPageOptions]="[5, 10, 20]"
-      [globalFilterFields]="[
-        'nombre',
-        'cantidad',
-        'cantidadDisponible',
-        'tipo'
-      ]"
-      [alwaysShowPaginator]="false"
-    >
-      <ng-template pTemplate="caption">
-        <div class="flex align-items-center justify-content-between flex-wrap">
-          <h2 class="m-0">Ingredientes</h2>
-          <div class="flex gap-4 flex-wrap">
+    <p-divider />
+
+    <div>
+      <p-table
+        #dt2
+        [value]="elaboracionDetalle.notas"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [paginator]="true"
+        [alwaysShowPaginator]="false"
+        [rows]="5"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [rowsPerPageOptions]="[5, 10, 20]"
+        [globalFilterFields]="['autor.username', 'fecha', 'descripcion']"
+      >
+        <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-between">
+            <h5 class="m-0">Notas</h5>
+            <p-button
+              pRipple
+              label="Agregar Nota"
+              icon="pi pi-plus"
+              styleClass="mb-2"
+              (click)="back()"
+              severity="primary"
+            />
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="fecha">Fecha<p-sortIcon field="fecha" /></th>
+            <th pSortableColumn="autor.username">
+              Autor <p-sortIcon field="autor.username" />
+            </th>
+            <th pSortableColumn="descripcion">
+              Nota <p-sortIcon field="descripcion" />
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>
+              {{ item.fecha | dateTransformPipe }}
+            </td>
+            <td>{{ item.autor.username }}</td>
+
+            <td>
+              {{ item.descripcion }}
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td class="text-center py-4" [attr.colspan]="6">
+              No se encontraron resultados
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div class="mt-3">
+      <p-table
+        #dt
+        [value]="elaboracionDetalle.estados"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [paginator]="true"
+        [rows]="5"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [alwaysShowPaginator]="false"
+        [rowsPerPageOptions]="[5, 10, 20]"
+        [globalFilterFields]="['estado', 'fecha', 'autor.username']"
+      >
+        <ng-template pTemplate="caption">
+          <h5 >Historial de Estados</h5>
+
+          <div class="flex align-items-center justify-content-between">
             <span class="p-input-icon-left">
               <i class="pi pi-search"></i>
               <input
@@ -56,51 +123,55 @@
                 placeholder="Buscar..."
               />
             </span>
+            <p-button
+              pRipple
+              label="Cambiar estado"
+              icon="pi pi-tag"
+              styleClass="mb-2"
+              (click)="back()"
+              severity="primary"
+            />
           </div>
-        </div>
-      </ng-template>
-      <ng-template pTemplate="header">
-        <tr>
-          <th pSortableColumn="nombre">
-            Ingrediente <p-sortIcon field="nombre" />
-          </th>
-          <th pSortableColumn="tipo">Tipo <p-sortIcon field="tipo" /></th>
-          <th pSortableColumn="cantidad">
-            Cantidad <p-sortIcon field="cantidad" />
-          </th>
-          <th pSortableColumn="cantidadDisponible">
-            Disponible <p-sortIcon field="cantidadDisponible" />
-          </th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-item>
-        <tr>
-          <td>
-            {{ item.nombre }}
-          </td>
-          <td>
-            {{ item.tipo }}
-          </td>
-          <td>{{ item.cantidad }} {{ item.unidadMedida }}</td>
-          <td
-            [ngClass]="
-              item.cantidadDisponible >= item.cantidad
-                ? 'text-green-400'
-                : 'text-red-400'
-            "
-          >
-            <b>{{ item.cantidadDisponible }} {{ item.unidadMedida }}</b>
-          </td>
-        </tr>
-      </ng-template>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="fecha">
+              Fecha Inicio<p-sortIcon field="fecha" />
+            </th>
+            <th pSortableColumn="autor.username">
+              Autor <p-sortIcon field="autor.username" />
+            </th>
+            <th pSortableColumn="estado">
+              Estado <p-sortIcon field="estado" />
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>
+              {{ item.fecha | dateTransformPipe }}
+            </td>
+            <td>{{ item.autor.username }}</td>
 
-      <ng-template pTemplate="emptymessage">
-        <tr>
-          <td class="text-center py-4" [attr.colspan]="6">
-            No se encontraron resultados
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
+            <td>
+              <p-tag
+                [value]="item.estado"
+                [severity]="getEstadoSeverity(item.estado)"
+              />
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td class="text-center py-4" [attr.colspan]="6">
+              No se encontraron resultados
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+
   </div>
 </div>

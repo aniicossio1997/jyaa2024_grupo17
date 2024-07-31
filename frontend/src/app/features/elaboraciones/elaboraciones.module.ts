@@ -24,14 +24,39 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { DetailComponent } from './detail/detail.component';
+import { ManagementRoutes } from '../../routers';
+import { ElaboracionNewComponent } from './new/elaboracion-new.component';
+import { SelectorIngresosComponent } from './selector-ingresos/selector-ingresos.component';
+import { QueryComponent } from './query/query.component';
+import { SelectorRecetaComponent } from './selector-recetas/selector-recetas.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'query', pathMatch: 'full' },
-  { path: 'detail/:id', component: DetailComponent , title: "Detalle de Elaboracion" },
+  {
+    path: 'detail/:id',
+    component: DetailComponent,
+    title: 'Detalle de Elaboracion',
+  },
+  {
+    path: 'query',
+    component: QueryComponent,
+    title: 'Listado de Elaboraciones',
+  },
+  {
+    path: `${ManagementRoutes.New}/:id`,
+    component: ElaboracionNewComponent,
+    title: 'Nueva Elaboracion',
+  },
 ];
 
 @NgModule({
-  declarations: [DetailComponent],
+  declarations: [
+    DetailComponent,
+    ElaboracionNewComponent,
+    SelectorIngresosComponent,
+    SelectorRecetaComponent,
+    QueryComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(appRoutes),

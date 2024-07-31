@@ -6,8 +6,20 @@
 }
 
 .text-danger {
-  color: var(--text-danger)
+  color: var(--text-danger);
 }
 .text-success {
-  color: var(--text-success)
+  color: var(--text-success);
+}
+
+.text-info {
+  color: var(--text-info);
+}
+
+.bg-item {
+  background: var(--bg-item);
+}
+
+.p-dialog-content {
+  padding: 0 1.5rem 0rem 1.5rem;
 }

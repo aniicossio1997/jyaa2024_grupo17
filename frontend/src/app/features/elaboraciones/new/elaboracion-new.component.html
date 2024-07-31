@@ -1,0 +1,215 @@
+<div class="card" style="width: 80%">
+  <h5 class="mb-5">Nueva Elaboración</h5>
+  <form [formGroup]="form" class="p-fluid p-formgrid grid">
+    <div class="field col-12 md:col-12">
+      <label htmlFor="recetaId" class="mr-3">Receta: </label>
+      <input
+        id="recetaId"
+        type="text"
+        pInputText
+        [disabled]="true"
+        [value]="receta?.nombre"
+        class="font-bold"
+      />
+    </div>
+    <div class="field col-12 md:col-4">
+      <label htmlFor="unidadMedida"
+        >Cantidad <span class="text-danger">*</span></label
+      >
+      <p-inputGroup>
+        <p-inputNumber
+          placeholder="Ingrese una cantidad"
+          formControlName="cantidad"
+          [value]="form.get('cantidad')"
+        />
+      </p-inputGroup>
+    </div>
+    <div class="field col-12 md:col-8">
+      <label htmlFor="nota" class="mr-3">Nota Adicional: </label>
+      <input
+        id="nota"
+        type="text"
+        placeholder="Nota Adicional"
+        pInputText
+        [disabled]="true"
+        formControlName="nota"
+        [value]="form.get('nota')"
+      />
+    </div>
+
+    <div class="field col-12 md:col-12">
+      <label htmlFor="estado">Estado <span class="text-danger">*</span></label>
+      <p-dropdown
+        [options]="estados"
+        placeholder="Selecciona un estado"
+        [autoDisplayFirst]="false"
+        formControlName="estado"
+        [value]="form.get('estado')"
+      >
+        <ng-template let-item pTemplate="selectedItem">
+          <p-tag [value]="item" [severity]="getEstadoSeverity(item)" />
+        </ng-template>
+        <ng-template let-item pTemplate="item">
+          <p-tag [value]="item" [severity]="getEstadoSeverity(item)" />
+        </ng-template>
+      </p-dropdown>
+    </div>
+    <p-divider styleClass="w-full" [ngStyle]="{ width: '100%' }" />
+
+    <div class="field col-12 md:col-12">
+      <h5>Ingredientes</h5>
+
+      <div class="grid w-full col-12">
+        <div class="field col-12">
+          <label htmlFor="familiaPrimaId" class="mr-3 text-lg font-bold"
+            >Insumos</label>
+
+          <div class="flex flex-column gap-1 mt-2">
+            <div
+              *ngFor="let item of insumos; index as i"
+              class="shadow-1 p-2 px-3 border-round-md border-200 border-1 bg-item"
+            >
+              <ng-container
+                *ngIf="
+                  (form.get('cantidad')?.value * item.cantidad).toFixed(
+                    1
+                  ) as cantidadRequerida
+                "
+              >
+                <div
+                  class="flex justify-content-between align-items-center flex-wrap"
+                >
+                  <div>
+                    <h6 class="mb-2">{{ item.insumo.nombre }}</h6>
+                  </div>
+                  <div class="flex flex-column align-items-end">
+                    <div>{{ cantidadRequerida }} {{ item.insumo.unidadMedida }}
+                      <i
+                        *ngIf="
+                          cantidadRequerida <= item.insumo.cantidadDisponible
+                        "
+                        class="fa-solid fa-check text-success"
+                      ></i>
+                    </div>
+                    <div
+                      class="flex align-items-end text-danger flex-wrap text-sm"
+                      *ngIf="cantidadRequerida > item.insumo.cantidadDisponible"
+                    >
+                      No cuentas con las cantidades necesarias
+                      <div class="ml-1">
+                        (disponible: {{ item.insumo.cantidadDisponible }}
+                        {{ item.insumo.unidadMedida }})
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="
+                        cantidadRequerida <= item.insumo.cantidadDisponible
+                      "
+                      class="text-success text-sm"
+                    >
+                      disponible: {{ item.insumo.cantidadDisponible }}
+                      {{ item.insumo.unidadMedida }}
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <div class="field col-12">
+          <div class="flex justify-content-between">
+            <label class="mr-3 text-lg font-bold">Materias Primas</label>
+          </div>
+          
+          <div class="flex flex-column gap-1 mt-2">
+            <div
+              *ngFor="let item of materiasPrimas; index as i"
+              class="shadow-1 p-3 border-round-md border-200 border-1 bg-item"
+            >
+              <ng-container *ngIf="getCantidad(item) as cantidadRequerida">
+                <div
+                  class="flex justify-content-between align-items-center flex-wrap"
+                >
+                  <div>
+                    <h6 class="mb-2">{{ item.materiaPrima.nombre }}</h6>
+                  </div>
+                  <div class="flex flex-wrap gap-4 ">
+                    <div class="flex flex-column align-items-end ">
+                      <div>
+                        {{
+                          getMin(
+                            consumosMateriaPrima.get(item.materiaPrima.id)
+                              ? cantidadRequerida
+                              : 0,
+                            item.materiaPrima.totalCantidadDisponible
+                          )
+                        }}
+                        / {{ cantidadRequerida }}
+                        {{ item.materiaPrima.unidadMedida }}
+                        <i
+                          *ngIf="consumosMateriaPrima.get(item.materiaPrima.id)"
+                          class="fa-solid fa-check text-success"
+                        ></i>
+                      </div>
+                      <div
+                        class="flex align-items-end text-danger flex-wrap text-sm"
+                        *ngIf="
+                          cantidadRequerida >
+                          item.materiaPrima.totalCantidadDisponible
+                        "
+                      >
+                        No cuentas con las cantidades necesarias
+                        <div class="ml-1">
+                          (disponible:
+                          {{ item.materiaPrima.totalCantidadDisponible }}
+                          {{ item.materiaPrima.unidadMedida }})
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="
+                          cantidadRequerida <=
+                          item.materiaPrima.totalCantidadDisponible
+                        "
+                        class="text-info text-sm"
+                      >
+                        disponible:
+                        {{ item.materiaPrima.totalCantidadDisponible }}
+                        {{ item.materiaPrima.unidadMedida }}
+                      </div>
+                    </div>
+                    <p-button
+                      pRipple
+                      label="Seleccionar Ingresos"
+                      size="small"
+                      severity="secondary"
+                      (click)="openSelectorIngresos(item)"
+                    />
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="field col-12">
+      <div class="flex justify-content-between flex-wrap">
+        <p-button
+          pRipple
+          label="Cancelar"
+          icon="pi pi-times"
+          (click)="cancel()"
+          severity="secondary"
+        />
+        <p-button
+          pRipple
+          label="Guardar"
+          icon="pi pi-check"
+          [disabled]="form.invalid"
+          (click)="save()"
+        />
+      </div>
+    </div>
+  </form>
+</div>

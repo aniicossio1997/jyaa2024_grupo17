@@ -1,6 +1,7 @@
 package com.app.viewModels;
 
 
+import com.app.models.Usuario;
 import com.app.viewModels.base.IdentifiableViewModel;
 
 import java.util.Date;
@@ -8,9 +9,9 @@ import java.util.Date;
 public class NotaViewModel extends IdentifiableViewModel {
     public Date fecha;
     public String descripcion;
-    public String autor;
+    public UsuarioViewModel autor;
 
-    public NotaViewModel(Long id, String autor, String descripcion, Date fecha) {
+    public NotaViewModel(Long id, UsuarioViewModel autor, String descripcion, Date fecha) {
         super(id);
         this.autor = autor;
         this.descripcion = descripcion;

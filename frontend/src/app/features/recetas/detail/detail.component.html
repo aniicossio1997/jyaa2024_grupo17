@@ -1,4 +1,4 @@
-<p-button
+<div class="flex justify-content-between"><p-button
   pRipple
   label="Volver"
   icon="pi pi-arrow-left"
@@ -6,6 +6,14 @@
   (click)="back()"
   severity="secondary"
 />
+
+<p-button
+pRipple
+severity="primary"
+label="Gestionar Elaboraciones"
+icon="fa-solid fa-jar"
+[routerLink]="[Routes.ELABORACION_NEW]"
+/></div>
 <div *ngIf="!!receta" class="card relative">
   <div class="font-bold mt-2">
     <h1 class="p-card-title">{{ receta.nombre | titlecase }}</h1>

@@ -1,0 +1,37 @@
+<div *ngIf="recetas">
+  <form
+    class="p-fluid p-formgrid grid"
+    (ngSubmit)="save()"
+  >
+    <div class="col-12 md:col-12 text-400">
+      Por favor, selecciona la receta que deseas a elaborar para continuar.
+    </div>
+    <div class="field col-12 md:col-12">
+      <p-dropdown
+        [options]="recetas"
+        placeholder="Buscar recetas"
+        [autoDisplayFirst]="false"
+        optionLabel="nombre"
+        filterPlaceholder="Buscar recetas"
+        [filter]="true"
+        filterBy="nombre"
+        (onChange)="onSelectReceta($event)"
+      >
+        
+      </p-dropdown>
+    </div>
+   
+    <div class="field col-12">
+      <div class="flex justify-content-between flex-wrap">
+        <p-button
+          pRipple
+          label="Cancelar"
+          icon="pi pi-times"
+          severity="secondary"
+          (onClick)="cancel()"
+        />
+        <p-button pRipple label="Continuar" icon="pi pi-check" type="submit" [disabled]="!recetaId"/>
+      </div>
+    </div>
+  </form>
+</div>

@@ -5,6 +5,8 @@ import RecetaViewModel from '../interfaces/RecetaViewModel';
 import { RecetaDetalleViewModel } from '../interfaces/RecetaDetalleViewModel';
 import RecetaCreateViewModel from '../interfaces/RecetaCreateViewModel';
 import ElaboracionViewModel from '../interfaces/ElaboracionViewModel';
+import { ElaboracionCreateViewModel } from '../interfaces/ElaboracionCreateViewModel';
+import ElaboracionDetalleViewModel from '../interfaces/ElaboracionDetalleViewModel';
 
 @Injectable()
 export class ElaboracionService implements OnDestroy {
@@ -12,16 +14,16 @@ export class ElaboracionService implements OnDestroy {
 
   constructor(private http: HttpClient) {}
 
-  getAll(recetaId:number) {
-    return this.http.get<ElaboracionViewModel[]>(this.API_URL + "?recetaId=" + recetaId);
+  getAll(recetaId?:number) {
+    return this.http.get<ElaboracionViewModel[]>(this.API_URL + (recetaId ? ("?recetaId=" + recetaId) : ""));
   }
 
   detail(id: number) {
-    return this.http.get<RecetaDetalleViewModel>(this.API_URL + '/' + id);
+    return this.http.get<ElaboracionDetalleViewModel>(this.API_URL + '/' + id);
   }
 
-  create(receta: RecetaCreateViewModel) {
-    return this.http.post<RecetaDetalleViewModel>(this.API_URL, receta);
+  create(receta: ElaboracionCreateViewModel) {
+    return this.http.post<ElaboracionViewModel>(this.API_URL, receta);
   }
 
   edit(id: number, receta: Partial<RecetaCreateViewModel>) {

@@ -57,7 +57,6 @@ public class Receta extends DeletableBaseEntity {
     public List<IngredienteReceta> getIngredientes() {
         return ingredientes.stream()
                 .filter(ingreso -> ingreso.getFechaBaja() == null)
-                .sorted((i1, i2) -> i2.getId().compareTo(i1.getId()))
                 .collect(Collectors.toList());
     }
 

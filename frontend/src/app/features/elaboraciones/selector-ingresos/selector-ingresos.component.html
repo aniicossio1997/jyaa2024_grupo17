@@ -1,0 +1,106 @@
+<div *ngIf="materiaPrima">
+  <form
+    class="p-fluid p-formgrid grid"
+    [formGroup]="myForm"
+    (ngSubmit)="save()"
+  >
+    <div class="col-12 md:col-12 text-400">
+      Por favor, selecciona los ingresos y cantidades correspondientes a las materias primas utilizados en la
+      elaboración.
+    </div>
+    <div class="field col-12 md:col-12">
+      <label htmlFor="estado">Ingresos</label>
+      <p-dropdown
+        #ingresosDropdown
+        [options]="materiaPrima.ingresos"
+        placeholder="Buscar ingresos"
+        [autoDisplayFirst]="false"
+        optionLabel="codigo"
+        filterPlaceholder="Código de ingreso"
+        [filter]="true"
+        filterBy="codigo"
+        [showClear]="true"
+        (onChange)="onSelectIngreso($event)"
+      >
+        <ng-template let-item pTemplate="item">
+          <div class="flex align-items-center justify-content-between gap-2">
+            <div>{{ item.codigo }}</div>
+            <div class="text-sm">
+              disponible ({{ item.cantidad }} {{ materiaPrima.unidadMedida }})
+              <p-tag
+                class="ml-2"
+                [value]="item.currentState.nombre"
+                [severity]="getSeverity(item.currentState.nombre)"
+              />
+            </div>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+    <div class="ml-auto">
+      {{ getMin(cantidadRequerida, cantidadTotalSeleccionada) }}
+      / {{ cantidadRequerida }}
+      {{ materiaPrima.unidadMedida }}
+      <i
+        *ngIf="cantidadRequerida <= materiaPrima.totalCantidadDisponible"
+        class="fa-solid fa-check text-success"
+      ></i>
+    </div>
+    <div class="field col-12 flex flex-column gap-1" formArrayName="cantidades">
+      <div
+        *ngFor="let item of selectedIngresos; index as i"
+        class="shadow-1 px-2 pl-2 pr-1 flex justify-content-between align-items-center border-round-md bg-item"
+      >
+        <span>
+          <b>{{ item.codigo }}</b>
+          <p-tag
+            class="ml-2"
+            [value]="item.currentState.nombre"
+            [severity]="getSeverity(item.currentState.nombre)"
+          />
+        </span>
+        <div class="flex gap-2 align-items-center">
+          <span class="text-sm">
+            (disponible: {{ item.cantidad }}
+            {{ materiaPrima.unidadMedida }})</span
+          >
+          <p-inputGroup class="w-10rem" [style]="{ height: '2.5rem' }">
+            <p-inputNumber
+              [maxFractionDigits]="2"
+              [formControlName]="i"
+              [max]="item.cantidad"
+              placeholder="Cantidad"
+              size="2"
+            />
+            <p-inputGroupAddon>{{
+              materiaPrima.unidadMedida
+            }}</p-inputGroupAddon>
+          </p-inputGroup>
+          <p-button
+            pRipple
+            icon="pi pi-trash"
+            [rounded]="true"
+            [text]="true"
+            severity="secondary"
+            (onClick)="onDeleteIngreso(item.id)"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="text-danger p-3" *ngIf="getErrorMessage() as error">
+      {{ error }}
+    </div>
+    <div class="field col-12">
+      <div class="flex justify-content-between flex-wrap">
+        <p-button
+          pRipple
+          label="Cancelar"
+          icon="pi pi-times"
+          severity="secondary"
+          (onClick)="cancel()"
+        />
+        <p-button pRipple label="Aceptar" icon="pi pi-check" type="submit" />
+      </div>
+    </div>
+  </form>
+</div>

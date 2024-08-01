@@ -7,6 +7,7 @@
     <groupId>grupo17</groupId>
     <artifactId>SalaDeElaboracion</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <properties>
         <maven.compiler.source>14</maven.compiler.source>
@@ -137,4 +138,19 @@
             <version>0.12.6</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+        	<plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+            	<version>3.8.1</version>
+                <configuration>
+                   	<release>17</release>
+               	</configuration>
+           	</plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.3</version>
+           	</plugin>
+        </plugins>
+     </build>
 </project>

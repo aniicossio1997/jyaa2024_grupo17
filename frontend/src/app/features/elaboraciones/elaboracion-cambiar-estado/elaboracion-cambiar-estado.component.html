@@ -1,0 +1,51 @@
+<div>
+  <form [formGroup]="myForm" class="p-fluid p-formgrid grid">
+    <div class="field col-12 md:col-12">
+      <label htmlFor="estado">Estados *</label>
+      <p-dropdown
+        [options]="estados"
+        placeholder="Selecciona un estado"
+        [autoDisplayFirst]="false"
+        formControlName="estado"
+        [value]="myForm.get('estado')"
+      />
+
+      <span *ngIf="msjError != undefined" class="p-2 text-danger">
+        {{ msjError != undefined ? msjError : "" }}
+      </span>
+    </div>
+    <div class="field col-12 md:col-12">
+      <label htmlFor="descripcionid">Fecha </label>
+      <p-calendar
+        inputId="calendar-24h"
+        class="min-w-full"
+        [showTime]="true"
+        [maxDate]="currentDate"
+        [hourFormat]="24"
+        [showIcon]="true"
+        formControlName="fecha"
+        dateFormat="dd/mm/yy "
+      />
+    </div>
+
+    <div class="field col-12">
+      <div class="flex justify-content-between flex-wrap">
+        <p-button
+          pRipple
+          label="Cancelar"
+          icon="pi pi-times"
+          (click)="cancel()"
+          severity="secondary"
+        />
+        <p-button
+          pRipple
+          label="Guardar"
+          icon="pi pi-check"
+          [disabled]="myForm.invalid"
+          [loading]="loading"
+          (click)="save()"
+        />
+      </div>
+    </div>
+  </form>
+</div>

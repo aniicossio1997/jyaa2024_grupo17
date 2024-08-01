@@ -51,8 +51,8 @@ public class ElaboracionService implements IElaboracionService {
     }
 
     @Override
-    public ElaboracionDetalleViewModel create(ElaboracionCreateViewModel view) {
-        Usuario autor = usuarioDao.getById(1L);
+    public ElaboracionDetalleViewModel create(Long usuarioId, ElaboracionCreateViewModel view) {
+        Usuario autor = usuarioDao.getById(usuarioId);
         Receta receta = recetaDao.getById(view.recetaId);
         Elaboracion elaboracion = new Elaboracion(view.cantidad.intValue(), "", new Date(), receta);
 

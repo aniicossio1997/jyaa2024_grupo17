@@ -34,7 +34,7 @@ public class ElaboracionResource extends BaseResource {
 
     @POST
     public ElaboracionDetalleViewModel create(ElaboracionCreateViewModel viewModel) {
-        return elaboracionService.create(viewModel);
+        return elaboracionService.create(this.getUsuarioId(), viewModel);
     }
 
     @PUT
@@ -42,4 +42,5 @@ public class ElaboracionResource extends BaseResource {
     public ElaboracionDetalleViewModel update(@PathParam("id") Long id, ElaboracionCreateViewModel viewModel) {
         return elaboracionService.update(id, viewModel);
     }
+
 }

@@ -13,6 +13,7 @@ import { SelectorIngresosComponent } from '../selector-ingresos/selector-ingreso
 import { EstadoElaboracionEnum } from '../../../model/EstadoElaboracionEnum';
 import { ElaboracionService } from '../../../services/elaboracion.service';
 import { ElaboracionCreateViewModel } from '../../../interfaces/ElaboracionCreateViewModel';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-insumos-new',
@@ -32,7 +33,7 @@ export class ElaboracionNewComponent implements OnInit {
 
   unidadMedidaArray: string[] = Object.keys(UnidadMedidaEnum);
   estados: string[] = Object.keys(EstadoElaboracionEnum);
-
+  loading:boolean = false;
   ref: DynamicDialogRef | undefined;
   constructor(
     private fb: FormBuilder,
@@ -41,8 +42,8 @@ export class ElaboracionNewComponent implements OnInit {
     private materiasPrimaService: MateriaPrimaService,
     private activatedRoute: ActivatedRoute,
     private dialogService: DialogService,
-    private elaboracionService: ElaboracionService
-
+    private elaboracionService: ElaboracionService,
+    private toastr: ToastrService,
   ) {
     this.initForm();
     this.consumosMateriaPrima = new Map();
@@ -74,10 +75,9 @@ export class ElaboracionNewComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/' + ManagementRoutes.Receta + '/' + 1]);
+    this.router.navigate(['/' + ManagementRoutes.Elaboracion ]);
   }
   save() {
-
     const raw = this.form.getRawValue();
     const consumoMateriasPrimas = Array.from(this.consumosMateriaPrima.values());
     const request:ElaboracionCreateViewModel = {
@@ -88,9 +88,11 @@ export class ElaboracionNewComponent implements OnInit {
       recetaId: this.recetaId,
       consumoMateriasPrimas: consumoMateriasPrimas.flat(),
     }
-    console.log(request);
+    this.loading= true;
     this.elaboracionService.create(request).subscribe(res => {
-      console.log("RES", res);
+      this.loading = false;
+      this.toastr.success('Se ha creado la elaboración!');
+      this.router.navigate(['/' + ManagementRoutes.Elaboracion + "/" + ManagementRoutes.Detail + "/" + res.id]);
     });
   }
 

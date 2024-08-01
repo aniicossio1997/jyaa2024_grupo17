@@ -1,0 +1,46 @@
+<div>
+  <form
+    class="p-fluid p-formgrid grid"
+    [formGroup]="myForm"
+    (ngSubmit)="save()"
+  >
+    <div class="field col-12 md:col-12">
+      <label htmlFor="descripcion"
+        >Nota <span class="text-danger">*</span></label
+      >
+      <textarea 
+        pInputText
+        id="descripcion"
+        type="text"
+        placeholder="Escribe una nota"
+        formControlName="descripcion"
+        appCustomInputError
+        [errors]="myForm.get('descripcion')?.errors"
+      ></textarea>
+      <span
+        customLabel
+        [valueForm]="myForm.get('descripcion')?.value"
+        [errors]="myForm.get('descripcion')?.errors"
+      ></span>
+    </div>
+
+    <div class="field col-12">
+      <div class="flex justify-content-between flex-wrap">
+        <p-button
+          pRipple
+          label="Cancelar"
+          icon="pi pi-times"
+          severity="secondary"
+          (onClick)="cancel()"
+        />
+        <p-button
+          pRipple
+          label="Aceptar"
+          icon="pi pi-check"
+          type="submit"
+          [disabled]="myForm.invalid"
+        />
+      </div>
+    </div>
+  </form>
+</div>

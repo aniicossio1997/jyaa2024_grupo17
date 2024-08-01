@@ -3,9 +3,7 @@ package com.app.models;
 import com.app.models.baseEntity.DeletableBaseEntity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "elaboracion")
@@ -86,6 +84,15 @@ public class Elaboracion extends DeletableBaseEntity {
 
     public List<EstadoElaboracion> getEstados() {
         return estados;
+    }
+
+    public EstadoElaboracion getEstadoActual() {
+        return estados.stream()
+                .max(Comparator.comparing(EstadoElaboracion::getFecha)).orElse(null);
+    }
+
+    public Usuario getAutor() {
+        return Optional.ofNullable(estados.get(0)).map(EstadoBase::getAutor).orElse(null);
     }
 
     public void updateEstado(EstadoElaboracion estado) {

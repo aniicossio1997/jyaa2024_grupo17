@@ -9,10 +9,11 @@
 <div *ngIf="!!elaboracionDetalle" class="card relative">
   <div class="mt-2">
     <div class="mb-4 font-bold">Detalle de elaboración</div>
-    <div class="mb-4 text-lg">
-      Receta: <b>{{ elaboracionDetalle.receta.nombre }}</b>
-    </div>
+
     <div class="grid text-lg">
+      <div class="col-6">
+        Receta: <b>{{ elaboracionDetalle.receta.nombre }}</b>
+      </div>
       <div class="col-6">
         Código: <b>{{ elaboracionDetalle.codigo }}</b>
       </div>
@@ -28,7 +29,11 @@
         />
       </div>
       <div class="col-6">
-        Cantidad: <b>{{ elaboracionDetalle.cantidad }}</b>
+        Cantidad:
+        <b
+          >{{ elaboracionDetalle.cantidad }}
+          {{ elaboracionDetalle.cantidad > 1 ? "UNIDADES" : "UNIDAD" }}</b
+        >
       </div>
       <div class="col-6">
         Actualizado:
@@ -40,7 +45,7 @@
   <div>
     <p-divider />
 
-    <div>
+    <div class="bg-item border-round">
       <p-table
         #dt2
         [value]="elaboracionDetalle.notas"
@@ -60,12 +65,12 @@
               label="Agregar Nota"
               icon="pi pi-plus"
               styleClass="mb-2"
-              (click)="back()"
+              (click)="openNotaForm()"
               severity="primary"
             />
           </div>
         </ng-template>
-        <ng-template pTemplate="header">
+        <ng-template pTemplate="header" >
           <tr>
             <th pSortableColumn="fecha">Fecha<p-sortIcon field="fecha" /></th>
             <th pSortableColumn="autor.username">
@@ -74,6 +79,8 @@
             <th pSortableColumn="descripcion">
               Nota <p-sortIcon field="descripcion" />
             </th>
+
+            <th style="width:80px"></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
@@ -84,7 +91,17 @@
             <td>{{ item.autor.username }}</td>
 
             <td>
-              {{ item.descripcion }}
+              <b>{{ item.descripcion }}</b>
+            </td>
+            <td style="width:80px">
+              <p-button
+                pRipple
+                icon="pi pi-trash"
+                [rounded]="true"
+                [text]="true"
+                severity="secondary"
+                (onClick)="deleteNota(item)"
+              />
             </td>
           </tr>
         </ng-template>
@@ -92,13 +109,13 @@
         <ng-template pTemplate="emptymessage">
           <tr>
             <td class="text-center py-4" [attr.colspan]="6">
-              No se encontraron resultados
+             Aún no se han agregado notas
             </td>
           </tr>
         </ng-template>
       </p-table>
     </div>
-    <div class="mt-3">
+    <div class="mt-3 bg-item border-round">
       <p-table
         #dt
         [value]="elaboracionDetalle.estados"
@@ -111,7 +128,7 @@
         [globalFilterFields]="['estado', 'fecha', 'autor.username']"
       >
         <ng-template pTemplate="caption">
-          <h5 >Historial de Estados</h5>
+          <h5>Historial de Estados</h5>
 
           <div class="flex align-items-center justify-content-between">
             <span class="p-input-icon-left">
@@ -128,7 +145,7 @@
               label="Cambiar estado"
               icon="pi pi-tag"
               styleClass="mb-2"
-              (click)="back()"
+              (click)="openCambiarEstado()"
               severity="primary"
             />
           </div>
@@ -171,7 +188,83 @@
         </ng-template>
       </p-table>
     </div>
+    <div class="mt-3 bg-item border-round">
+      <p-table
+        #dt3
+        [value]="consumos"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [paginator]="true"
+        [rows]="5"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [alwaysShowPaginator]="false"
+        [rowsPerPageOptions]="[5, 10, 20]"
+        [globalFilterFields]="[
+          'cantidad',
+          'ingrediente',
+          'ingresoCodigo',
+          'ingresoFecha',
+          'unidadMedida',
+          'familiaProductora',
+          'tipo'
+        ]"
+      >
+        <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-between">
+            <h5>Consumos de Insumos y Materias Primas</h5>
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                (input)="dt3.filterGlobal($event.target.value, 'contains')"
+                placeholder="Buscar..."
+              />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="ingrediente">
+              Ingrediente<p-sortIcon field="ingrediente" />
+            </th>
+            <th pSortableColumn="cantidad">
+              Cantidad <p-sortIcon field="cantidad" />
+            </th>
+            <th pSortableColumn="tipo">Tipo <p-sortIcon field="tipo" /></th>
+            <th pSortableColumn="familiaProductora">
+              Familia Productora <p-sortIcon field="familiaProductora" />
+            </th>
+            <th pSortableColumn="ingresoCodigo">
+              Código <p-sortIcon field="ingresoCodigo" />
+            </th>
+            <th pSortableColumn="ingresoFecha">
+              Fecha Ingreso <p-sortIcon field="ingresoFecha" />
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>
+              {{ item.ingrediente }}
+            </td>
+            <td>{{ item.cantidad }} {{ item.unidadMedida }}</td>
+            <td>
+              <b>{{ item.tipo }}</b>
+            </td>
+            <td>{{ item.familiaProductora }}</td>
+            <td>{{ item.ingresoCodigo }}</td>
+            <td>{{ item.ingresoFecha | dateTransformPipe }}</td>
+          </tr>
+        </ng-template>
 
-
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td class="text-center py-4" [attr.colspan]="6">
+              No se encontraron resultados
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
   </div>
 </div>

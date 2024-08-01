@@ -2,11 +2,14 @@ package com.app.services;
 
 import com.app.models.*;
 import com.app.utils.ListUtils;
+import com.app.utils.MappingUtils;
 import com.app.viewModels.*;
 import org.jvnet.hk2.annotations.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MappingService {
@@ -58,25 +61,28 @@ public class MappingService {
                 elaboracion.getId(),
                 elaboracion.getCantidad(),
                 elaboracion.getCodigo(),
-                elaboracion.getEstados().stream().findFirst().map(this::toViewModel).orElse(null),
+                this.toViewModel(elaboracion.getEstadoActual()),
                 elaboracion.getFecha(),
                 elaboracion.getReceta().getId(),
-                Optional.ofNullable(elaboracion.getEstados().get(0)).map(e -> this.toViewModel(e.getAutor())).orElse(null),
+                this.toViewModel(elaboracion.getAutor()),
                 elaboracion.getReceta().getNombre()
         );
     }
 
     public ElaboracionDetalleViewModel toDetalleViewModel(Elaboracion elaboracion) {
+
+
         return new ElaboracionDetalleViewModel(
                 elaboracion.getId(),
                 elaboracion.getCantidad(),
                 elaboracion.getCodigo(),
-                elaboracion.getEstados().stream().findFirst().map(this::toViewModel).orElse(null),
-                ListUtils.mapList(elaboracion.getEstados(), this::toViewModel),
+                this.toViewModel(elaboracion.getEstadoActual()),
+                elaboracion.getEstados().stream().sorted(Comparator.comparing(EstadoElaboracion::getFecha).reversed()).map(this::toViewModel).collect(Collectors.toList()),
                 elaboracion.getFecha(),
                 this.toViewModel(elaboracion.getReceta()),
                 ListUtils.mapList(elaboracion.getNotas(), this::toViewModel),
-                ListUtils.mapList(elaboracion.getConsumoMateriasPrimas(), this::toViewModel)
+                ListUtils.mapList(elaboracion.getConsumoMateriasPrimas(), this::toViewModel),
+                ListUtils.mapList(elaboracion.getConsumoInsumos(), this::toViewModel)
         );
     }
 
@@ -93,10 +99,25 @@ public class MappingService {
 
     public ConsumoMateriaPrimaViewModel toViewModel(ConsumoMateriaPrima entity) {
         return new ConsumoMateriaPrimaViewModel(
-                entity.getId(), entity.getCantidad(), entity.getElaboracion().getId(), toViewModel(entity.getMateriaPrima())
+                entity.getId(), entity.getCantidad(), entity.getElaboracion().getId(), toViewModel(entity.getIngreso()), entity.getMateriaPrima().getUnidadMedida()
         );
     }
 
+    public ConsumoInsumoViewModel toViewModel(ConsumoInsumo entity) {
+        return new ConsumoInsumoViewModel(
+                entity.getId(), entity.getCantidad(), entity.getElaboracion().getId(), toViewModelInsumo(entity.getInsumo())
+        );
+    }
+
+    public IngresoMateriaPrimaViewModel toViewModel(IngresoMateriaPrima imp) {
+        return new IngresoMateriaPrimaViewModel(
+                imp.getId(), imp.getValorCompra(),
+                imp.getMateriaPrima(), imp.getFecha(),
+                MappingUtils.toViewModel(imp.getProductor()),
+                imp.getDescripcion(), imp.getCodigo(), imp.getCantidad(),
+                imp.getEstadoActual()
+        );
+    }
 
     public EstadoViewModel toViewModel(EstadoElaboracion estadoElaboracion) {
         return new EstadoViewModel(estadoElaboracion.getId(), this.toViewModel(estadoElaboracion.getAutor()), estadoElaboracion.getEstado().getValue(), estadoElaboracion.getFecha());

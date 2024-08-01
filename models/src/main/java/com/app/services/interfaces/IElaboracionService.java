@@ -12,7 +12,7 @@ public interface IElaboracionService {
 
     ElaboracionDetalleViewModel getById(Long id);
 
-    ElaboracionDetalleViewModel create(ElaboracionCreateViewModel view);
+    ElaboracionDetalleViewModel create(Long usuarioId, ElaboracionCreateViewModel view);
 
     boolean delete(Long id);
 

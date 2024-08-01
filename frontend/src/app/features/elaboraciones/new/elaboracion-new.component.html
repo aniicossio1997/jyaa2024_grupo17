@@ -206,6 +206,7 @@
           pRipple
           label="Guardar"
           icon="pi pi-check"
+          [loading]="loading"
           [disabled]="form.invalid"
           (click)="save()"
         />

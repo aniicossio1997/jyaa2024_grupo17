@@ -4,11 +4,11 @@ import { map } from 'rxjs';
 import RecetaViewModel from '../interfaces/RecetaViewModel';
 import { RecetaDetalleViewModel } from '../interfaces/RecetaDetalleViewModel';
 import RecetaCreateViewModel from '../interfaces/RecetaCreateViewModel';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class RecetasService implements OnDestroy {
-  public API_URL = 'http://localhost:8080/SalaDeElaboracion/api/recetas';
-
+  private API_URL = environment.API_URL + 'recetas' ;
   constructor(private http: HttpClient) {}
 
   get() {

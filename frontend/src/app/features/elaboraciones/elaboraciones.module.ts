@@ -29,6 +29,9 @@ import { ElaboracionNewComponent } from './new/elaboracion-new.component';
 import { SelectorIngresosComponent } from './selector-ingresos/selector-ingresos.component';
 import { QueryComponent } from './query/query.component';
 import { SelectorRecetaComponent } from './selector-recetas/selector-recetas.component';
+import { NotaDialogComponent } from './nota-dialog/nota-dialog.component';
+import { ElaboracionCambiarEstadoComponent } from './elaboracion-cambiar-estado/elaboracion-cambiar-estado.component';
+import { CalendarModule } from 'primeng/calendar';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'query', pathMatch: 'full' },
@@ -55,6 +58,8 @@ const appRoutes: Routes = [
     ElaboracionNewComponent,
     SelectorIngresosComponent,
     SelectorRecetaComponent,
+    NotaDialogComponent,
+    ElaboracionCambiarEstadoComponent,
     QueryComponent,
   ],
   imports: [
@@ -83,6 +88,7 @@ const appRoutes: Routes = [
     InputNumberModule,
     InputGroupModule,
     InputGroupAddonModule,
+    CalendarModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

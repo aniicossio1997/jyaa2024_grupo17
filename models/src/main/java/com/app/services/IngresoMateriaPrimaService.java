@@ -35,6 +35,9 @@ public class IngresoMateriaPrimaService implements IIngresoMateriaPrimaService {
     @Inject
     private IUsuarioDao _usuarioDao;
 
+    @Inject
+    private MappingService mappingService;
+
     @Override
     public IngresoMateriaPrimaViewModel create(IngresoMateriaPrimaCreateViewModel entityToAdd) {
         FamiliaProductora familia = familiaProductoraDao.getById(entityToAdd.familiaPrimaId,true);
@@ -64,12 +67,12 @@ public class IngresoMateriaPrimaService implements IIngresoMateriaPrimaService {
         ingresoMateriaPrimaDao.save(ingresoMateriaPrima);
         ingresoMateriaPrima.setCodigo("M-"+ingresoMateriaPrimaDao.getAll(false).size());
         ingresoMateriaPrimaDao.save(ingresoMateriaPrima);
-        return this.toViewModel(ingresoMateriaPrima);
+        return mappingService.toViewModel(ingresoMateriaPrima);
     }
 
     @Override
     public List<IngresoMateriaPrimaViewModel> getByFilters() {
-        return ListUtils.mapList(this.ingresoMateriaPrimaDao.getAll(true), this::toViewModel);
+        return ListUtils.mapList(this.ingresoMateriaPrimaDao.getAll(true), mappingService::toViewModel);
     }
 
     @Override
@@ -127,15 +130,7 @@ public class IngresoMateriaPrimaService implements IIngresoMateriaPrimaService {
 
 
 
-    private IngresoMateriaPrimaViewModel toViewModel(IngresoMateriaPrima imp) {
-        return new IngresoMateriaPrimaViewModel(
-                imp.getId(), imp.getValorCompra(),
-                imp.getMateriaPrima(), imp.getFecha(),
-                MappingUtils.toViewModel(imp.getProductor()),
-                imp.getDescripcion(), imp.getCodigo(), imp.getCantidad(),
-                imp.getEstadoActual()
-        );
-    }
+
     private IngresoMateriaPrimaDetailViewModel toViewModelDetails(IngresoMateriaPrima imp) {
 
         List<EstadoViewModel> estadoViewModels = imp.getEstadosOrderById().stream()

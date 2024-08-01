@@ -9,9 +9,9 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 
-@Tag(name = "EstadoIngresoMateriaPrima")
-@Path("/estadoIngresoMateriaPrima")
-public class EstadoIngresoMateriaPrimaResource extends BaseResource {
+@Tag(name = "EstadoEaboracion")
+@Path("/estadoelaboracion")
+public class EstadoElaboracionResource extends BaseResource {
 
     @Inject
     private IEstadoIngresoMateriaPrimaService service;

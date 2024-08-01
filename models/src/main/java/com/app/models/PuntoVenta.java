@@ -1,6 +1,8 @@
 package com.app.models;
 
+import com.app.models.baseEntity.DeletableWithNameBaseEntity;
 import com.app.models.baseEntity.IdentifiableBaseEntity;
+import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -10,8 +12,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "punto_venta")
-public class PuntoVenta extends IdentifiableBaseEntity {
-    public String nombre;
+@SQLDelete(sql = "UPDATE nota SET fechaBaja = CURRENT_TIMESTAMP WHERE id = ?")
+public class PuntoVenta  extends DeletableWithNameBaseEntity {
     public String descripcion;
     @Transient
     public List<EntregaProducto> recepciones = new ArrayList<>();

@@ -18,6 +18,7 @@ export enum ManagementRoutes {
 
   Usuario='usuarios',
   FamiliaProductora='familiaProductoras',
+  PuntoVenta='puntoVenta',
   MateriaPrima='materiaPrimas',
   Insumo='Insumos',
   Receta='recetas',
@@ -63,7 +64,11 @@ export const  ITEMS_ROUTERS:IRouteModel[]=[
     routerLink:[`/${ManagementRoutes.Elaboracion}`],
     icon:'fa-solid fa-jar-wheat'
   },
-
+  {
+    title:'Puntos de Venta',
+    routerLink:[`/${ManagementRoutes.PuntoVenta}`],
+    icon:'fa-solid fa-shop'
+  },
 
 
   //------------------------------------

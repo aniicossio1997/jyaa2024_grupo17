@@ -81,6 +81,7 @@ export class ShellComponent implements OnInit {
       [ManagementRoutes.Edit]: 'Editar',
       [ManagementRoutes.Detail]: 'Detalle',
       [ManagementRoutes.Elaboracion]: 'Elaboracion',
+      [ManagementRoutes.PuntoVenta]: 'Punto de Venta',
 
     };
 

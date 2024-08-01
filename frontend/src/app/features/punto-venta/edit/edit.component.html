@@ -1,0 +1,53 @@
+<div class="card">
+  <h5 class="mb-5 m-2">Editar punto de venta</h5>
+  <form [formGroup]="myForm" class="p-fluid p-formgrid grid">
+    <div class="field col-12 md:col-12">
+      <label htmlFor="nombre">Nombre <span class="text-danger">*</span></label>
+      <input
+        pInputText
+        id="nombre"
+        type="text"
+        formControlName="nombre"
+        placeholder="Nombre"
+        appCustomInputError
+        [valueForm]="myForm.get('nombre')?.value"
+        [errors]="myForm.get('nombre')?.errors"
+      />
+      <span
+        customLabel
+        [valueForm]="myForm.get('nombre')?.value"
+        [errors]="myForm.get('nombre')?.errors"
+      ></span>
+    </div>
+    <div class="field col-12 md:col-12">
+      <label htmlFor="descripcionid">Descripción</label>
+      <textarea
+        formControlName="descripcion"
+        rows="5"
+        cols="30"
+        placeholder="Descripción"
+        pInputTextarea
+        [autoResize]="true"
+      >
+      </textarea>
+    </div>
+    <div class="field col-12">
+      <div class="flex justify-content-between flex-wrap">
+        <p-button
+          pRipple
+          label="Cancelar"
+          icon="pi pi-times"
+          (click)="cancel()"
+          severity="secondary"
+        />
+        <p-button
+          pRipple
+          label="Guardar"
+          icon="pi pi-check"
+          [disabled]="myForm.invalid"
+          (click)="save()"
+        />
+      </div>
+    </div>
+  </form>
+</div>

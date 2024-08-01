@@ -4,7 +4,6 @@ import { AuthGuard } from '../auth/guards/auth.guard';
 import { PublicGuard } from '../auth/guards/public.guard';
 import { ShellComponent } from './shell/shell.component';
 import { ManagementRoutes } from '../routers';
-import { LayoutPageComponent } from '../auth/pages/layout-page/layout-page.component';
 
 export const routesRoot: Routes = [
   {
@@ -63,6 +62,13 @@ export const routesRoot: Routes = [
         loadChildren: () =>
           import('../features/elaboraciones/elaboraciones.module').then(
             (m) => m.ElaboracionesModule
+          ),
+      },
+      {
+        path: ManagementRoutes.PuntoVenta,
+        loadChildren: () =>
+          import('../features/punto-venta/punto-venta.module').then(
+            (m) => m.PuntoVentaModule
           ),
       },
     ],

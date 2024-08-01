@@ -8,5 +8,7 @@ import org.jvnet.hk2.annotations.Service;
 @Service
 public class PuntoVentaDao extends BaseDao<PuntoVenta> implements IPuntoVentaDao {
 
-
+    protected boolean getDeletable() {
+        return true;
+    }
 }

@@ -29,23 +29,18 @@
         <class>com.app.models.ConsumoMateriaPrima</class>
 
         <properties>
+            <property name="hbm2ddl.auto" value="update"/>
             <property name="hibernate.connection.driver_class"
                       value="com.mysql.jdbc.Driver"/>
-
-            <property name="hibernate.connection.password" value="jyaa2024_usr17"/>
-            <property name="hibernate.connection.username" value="jyaa2024_pwd17"/>
-
+            <property name="javax.persistence.schema-generation.database.action" value="update"/>
+            <property name="hibernate.connection.password" value="root"/>
             <property name="hibernate.connection.url"
-                      value="jdbc:mysql://java-db:3306/jyaa2024_grupo17"/>
-
-            <property name="hibernate.default_schema" value="jyaa2024_grupo17"/>
+                      value="jdbc:mysql://localhost:3306/sala_elaboracion?createDatabaseIfNotExist=true"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.connection.username" value="root"/>
 
             <property name="hibernate.dialect"
                       value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
-
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.format_sql" value="true"/>
-
         </properties>
     </persistence-unit>
 </persistence>

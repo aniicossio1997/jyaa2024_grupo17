@@ -7,10 +7,11 @@ import RecetaCreateViewModel from '../interfaces/RecetaCreateViewModel';
 import ElaboracionViewModel from '../interfaces/ElaboracionViewModel';
 import { ElaboracionCreateViewModel } from '../interfaces/ElaboracionCreateViewModel';
 import ElaboracionDetalleViewModel from '../interfaces/ElaboracionDetalleViewModel';
+import { environment } from '../../environments/environment';
 
 @Injectable()
-export class ElaboracionService implements OnDestroy {
-  public API_URL = 'http://localhost:8080/SalaDeElaboracion/api/elaboraciones';
+export class ElaboracionService {
+  public API_URL = environment.API_URL + 'elaboraciones';
 
   constructor(private http: HttpClient) {}
 

@@ -75,7 +75,7 @@ export class ShellComponent implements OnInit {
       [ManagementRoutes.Receta]: 'Recetas',
       [ManagementRoutes.MateriaPrima]: 'Materias Primas',
       [ManagementRoutes.Insumo]: 'Insumos',
-      [ManagementRoutes.Gestion]: 'Gestión de insumos',
+      [ManagementRoutes.Gestion]: 'Gestión de ingresos',
       [ManagementRoutes.Usuario]: 'Usuarios',
       [ManagementRoutes.New]: 'Agregar',
       [ManagementRoutes.Edit]: 'Editar',

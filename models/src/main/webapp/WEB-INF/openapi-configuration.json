@@ -15,6 +15,9 @@
     },
     "servers": [
       {
+        "url": "https://grupo17.java2024.linti.unlp.edu.ar/api"
+      },
+      {
         "url": "http://localhost:8080/SalaDeElaboracion/api"
       }
     ],

@@ -1,7 +1,7 @@
 
 export const environment = {
   production : false,
-  API_URL:"http://localhost:8080/SalaDeElaboracion/api/"
+  API_URL:"https://grupo17.java2024.linti.unlp.edu.ar/api/"
  };
 
 

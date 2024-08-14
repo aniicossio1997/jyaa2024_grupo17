@@ -1,0 +1,1 @@
+var A=function(R){return R.KG="KG",R.GR="GR",R.CC="CC",R.LITRO="LITRO",R.UNIDAD="UNIDAD",R}(A||{});var r=function(R){return R.ESTANTE="ESTANTE",R.FREEZER="FREEZER",R.CAMARA_FRIO="CAMARA_FRIO",R}(r||{});export{A as a,r as b};

@@ -3,7 +3,7 @@ import { Inject, Injectable, OnInit } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
-  private BASE_PATH = '/assets/themes/';
+  private BASE_PATH = 'assets/themes/';
   private currentTheme = 'light';
 
   constructor(@Inject(DOCUMENT) private document: Document) {

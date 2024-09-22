@@ -1,0 +1,93 @@
+<p-button
+  pRipple
+  label="Volver"
+  icon="pi pi-arrow-left"
+  styleClass="mb-2"
+  (click)="cancel()"
+  severity="secondary"
+/>
+<div class="card relative" *ngIf="puntoVenta">
+  <div class="font-bold mt-2">
+    <h1 class="p-card-title">{{ puntoVenta.nombre | titlecase }}</h1>
+  </div>
+  <span class="absolute" style="top: 5px; right: 5px">
+    <p-button
+      pRipple
+      severity="primary"
+      label="Editar"
+      [text]="true"
+      icon="pi pi-pencil"
+      class="mr-2"
+      [routerLink]="[Routes.EDIT]"
+  /></span>
+  <p class="text-lg">{{ puntoVenta.descripcion }}</p>
+
+  <div class="mt-5 bg-item border-round">
+    <p-table
+      #dt
+      [value]="entregas"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      [paginator]="true"
+      [rows]="5"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      [alwaysShowPaginator]="false"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      [globalFilterFields]="['cantidad', 'autor.username', 'fecha', 'elaboracion.receta', 'elaboracion.codigo', 'punto']"
+    >
+      <ng-template pTemplate="caption">
+        <h5>Entregas</h5>
+        <div class="flex align-items-center justify-content-between">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              (input)="dt.filterGlobal($event.target.value, 'contains')"
+              placeholder="Buscar..."
+            />
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="elaboracion.receta">
+            Receta <p-sortIcon field="elaboracion.receta" />
+          </th>
+          <th pSortableColumn="elaboracion.codigo">
+            Código de Elaboración <p-sortIcon field="elaboracion.codigo	" />
+          </th>
+          <th pSortableColumn="cantidad">
+            Cantidad <p-sortIcon field="cantidad" />
+          </th>
+          <th pSortableColumn="autor.username">
+            Autor <p-sortIcon field="autor.username" />
+          </th>
+          <th pSortableColumn="fecha">Fecha <p-sortIcon field="fecha" /></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td>
+            <b>{{ item.elaboracion.receta }}</b>
+          </td>
+          <td>
+            <b>{{ item.elaboracion.codigo }}</b>
+          </td>
+          <td>{{ item.cantidad }}</td>
+          <td>
+            <b>{{ item.autor.username }}</b>
+          </td>
+          <td>{{ item.fecha | dateTransformPipe }}</td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td class="text-center py-4" [attr.colspan]="6">
+            Aún no se han registrado entregas resultados
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

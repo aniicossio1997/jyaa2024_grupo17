@@ -47,13 +47,23 @@ export class QueryComponent implements OnInit {
 
     this.itemsMenu = [
       {
+        label: 'Detalle',
+        icon: 'pi pi-eye',
+        command: () => {
+          this.router.navigate([
+            `/${ManagementRoutes.PuntoVenta}/${ManagementRoutes.Detail}/`,
+            item.id,
+          ]);
+        },
+      },
+      {
         label: 'Editar',
         icon: 'pi pi-pencil',
         command: () => {
           this.router.navigate([
             `/${ManagementRoutes.PuntoVenta}/${ManagementRoutes.Edit}/`,
             item.id,
-          ]); // Usa item.id para redirigir
+          ]);
         },
       },
       {

@@ -19,5 +19,5 @@ public interface IPuntoVentaService {
 
     void delete(Long id);
 
-    PuntoVentaViewModel getById(Long id);
+    PuntoVentaViewModel detail(Long id);
 }

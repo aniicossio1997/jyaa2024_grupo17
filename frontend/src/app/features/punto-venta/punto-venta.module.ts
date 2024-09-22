@@ -33,6 +33,7 @@ import { NewComponent } from './new/new.component';
 import { ManagementRoutes } from '../../routers';
 import { SharedModule } from '../../shared/shared.module';
 import { EditComponent } from './edit/edit.component';
+import { DetailComponent } from './detail/detail.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'query', pathMatch: 'full' },
@@ -52,10 +53,15 @@ const appRoutes: Routes = [
     component: NewComponent,
     title: 'Agregar Puntos de Venta',
   },
+  {
+    path: `${ManagementRoutes.Detail}/:id`,
+    component: DetailComponent,
+    title: 'Detalle de Punto de Venta',
+  },
 ];
 
 @NgModule({
-  declarations: [QueryComponent, EditComponent, NewComponent],
+  declarations: [QueryComponent, EditComponent, NewComponent, DetailComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(appRoutes),

@@ -9,10 +9,30 @@ export class EntregaElaboracionService implements OnDestroy {
 
   constructor(private http: HttpClient) {}
 
-  create(req: { cantidad: string, elaboracionId: number, puntoVentaId: number, updateState: boolean, fecha: Date }) {
+  create(req: {
+    cantidad: string;
+    elaboracionId: number;
+    puntoVentaId: number;
+    updateState: boolean;
+    fecha: Date;
+  }) {
     return this.http.post<EntregaElaboracionViewModel>(this.API_URL, req);
   }
 
+  getAll(req: { elaboracionId?: number; puntoVentaId?: number }) {
+    const params = new URLSearchParams();
+
+    if (req.elaboracionId) {
+      params.append('elaboracionId', req.elaboracionId.toString());
+    } else if (req.puntoVentaId) {
+      params.append('puntoVentaId', req.puntoVentaId.toString());
+    }
+
+    const queryString = params.toString() ? `?${params.toString()}` : '';
+    return this.http.get<EntregaElaboracionViewModel[]>(
+      `${this.API_URL}${queryString}`
+    );
+  }
 
   ngOnDestroy(): void {}
 }

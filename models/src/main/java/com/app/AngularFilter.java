@@ -37,13 +37,14 @@ public class AngularFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         String path = httpRequest.getRequestURI();
 
+
         // Verificar si la solicitud no es un recurso estático
         if ((path.startsWith("/ui/") || path.startsWith("/SalaDeElaboracion/ui/")) && !path.contains(".")) {
-            String contextPath = path.replaceFirst("^(/SalaDeElaboracion)?(/ui/)?", "");
+            String context = path.replaceFirst("^(/SalaDeElaboracion)?(/ui/)?", "");
             // Redirigir a index.html
             String finalPath = "/ui/index.html";
-            if (!contextPath.isEmpty()) {
-                finalPath += "#" + contextPath;
+            if (!context.isEmpty()) {
+                finalPath += "#" + context;
             }
             httpResponse.sendRedirect(httpRequest.getContextPath() + finalPath);
             return; // Terminar el filtro aquí

@@ -9,6 +9,8 @@ import org.glassfish.jersey.servlet.ServletProperties;
 public class MyApplication extends ResourceConfig {
     public MyApplication() {
         packages("com.app");
+        register(DefaultRedirectToUIFilter.class);
+
         //register(NoResultExceptionMapper.class);
         register(ServerExceptionMapper.class);
         register(AuthFilter.class);

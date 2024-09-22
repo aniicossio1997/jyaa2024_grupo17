@@ -36,6 +36,16 @@
     <filter-name>CorsFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+
+  <filter>
+    <filter-name>DefaultRedirectToUIFilter</filter-name>
+    <filter-class>com.app.DefaultRedirectToUIFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>DefaultRedirectToUIFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
   <servlet>
 
 
@@ -52,6 +62,9 @@
     <servlet-name>JerseyServlet</servlet-name>
     <url-pattern>/api/*</url-pattern>
   </servlet-mapping>
+
+
+
   <servlet>
     <description></description>
     <display-name>TestingServlet</display-name>
@@ -89,7 +102,10 @@
     <url-pattern>/ui/*</url-pattern>
   </servlet-mapping>
 
-
+  <servlet-mapping>
+    <servlet-name>JerseyServlet</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>Jersey2Config</servlet-name>
     <servlet-class>com.wordnik.swagger.jersey.config.JerseyJaxrsConfig</servlet-class>

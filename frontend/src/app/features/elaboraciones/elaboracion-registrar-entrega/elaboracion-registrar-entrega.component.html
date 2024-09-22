@@ -1,0 +1,83 @@
+<div>
+  <form [formGroup]="myForm" class="p-fluid p-formgrid grid" >
+    <div class="field col-12 md:col-12">
+      <label htmlFor="estado">Punto de Venta <span class="text-danger">*</span></label>
+      <p-dropdown
+        [options]="puntosVenta"
+        placeholder="Selecciona un Punto de Venta"
+        optionLabel="nombre"
+        [autoDisplayFirst]="false"
+        formControlName="puntoVentaId"
+        filterPlaceholder="Buscar"
+        [filter]="true"
+        optionValue="id"
+        filterBy="nombre"
+        [value]="myForm.get('puntoVentaId')"
+      />
+
+      <span *ngIf="msjError != undefined" class="p-2 text-danger">
+        {{ msjError != undefined ? msjError : "" }}
+      </span>
+    </div>
+
+    <div class="field col-12 md:col-12">
+      <label htmlFor="cantidad"
+        >Cantidad <span class="text-danger">*</span></label
+      >
+
+      <p-inputGroup>
+        <p-inputNumber
+          placeholder="Ingrese una cantidad"
+          formControlName="cantidad"
+          maxFractionDigits="0"
+          [min]="1"
+          [max]="this.maxCantidad"
+          [value]="myForm.get('cantidad')"
+        />
+        <p-inputGroupAddon
+          >disponible: {{ this.maxCantidad }}</p-inputGroupAddon
+        >
+      </p-inputGroup>
+
+      <span
+        customLabel
+        [valueForm]="myForm.get('cantidad')?.value"
+        [errors]="myForm.get('cantidad')?.errors"
+      ></span>
+    </div>
+    <div class="field col-12 md:col-12">
+      <label htmlFor="fecha">Fecha </label>
+      <p-calendar
+        inputId="calendar-24h"
+        class="min-w-full"
+        placeholder="Selecciona una fecha"
+        [showTime]="false"
+        [maxDate]="currentDate"
+        [showIcon]="true"
+        formControlName="fecha"
+        [value]="myForm.get('fecha')"
+        dateFormat="dd/mm/yy "
+      />
+    </div>
+
+    <div class="field col-12">
+      <div class="flex justify-content-between flex-wrap">
+        <p-button
+          pRipple
+          label="Cancelar"
+          icon="pi pi-times"
+          (click)="cancel()"
+          severity="secondary"
+        />
+        <p-button
+          pRipple
+          label="Guardar"
+          icon="pi pi-check"
+          [disabled]="myForm.invalid"
+          [loading]="loading"
+          (click)="save()"
+        />
+      </div>
+    </div>
+  </form>
+</div>

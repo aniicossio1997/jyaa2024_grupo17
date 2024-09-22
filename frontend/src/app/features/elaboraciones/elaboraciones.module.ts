@@ -32,6 +32,7 @@ import { SelectorRecetaComponent } from './selector-recetas/selector-recetas.com
 import { NotaDialogComponent } from './nota-dialog/nota-dialog.component';
 import { ElaboracionCambiarEstadoComponent } from './elaboracion-cambiar-estado/elaboracion-cambiar-estado.component';
 import { CalendarModule } from 'primeng/calendar';
+import { ElaboracionRegistrarEntregaComponent } from './elaboracion-registrar-entrega/elaboracion-regsitrar-entrega.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'query', pathMatch: 'full' },
@@ -60,6 +61,7 @@ const appRoutes: Routes = [
     SelectorRecetaComponent,
     NotaDialogComponent,
     ElaboracionCambiarEstadoComponent,
+    ElaboracionRegistrarEntregaComponent,
     QueryComponent,
   ],
   imports: [

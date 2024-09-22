@@ -12,6 +12,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import ConfirmationDialogService from '../../../core/ConfirmationDialogService';
 import { NotaService } from '../../../services/nota.service';
 import { ElaboracionCambiarEstadoComponent } from '../elaboracion-cambiar-estado/elaboracion-cambiar-estado.component';
+import { ElaboracionRegistrarEntregaComponent } from '../elaboracion-registrar-entrega/elaboracion-regsitrar-entrega.component';
 
 interface ConsumoNormal {
   cantidad: number;
@@ -39,6 +40,7 @@ export class DetailComponent implements OnInit {
   id: number;
   loading = false;
   consumos: ConsumoNormal[] = [];
+  totalEntregado = 0;
   ref: DynamicDialogRef | undefined;
   constructor(
     private elaboracionService: ElaboracionService,
@@ -81,7 +83,6 @@ export class DetailComponent implements OnInit {
     this.ref.onClose.subscribe((data: any) => {});
   }
 
-  
   openCambiarEstado() {
     const callbackFunction = this.init.bind(this);
     this.ref = this.dialogService.open(ElaboracionCambiarEstadoComponent, {
@@ -96,11 +97,33 @@ export class DetailComponent implements OnInit {
       data: {
         callback: callbackFunction,
         elaboracionId: this.elaboracionDetalle.id,
-        estadoInicial: this.elaboracionDetalle.estado.estado
+        estadoInicial: this.elaboracionDetalle.estado.estado,
       },
     });
 
     this.ref.onClose.subscribe((data: any) => {});
+  }
+
+  openRegistrarEntrega() {
+    const callbackFunction = this.init.bind(this);
+    this.ref = this.dialogService.open(ElaboracionRegistrarEntregaComponent, {
+      header: 'Registrar Entrega',
+      width: '30vw',
+      breakpoints: {
+        '960px': '75vw',
+        '640px': '90vw',
+      },
+      closable: false,
+      contentStyle: { overflow: 'visible' },
+      data: {
+        callback: callbackFunction,
+        elaboracion: this.elaboracionDetalle,
+      },
+    });
+
+    this.ref.onClose.subscribe((data: any) => {
+      this.init();
+    });
   }
 
   getEstadoSeverity(estado: string) {
@@ -142,6 +165,10 @@ export class DetailComponent implements OnInit {
       }));
 
       this.consumos = [...consumosMateriaPrima, ...consumosInsumo];
+      this.totalEntregado = r.entregas.reduce(
+        (total, entrega) => total + entrega.cantidad,
+        0
+      );
     });
   }
 
@@ -152,7 +179,7 @@ export class DetailComponent implements OnInit {
       () => {
         console.log(item);
         this.notaService.delete(item.id).subscribe(() => {
-          this.toastr.success("Se ha eliminado la nota!")
+          this.toastr.success('Se ha eliminado la nota!');
           callbackFunction();
         });
       }

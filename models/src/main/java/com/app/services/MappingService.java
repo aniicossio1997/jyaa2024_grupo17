@@ -7,7 +7,6 @@ import com.app.viewModels.*;
 import org.jvnet.hk2.annotations.Service;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -154,5 +153,20 @@ public class MappingService {
         );
     }
 
+    public PuntoVentaViewModel toViewModel(PuntoVenta entity) {
+        return new PuntoVentaViewModel(
+                entity.getId(),
+                entity.getNombre(),
+                entity.getDescripcion()
+        );
+    }
 
+    public EntregaElaboracionViewModel toViewModel(EntregaElaboracion entregaElaboracion) {
+        return new EntregaElaboracionViewModel(
+                entregaElaboracion.getId(),
+                entregaElaboracion.getCantidad(),
+                this.toViewModel(entregaElaboracion.getElaboracion()), entregaElaboracion.getFecha(),
+                this.toViewModel(entregaElaboracion.getPuntoVenta())
+        );
+    }
 }

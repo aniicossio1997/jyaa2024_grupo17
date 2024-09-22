@@ -440,10 +440,10 @@ public class TestGlobal extends BaseTest {
 
         writer.h2("Se crearan dos entregas a distintos puntos para la elaboración con id " + elaboracion.getId());
 
-        EntregaProducto entrega1 = new EntregaProducto(10.0, elaboracion, puntoVenta);
-        EntregaProducto entrega2 = new EntregaProducto(5.0, elaboracion, puntoVenta2);
+        EntregaElaboracion entrega1 = new EntregaElaboracion(10L, elaboracion, puntoVenta, new Date());
+        EntregaElaboracion entrega2 = new EntregaElaboracion(5L, elaboracion, puntoVenta2, new Date());
 
-        IEntregaProductoDao entregaProductoDao = FactoryDAO.createEntregaProductoDao();
+        IEntregaElaboracionDao entregaProductoDao = FactoryDAO.createEntregaProductoDao();
 
         entregaProductoDao.save(entrega1);
         entregaProductoDao.save(entrega2);
@@ -452,7 +452,7 @@ public class TestGlobal extends BaseTest {
         writer.list(entregaProductoDao.getAll());
 
         writer.h2("Se modificará la entrega con id " + entrega1.getId() + "(cantidad 10 > 40)");
-        entrega1.setCantidad(40D);
+        entrega1.setCantidad(40L);
         entregaProductoDao.save(entrega1);
 
         writer.h2("Listado de todas las entregas de elaboracion con id " + elaboracion.getId());

@@ -20,6 +20,5 @@ public class RecetaViewModel extends NameableViewModel {
         this.autor = autor;
         this.elaboraciones = elaboraciones;
     }
-
 }
 

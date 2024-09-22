@@ -8,12 +8,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "entrega_producto")
+@Table(name = "entrega_elaboracion")
 @SQLDelete(sql = "UPDATE nota SET fechaBaja = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "fechaBaja IS NULL")
-public class EntregaProducto extends DeletableBaseEntity {
-    private Double cantidad;
-    private Date fecha;
+public class EntregaElaboracion extends DeletableBaseEntity {
+    private Long cantidad;
+    private Date fecha = new Date();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "elaboracion_id")
@@ -23,21 +23,21 @@ public class EntregaProducto extends DeletableBaseEntity {
     @JoinColumn(name = "punto_venta_id")
     private PuntoVenta puntoVenta;
 
-    public EntregaProducto() {
+    public EntregaElaboracion() {
     }
 
-    public EntregaProducto(Double cantidad, Elaboracion elaboracion, PuntoVenta puntoVenta) {
+    public EntregaElaboracion(Long cantidad, Elaboracion elaboracion, PuntoVenta puntoVenta, Date fecha) {
         this.cantidad = cantidad;
         this.elaboracion = elaboracion;
-        this.fecha = new Date();
+        this.fecha = fecha;
         this.puntoVenta = puntoVenta;
     }
 
-    public Double getCantidad() {
+    public Long getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(Double cantidad) {
+    public void setCantidad(Long cantidad) {
         this.cantidad = cantidad;
     }
 

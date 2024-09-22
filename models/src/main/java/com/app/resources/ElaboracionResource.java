@@ -21,7 +21,6 @@ public class ElaboracionResource extends BaseResource {
     private IIngredienteRecetaService ingredienteRecetaService;
 
     @GET
-
     public List<ElaboracionViewModel> getAll(@PathParam("recetaId") Long recetaId) {
         return elaboracionService.getAll(recetaId);
     }
@@ -42,5 +41,4 @@ public class ElaboracionResource extends BaseResource {
     public ElaboracionDetalleViewModel update(@PathParam("id") Long id, ElaboracionCreateViewModel viewModel) {
         return elaboracionService.update(id, viewModel);
     }
-
 }

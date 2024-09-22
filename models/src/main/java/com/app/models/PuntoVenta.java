@@ -1,7 +1,6 @@
 package com.app.models;
 
 import com.app.models.baseEntity.DeletableWithNameBaseEntity;
-import com.app.models.baseEntity.IdentifiableBaseEntity;
 import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.Entity;
@@ -16,7 +15,7 @@ import java.util.List;
 public class PuntoVenta  extends DeletableWithNameBaseEntity {
     public String descripcion;
     @Transient
-    public List<EntregaProducto> recepciones = new ArrayList<>();
+    public List<EntregaElaboracion> recepciones = new ArrayList<>();
 
     public PuntoVenta() {
         super();
@@ -43,11 +42,11 @@ public class PuntoVenta  extends DeletableWithNameBaseEntity {
         this.nombre = nombre;
     }
 
-    public List<EntregaProducto> getRecepciones() {
+    public List<EntregaElaboracion> getRecepciones() {
         return recepciones;
     }
 
-    public void setRecepciones(List<EntregaProducto> recepciones) {
+    public void setRecepciones(List<EntregaElaboracion> recepciones) {
         this.recepciones = recepciones;
     }
 

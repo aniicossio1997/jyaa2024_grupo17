@@ -22,16 +22,19 @@ public class PuntoVentaService implements IPuntoVentaService {
     @Inject
     private IPuntoVentaDao puntoVentaDao;
 
+    @Inject
+    private MappingService mappingService;
+
     @Override
     public List<PuntoVentaViewModel> getAll() {
-        return ListUtils.mapList(puntoVentaDao.getAll(), this::toViewModel);
+        return ListUtils.mapList(puntoVentaDao.getAll(), mappingService::toViewModel);
     }
 
     @Override
     public PuntoVentaViewModel save(PuntoVentaCreateViewModel entityToAdd) {
         PuntoVenta entityNew = new PuntoVenta(entityToAdd.nombre, entityToAdd.descripcion);
         this.puntoVentaDao.save(entityNew);
-        return this.toViewModel(entityNew);
+        return mappingService.toViewModel(entityNew);
     }
 
     @Override
@@ -40,7 +43,7 @@ public class PuntoVentaService implements IPuntoVentaService {
         puntoVenta.setNombre(entityToEdit.nombre);
         puntoVenta.setDescripcion(entityToEdit.descripcion);
         this.puntoVentaDao.save(puntoVenta);
-        return this.toViewModel(puntoVenta);
+        return mappingService.toViewModel(puntoVenta);
 
 
     }
@@ -54,14 +57,8 @@ public class PuntoVentaService implements IPuntoVentaService {
 
     @Override
     public PuntoVentaViewModel getById(Long id) {
-        return this.toViewModel(this.puntoVentaDao.getById(id));
+        return mappingService.toViewModel(this.puntoVentaDao.getById(id));
     }
 
-    private PuntoVentaViewModel toViewModel(PuntoVenta entity) {
-        return new PuntoVentaViewModel(
-                entity.getId(),
-                entity.getNombre(),
-                entity.getDescripcion()
-        );
-    }
+
 }

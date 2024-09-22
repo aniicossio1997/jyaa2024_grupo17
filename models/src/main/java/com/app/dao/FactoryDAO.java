@@ -49,8 +49,8 @@ public class FactoryDAO {
         return new IngresoMateriaPrimaDao();
     }
 
-    public static IEntregaProductoDao createEntregaProductoDao() {
-        return new EntregaProductoDao();
+    public static IEntregaElaboracionDao createEntregaProductoDao() {
+        return new EntregaElaboracionDao();
     }
 
     public static IEstadoMateriaPrimaDao createEstadoMateriaPrimaDao() {

@@ -29,7 +29,7 @@ public class Elaboracion extends DeletableBaseEntity {
     private List<Nota> notas = new ArrayList<>();
 
     @OneToMany(mappedBy = "elaboracion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<EntregaProducto> entregas = new ArrayList<>();
+    private List<EntregaElaboracion> entregas = new ArrayList<>();
 
     public Elaboracion() {
         super();
@@ -74,12 +74,18 @@ public class Elaboracion extends DeletableBaseEntity {
         this.consumoMateriasPrimas = consumoMateriasPrimas;
     }
 
-    public List<EntregaProducto> getEntregas() {
+    public List<EntregaElaboracion> getEntregas() {
         return entregas;
     }
 
-    public void setEntregas(List<EntregaProducto> entregas) {
+    public void setEntregas(List<EntregaElaboracion> entregas) {
         this.entregas = entregas;
+    }
+
+    public Long getTotalEntregado() {
+        return entregas.stream()
+                .mapToLong(EntregaElaboracion::getCantidad)
+                .sum();
     }
 
     public List<EstadoElaboracion> getEstados() {
@@ -123,6 +129,7 @@ public class Elaboracion extends DeletableBaseEntity {
     public void setReceta(Receta receta) {
         this.receta = receta;
     }
+
 
     @Override
     public String toString() {

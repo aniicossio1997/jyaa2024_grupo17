@@ -30,7 +30,7 @@ public class ApplicationBinder extends AbstractBinder {
         // DAO
         bind(ConsumoInsumoDao.class).to(IConsumoInsumoDao.class);
         bind(ConsumoMateriaPrimaDao.class).to(IConsumoMateriaPrimaDao.class);
-        bind(EntregaProductoDao.class).to(IEntregaProductoDao.class);
+        bind(EntregaElaboracionDao.class).to(IEntregaElaboracionDao.class);
         bind(EstadoElaboracionDao.class).to(IEstadoElaboracionDao.class);
         bind(EstadoMateriaPrimaDao.class).to(IEstadoMateriaPrimaDao.class);
         bind(FamiliaProductoraDao.class).to(IFamiliaProductoraDao.class);

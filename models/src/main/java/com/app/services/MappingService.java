@@ -81,7 +81,8 @@ public class MappingService {
                 this.toViewModel(elaboracion.getReceta()),
                 ListUtils.mapList(elaboracion.getNotas(), this::toViewModel),
                 ListUtils.mapList(elaboracion.getConsumoMateriasPrimas(), this::toViewModel),
-                ListUtils.mapList(elaboracion.getConsumoInsumos(), this::toViewModel)
+                ListUtils.mapList(elaboracion.getConsumoInsumos(), this::toViewModel),
+                ListUtils.mapList(elaboracion.getEntregas(), this::toViewModel)
         );
     }
 
@@ -166,7 +167,8 @@ public class MappingService {
                 entregaElaboracion.getId(),
                 entregaElaboracion.getCantidad(),
                 this.toViewModel(entregaElaboracion.getElaboracion()), entregaElaboracion.getFecha(),
-                this.toViewModel(entregaElaboracion.getPuntoVenta())
+                this.toViewModel(entregaElaboracion.getPuntoVenta()),
+                this.toViewModel(entregaElaboracion.getAutor())
         );
     }
 }

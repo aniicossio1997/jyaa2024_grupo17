@@ -16,9 +16,9 @@ public class ElaboracionDetalleViewModel extends IdentifiableViewModel {
     public List<NotaViewModel> notas;
     public List<ConsumoMateriaPrimaViewModel> consumosMateriaPrima;
     public List<ConsumoInsumoViewModel> consumosInsumo;
+    public List<EntregaElaboracionViewModel> entregas;
 
-
-    public ElaboracionDetalleViewModel(Long id, long cantidad, String codigo, EstadoViewModel estado, List<EstadoViewModel> estados, Date fecha, RecetaViewModel receta, List<NotaViewModel> notas, List<ConsumoMateriaPrimaViewModel> consumosMateriaPrima, List<ConsumoInsumoViewModel> consumosInsumo) {
+    public ElaboracionDetalleViewModel(Long id, long cantidad, String codigo, EstadoViewModel estado, List<EstadoViewModel> estados, Date fecha, RecetaViewModel receta, List<NotaViewModel> notas, List<ConsumoMateriaPrimaViewModel> consumosMateriaPrima, List<ConsumoInsumoViewModel> consumosInsumo, List<EntregaElaboracionViewModel> entregas) {
         super(id);
         this.cantidad = cantidad;
         this.codigo = codigo;
@@ -29,6 +29,7 @@ public class ElaboracionDetalleViewModel extends IdentifiableViewModel {
         this.notas = notas;
         this.consumosMateriaPrima = consumosMateriaPrima;
         this.consumosInsumo = consumosInsumo;
+        this.entregas = entregas;
     }
 
     public ElaboracionDetalleViewModel() {

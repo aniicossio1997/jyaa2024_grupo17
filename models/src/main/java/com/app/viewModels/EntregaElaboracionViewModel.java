@@ -11,6 +11,7 @@ public class EntregaElaboracionViewModel extends IdentifiableViewModel {
     public ElaboracionViewModel elaboracion;
     public PuntoVentaViewModel puntoVenta;
     public Date fecha;
+    public UsuarioViewModel autor;
 
     public EntregaElaboracionViewModel(long cantidad, ElaboracionViewModel elaboracion, Date fecha, PuntoVentaViewModel puntoVenta) {
         this.cantidad = cantidad;
@@ -19,12 +20,13 @@ public class EntregaElaboracionViewModel extends IdentifiableViewModel {
         this.puntoVenta = puntoVenta;
     }
 
-    public EntregaElaboracionViewModel(Long id, long cantidad, ElaboracionViewModel elaboracion, Date fecha, PuntoVentaViewModel puntoVenta) {
+    public EntregaElaboracionViewModel(Long id, long cantidad, ElaboracionViewModel elaboracion, Date fecha, PuntoVentaViewModel puntoVenta, UsuarioViewModel autor) {
         super(id);
         this.cantidad = cantidad;
         this.elaboracion = elaboracion;
         this.fecha = fecha;
         this.puntoVenta = puntoVenta;
+        this.autor = autor;
     }
 }
 

@@ -36,6 +36,7 @@ public class EntregaElaboracionService implements IEntregaElaboracionService {
     private MappingService mappingService;
     @Inject
     private IUsuarioDao usuarioDao;
+
     @Override
     public List<EntregaElaboracionViewModel> getAll(Long elaboracionId, Long puntoVentaId) {
         List<EntregaElaboracion> entregas;
@@ -53,6 +54,7 @@ public class EntregaElaboracionService implements IEntregaElaboracionService {
     public EntregaElaboracionViewModel create(EntregaElaboracionCreateViewModel entityToAdd) {
         Elaboracion elaboracion = elaboracionDao.getById(entityToAdd.elaboracionId);
         PuntoVenta puntoVenta = puntoVentaDao.getById(entityToAdd.puntoVentaId);
+        Usuario usuario = usuarioDao.getById(entityToAdd.usuarioId);
 
         if (entityToAdd.cantidad <= 0) {
             throw new InvalidParameterException("Debes indicar una cantidad");
@@ -64,14 +66,14 @@ public class EntregaElaboracionService implements IEntregaElaboracionService {
             throw new InvalidParameterException("La cantidad excede el total disponible para entregar");
         }
 
-        EntregaElaboracion entityNew = new EntregaElaboracion(entityToAdd.cantidad, elaboracion, puntoVenta, entityToAdd.fecha);
+        EntregaElaboracion entityNew = new EntregaElaboracion(entityToAdd.cantidad, elaboracion, puntoVenta, entityToAdd.fecha, usuario);
         this.entregaElaboracionDao.save(entityNew);
 
-        if (entityToAdd.updateState) {
-            EstadoElaboracionEnum estadoEnum = cantEntregada < elaboracion.getCantidad() ? EstadoElaboracionEnum.ENTREGADO_PARCIAL : EstadoElaboracionEnum.ENTREGADO_COMPLETO;
-            Usuario usuario = usuarioDao.getById(entityToAdd.usuarioId);
+        EstadoElaboracionEnum estadoEnum = cantEntregada < elaboracion.getCantidad() ? EstadoElaboracionEnum.ENTREGADO_PARCIAL : EstadoElaboracionEnum.ENTREGADO_COMPLETO;
+        if (estadoEnum != elaboracion.getEstadoActual().getEstado()) {
             EstadoElaboracion estado = new EstadoElaboracion(usuario, entityToAdd.fecha, estadoEnum, elaboracion);
             elaboracion.updateEstado(estado);
+            this.elaboracionDao.save(elaboracion);
         }
 
         return mappingService.toViewModel(entityNew);

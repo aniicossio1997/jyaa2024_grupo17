@@ -440,8 +440,8 @@ public class TestGlobal extends BaseTest {
 
         writer.h2("Se crearan dos entregas a distintos puntos para la elaboración con id " + elaboracion.getId());
 
-        EntregaElaboracion entrega1 = new EntregaElaboracion(10L, elaboracion, puntoVenta, new Date());
-        EntregaElaboracion entrega2 = new EntregaElaboracion(5L, elaboracion, puntoVenta2, new Date());
+        EntregaElaboracion entrega1 = new EntregaElaboracion(10L, elaboracion, puntoVenta, new Date(), encargadoDeSala);
+        EntregaElaboracion entrega2 = new EntregaElaboracion(5L, elaboracion, puntoVenta2, new Date(), encargadoDeSala);
 
         IEntregaElaboracionDao entregaProductoDao = FactoryDAO.createEntregaProductoDao();
 

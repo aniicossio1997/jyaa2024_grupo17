@@ -23,14 +23,20 @@ public class EntregaElaboracion extends DeletableBaseEntity {
     @JoinColumn(name = "punto_venta_id")
     private PuntoVenta puntoVenta;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "autor_id")
+    private Usuario autor;
+
+
     public EntregaElaboracion() {
     }
 
-    public EntregaElaboracion(Long cantidad, Elaboracion elaboracion, PuntoVenta puntoVenta, Date fecha) {
+    public EntregaElaboracion(Long cantidad, Elaboracion elaboracion, PuntoVenta puntoVenta, Date fecha, Usuario autor) {
         this.cantidad = cantidad;
         this.elaboracion = elaboracion;
         this.fecha = fecha;
         this.puntoVenta = puntoVenta;
+        this.autor = autor;
     }
 
     public Long getCantidad() {
@@ -63,6 +69,15 @@ public class EntregaElaboracion extends DeletableBaseEntity {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+
+    public Usuario getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Usuario autor) {
+        this.autor = autor;
     }
 
     @Override

@@ -4,6 +4,7 @@ import { AuthGuard } from '../auth/guards/auth.guard';
 import { PublicGuard } from '../auth/guards/public.guard';
 import { ShellComponent } from './shell/shell.component';
 import { ManagementRoutes } from '../routers';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 export const routesRoot: Routes = [
   {
@@ -78,5 +79,7 @@ export const routesRoot: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routesRoot)],
   exports: [RouterModule],
+  // Esto es para que no se rompa el routeo cuando deployamos, trabaja en conjunto con un filtro en back
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }]
 })
 export class CoreRoutingModule {}

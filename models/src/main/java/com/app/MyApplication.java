@@ -1,21 +1,18 @@
 package com.app;
 
-import com.app.filters.AuthFilter;
+    import com.app.filters.AuthFilter;
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 import com.app.exceptions.ServerExceptionMapper;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletProperties;
 
-import javax.ws.rs.ApplicationPath;
-
-@ApplicationPath("/api")
 public class MyApplication extends ResourceConfig {
     public MyApplication() {
         packages("com.app");
         //register(NoResultExceptionMapper.class);
         register(ServerExceptionMapper.class);
         register(AuthFilter.class);
-
+        register(AngularFilter.class);
         register(new ApplicationBinder());
 
         register(OpenApiResource.class);

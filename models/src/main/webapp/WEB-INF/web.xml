@@ -25,7 +25,7 @@
     </init-param>
     <init-param>
       <param-name>cors.support.credentials</param-name>
-      <param-value>falseS</param-value>
+      <param-value>false</param-value>
     </init-param>
     <init-param>
       <param-name>cors.preflight.maxage</param-name>
@@ -83,7 +83,6 @@
     <servlet-name>default</servlet-name>
     <url-pattern>/swagger/*</url-pattern>
   </servlet-mapping>
-
 
   <servlet-mapping>
     <servlet-name>default</servlet-name>

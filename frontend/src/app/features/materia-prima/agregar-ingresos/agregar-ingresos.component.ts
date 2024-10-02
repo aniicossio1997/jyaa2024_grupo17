@@ -34,6 +34,8 @@ export class AgregarIngresosComponent implements OnInit {
 
   familias:FamiliaProductoraViewModel[]=[]
 
+  currentDate = new Date();
+
   constructor(
     private fb: FormBuilder, private router: Router,
     private activatedRoute:ActivatedRoute,
@@ -105,18 +107,14 @@ export class AgregarIngresosComponent implements OnInit {
   initForm(){
     this.myForm = this.fb.group({
       descripcion: [''],
-      valorCompra: ['', [Validators.required, this.positiveNumberValidator]],
+      valorCompra: [null, [Validators.required, this.positiveNumberValidator]],
       codigo:[''],
-      cantidad: ['', [Validators.required, this.positiveNumberValidator]],
+      cantidad: [null, [Validators.required, this.positiveNumberValidator]],
       materiaPrimaId:['', Validators.required],
       familiaPrimaId:['',Validators.required],
       estado:['', Validators.required],
-      fecha:['', Validators.required]
+      fecha:[new Date(), Validators.required]
     });
-  }
-
-  get currentDate(){
-    return new Date();
   }
 
 }

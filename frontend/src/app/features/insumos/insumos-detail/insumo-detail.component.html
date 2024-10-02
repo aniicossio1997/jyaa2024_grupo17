@@ -25,7 +25,7 @@ severity="secondary"
         label="Agregar Ingreso"
         icon="pi pi-plus"
         class="mr-2"
-        (click)="toAddIngreso()"
+        (onClick)="toAddIngreso()"
 
       />
 
@@ -35,10 +35,7 @@ severity="secondary"
     <div class="col-6">
       Cantidad total: <b>{{insumo?.totalCantidadDisponible}} {{insumo?.unidadMedida}}</b>
     </div>
-    <div class="col-6">
-      Valor de compra total:  <b>{{insumo?.totalValorCompra | currency}}</b>
 
-    </div>
     <div class="col-12">
       Descripción: <b>{{insumo?.descripcion || '-'}}</b>
   </div>
@@ -119,7 +116,7 @@ severity="secondary"
                     <td>{{ entity[col.field] | dateTransformPipe }}</td>
                   }
                   @case ('valorCompra') {
-                    <td>{{ entity[col.field] | currency }}</td>
+                    <td>{{ entity[col.field] | priceTransform }}</td>
                   }
                   @case ('cantidad') {
                     <td>{{ entity[col.field] }} <b>{{insumo?.unidadMedida}}</b> </td>

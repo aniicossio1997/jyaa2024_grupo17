@@ -17,8 +17,8 @@ public class EstadoIngresoMateriaPrimaResource extends BaseResource {
     private IEstadoIngresoMateriaPrimaService service;
 
     @POST
-    public EstadoViewModel create(EstadoElaboracionCreateViewModel entityToAdd) {
-        entityToAdd.usuarioId = getUsuarioId();
+    public EstadoViewModel create(EstadoIngresoMateriaPrimaCreateViewModel entityToAdd) {
+        entityToAdd.userId = getUsuarioId();
         return this.service.create(entityToAdd);
     }
 }

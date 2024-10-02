@@ -12,7 +12,7 @@ export class PriceTransformPipe implements PipeTransform {
     const formattedValue = value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
     // Agregar el prefijo $ ARS
-    return ` $ ARS ${formattedValue}`;
+    return ` $${formattedValue}`;
   }
 
 }

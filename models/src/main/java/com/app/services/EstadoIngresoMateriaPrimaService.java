@@ -20,41 +20,32 @@ import java.util.stream.Collectors;
 @PerLookup
 public class EstadoIngresoMateriaPrimaService implements IEstadoIngresoMateriaPrimaService {
     @Inject
-    IEstadoElaboracionDao estadoElaboracionDao;
+    private IEstadoMateriaPrimaDao estadoMateriaPrimaDao;
 
     @Inject
-    private IElaboracionDao elaboracionDao;
+    private IIngresoMateriaPrimaDao ingresoMateriaPrimaDao;
     @Inject
     private IUsuarioDao _usuarioDao;
 
     @Override
-    public EstadoViewModel create(EstadoElaboracionCreateViewModel entityToAdd) {
-        Elaboracion elaboracion = this.elaboracionDao.getById(entityToAdd.elaboracionId);
+    public EstadoViewModel create(EstadoIngresoMateriaPrimaCreateViewModel entityToAdd) {
+        IngresoMateriaPrima ingresoMateriaPrima = this.ingresoMateriaPrimaDao.getById(entityToAdd.ingresoMateriaPrimaId);
 
-        Usuario user = _usuarioDao.getById(entityToAdd.usuarioId);
+        Usuario user=_usuarioDao.getById(entityToAdd.getUserId());
 
-        EstadoElaboracion estado = new EstadoElaboracion(user, new Date(), entityToAdd.estado, elaboracion);
-        elaboracion.updateEstado(estado);
-        estadoElaboracionDao.save(estado);
+        EstadoMateriaPrima estado = new EstadoMateriaPrima(user, new Date(), entityToAdd.estado,ingresoMateriaPrima);
+        ingresoMateriaPrima.addEstado(estado);
+        estadoMateriaPrimaDao.save(estado);
         return toViewModel(estado);
     }
 
+
     private EstadoViewModel toViewModel(EstadoMateriaPrima imp) {
 
-        return new EstadoViewModel(
+        return  new EstadoViewModel(
                 imp.getId(),
-                new NameableViewModel(imp.getAutor().getId(), imp.getAutor().getNombre() + " " + imp.getAutor().getApellido()),
+                new NameableViewModel(imp.getAutor().getId(), imp.getAutor().getNombre() +" " + imp.getAutor().getApellido()),
                 imp.getEstadoName(),
-                imp.getFecha()
-        );
-    }
-
-    private EstadoViewModel toViewModel(EstadoElaboracion imp) {
-
-        return new EstadoViewModel(
-                imp.getId(),
-                new NameableViewModel(imp.getAutor().getId(), imp.getAutor().getNombre() + " " + imp.getAutor().getApellido()),
-                imp.getEstado().getValue(),
                 imp.getFecha()
         );
     }

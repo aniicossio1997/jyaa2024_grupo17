@@ -8,5 +8,5 @@ import org.jvnet.hk2.annotations.Contract;
 
 @Contract
 public interface IEstadoIngresoMateriaPrimaService {
-    EstadoViewModel create(EstadoElaboracionCreateViewModel entityToAdd);
+    EstadoViewModel create(EstadoIngresoMateriaPrimaCreateViewModel entityToAdd);
 }

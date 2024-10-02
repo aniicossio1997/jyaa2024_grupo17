@@ -26,7 +26,7 @@ public class IngresoMateriaPrimaResource extends BaseResource {
         return this.ingresoMateriaPrimaService.getByFilters();
     }
     @POST
-    public IngresoMateriaPrimaViewModel create(@Valid IngresoMateriaPrimaCreateViewModel entityToAdd) {
+    public IngresoMateriaPrimaViewModel create( IngresoMateriaPrimaCreateViewModel entityToAdd) {
         Long id = this.getUsuarioId();
         entityToAdd.setUsuarioId(id);
         return this.ingresoMateriaPrimaService.create(entityToAdd);

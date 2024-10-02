@@ -38,12 +38,7 @@ severity="secondary"
 
         </div>
     </div>
-    <div class="col-6">
-        <div class="">
-          Valor de compra total:  <b>{{materiaPrimaDetail?.totalValorCompra | currency}}</b>
 
-        </div>
-    </div>
     <div class="col-12">
       <div class="">
         Descripción: <b>{{materiaPrimaDetail?.descripcion || '-'}}</b>
@@ -133,7 +128,7 @@ severity="secondary"
                     <td>{{ entity[col.field] | dateTransformPipe }}</td>
                   }
                   @case ('valorCompra') {
-                    <td>{{ entity[col.field] | currency }}</td>
+                    <td>{{ entity[col.field] | priceTransform }}</td>
                   }
                   @case ('familiaProductora') {
                     <td>{{ entity[col.field].nombre }}</td>

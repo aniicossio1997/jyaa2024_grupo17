@@ -39,7 +39,7 @@ export class InsumosQueryComponent implements OnInit {
       { field: 'nombre', header: 'Nombre' },
       { field: 'unidadMedida', header: 'Unidad de medida' },
       { field: 'totalCantidadDisponible', header: 'Total cantidad disponible' },
-      { field: 'totalValorCompra', header: 'Total valor de compra' }
+      
     ];
   }
 

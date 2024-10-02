@@ -3,7 +3,7 @@ pRipple
 label="Volver"
 icon="pi pi-arrow-left"
 styleClass="mb-4"
-(click)="cancel()"
+(onClick)="cancel()"
 severity="secondary"
 />
 <div class="card" style="width: 80%;">
@@ -55,6 +55,7 @@ severity="secondary"
       <p-inputGroup>
         <p-inputGroupAddon>$</p-inputGroupAddon>
         <p-inputNumber
+        placeholder="Ingrese un valor de compras" 
         inputId="locale-user"
         [minFractionDigits]="2"
         id="valorCompra" formControlName="valorCompra"
@@ -77,7 +78,12 @@ severity="secondary"
         <p-inputGroupAddon>
             {{materiaPrima?.unidadMedida}}
         </p-inputGroupAddon>
-        <input pInputText placeholder="Ingrese una cantidad" formControlName="cantidad" [value]="myForm.get('cantidad')" />
+
+        <p-inputNumber 
+        placeholder="Ingrese una cantidad" formControlName="cantidad" [value]="myForm.get('cantidad')" 
+        inputId="integeronly" 
+        /> 
+        
     </p-inputGroup>
     </div>
     <div class="field col-12 md:col-12">
@@ -97,11 +103,10 @@ severity="secondary"
         inputId="calendar-24h"
         class="min-w-full"
         [placeholder]="currentDate | date : 'dd/MM/yyyy'"
-        [showTime]="true"
+        [showTime]="false"
         [hourFormat]="24"
+        [max]="currentDate"
         [showIcon]="true"
-        formControlName="fecha"
-
        />
 
     </div>
@@ -136,7 +141,10 @@ severity="secondary"
         label="Guardar"
         icon="pi pi-check"
         [disabled]="myForm.invalid"
-        (click)="save()" />
+        (onClick)="save()"
+        [pTooltip]="myForm.invalid ? 'Debe completar los campos requeridos' : null" 
+        tooltipPosition="top"
+        />
 
       </div>
 

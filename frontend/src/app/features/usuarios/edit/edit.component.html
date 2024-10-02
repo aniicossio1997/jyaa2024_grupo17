@@ -11,7 +11,7 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12 md:col-12">
-        <label htmlFor="nombre">Nombre</label>
+        <label htmlFor="nombre">Nombre <span class="text-danger">*</span> </label>
         <input
           pInputText
           id="firstname2"
@@ -21,7 +21,7 @@
         />
       </div>
       <div class="field col-12 md:col-12">
-        <label htmlFor="apellido">Apellido</label>
+        <label htmlFor="apellido">Apellido <span class="text-danger">*</span> </label>
         <input
           pInputText
           id="apellido"
@@ -31,7 +31,7 @@
         />
       </div>
       <div class="field col-12 md:col-12">
-        <label htmlFor="username">Nombre de usuario</label>
+        <label htmlFor="username">Nombre de usuario <span class="text-danger">*</span> </label>
         <input
           pInputText
           id="username"
@@ -41,7 +41,7 @@
         />
       </div>
       <div class="field col-12 md:col-12">
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">Email <span class="text-danger">*</span> </label>
         <input
           pInputText
           id="email"
@@ -51,7 +51,7 @@
         />
       </div>
       <div class="field col-12 md:col-12">
-        <label htmlFor="password">Contraseña</label>
+        <label htmlFor="password">Contraseña </label>
         <input
           pInputText
           id="password"
@@ -62,7 +62,7 @@
       </div>
 
       <div class="field col-12 md:col-12">
-        <label htmlFor="rol">Rol</label>
+        <label htmlFor="rol">Rol <span class="text-danger">*</span> </label>
         <p-dropdown
           [options]="roles"
           optionLabel="label"

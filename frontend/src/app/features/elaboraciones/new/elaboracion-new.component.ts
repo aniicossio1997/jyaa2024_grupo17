@@ -18,7 +18,12 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-insumos-new',
   templateUrl: './elaboracion-new.component.html',
-  providers: [RecetasService, MateriaPrimaService, DialogService, ElaboracionService],
+  providers: [
+    RecetasService,
+    MateriaPrimaService,
+    DialogService,
+    ElaboracionService,
+  ],
 })
 export class ElaboracionNewComponent implements OnInit {
   recetaId: number;
@@ -26,15 +31,23 @@ export class ElaboracionNewComponent implements OnInit {
   insumos: IngredienteViewModel[];
   materiasPrimas: IngredienteViewModel[];
   detalleMateriaPrima: Map<number, MateriaPrimaDetailViewModel> = new Map();
-  consumosMateriaPrima: Map<number, { ingresoMateriaPrimaId: number; cantidad: number }[]> =
-    new Map();
+  consumosMateriaPrima: Map<
+    number,
+    { ingresoMateriaPrimaId: number; cantidad: number }[]
+  > = new Map();
 
   form: FormGroup;
 
   unidadMedidaArray: string[] = Object.keys(UnidadMedidaEnum);
   estados: string[] = Object.keys(EstadoElaboracionEnum);
-  loading:boolean = false;
+  loading: boolean = false;
   ref: DynamicDialogRef | undefined;
+
+  // errores
+
+  insumosInsuficientes = false;
+  materiasPrimasInsuficientes = false;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -43,7 +56,7 @@ export class ElaboracionNewComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private dialogService: DialogService,
     private elaboracionService: ElaboracionService,
-    private toastr: ToastrService,
+    private toastr: ToastrService
   ) {
     this.initForm();
     this.consumosMateriaPrima = new Map();
@@ -61,8 +74,16 @@ export class ElaboracionNewComponent implements OnInit {
       this.materiasPrimas.forEach((mp) => {
         this.materiasPrimaService.getById(mp.materiaPrima.id).subscribe((r) => {
           this.detalleMateriaPrima.set(r.id, r);
+          console.log(r, mp.cantidad)
+          if (r.totalCantidadDisponible < mp.cantidad) {
+            this.materiasPrimasInsuficientes = true;
+          }
         });
       });
+
+      if (this.insumos.some((i) => i.cantidad > i.insumo.cantidadDisponible)) {
+        this.insumosInsuficientes = true;
+      }
     });
   }
 
@@ -75,24 +96,33 @@ export class ElaboracionNewComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/' + ManagementRoutes.Elaboracion ]);
+    this.router.navigate(['/' + ManagementRoutes.Elaboracion]);
   }
   save() {
     const raw = this.form.getRawValue();
-    const consumoMateriasPrimas = Array.from(this.consumosMateriaPrima.values());
-    const request:ElaboracionCreateViewModel = {
+    const consumoMateriasPrimas = Array.from(
+      this.consumosMateriaPrima.values()
+    );
+    const request: ElaboracionCreateViewModel = {
       cantidad: raw.cantidad,
       estado: raw.estado,
       fecha: new Date(),
       nota: raw.nota,
       recetaId: this.recetaId,
       consumoMateriasPrimas: consumoMateriasPrimas.flat(),
-    }
-    this.loading= true;
-    this.elaboracionService.create(request).subscribe(res => {
+    };
+    this.loading = true;
+    this.elaboracionService.create(request).subscribe((res) => {
       this.loading = false;
       this.toastr.success('Se ha creado la elaboración!');
-      this.router.navigate(['/' + ManagementRoutes.Elaboracion + "/" + ManagementRoutes.Detail + "/" + res.id]);
+      this.router.navigate([
+        '/' +
+          ManagementRoutes.Elaboracion +
+          '/' +
+          ManagementRoutes.Detail +
+          '/' +
+          res.id,
+      ]);
     });
   }
 
@@ -104,7 +134,10 @@ export class ElaboracionNewComponent implements OnInit {
     return (item.cantidad * (this.form.get('cantidad')?.value ?? 0)).toFixed(1);
   }
 
-  onIngresosSelected(materiaPrimaId: number, data: {ingresoMateriaPrimaId: number, cantidad: number}[]) {
+  onIngresosSelected(
+    materiaPrimaId: number,
+    data: { ingresoMateriaPrimaId: number; cantidad: number }[]
+  ) {
     this.consumosMateriaPrima.set(materiaPrimaId, data);
   }
 
@@ -138,5 +171,8 @@ export class ElaboracionNewComponent implements OnInit {
         return 'info';
     }
     return '';
+  }
+  get invalid() {
+    return;
   }
 }

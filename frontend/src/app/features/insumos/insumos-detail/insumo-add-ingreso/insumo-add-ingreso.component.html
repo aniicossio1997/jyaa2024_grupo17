@@ -25,7 +25,7 @@ severity="secondary"
 
 
     <div class="field col-12 md:col-12">
-      <label htmlFor="valorCompra">Valor de compra *</label>
+      <label htmlFor="valorCompra">Valor de compra <span class="text-danger">*</span> </label>
 
 
 
@@ -33,6 +33,7 @@ severity="secondary"
         <p-inputGroupAddon>$</p-inputGroupAddon>
         <p-inputNumber
         inputId="locale-user"
+        placeholder="Ingrese un valor de compra"
         [minFractionDigits]="2"
         id="valorCompra" formControlName="valorCompra"
         appCustomInputError
@@ -49,12 +50,16 @@ severity="secondary"
     </div>
 
     <div class="field col-12 md:col-12">
-      <label htmlFor="unidadMedida">Cantidad*</label>
+      <label htmlFor="unidadMedida">Cantidad <span class="text-danger">*</span></label>
       <p-inputGroup>
         <p-inputGroupAddon>
             {{insumo?.unidadMedida}}
         </p-inputGroupAddon>
-        <input pInputText placeholder="Ingrese una cantidad" formControlName="cantidad" [value]="myForm.get('cantidad')" />
+        
+        <p-inputNumber 
+        placeholder="Ingrese una cantidad" formControlName="cantidad" [value]="myForm.get('cantidad')" 
+        inputId="integeronly" 
+        /> 
     </p-inputGroup>
     </div>
 
@@ -85,8 +90,12 @@ severity="secondary"
         pRipple
         label="Guardar"
         icon="pi pi-check"
+        
+        (onClick)="save()" 
         [disabled]="myForm.invalid"
-        (click)="save()" />
+        [pTooltip]="myForm.invalid ? 'Debe completar los campos requeridos' : null" 
+        tooltipPosition="top"
+        />
 
       </div>
 

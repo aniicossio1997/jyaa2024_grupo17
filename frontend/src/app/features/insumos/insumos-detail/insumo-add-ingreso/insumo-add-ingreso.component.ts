@@ -85,9 +85,9 @@ export class InsumoAddIngresoComponent implements OnInit {
   initForm(){
     this.myForm = this.fb.group({
       descripcion: [''],
-      valorCompra: ['', [Validators.required, this.positiveNumberValidator]],
+      valorCompra: [null, [Validators.required, this.positiveNumberValidator]],
       codigo:[''],
-      cantidad: ['', [Validators.required, this.positiveNumberValidator]],
+      cantidad: [null, [Validators.required, this.positiveNumberValidator]],
     });
   }
 }

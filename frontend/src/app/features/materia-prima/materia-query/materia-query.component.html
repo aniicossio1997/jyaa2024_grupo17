@@ -60,7 +60,7 @@
               {{ entity[col.field] | titlecase }}
             </ng-container>
             <ng-container *ngSwitchCase="'totalValorCompra'">
-              {{ entity[col.field] | currency }}
+              {{ entity[col.field] | priceTransform }}
             </ng-container>
             <ng-container *ngSwitchDefault>
               {{ entity[col.field] }}

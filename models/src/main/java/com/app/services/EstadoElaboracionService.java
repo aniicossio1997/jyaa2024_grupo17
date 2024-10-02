@@ -1,13 +1,11 @@
 package com.app.services;
 
-import com.app.dao.interfaces.IEstadoMateriaPrimaDao;
-import com.app.dao.interfaces.IIngresoMateriaPrimaDao;
-import com.app.dao.interfaces.IUsuarioDao;
-import com.app.models.EstadoMateriaPrima;
-import com.app.models.IngresoMateriaPrima;
-import com.app.models.Usuario;
+import com.app.dao.implementations.ElaboracionDao;
+import com.app.dao.interfaces.*;
+import com.app.models.*;
 import com.app.services.interfaces.IEstadoElaboracionService;
 import com.app.services.interfaces.IEstadoIngresoMateriaPrimaService;
+import com.app.viewModels.EstadoElaboracionCreateViewModel;
 import com.app.viewModels.EstadoIngresoMateriaPrimaCreateViewModel;
 import com.app.viewModels.EstadoViewModel;
 import com.app.viewModels.base.NameableViewModel;
@@ -21,32 +19,29 @@ import java.util.Date;
 @PerLookup
 public class EstadoElaboracionService implements IEstadoElaboracionService {
     @Inject
-    IEstadoMateriaPrimaDao estadoMateriaPrimaDao;
-
-
+    private IEstadoElaboracionDao estadoElaboracionDao;
     @Inject
-    private IIngresoMateriaPrimaDao ingresoMateriaPrimaDao;
+    private IElaboracionDao elaboracionDao;
     @Inject
     private IUsuarioDao _usuarioDao;
 
     @Override
-    public EstadoViewModel create(EstadoIngresoMateriaPrimaCreateViewModel entityToAdd) {
-        IngresoMateriaPrima ingresoMateriaPrima = this.ingresoMateriaPrimaDao.getById(entityToAdd.ingresoMateriaPrimaId);
+    public EstadoViewModel create(EstadoElaboracionCreateViewModel entityToAdd) {
+        Elaboracion elaboracion = this.elaboracionDao.getById(entityToAdd.elaboracionId);
 
-        Usuario user=_usuarioDao.getById(Long.valueOf(entityToAdd.getUserId()));
+        Usuario user=_usuarioDao.getById(entityToAdd.usuarioId);
 
-        EstadoMateriaPrima estado = new EstadoMateriaPrima(user, new Date(), entityToAdd.estado,ingresoMateriaPrima);
-        ingresoMateriaPrima.addEstado(estado);
-        estadoMateriaPrimaDao.save(estado);
-        return toViewModel(estado);
+        EstadoElaboracion estado = new EstadoElaboracion(user, new Date(), entityToAdd.estado, elaboracion);
+        elaboracion.updateEstado(estado);
+        estadoElaboracionDao.save(estado);
+        return this.toViewModel(estado);
     }
 
-    private EstadoViewModel toViewModel(EstadoMateriaPrima imp) {
-
+    private EstadoViewModel toViewModel(EstadoElaboracion imp) {
         return  new EstadoViewModel(
                 imp.getId(),
                 new NameableViewModel(imp.getAutor().getId(), imp.getAutor().getNombre() +" " + imp.getAutor().getApellido()),
-                imp.getEstadoName(),
+                imp.getEstado().getValue(),
                 imp.getFecha()
         );
     }

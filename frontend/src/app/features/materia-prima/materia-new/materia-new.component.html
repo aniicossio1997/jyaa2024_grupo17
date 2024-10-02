@@ -2,7 +2,7 @@
   <h5 class="mb-5 ">Agregar materia prima</h5>
   <form [formGroup]="myForm" class="p-fluid p-formgrid grid">
     <div class="field col-12 md:col-12">
-      <label htmlFor="firstname2">Nombre *</label>
+      <label htmlFor="firstname2">Nombre <span class="text-danger">*</span></label>
       <input pInputText id="firstname2" type="text" formControlName="nombre" placeholder="Nombre"
 
       appCustomInputError
@@ -17,7 +17,7 @@
     </div>
 
     <div class="field col-12 md:col-12">
-      <label htmlFor="unidadMedida">Unidad de medida *</label>
+      <label htmlFor="unidadMedida">Unidad de medida <span class="text-danger">*</span></label>
       <p-dropdown
         [options]="unidadMedidaArray"
         placeholder="Selecciona una unidad de medida"
@@ -28,7 +28,7 @@
     </div>
 
     <div class="field col-12 md:col-12">
-      <label htmlFor="descripcionid">Descripción</label>
+      <label htmlFor="descripcionid">Descripción <span class="text-secondary">(opcional)</span> </label>
       <textarea
       formControlName="descripcion"
       rows="5"

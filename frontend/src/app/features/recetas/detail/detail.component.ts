@@ -7,6 +7,8 @@ import { RecetaDetalleViewModel } from '../../../interfaces/RecetaDetalleViewMod
 import { EstadoViewModel } from '../../../interfaces/EstadoViewModel';
 import { EstadoIngresoEnums } from '../../../model/EstadoIngresoEnums';
 import { EstadoElaboracionEnum } from '../../../model/EstadoElaboracionEnum';
+import { Menu } from 'primeng/menu';
+import { MenuItem } from 'primeng/api';
 
 interface IngredienteNormal {
   cantidad: number;
@@ -27,7 +29,7 @@ export class DetailComponent implements OnInit {
   ingredientesNormal: IngredienteNormal[];
   id: number;
   loading = false;
-
+  itemsMenu: MenuItem[] = [];
   constructor(
     private recetasService: RecetasService,
     private router: Router,
@@ -65,6 +67,24 @@ export class DetailComponent implements OnInit {
         return 'info';
     }
     return '';
+  }
+
+  
+  generateMenuElaboraciones(item: any, menu: Menu, event: any) {
+    menu.toggle(event);
+
+    this.itemsMenu = [
+      {
+        label: 'Detalle',
+        icon: 'pi pi-eye',
+        command: () => {
+          this.router.navigate([
+            `/${ManagementRoutes.Elaboracion}/${ManagementRoutes.Detail}/`,
+            item.id,
+          ]);
+        },
+      },
+    ];
   }
 
   public get Routes() {

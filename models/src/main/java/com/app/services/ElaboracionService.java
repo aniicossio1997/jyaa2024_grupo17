@@ -69,7 +69,7 @@ public class ElaboracionService implements IElaboracionService {
 
         for (IngredienteReceta ingrediente : receta.getIngredientes()) {
             if (ingrediente.getInsumo() == null) continue;
-            ConsumoInsumo consumo = new ConsumoInsumo(ingrediente.getCantidad(), ingrediente.getInsumo(), elaboracion);
+            ConsumoInsumo consumo = new ConsumoInsumo(ingrediente.getCantidad() * view.cantidad, ingrediente.getInsumo(), elaboracion);
             consumoInsumos.add(consumo);
         }
         elaboracion.setConsumoInsumos(consumoInsumos);

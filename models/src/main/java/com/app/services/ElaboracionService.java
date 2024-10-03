@@ -105,7 +105,7 @@ public class ElaboracionService implements IElaboracionService {
                 cantidadesMateriasPrimasAportadas.put(ingrediente.getMateriaPrima().getId(), 0D);
             }
             if (ingrediente.getInsumo() != null) {
-                if (ingrediente.getInsumo().getCantidadDisponible() < ingrediente.getCantidad()) {
+                if (ingrediente.getInsumo().getCantidadIngresos() < ingrediente.getCantidad()) {
                     throw new InvalidParameterException(MessageFormat.format("Cantidad de insumo: {0} insuficiente. Requerido: {1} Disponible: {2}", ingrediente.getInsumo().getNombre(), ingrediente.getCantidad(), ingrediente.getInsumo().getCantidadDisponible()));
                 }
             }

@@ -13,6 +13,9 @@ public class Insumo extends Recurso {
     @OneToMany(mappedBy = "insumo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<IngresoInsumo> ingresos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "insumo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ConsumoInsumo> consumoInsumos = new ArrayList<>();
+
     public Insumo() {
         super();
     }
@@ -52,9 +55,15 @@ public class Insumo extends Recurso {
     }
 
     public double getCantidadIngresos() {
-        return this.getIngresos().stream()
+        double ingresos = this.getIngresos().stream()
                 .mapToDouble(IngresoInsumo::getCantidad)
                 .sum();
+
+        double egresos = consumoInsumos.stream()
+                .mapToDouble(ConsumoInsumo::getCantidad)
+                .sum();
+
+        return ingresos - egresos;
     }
     public double getTotalValorDeCompra() {
         return getIngresos().stream()

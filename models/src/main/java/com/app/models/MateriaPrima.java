@@ -13,6 +13,8 @@ public class MateriaPrima extends Recurso {
     @OneToMany(mappedBy = "materiaPrima", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<IngresoMateriaPrima> ingresos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "materiaPrima", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ConsumoMateriaPrima> consumos = new ArrayList<>();
 
     public MateriaPrima(String nombre, UnidadMedidaEnum unidadMedida,
                         String descripcion)  {
@@ -55,9 +57,15 @@ public class MateriaPrima extends Recurso {
     }
 
     public double getCantidadIngresos() {
-        return this.getIngresos().stream()
+        double ingresos = this.getIngresos().stream()
                 .mapToDouble(IngresoMateriaPrima::getCantidad)
                 .sum();
+
+        double egresos = consumos.stream()
+                .mapToDouble(ConsumoMateriaPrima::getCantidad)
+                .sum();
+
+        return ingresos - egresos;
     }
     public double getTotalValorDeCompra() {
         return this.getIngresos().stream()
